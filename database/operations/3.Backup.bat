@@ -1,0 +1,1 @@
+java -cp D:\H2\bin\h2-1.4.188.jar org.h2.tools.Script -url jdbc:h2:~/test -user sa -password sa -script test.zip -options compression zip

@@ -1,0 +1,1 @@
+java -cp D:\H2\bin\h2-1.4.188.jar org.h2.tools.Server -tcpShutdown tcp://localhost:9092
