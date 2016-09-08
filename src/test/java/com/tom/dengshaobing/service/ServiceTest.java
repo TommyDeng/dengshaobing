@@ -1,4 +1,4 @@
-package dengshaobing.service;
+package com.tom.dengshaobing.service;
 
 import org.junit.Assert;
 import org.junit.Test;
