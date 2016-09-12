@@ -10,4 +10,5 @@ public class ServiceTest extends TestSuite {
 	public void testName() throws Exception {
 		Assert.assertTrue(true);
 	}
+	
 }
