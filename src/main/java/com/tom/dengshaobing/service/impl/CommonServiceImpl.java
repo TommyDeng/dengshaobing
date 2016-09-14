@@ -17,7 +17,7 @@ import com.tom.dengshaobing.service.CommonService;
  *
  */
 @Service
-public class CommonServiceImpl implements CommonService{
+public class CommonServiceImpl implements CommonService {
 
 	@Autowired
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
