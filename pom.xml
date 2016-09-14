@@ -26,6 +26,8 @@
 		<commons.lang3.version>3.4</commons.lang3.version>
 		<commons.io.version>2.5</commons.io.version>
 		<junit.version>4.12</junit.version>
+		<lombok.version>1.16.10</lombok.version>
+
 	</properties>
 
 	<dependencies>
@@ -75,8 +77,6 @@
 			<version>${cxf.version}</version>
 		</dependency>
 
-
-
 		<!-- commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -88,14 +88,22 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons.io.version}</version>
 		</dependency>
- 
+		
+		<!-- lombok --> 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
- 
+
 
 	<build>
 		<plugins>

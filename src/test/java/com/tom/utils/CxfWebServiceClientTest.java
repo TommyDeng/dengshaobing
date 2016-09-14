@@ -4,7 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import junit.framework.TestSuite;
-
+/**
+ * 
+ * @author TommyDeng <250575979@qq.com>
+ * @version 创建时间：2016年9月13日 下午3:23:59
+ *
+ */
 public class CxfWebServiceClientTest extends TestSuite {
 	static final String testWsdlUrl = "http://10.142.142.35:9081/iCIS/services/WebServiceServer?wsdl";
 
