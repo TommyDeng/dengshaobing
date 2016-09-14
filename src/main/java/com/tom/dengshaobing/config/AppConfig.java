@@ -2,10 +2,13 @@ package com.tom.dengshaobing.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -13,12 +16,8 @@ import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
  *
  */
 @Configuration
+@ComponentScan
 public class AppConfig {
-	public static final String CASH_VALUE_WSDL = "http://10.142.142.36:9081/iCIS/services/WebServiceServer?wsdl";
-	public static final String CASH_VALUE_METHOD = "submitData";
-
-	//
-	public static final int MONITOR_PULSE = 30000;
 
 	// @Bean
 	// public DataSource getDataSource() {
@@ -35,15 +34,15 @@ public class AppConfig {
 	public DataSource getDataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 		dataSourceLookup.setResourceRef(true);
-		// return dataSourceLookup.getDataSource("java:comp/env/jdbc/zbxDS");
-		return dataSourceLookup.getDataSource("jdbc/zbxDS");
+		return dataSourceLookup.getDataSource("jdbc/DengShaobingDS");
 	}
 
 	@Bean
-	JdbcTemplate namedParameterJdbcTemplate() {
-		return new JdbcTemplate(getDataSource());
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+		return new NamedParameterJdbcTemplate(getDataSource());
 	}
-	
+
 	public static void main(String[] args) {
+		SpringApplication.run(AppConfig.class, args);
 	}
 }
