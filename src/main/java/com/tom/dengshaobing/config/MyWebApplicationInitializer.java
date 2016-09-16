@@ -35,5 +35,5 @@ public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatc
 		encodingFilter.setEncoding("UTF-8");
 		return new Filter[] { encodingFilter };
 	}
-
+	
 }

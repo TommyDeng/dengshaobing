@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.service.impl;
+package com.tom.dengshaobing.service;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.tom.dengshaobing.service.CommonService;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -22,11 +20,6 @@ public class CommonServiceImpl implements CommonService {
 	@Autowired
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	/**
-	 * 记录登陆日志
-	 * 
-	 * @param visitorName
-	 */
 	@Transactional
 	public void logVisit(String visitorName) {
 		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
