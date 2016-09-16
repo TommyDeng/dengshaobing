@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -16,7 +17,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *
  */
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com.tom.dengshaobing")
+@EnableTransactionManagement
 public class AppConfig {
 
 	// @Bean
@@ -40,6 +42,12 @@ public class AppConfig {
 	@Bean
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
 		return new NamedParameterJdbcTemplate(getDataSource());
+	}
+
+	@Bean
+	public DataSourceTransactionManager transactionManager() {
+		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
+		return dataSourceTransactionManager;
 	}
 
 	public static void main(String[] args) {

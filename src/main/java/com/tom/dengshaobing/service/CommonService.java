@@ -9,7 +9,9 @@ package com.tom.dengshaobing.service;
 public interface CommonService {
 
 	/**
-	 * @param name
+	 * 记录用户登陆日志
+	 * 
+	 * @param visitorName
 	 */
 	void logVisit(String name);
 
