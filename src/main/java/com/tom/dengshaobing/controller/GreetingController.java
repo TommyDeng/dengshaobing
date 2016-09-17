@@ -1,9 +1,10 @@
 package com.tom.dengshaobing.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.tom.dengshaobing.service.CommonService;
 
@@ -13,15 +14,23 @@ import com.tom.dengshaobing.service.CommonService;
  *
  */
 
-@RestController
+// @RestController
+@Controller
 public class GreetingController {
 
 	@Autowired
 	CommonService commonService;
 
+	// @RequestMapping("/greeting")
+	// public String greeting(@RequestParam(value = "name", defaultValue =
+	// "anonymous") String name, ModelMap map)
+	// throws Exception {
+	// commonService.logVisit(name);
+	// return "thmlf";
+	// }
 	@RequestMapping("/greeting")
-	public String greeting(@RequestParam(value = "name", defaultValue = "anonymous") String name) throws Exception {
-		commonService.logVisit(name);
-		return "Hello " + name;
+	public String greeting(ModelMap map) throws Exception {
+//		commonService.logVisit(name);
+		return "thmlf";
 	}
 }

@@ -1,10 +1,14 @@
 package com.tom.dengshaobing.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -13,12 +17,53 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.tom.dengshaobing")
+@ComponentScan(basePackages = "com.tom.dengshaobing")
 public class WebConfig extends WebMvcConfigurerAdapter
 
 {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	/**
+	 * thymeleaf templateResolver
+	 * 
+	 * @return
+	 */
+	@Bean
+	ServletContextTemplateResolver templateResolver() {
+		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+		templateResolver.setPrefix("/templates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		return templateResolver;
+	}
+
+	/**
+	 * thymeleaf templateEngine
+	 * 
+	 * @return
+	 */
+	@Bean
+	SpringTemplateEngine templateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver());
+		return templateEngine;
+	}
+
+	/**
+	 * thymeleaf thymeleafViewResolver
+	 * 
+	 * @return
+	 */
+	@Bean
+	ThymeleafViewResolver thymeleafViewResolver() {
+		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		// thymeleafViewResolver.setOrder(1);
+		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
+		// });
+		return thymeleafViewResolver;
 	}
 }
