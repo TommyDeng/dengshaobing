@@ -32,23 +32,23 @@ public class AppConfig {
 	// return simpleDriverDataSource;
 	// }
 
-	@Bean
-	public DataSource getDataSource() {
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource("jdbc/DengShaobingDS");
-	}
-
-	@Bean
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-		return new NamedParameterJdbcTemplate(getDataSource());
-	}
-
-	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
-		return dataSourceTransactionManager;
-	}
+//	@Bean
+//	public DataSource getDataSource() {
+//		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+//		dataSourceLookup.setResourceRef(true);
+//		return dataSourceLookup.getDataSource("jdbc/DengShaobingDS");
+//	}
+//
+//	@Bean
+//	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+//		return new NamedParameterJdbcTemplate(getDataSource());
+//	}
+//
+//	@Bean
+//	public DataSourceTransactionManager transactionManager() {
+//		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
+//		return dataSourceTransactionManager;
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppConfig.class, args);
