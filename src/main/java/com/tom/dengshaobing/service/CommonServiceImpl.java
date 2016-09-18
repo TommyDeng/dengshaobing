@@ -2,6 +2,7 @@ package com.tom.dengshaobing.service;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class CommonServiceImpl implements CommonService {
 		namedParameterJdbcTemplate.update("insert into LOG_VISIT(name, create_time) values(:name,:create_time)",
 				sqlParamMap);
 
+	}
+
+	@Override
+	public List<Map<String, Object>> listVisit() {
+		return namedParameterJdbcTemplate.queryForList("SELECT * FROM LOG_VISIT", new HashMap<>());
 	}
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.dengshaobing.service.CommonService;
 
@@ -21,16 +20,15 @@ public class GreetingController {
 	@Autowired
 	CommonService commonService;
 
-	// @RequestMapping("/greeting")
-	// public String greeting(@RequestParam(value = "name", defaultValue =
-	// "anonymous") String name, ModelMap map)
-	// throws Exception {
-	// commonService.logVisit(name);
-	// return "thmlf";
-	// }
 	@RequestMapping("/greeting")
 	public String greeting(ModelMap map) throws Exception {
-//		commonService.logVisit(name);
+		map.put("host", "Tommy");
 		return "thmlf";
+	}
+
+	@RequestMapping("/visitorList")
+	public String visitorList(ModelMap map) throws Exception {
+		map.put("visitorList", commonService.listVisit());
+		return "visitorList";
 	}
 }

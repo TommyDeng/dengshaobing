@@ -34,7 +34,7 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	@Bean
 	ServletContextTemplateResolver templateResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-		templateResolver.setPrefix("/templates/");
+		templateResolver.setPrefix("/template/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
@@ -61,6 +61,7 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		thymeleafViewResolver.setCache(false);
 		// thymeleafViewResolver.setOrder(1);
 		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
 		// });
