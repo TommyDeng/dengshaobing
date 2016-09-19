@@ -1,8 +1,11 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -26,9 +29,13 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
 
 	@Override
-	public boolean checkSignature(String signature, String echostr, String timestamp, String nonce) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
+		if (signature == null)
+			return false;
+		String[] sArray = { token, timestamp, nonce };
+		Arrays.sort(sArray);
+		String sha1Str = DigestUtils.sha1Hex(StringUtils.join(sArray));
+		return signature.equals(sha1Str);
 	}
 
 	@Override
@@ -52,7 +59,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	@Override
 	public List<String> getIPList() throws Exception {
 		URI uri = new URIBuilder().setScheme("https").setHost("api.weixin.qq.com").setPath("/cgi-bin/getcallbackip")
-				.setParameter("access_token", "client_credential").build();
+				.setParameter("access_token", getAccessToken()).build();
 		String content = HttpClientUtils.doGetOnce(uri);
 		return JsonParseUtils.getListValueByFieldName(content, "ip_list");
 	}

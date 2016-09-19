@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.service;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,13 @@ public class ServiceTest extends TestSuite {
 	WexinMessagePlatformService WexinMessagePlatformService;
 
 	@Test
-	public void testName() throws Exception {
-		WexinMessagePlatformService.fetchAccessToken();
-		System.err.println(WexinMessagePlatformService.getAccessToken());
-
+	public void checkSignature() {
+		String signature = "5c5e1eddb69c2c5d215feddfee46b97cf2fea866";
+		String echostr = "2821672319559138803";
+		String timestamp = "1474297059";
+		String nonce = "841823922";
+		String token = "tommydeng";
+		Assert.assertTrue(WexinMessagePlatformService.checkSignature(signature, token, timestamp, nonce));
 	}
 
 }

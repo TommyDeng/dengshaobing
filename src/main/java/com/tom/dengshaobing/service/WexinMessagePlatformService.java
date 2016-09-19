@@ -29,12 +29,12 @@ public interface WexinMessagePlatformService {
 	 * </pre>
 	 * 
 	 * @param signature
-	 * @param echostr
+	 * @param token
 	 * @param timestamp
 	 * @param nonce
 	 * @return
 	 */
-	boolean checkSignature(String signature, String echostr, String timestamp, String nonce);
+	boolean checkSignature(String signature, String token, String timestamp, String nonce);
 
 	/**
 	 * <pre>
