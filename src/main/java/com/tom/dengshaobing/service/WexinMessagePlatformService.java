@@ -29,6 +29,7 @@ public interface WexinMessagePlatformService {
 	 */
 	boolean checkSignature(String signature, String echostr, String timestamp, String nonce);
 
+		
 	/**
 	 * <pre>
 	 * 公众号可以使用AppID和AppSecret调用本接口来获取access_token 
@@ -61,6 +62,7 @@ public interface WexinMessagePlatformService {
 	 */
 	String getAccessToken() throws Exception;
 
+	
 	/**
 	 * <pre>
 	 * 获取微信服务器IP地址
@@ -89,6 +91,7 @@ public interface WexinMessagePlatformService {
 	 * </pre>
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	List<String> getIPList();
+	List<String> getIPList() throws Exception;
 }

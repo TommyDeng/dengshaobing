@@ -12,7 +12,7 @@ import org.jsoup.select.Elements;
  */
 
 public class JsoupUtils {
-	public static void main(String[] args) throws Exception {
+	public static void findAnswerer(String[] args) throws Exception {
 		String url = "http://stackoverflow.com/questions/2835505";
 		Document document = Jsoup.connect(url).get();
 

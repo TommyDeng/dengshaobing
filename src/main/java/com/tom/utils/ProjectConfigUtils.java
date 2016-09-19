@@ -23,7 +23,7 @@ public class ProjectConfigUtils {
 
 	static {
 		String configFileRelativePath = "/system.properties";
-		InputStream inputStream = ProjectConfigUtilsTest.class.getResourceAsStream(configFileRelativePath);
+		InputStream inputStream = ProjectConfigUtils.class.getResourceAsStream(configFileRelativePath);
 		try {
 			projectProperties.load(inputStream);
 		} catch (Exception e) {

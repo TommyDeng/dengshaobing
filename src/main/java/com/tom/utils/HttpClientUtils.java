@@ -2,13 +2,11 @@ package com.tom.utils;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.utils.URIBuilder;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -18,12 +16,12 @@ import org.apache.http.client.utils.URIBuilder;
 
 public class HttpClientUtils {
 
-	public static String doGetOnce(String url) throws ClientProtocolException, IOException {
+	public static String doGetOnce(String url) throws Exception {
 		Content content = Request.Get(url).execute().returnContent();
 		return content.asString();
 	}
 
-	public static String doGetOnce(URI uri) throws ClientProtocolException, IOException {
+	public static String doGetOnce(URI uri) throws Exception {
 		Content content = Request.Get(uri).execute().returnContent();
 		return content.asString();
 	}

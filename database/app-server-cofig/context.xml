@@ -25,7 +25,8 @@
     <!--
     <Manager pathname="" />
     -->
-    
+<!--     <Resources cachingAllowed="true" cacheMaxSize="100000" /> -->
+     <Resources cachingAllowed="false" />
     <Resource name="jdbc/DengShaobingDS"
           auth="Container"
           type="javax.sql.DataSource"
@@ -38,6 +39,7 @@
           timeBetweenEvictionRunsMillis="30000"
           maxActive="20"
           minIdle="2"
+          maxIdle="5"
           maxWait="200"
           initialSize="2"
           removeAbandonedTimeout="60"

@@ -26,7 +26,6 @@
 		<cxf.version>3.1.7</cxf.version>
 		<commons.lang3.version>3.4</commons.lang3.version>
 		<commons.io.version>2.5</commons.io.version>
-		<httpclient.version>4.5.2</httpclient.version>
 		<junit.version>4.12</junit.version>
 		<lombok.version>1.16.10</lombok.version>
 		<jsoup.version>1.9.2</jsoup.version>
@@ -92,10 +91,10 @@
 		</dependency>
 
 		<!-- apache httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.httpcomponents</groupId> -->
+		<!-- <artifactId>httpclient</artifactId> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

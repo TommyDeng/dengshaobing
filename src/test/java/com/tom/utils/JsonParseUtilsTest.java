@@ -27,6 +27,7 @@ public class JsonParseUtilsTest extends TestSuite {
 		Assert.assertEquals("{\"varString\":\"Tommy\",\"varInt\":123,\"varDate\":\"Sep 19, 2016 1:19:24 PM\"}", result);
 
 	}
+
 	@Test
 	public void generateJavaBean() throws Exception {
 		// Deserialization
@@ -35,11 +36,12 @@ public class JsonParseUtilsTest extends TestSuite {
 		Assert.assertEquals("Tommy", testBO.getVarString());
 		Assert.assertEquals(123, testBO.getVarInt());
 	}
+
 	@Test
-	public void getValueByName() throws Exception {
+	public void getStringValueByFieldName() throws Exception {
 		String jsonStr = "{\"varString\":\"Tommy\",\"varInt\":123,\"varDate\":\"Sep 19, 2016 1:19:24 PM\"}";
 
-		String fieldValue = JsonParseUtils.getValueByFieldName(jsonStr, "varString");
+		String fieldValue = JsonParseUtils.getStringValueByFieldName(jsonStr, "varString");
 		Assert.assertEquals("Tommy", fieldValue);
 	}
 

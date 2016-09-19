@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@ComponentScan(basePackages = "com.tom.dengshaobing")
+@ComponentScan
 @EnableTransactionManagement
 @PropertySource("classpath:system.properties")
 public class AppConfig {

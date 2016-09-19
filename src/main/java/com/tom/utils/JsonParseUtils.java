@@ -1,6 +1,11 @@
 package com.tom.utils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -25,9 +30,18 @@ public class JsonParseUtils {
 		return gson.fromJson(jsonStr, cls);
 	}
 
-	public static String getValueByFieldName(String jsonStr, String fieldName) throws Exception {
+	public static String getStringValueByFieldName(String jsonStr, String fieldName) throws Exception {
 		JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
 		return jsonObject.get(fieldName).getAsString();
+	}
+
+	public static List<String> getListValueByFieldName(String jsonStr, String fieldName) throws Exception {
+		JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
+		List<String> list = new ArrayList<String>();
+		for (JsonElement element : jsonObject.get(fieldName).getAsJsonArray()) {
+			list.add(element.getAsString());
+		}
+		return list;
 	}
 
 }
