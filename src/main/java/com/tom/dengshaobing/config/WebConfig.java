@@ -3,9 +3,12 @@ package com.tom.dengshaobing.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -17,13 +20,20 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  */
 @Configuration
 @EnableWebMvc
+@EnableAsync
+@EnableScheduling
 @ComponentScan(basePackages = "com.tom.dengshaobing")
-public class WebConfig extends WebMvcConfigurerAdapter
+public class WebConfig extends WebMvcConfigurationSupport {
+	// @Override
+	// public void
+	// configureDefaultServletHandling(DefaultServletHandlerConfigurer
+	// configurer) {
+	// configurer.enable();
+	// }
 
-{
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+	@Bean
+	public TaskScheduler taskScheduler() {
+		return new ThreadPoolTaskScheduler();
 	}
 
 	/**

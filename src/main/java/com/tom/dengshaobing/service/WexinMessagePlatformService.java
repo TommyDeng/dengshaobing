@@ -13,6 +13,13 @@ import java.util.List;
 public interface WexinMessagePlatformService {
 
 	/**
+	 * NOT_INIT未初始化. REFETCHING 重新获取中. VALID 可用.
+	 */
+	enum AccessTokenStatus {
+		NOT_INIT, REFETCHING, VALID
+	};
+
+	/**
 	 * <pre>
 	 * 验证服务器地址的有效性 
 	 * 加密/校验流程如下：
@@ -29,7 +36,6 @@ public interface WexinMessagePlatformService {
 	 */
 	boolean checkSignature(String signature, String echostr, String timestamp, String nonce);
 
-		
 	/**
 	 * <pre>
 	 * 公众号可以使用AppID和AppSecret调用本接口来获取access_token 
@@ -58,11 +64,18 @@ public interface WexinMessagePlatformService {
 	 * AppSecret(应用密钥)5f5518e57d7b6ff06ff084d97e2f6295
 	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
+	 */
+	void fetchAccessToken() throws Exception;
+
+	/**
+	 * 获得当前 access_token
+	 * 
+	 * @return
+	 * @throws Exception
 	 */
 	String getAccessToken() throws Exception;
 
-	
 	/**
 	 * <pre>
 	 * 获取微信服务器IP地址
@@ -91,7 +104,8 @@ public interface WexinMessagePlatformService {
 	 * </pre>
 	 * 
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	List<String> getIPList() throws Exception;
+
 }

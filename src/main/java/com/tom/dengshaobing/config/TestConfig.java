@@ -2,16 +2,15 @@ package com.tom.dengshaobing.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.h2.Driver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -23,16 +22,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan
 @EnableTransactionManagement
 @PropertySource("classpath:system.properties")
-public class AppConfig {
-
-	@Autowired
-	private Environment env;
+public class TestConfig {
 
 	@Bean
 	public DataSource getDataSource() {
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource(env.getProperty("DB.Jndi"));
+		SimpleDriverDataSource simpleDriverDataSource = new SimpleDriverDataSource();
+		simpleDriverDataSource.setDriverClass(Driver.class);
+		simpleDriverDataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
+		simpleDriverDataSource.setUsername("sa");
+		simpleDriverDataSource.setPassword("sa");
+		return simpleDriverDataSource;
 	}
 
 	@Bean
@@ -47,6 +46,6 @@ public class AppConfig {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppConfig.class, args);
+		SpringApplication.run(TestConfig.class, args);
 	}
 }
