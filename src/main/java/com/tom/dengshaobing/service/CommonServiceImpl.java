@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CommonServiceImpl implements CommonService {
 
-//	@Autowired
+	@Autowired
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Transactional

@@ -13,9 +13,9 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class ProjectConfigUtil {
+public class ProjectConfigUtils {
 
-	private static Properties projectProperties = null;
+	private static Properties projectProperties = new Properties();
 
 	public static String getValue(String key) {
 		return projectProperties.getProperty(key);
@@ -23,8 +23,7 @@ public class ProjectConfigUtil {
 
 	static {
 		String configFileRelativePath = "/system.properties";
-		InputStream inputStream = ProjectConfigUtil.class.getResourceAsStream(configFileRelativePath);
-		projectProperties = new Properties();
+		InputStream inputStream = ProjectConfigUtilsTest.class.getResourceAsStream(configFileRelativePath);
 		try {
 			projectProperties.load(inputStream);
 		} catch (Exception e) {

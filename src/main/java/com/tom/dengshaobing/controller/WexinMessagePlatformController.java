@@ -11,14 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-public class WexinTokenController {
+public class WexinMessagePlatformController {
 
-	@RequestMapping("/wexinTokenAccess")
+	/**
+	 * 验证服务器地址的有效性
+	 * @param signature
+	 * @param echostr
+	 * @param timestamp
+	 * @param nonce
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/validateServer")
 	public String wexinTokenAccess(@RequestParam(name = "signature", required = false) String signature,
 			@RequestParam(name = "echostr", required = false) String echostr,
 			@RequestParam(name = "timestamp", required = false) String timestamp,
 			@RequestParam(name = "nonce", required = false) String nonce) throws Exception {
-		System.out.println(signature + echostr);
 		return echostr;
 	}
 

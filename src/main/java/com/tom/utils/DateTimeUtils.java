@@ -10,7 +10,7 @@ import java.util.Date;
  * @version 创建时间：2016年9月13日 下午3:22:17
  *
  */
-public class DateTimeUtil {
+public class DateTimeUtils {
 
 	/**
 	 * 获取指定日期的指定格式的字符串

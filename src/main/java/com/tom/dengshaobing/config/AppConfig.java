@@ -2,10 +2,13 @@ package com.tom.dengshaobing.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan(basePackages = "com.tom.dengshaobing")
 @EnableTransactionManagement
+@PropertySource("classpath:system.properties")
 public class AppConfig {
 
 	// @Bean
@@ -32,23 +36,26 @@ public class AppConfig {
 	// return simpleDriverDataSource;
 	// }
 
-//	@Bean
-//	public DataSource getDataSource() {
-//		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-//		dataSourceLookup.setResourceRef(true);
-//		return dataSourceLookup.getDataSource("jdbc/DengShaobingDS");
-//	}
-//
-//	@Bean
-//	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-//		return new NamedParameterJdbcTemplate(getDataSource());
-//	}
-//
-//	@Bean
-//	public DataSourceTransactionManager transactionManager() {
-//		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
-//		return dataSourceTransactionManager;
-//	}
+	@Autowired
+	private Environment env;
+	
+	@Bean
+	public DataSource getDataSource() {
+		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		dataSourceLookup.setResourceRef(true);
+		return dataSourceLookup.getDataSource(env.getProperty("DB.Jndi"));
+	}
+
+	@Bean
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+		return new NamedParameterJdbcTemplate(getDataSource());
+	}
+
+	@Bean
+	public DataSourceTransactionManager transactionManager() {
+		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
+		return dataSourceTransactionManager;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppConfig.class, args);
