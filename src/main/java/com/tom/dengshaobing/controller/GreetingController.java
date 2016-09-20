@@ -5,10 +5,10 @@ import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.service.CommonService;
-
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -24,8 +24,10 @@ public class GreetingController {
 	CommonService commonService;
 
 	@RequestMapping("/greeting")
-	public String greeting(ModelMap map) throws Exception {
-		map.put("host", "Tommy");
+	public String greeting(ModelMap map,
+			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name) throws Exception {
+		map.put("host", name);
+		commonService.logVisit(name);
 		return "thmlf";
 	}
 

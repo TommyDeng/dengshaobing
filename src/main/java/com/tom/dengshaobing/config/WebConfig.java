@@ -7,6 +7,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -19,17 +20,12 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  *
  */
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = "com.tom.dengshaobing")
 public class WebConfig extends WebMvcConfigurationSupport {
-	// @Override
-	// public void
-	// configureDefaultServletHandling(DefaultServletHandlerConfigurer
-	// configurer) {
-	// configurer.enable();
-	// }
-
-
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
 
 	/**
 	 * thymeleaf templateResolver

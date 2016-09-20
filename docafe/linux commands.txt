@@ -1,0 +1,49 @@
+./opt/apache-tomcat-9.0.0.M10/bin/startup.sh
+./opt/apache-tomcat-9.0.0.M10/bin/shutdown.sh
+
+./opt/h2/bin/startup.sh
+./opt/h2/bin/shutdown.sh
+
+java -cp /opt/h2/bin/h2*.jar org.h2.tools.Shell
+
+==============================
+linux命令
+==============================
+复制文件夹
+cp -r /tmp/a /root/a
+
+查看进程
+ps aux | grep tomcat
+
+查看端口
+netstat -nlp | grep java
+
+修改权限
+chmod 777 /home/jdk.bin
+
+==============================
+nginx相关
+==============================
+启动停止
+nginx
+nginx -s quit
+nginx -s stop
+
+测试配置文件
+nginx -t
+
+
+==============================
+
+==============================
+
+
+
+
+
+
+
+==============================
+
+==============================
+

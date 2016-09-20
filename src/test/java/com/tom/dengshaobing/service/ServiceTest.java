@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.tom.dengshaobing.config.TestConfig;
+import com.tom.TestConfig;
 import com.tom.dengshaobing.config.WebConfig;
 
 import junit.framework.TestSuite;
