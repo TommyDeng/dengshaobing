@@ -1,18 +1,17 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.fluent.Form;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.tom.utils.HttpClientUtils;
 import com.tom.utils.JsonParseUtils;
 
 /**
@@ -26,13 +25,17 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	@Autowired
 	private Environment env;
 
+	@Autowired
+	CommonService commonService;
+
 	String accessToken;
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
 
 	@Override
-	public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
+	public boolean checkSignature(String signature, String timestamp, String nonce) {
 		if (signature == null)
 			return false;
+		String token = env.getProperty("WeixinPlatform.Token");
 		String[] sArray = { token, timestamp, nonce };
 		Arrays.sort(sArray);
 		String sha1Str = DigestUtils.sha1Hex(StringUtils.join(sArray));
@@ -49,26 +52,27 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	@Override
 	public void fetchAccessToken() throws Exception {
-		URI uri = new URIBuilder().setScheme("https").setHost("api.weixin.qq.com").setPath("/cgi-bin/token")
+		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/token")
 				.setParameter("grant_type", "client_credential")
 				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
 				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).build();
-		String content = HttpClientUtils.doGetOnce(uri);
+		String content = commonService.httpGet(uri);
 		accessToken = JsonParseUtils.getStringValueByFieldName(content, "access_token");
 	}
 
 	@Override
 	public List<String> getIPList() throws Exception {
-		URI uri = new URIBuilder().setScheme("https").setHost("api.weixin.qq.com").setPath("/cgi-bin/getcallbackip")
+		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/getcallbackip")
 				.setParameter("access_token", getAccessToken()).build();
-		String content = HttpClientUtils.doGetOnce(uri);
+		String content = commonService.httpGet(uri);
 		return JsonParseUtils.getListValueByFieldName(content, "ip_list");
 	}
 
 	@Override
 	public void createMenu(String menuJsonStr) throws Exception {
-		URI uri = new URIBuilder().setScheme("https").setHost("api.weixin.qq.com").setPath("/cgi-bin/menu/create")
+		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create")
 				.setParameter("access_token", getAccessToken()).build();
-		HttpClientUtils.doGetOnce(uri);
+		Form form = Form.form().add("body", menuJsonStr);
+		commonService.httpPost(uri, form);
 	}
 }

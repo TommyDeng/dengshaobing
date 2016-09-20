@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.fluent.Form;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,24 +47,28 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public String httpGet(URI uri) throws Exception {
 		String content = HttpClientUtils.doGetOnce(uri);
-		this.logHttpRequest(HttpGet.METHOD_NAME, uri.toString(), content);
+		this.logHttpRequest(HttpGet.METHOD_NAME, uri.toString(), null, content);
 		return content;
 	}
 
 	@Override
-	public String httpPost(URI uri) throws Exception {
-		String content = HttpClientUtils.doGetOnce(uri);
-		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(), content);
+	public String httpPost(URI uri, Form form) throws Exception {
+		HttpClientUtils.doPostOnce(uri, form);
+		String content = HttpClientUtils.doPostOnce(uri, form);
+		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(), form, content);
 		return content;
 	}
 
-	private void logHttpRequest(String httpMethodName, String uri, String responseStr) {
+	private void logHttpRequest(String httpMethodName, String uri, Form form, String responseStr) {
 		String sql = "insert into log_http(method_name, uri, request, response, create_time) "
 				+ "values (:method_name, :uri, :request, :response, :create_time)";
 		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
 		sqlParamMap.put("method_name", httpMethodName);
 		sqlParamMap.put("uri", uri);
-		sqlParamMap.put("request", httpMethodName);
+		if (form != null) {
+			sqlParamMap.put("request", StringUtils.join(form.build().toArray(), IOUtils.LINE_SEPARATOR));
+		} else
+			sqlParamMap.put("request", null);
 		sqlParamMap.put("response", responseStr);
 		sqlParamMap.put("create_time", Calendar.getInstance());
 		namedParameterJdbcTemplate.update(sql, sqlParamMap);

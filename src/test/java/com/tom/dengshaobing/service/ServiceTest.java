@@ -27,8 +27,12 @@ public class ServiceTest extends TestSuite {
 		String echostr = "2821672319559138803";
 		String timestamp = "1474297059";
 		String nonce = "841823922";
-		String token = "tommydeng";
-		Assert.assertTrue(WexinMessagePlatformService.checkSignature(signature, token, timestamp, nonce));
+		Assert.assertTrue(WexinMessagePlatformService.checkSignature(signature, timestamp, nonce));
+	}
+
+	@Test
+	public void getAccessToken() throws Exception {
+		Assert.assertNotNull(WexinMessagePlatformService.getAccessToken());
 	}
 
 	@Test

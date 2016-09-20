@@ -17,7 +17,6 @@ import org.apache.http.client.fluent.Request;
 public class HttpClientUtils {
 
 	public static String doGetOnce(String url) throws Exception {
-		
 		Content content = Request.Get(url).execute().returnContent();
 		return content.asString();
 	}
@@ -27,9 +26,10 @@ public class HttpClientUtils {
 		return content.asString();
 	}
 	
-	public static void doPostOnce() throws ClientProtocolException, IOException {
-		Request.Post("http://targethost/login")
-				.bodyForm(Form.form().add("username", "vip").add("password", "secret").build()).execute()
+	public static String doPostOnce(URI uri,Form form) throws ClientProtocolException, IOException {
+		Content content = Request.Post(uri)
+				.bodyForm(form.build()).execute()
 				.returnContent();
+		return content.asString();
 	}
 }
