@@ -11,6 +11,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -21,6 +25,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan
 @EnableTransactionManagement
+//@EnableAsync
+//@EnableScheduling
 @PropertySource("classpath:system.properties")
 public class TestConfig {
 
@@ -45,6 +51,11 @@ public class TestConfig {
 		return dataSourceTransactionManager;
 	}
 
+//	@Bean
+//	public TaskScheduler taskScheduler() {
+//		return new ThreadPoolTaskScheduler();
+//	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(TestConfig.class, args);
 	}

@@ -17,6 +17,7 @@ import org.apache.http.client.fluent.Request;
 public class HttpClientUtils {
 
 	public static String doGetOnce(String url) throws Exception {
+		
 		Content content = Request.Get(url).execute().returnContent();
 		return content.asString();
 	}

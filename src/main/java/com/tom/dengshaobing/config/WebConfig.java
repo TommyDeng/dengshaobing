@@ -20,8 +20,6 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  */
 @Configuration
 @EnableWebMvc
-@EnableAsync
-@EnableScheduling
 @ComponentScan(basePackages = "com.tom.dengshaobing")
 public class WebConfig extends WebMvcConfigurationSupport {
 	// @Override
@@ -31,10 +29,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	// configurer.enable();
 	// }
 
-	@Bean
-	public TaskScheduler taskScheduler() {
-		return new ThreadPoolTaskScheduler();
-	}
+
 
 	/**
 	 * thymeleaf templateResolver

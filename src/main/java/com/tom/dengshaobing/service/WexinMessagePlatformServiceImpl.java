@@ -1,6 +1,7 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,5 +63,12 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 				.setParameter("access_token", getAccessToken()).build();
 		String content = HttpClientUtils.doGetOnce(uri);
 		return JsonParseUtils.getListValueByFieldName(content, "ip_list");
+	}
+
+	@Override
+	public void createMenu(String menuJsonStr) throws Exception {
+		URI uri = new URIBuilder().setScheme("https").setHost("api.weixin.qq.com").setPath("/cgi-bin/menu/create")
+				.setParameter("access_token", getAccessToken()).build();
+		HttpClientUtils.doGetOnce(uri);
 	}
 }

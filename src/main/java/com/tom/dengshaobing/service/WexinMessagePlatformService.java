@@ -108,4 +108,15 @@ public interface WexinMessagePlatformService {
 	 */
 	List<String> getIPList() throws Exception;
 
+	/**
+	 * <pre>
+	 * 接口调用请求说明
+	http请求方式：POST（请使用https协议）
+	https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
+	 * </pre>
+	 * @param menuJsonStr
+	 * @return 
+	 * @throws Exception 
+	 */
+	void createMenu(String menuJsonStr) throws Exception;
 }

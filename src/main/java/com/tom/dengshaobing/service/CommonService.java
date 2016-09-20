@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +21,25 @@ public interface CommonService {
 
 	/**
 	 * 查询所有用户
-	 * @return 
+	 * 
+	 * @return
 	 */
 	List<Map<String, Object>> listVisit();
 
+	/**
+	 * 调用httpGet，并记录调用日志
+	 * @param uri
+	 * @return
+	 * @throws Exception
+	 */
+	String httpGet(URI uri) throws Exception;
+
+	/**
+	 * 调用httpPost，并记录调用日志
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws Exception
+	 */
+	String httpPost(URI uri) throws Exception;
 }
