@@ -1,4 +1,4 @@
-package com.tom;
+package com.tom.dengshaobing.config;
 
 import javax.sql.DataSource;
 
