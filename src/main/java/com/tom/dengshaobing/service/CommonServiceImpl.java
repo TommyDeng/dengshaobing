@@ -53,22 +53,26 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public String httpPost(URI uri, Form form) throws Exception {
-		HttpClientUtils.doPostOnce(uri, form);
 		String content = HttpClientUtils.doPostOnce(uri, form);
-		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(), form, content);
+		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(),
+				StringUtils.join(form.build().toArray(), IOUtils.LINE_SEPARATOR), content);
 		return content;
 	}
 
-	private void logHttpRequest(String httpMethodName, String uri, Form form, String responseStr) {
+	@Override
+	public String httpPost(URI uri, String entityStr) throws Exception {
+		String content = HttpClientUtils.doPostOnce(uri, entityStr);
+		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(), entityStr, content);
+		return content;
+	}
+
+	private void logHttpRequest(String httpMethodName, String uri, String formStr, String responseStr) {
 		String sql = "insert into log_http(method_name, uri, request, response, create_time) "
 				+ "values (:method_name, :uri, :request, :response, :create_time)";
 		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
 		sqlParamMap.put("method_name", httpMethodName);
 		sqlParamMap.put("uri", uri);
-		if (form != null) {
-			sqlParamMap.put("request", StringUtils.join(form.build().toArray(), IOUtils.LINE_SEPARATOR));
-		} else
-			sqlParamMap.put("request", null);
+		sqlParamMap.put("request", formStr);
 		sqlParamMap.put("response", responseStr);
 		sqlParamMap.put("create_time", Calendar.getInstance());
 		namedParameterJdbcTemplate.update(sql, sqlParamMap);

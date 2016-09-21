@@ -2,11 +2,15 @@ package com.tom.utils;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.StringEntity;
+
+import com.tom.dengshaobing.common.DefaultSetting;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -29,6 +33,13 @@ public class HttpClientUtils {
 	public static String doPostOnce(URI uri,Form form) throws ClientProtocolException, IOException {
 		Content content = Request.Post(uri)
 				.bodyForm(form.build()).execute()
+				.returnContent();
+		return content.asString();
+	}
+	
+	public static String doPostOnce(URI uri,String entityStr) throws ClientProtocolException, IOException {
+		Content content = Request.Post(uri)
+				.body(new StringEntity(entityStr,DefaultSetting.CHARSET)).execute()
 				.returnContent();
 		return content.asString();
 	}

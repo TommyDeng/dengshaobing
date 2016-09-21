@@ -1,61 +1,61 @@
 {
 	"button": [
 		{
-			"name": "É¨Âë",
+			"name": "æ‰«ç ",
 			"sub_button": [
 				{
 					"type": "scancode_waitmsg",
-					"name": "É¨Âë´øÌáÊ¾",
+					"name": "æ‰«ç å¸¦æç¤º",
 					"key": "rselfmenu_0_0",
 					"sub_button": []
 				},
 				{
 					"type": "scancode_push",
-					"name": "É¨ÂëÍÆÊÂ¼ş",
+					"name": "æ‰«ç æ¨äº‹ä»¶",
 					"key": "rselfmenu_0_1",
 					"sub_button": []
 				}
 			]
 		},
 		{
-			"name": "·¢Í¼",
+			"name": "å‘å›¾",
 			"sub_button": [
 				{
 					"type": "pic_sysphoto",
-					"name": "ÏµÍ³ÅÄÕÕ·¢Í¼",
+					"name": "ç³»ç»Ÿæ‹ç…§å‘å›¾",
 					"key": "rselfmenu_1_0",
 					"sub_button": []
 				},
 				{
 					"type": "pic_photo_or_album",
-					"name": "ÅÄÕÕ»òÕßÏà²á·¢Í¼",
+					"name": "æ‹ç…§æˆ–è€…ç›¸å†Œå‘å›¾",
 					"key": "rselfmenu_1_1",
 					"sub_button": []
 				},
 				{
 					"type": "pic_weixin",
-					"name": "Î¢ĞÅÏà²á·¢Í¼",
+					"name": "å¾®ä¿¡ç›¸å†Œå‘å›¾",
 					"key": "rselfmenu_1_2",
 					"sub_button": []
 				}
 			]
 		},
 		{
-			"name": "¶¨Î»",
+			"name": "å®šä½",
 			"sub_button": [
 				{
-					"name": "·¢ËÍÎ»ÖÃ",
+					"name": "å‘é€ä½ç½®",
 					"type": "location_select",
 					"key": "rselfmenu_2_0"
 				},
 				{
 					"type": "media_id",
-					"name": "Í¼Æ¬",
+					"name": "å›¾ç‰‡",
 					"media_id": ""
 				},
 				{
 					"type": "view_limited",
-					"name": "Í¼ÎÄÏûÏ¢",
+					"name": "å›¾æ–‡æ¶ˆæ¯",
 					"media_id": ""
 				}
 			]

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<property resource="system.properties" />
+
+	<Property name="info.log" value="${Log.BaseFolder}info" />
+	<Property name="error.log" value="${Log.BaseFolder}error" />
+
+	<!-- 日志打印格式 -->
+	<!-- 2015-12-28 17:27:45,825 [main] INFO com.temp.TempTest - messages... -->
+	<Property name="layout.pattern" value="%date [%thread] %-5level %logger{80} - %msg%n" />
+
+	<!-- console -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${layout.pattern}</pattern>
+		</layout>
+	</appender>
+
+	<!-- debug/info 开发环境debug级别,其它环境info级别 -->
+	<appender name="INFOFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${info.log}.log</File>
+		<encoder>
+			<pattern>${layout.pattern}</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>${Log.RootLevel}</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${info.log}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>180</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<!-- error -->
+	<appender name="ERRORFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${error.log}.log</File>
+		<encoder>
+			<pattern>${layout.pattern}</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- monthly rollover -->
+			<fileNamePattern>${error.log}.%d{yyyy-MM}.log</fileNamePattern>
+			<maxHistory>6</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+
+	<root level="${log.root.level}">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="INFOFILE" />
+		<appender-ref ref="ERRORFILE" />
+	</root>
+
+</configuration>

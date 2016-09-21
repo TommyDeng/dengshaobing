@@ -1,17 +1,18 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.fluent.Form;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.utils.JsonParseUtils;
 
 /**
@@ -30,7 +31,16 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	String accessToken;
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
+	@Override
+	public void setAccessTokenStatus(AccessTokenStatus status) {
+		this.accessTokenStatus = status;
+	}
 
+	@Override
+	public AccessTokenStatus getAccessTokenStatus() {
+		return this.accessTokenStatus;
+	}
+	
 	@Override
 	public boolean checkSignature(String signature, String timestamp, String nonce) {
 		if (signature == null)
@@ -70,9 +80,16 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	@Override
 	public void createMenu(String menuJsonStr) throws Exception {
-		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create")
+		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create").setCharset(DefaultSetting.CHARSET)
 				.setParameter("access_token", getAccessToken()).build();
-		Form form = Form.form().add("body", menuJsonStr);
-		commonService.httpPost(uri, form);
+		commonService.httpPost(uri, menuJsonStr);
 	}
+
+	@Override
+	public void deleteMenu() throws Exception {
+		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/delete")
+				.setParameter("access_token", getAccessToken()).build();
+		commonService.httpGet(uri);
+	}
+
 }

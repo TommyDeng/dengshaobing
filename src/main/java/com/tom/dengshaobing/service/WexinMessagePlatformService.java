@@ -20,13 +20,21 @@ public interface WexinMessagePlatformService {
 	};
 
 	/**
-	 * <pre>
-	 * 验证服务器地址的有效性 
-	 * 加密/校验流程如下：
-	 * 1. 将token、timestamp、nonce三个参数进行字典序排序 ;
-	 * 2. 将三个参数字符串拼接成一个字符串进行sha1加密 ; 
-	 * 3. 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信;
-	 * </pre>
+	 * 设置当前AccessToken Status
+	 * 
+	 * @param status
+	 */
+	void setAccessTokenStatus(AccessTokenStatus status);
+
+	/**
+	 * 获取当前AccessToken Status
+	 * 
+	 * @param status
+	 */
+	AccessTokenStatus getAccessTokenStatus();
+
+	/**
+	 * 验证服务器地址的有效性
 	 * 
 	 * @param signature
 	 * @param timestamp
@@ -113,9 +121,27 @@ public interface WexinMessagePlatformService {
 	http请求方式：POST（请使用https协议）
 	https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
 	 * </pre>
+	 * 
 	 * @param menuJsonStr
-	 * @return 
-	 * @throws Exception 
+	 * @return
+	 * @throws Exception
 	 */
 	void createMenu(String menuJsonStr) throws Exception;
+
+	/**
+	 * <pre>
+	 * 使用接口创建自定义菜单后，开发者还可使用接口删除当前使用的自定义菜单。
+	 * 另请注意，在个性化菜单时，调用此接口会删除默认菜单及全部个性化菜单。
+	 * 
+	 * http请求方式：GET
+	https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN
+	
+	对应创建接口，正确的Json返回结果:
+	{"errcode":0,"errmsg":"ok"}
+	 * </pre>
+	 * 
+	 * @throws Exception
+	 */
+	void deleteMenu() throws Exception;
+
 }

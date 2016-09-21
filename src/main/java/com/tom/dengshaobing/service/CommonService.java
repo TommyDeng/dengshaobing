@@ -30,6 +30,7 @@ public interface CommonService {
 
 	/**
 	 * 调用httpGet，并记录调用日志
+	 * 
 	 * @param uri
 	 * @return
 	 * @throws Exception
@@ -37,11 +38,22 @@ public interface CommonService {
 	String httpGet(URI uri) throws Exception;
 
 	/**
-	 * 调用httpPost，并记录调用日志
+	 * 调用httpPost，Byte Entity 并记录调用日志
+	 * 
 	 * @param uri
 	 * @param form
 	 * @return
 	 * @throws Exception
 	 */
-	String httpPost(URI uri,Form form ) throws Exception;
+	String httpPost(URI uri, Form form) throws Exception;
+
+	/**
+	 * 调用httpPost，String Entity 并记录调用日志
+	 * 
+	 * @param uri
+	 * @param entityStr
+	 * @return
+	 * @throws Exception
+	 */
+	String httpPost(URI uri, String entityStr) throws Exception;
 }

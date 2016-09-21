@@ -1,0 +1,73 @@
+{
+	"button": [
+		{
+			"name": "预订",
+			"sub_button": [
+				{
+					"name": "买点东西",
+					"type": "view",
+					"key": "rselfmenu_1_1",
+					"url": "http://www.dengshaobing.com/",
+					"sub_button": []
+				},
+				{
+					"name": "已购买清单",
+					"type": "view",
+					"key": "rselfmenu_1_2",
+					"url": "http://www.dengshaobing.com/visitorList",
+					"sub_button": []
+				},
+				{
+					"name": "追踪快递单号",
+					"type": "scancode_push",
+					"key": "rselfmenu_1_3",
+					"sub_button": []
+				}
+			]
+		},
+		{
+			"name": "会员",
+			"sub_button": [
+				{
+					"name": "我的账户",
+					"type": "view",
+					"key": "rselfmenu_2_1",
+					"url": "http://www.dengshaobing.com/",
+					"sub_button": []
+				},
+				{
+					"name": "上传头像",
+					"type": "pic_photo_or_album",
+					"key": "rselfmenu_2_2",
+					"sub_button": []
+				},
+				{
+					"name": "我的位置",
+					"type": "location_select",
+					"key": "rselfmenu_2_3",
+					"sub_button": []
+				}
+			]
+		},
+		{
+			"name": "推广宣传",
+			"sub_button": [
+				{
+					"name": "近期活动",
+					"type": "click",
+					"key": "rselfmenu_3_1"
+				},
+				{
+					"name": "分享给朋友",
+					"type": "location_select",
+					"key": "rselfmenu_3_2"
+				},
+				{
+					"name": "关于我们",
+					"type": "click",
+					"key": "rselfmenu_3_3"
+				}
+			]
+		}
+	]
+}

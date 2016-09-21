@@ -1,12 +1,19 @@
 package com.tom.utils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.env.Environment;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.tom.dengshaobing.common.bo.wmp.Menu;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -20,7 +27,7 @@ public class JsonParseUtils {
 		// Serialization
 		Gson gson = new Gson();
 		return gson.toJson(obj);
-
+		
 	}
 
 	public static <T> T generateJavaBean(String jsonStr, Class<T> cls) throws Exception {
@@ -42,5 +49,4 @@ public class JsonParseUtils {
 		}
 		return list;
 	}
-
 }
