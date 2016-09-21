@@ -1,13 +1,12 @@
 package com.tom.dengshaobing.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,8 @@ import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.dengshaobing.common.bo.wmp.Menu;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 import com.tom.utils.JsonParseUtils;
-import com.tom.utils.ProjectConfigUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -24,6 +24,7 @@ import com.tom.utils.ProjectConfigUtils;
  *
  */
 
+@Slf4j
 @RestController
 public class WexinMessagePlatformController {
 	@Autowired
@@ -42,15 +43,30 @@ public class WexinMessagePlatformController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/restfull/wmp/validateServer")
+	@RequestMapping("/restfull/wmp/access")
 	public String wexinTokenAccess(@RequestParam(name = "signature", required = false) String signature,
 			@RequestParam(name = "echostr", required = false) String echostr,
 			@RequestParam(name = "timestamp", required = false) String timestamp,
-			@RequestParam(name = "nonce", required = false) String nonce) throws Exception {
-		if (wexinMessagePlatformService.checkSignature(signature, timestamp, nonce)) {
+			@RequestParam(name = "nonce", required = false) String nonce, @RequestBody(required = false) String body)
+			throws Exception {
+
+		String returnStr = "success";
+
+		if (!wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
+			return "validate failed...";
+
+		if (StringUtils.isBlank(body)) {
 			return echostr;
+		} else {
+			log.debug("/restfull/wmp/access body===>");
+			log.debug(body);
+			
+			//处理
+			
+			
 		}
-		return "validate failed...";
+
+		return returnStr;
 	}
 
 	@RequestMapping("/restfull/wmp/refreshMenu")

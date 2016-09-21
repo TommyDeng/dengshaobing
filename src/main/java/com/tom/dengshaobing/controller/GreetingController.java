@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.service.CommonService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月14日 上午11:29:38
  *
  */
 
-// @RestController
 @Controller
+@Slf4j
 public class GreetingController {
 
 	@Autowired
@@ -28,6 +30,7 @@ public class GreetingController {
 			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name) throws Exception {
 		map.put("host", name);
 		commonService.logVisit(name);
+		log.info(name+" visit.");
 		return "thmlf";
 	}
 

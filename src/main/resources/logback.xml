@@ -14,6 +14,9 @@
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<pattern>${layout.pattern}</pattern>
 		</layout>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
 	</appender>
 
 	<!-- debug/info 开发环境debug级别,其它环境info级别 -->
@@ -51,7 +54,7 @@
 	</appender>
 
 
-	<root level="${log.root.level}">
+	<root>
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="INFOFILE" />
 		<appender-ref ref="ERRORFILE" />

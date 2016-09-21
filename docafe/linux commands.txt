@@ -47,6 +47,8 @@ nginx -s stop
 测试配置文件
 nginx -t
 
+查看日志
+tail -f /var/log/nginx/access.log
 
 ==============================
 
