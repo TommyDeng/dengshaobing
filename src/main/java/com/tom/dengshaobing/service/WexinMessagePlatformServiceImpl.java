@@ -13,13 +13,17 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.tom.dengshaobing.common.DefaultSetting;
+import com.tom.dengshaobing.common.bo.wmp.Message;
 import com.tom.utils.JsonParseUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月19日 上午10:35:02
  *
  */
+@Slf4j
 @Service
 public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformService {
 
@@ -29,8 +33,12 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	@Autowired
 	CommonService commonService;
 
+	@Autowired
+	WmpBussService wmpBussService;
+
 	String accessToken;
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
+
 	@Override
 	public void setAccessTokenStatus(AccessTokenStatus status) {
 		this.accessTokenStatus = status;
@@ -40,7 +48,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	public AccessTokenStatus getAccessTokenStatus() {
 		return this.accessTokenStatus;
 	}
-	
+
 	@Override
 	public boolean checkSignature(String signature, String timestamp, String nonce) {
 		if (signature == null)
@@ -68,6 +76,8 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).build();
 		String content = commonService.httpGet(uri);
 		accessToken = JsonParseUtils.getStringValueByFieldName(content, "access_token");
+		log.info("AccessToken fetched =======================>");
+		log.info(this.accessToken);
 	}
 
 	@Override
@@ -90,6 +100,67 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/delete")
 				.setParameter("access_token", getAccessToken()).build();
 		commonService.httpGet(uri);
+	}
+
+	@Override
+	public Message dispatch(Message message) {
+		if (message == null) {
+			return null;
+		}
+		String eventKey = message.EventKey;
+		switch (eventKey) {
+		case "rselfmenu_1_1":
+			wmpBussService.processMenu_1_1(message);
+			break;
+		case "rselfmenu_1_2":
+			wmpBussService.processMenu_1_2(message);
+			break;
+		case "rselfmenu_1_3":
+			wmpBussService.processMenu_1_3(message);
+			break;
+		case "rselfmenu_1_4":
+			wmpBussService.processMenu_1_4(message);
+			break;
+		case "rselfmenu_1_5":
+			wmpBussService.processMenu_1_5(message);
+			break;
+
+		case "rselfmenu_2_1":
+			wmpBussService.processMenu_2_1(message);
+			break;
+		case "rselfmenu_2_2":
+			wmpBussService.processMenu_2_2(message);
+			break;
+		case "rselfmenu_2_3":
+			wmpBussService.processMenu_2_3(message);
+			break;
+		case "rselfmenu_2_4":
+			wmpBussService.processMenu_2_4(message);
+			break;
+		case "rselfmenu_2_5":
+			wmpBussService.processMenu_2_5(message);
+			break;
+
+		case "rselfmenu_3_1":
+			wmpBussService.processMenu_3_1(message);
+			break;
+		case "rselfmenu_3_2":
+			wmpBussService.processMenu_3_2(message);
+			break;
+		case "rselfmenu_3_3":
+			wmpBussService.processMenu_3_3(message);
+			break;
+		case "rselfmenu_3_4":
+			wmpBussService.processMenu_3_4(message);
+			break;
+		case "rselfmenu_3_5":
+			wmpBussService.processMenu_3_5(message);
+			break;
+		default:
+			break;
+		}
+
+		return message;
 	}
 
 }

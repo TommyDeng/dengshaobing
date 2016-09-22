@@ -2,6 +2,8 @@ package com.tom.dengshaobing.common.bo.wmp;
 
 import java.util.List;
 
+import com.tom.dengshaobing.common.bo.wmp.type.ButtonType;
+
 import lombok.Data;
 
 /**

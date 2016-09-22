@@ -1,6 +1,7 @@
 package com.tom.utils;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import junit.framework.TestSuite;
@@ -10,7 +11,7 @@ import junit.framework.TestSuite;
  * @version 创建时间：2016年9月19日 上午10:42:28
  *
  */
-
+@Ignore
 public class HttpClientUtilsTest extends TestSuite {
 	@Test
 	public void testMock() {

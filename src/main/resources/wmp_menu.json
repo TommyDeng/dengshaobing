@@ -63,9 +63,14 @@
 					"key": "rselfmenu_3_2"
 				},
 				{
-					"name": "关于我们",
+					"name": "赞一下我们",
 					"type": "click",
 					"key": "rselfmenu_3_3"
+				},
+				{
+					"name": "关于我们",
+					"type": "click",
+					"key": "rselfmenu_3_4"
 				}
 			]
 		}

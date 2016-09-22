@@ -4,14 +4,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Ignore;
+
+import junit.framework.TestSuite;
 
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月19日 上午11:18:30
  *
  */
-
-public class JsoupUtilsTest {
+@Ignore
+public class JsoupUtilsTest  extends TestSuite {
 	public static void main(String[] args) throws Exception {
 		String url = "http://stackoverflow.com/questions/2835505";
 		Document document = Jsoup.connect(url).get();

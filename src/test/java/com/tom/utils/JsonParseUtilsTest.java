@@ -3,6 +3,7 @@ package com.tom.utils;
 import java.util.Date;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.tom.dengshaobing.common.TestBO;
@@ -15,6 +16,7 @@ import junit.framework.TestSuite;
  *
  */
 
+@Ignore
 public class JsonParseUtilsTest extends TestSuite {
 	@Test
 	public void generateJsonString() throws Exception {

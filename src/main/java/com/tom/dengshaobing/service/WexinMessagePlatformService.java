@@ -2,6 +2,8 @@ package com.tom.dengshaobing.service;
 
 import java.util.List;
 
+import com.tom.dengshaobing.common.bo.wmp.Message;
+
 /**
  * 微信公众平台服务类
  * 
@@ -34,7 +36,7 @@ public interface WexinMessagePlatformService {
 	AccessTokenStatus getAccessTokenStatus();
 
 	/**
-	 * 验证服务器地址的有效性
+	 * 验证消息发送服务器地址的有效性
 	 * 
 	 * @param signature
 	 * @param timestamp
@@ -44,32 +46,7 @@ public interface WexinMessagePlatformService {
 	boolean checkSignature(String signature, String timestamp, String nonce);
 
 	/**
-	 * <pre>
-	 * 公众号可以使用AppID和AppSecret调用本接口来获取access_token 
-	 * 接口调用请求说明 
-	 * http请求方式: GET
-	 * https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
-	 * 参数说明
-	 * 参数 是否必须 说明 : 
-	 * grant_type 是 获取access_token填写client_credential 
-	 * appid 是 第三方用户唯一凭证 
-	 * secret 是 第三方用户唯一凭证密钥，即appsecret 
-	 * 返回说明:
-	 * 
-	 * 正常情况下，微信会返回下述JSON数据包给公众号：
-	 * {"access_token":"ACCESS_TOKEN","expires_in":7200} 
-	 * 
-	 * 参数 说明 access_token 获取到的凭证
-	 * expires_in 凭证有效时间，单位：秒
-	 * 
-	 * 错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
-	 * 
-	 * {"errcode":40013,"errmsg":"invalid appid"}
-	 * </pre>
-	 * 
-	 * AppID(应用ID)wx3bcb302e3fccb280
-	 * AppSecret(应用密钥)5f5518e57d7b6ff06ff084d97e2f6295
-	 * 
+	 * 获取AccessToken
 	 * @return
 	 * @throws Exception
 	 */
@@ -84,31 +61,7 @@ public interface WexinMessagePlatformService {
 	String getAccessToken() throws Exception;
 
 	/**
-	 * <pre>
 	 * 获取微信服务器IP地址
-	如果公众号基于消息接收安全上的考虑，需要获知微信服务器的IP地址列表，以便识别出哪些消息是微信官方推送给你的，哪些消息可能是他人伪造的，可以通过该接口获得微信服务器IP地址列表。
-	
-	接口调用请求说明
-	
-	http请求方式: GET
-	https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=ACCESS_TOKEN
-	参数说明
-	
-	参数	是否必须	说明
-	access_token	是	公众号的access_token
-	返回说明
-	
-	正常情况下，微信会返回下述JSON数据包给公众号：
-	
-	{
-	"ip_list":["127.0.0.1","127.0.0.1"]
-	}
-	参数	说明
-	ip_list	微信服务器IP地址列表
-	错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
-	
-	{"errcode":40013,"errmsg":"invalid appid"}
-	 * </pre>
 	 * 
 	 * @return
 	 * @throws Exception
@@ -116,11 +69,7 @@ public interface WexinMessagePlatformService {
 	List<String> getIPList() throws Exception;
 
 	/**
-	 * <pre>
-	 * 接口调用请求说明
-	http请求方式：POST（请使用https协议）
-	https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
-	 * </pre>
+	 * 创建公众号菜单
 	 * 
 	 * @param menuJsonStr
 	 * @return
@@ -129,19 +78,19 @@ public interface WexinMessagePlatformService {
 	void createMenu(String menuJsonStr) throws Exception;
 
 	/**
-	 * <pre>
-	 * 使用接口创建自定义菜单后，开发者还可使用接口删除当前使用的自定义菜单。
-	 * 另请注意，在个性化菜单时，调用此接口会删除默认菜单及全部个性化菜单。
-	 * 
-	 * http请求方式：GET
-	https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN
-	
-	对应创建接口，正确的Json返回结果:
-	{"errcode":0,"errmsg":"ok"}
-	 * </pre>
+	 * 删除公众号菜单
 	 * 
 	 * @throws Exception
 	 */
 	void deleteMenu() throws Exception;
 
+	
+	/**
+	 * 将消息分配给相应的服务类处理
+	 * @param message
+	 * @return
+	 */
+	Message dispatch(Message message);
+	
+	
 }

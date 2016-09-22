@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.dengshaobing.common.bo.wmp.Menu;
+import com.tom.dengshaobing.common.bo.wmp.Message;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 import com.tom.utils.JsonParseUtils;
+import com.tom.utils.XMLParseUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +36,7 @@ public class WexinMessagePlatformController {
 	WexinMessagePlatformService wexinMessagePlatformService;
 
 	/**
-	 * 验证服务器地址的有效性
+	 * 接口配置
 	 * 
 	 * @param signature
 	 * @param echostr
@@ -55,15 +57,21 @@ public class WexinMessagePlatformController {
 		if (!wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
 			return "validate failed...";
 
+		// 判定此次请求为验证
 		if (StringUtils.isBlank(body)) {
 			return echostr;
-		} else {
-			log.debug("/restfull/wmp/access body===>");
+		}
+		// 其它判定为消息处理
+		else {
+			log.debug("/restfull/wmp/access body =======================>");
 			log.debug(body);
-			
-			//处理
-			
-			
+			// xml 转 message 对象
+			Message message = XMLParseUtils.generateJavaBean(body, Message.class);
+			// 处理
+			wexinMessagePlatformService.dispatch(message);
+
+			// message 对象 转 xml
+			returnStr = XMLParseUtils.generateXmlString(message);
 		}
 
 		return returnStr;
