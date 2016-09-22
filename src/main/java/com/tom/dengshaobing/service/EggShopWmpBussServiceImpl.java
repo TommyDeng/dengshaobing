@@ -100,7 +100,7 @@ public class EggShopWmpBussServiceImpl implements WmpBussService {
 		returnMessage.FromUserName = message.ToUserName;
 		returnMessage.CreateTime = System.currentTimeMillis();
 		returnMessage.MsgType = MessageType.text;
-		returnMessage.Content = "Thanks, current: " + voteGoodInt;
+		returnMessage.Content = "Thanks! current votes: " + voteGoodInt;
 		return returnMessage;
 	}
 

@@ -6,6 +6,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/**
+ * 
+ * @author TommyDeng <250575979@qq.com>
+ * @version 创建时间：2016年9月13日 下午4:25:46
+ *
+ */
 public class StoredConfigUtils {
 
 	private static String configFileRelativePath = "/stored.properties";
@@ -48,6 +54,7 @@ public class StoredConfigUtils {
 	private static void save() {
 		OutputStream outMain = null;
 		try {
+			StoredConfigUtils.class.getResourceAsStream(configFileRelativePath);
 			outMain = new FileOutputStream(configFileRelativePath);
 			properties.store(outMain, null);
 		} catch (Exception e) {

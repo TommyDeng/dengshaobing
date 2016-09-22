@@ -108,59 +108,59 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 			return null;
 		}
 		String eventKey = message.EventKey;
+		Message returnMessage = null;
 		switch (eventKey) {
 		case "rselfmenu_1_1":
-			wmpBussService.processMenu_1_1(message);
+			returnMessage = wmpBussService.processMenu_1_1(message);
 			break;
 		case "rselfmenu_1_2":
-			wmpBussService.processMenu_1_2(message);
+			returnMessage = wmpBussService.processMenu_1_2(message);
 			break;
 		case "rselfmenu_1_3":
-			wmpBussService.processMenu_1_3(message);
+			returnMessage = wmpBussService.processMenu_1_3(message);
 			break;
 		case "rselfmenu_1_4":
-			wmpBussService.processMenu_1_4(message);
+			returnMessage = wmpBussService.processMenu_1_4(message);
 			break;
 		case "rselfmenu_1_5":
-			wmpBussService.processMenu_1_5(message);
+			returnMessage = wmpBussService.processMenu_1_5(message);
 			break;
 
 		case "rselfmenu_2_1":
-			wmpBussService.processMenu_2_1(message);
+			returnMessage = wmpBussService.processMenu_2_1(message);
 			break;
 		case "rselfmenu_2_2":
-			wmpBussService.processMenu_2_2(message);
+			returnMessage = wmpBussService.processMenu_2_2(message);
 			break;
 		case "rselfmenu_2_3":
-			wmpBussService.processMenu_2_3(message);
+			returnMessage = wmpBussService.processMenu_2_3(message);
 			break;
 		case "rselfmenu_2_4":
-			wmpBussService.processMenu_2_4(message);
+			returnMessage = wmpBussService.processMenu_2_4(message);
 			break;
 		case "rselfmenu_2_5":
-			wmpBussService.processMenu_2_5(message);
+			returnMessage = wmpBussService.processMenu_2_5(message);
 			break;
 
 		case "rselfmenu_3_1":
-			wmpBussService.processMenu_3_1(message);
+			returnMessage = wmpBussService.processMenu_3_1(message);
 			break;
 		case "rselfmenu_3_2":
-			wmpBussService.processMenu_3_2(message);
+			returnMessage = wmpBussService.processMenu_3_2(message);
 			break;
 		case "rselfmenu_3_3":
-			wmpBussService.processMenu_3_3(message);
+			returnMessage = wmpBussService.processMenu_3_3(message);
 			break;
 		case "rselfmenu_3_4":
-			wmpBussService.processMenu_3_4(message);
+			returnMessage = wmpBussService.processMenu_3_4(message);
 			break;
 		case "rselfmenu_3_5":
-			wmpBussService.processMenu_3_5(message);
+			returnMessage = wmpBussService.processMenu_3_5(message);
 			break;
 		default:
 			break;
 		}
-
-		return message;
+		return returnMessage;
 	}
 
 }
