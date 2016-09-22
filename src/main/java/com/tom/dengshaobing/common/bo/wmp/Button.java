@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.common.bo.wmp;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.tom.dengshaobing.common.bo.wmp.type.ButtonType;
@@ -12,7 +13,8 @@ import lombok.Data;
  *
  */
 @Data
-public class Button {
+public class Button implements Serializable{
+	private static final long serialVersionUID = 8054520770200896447L;
 	private ButtonType type;
 	private String name;
 	private String key;

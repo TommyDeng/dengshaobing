@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,36 +46,39 @@ public class WexinMessagePlatformController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/restfull/wmp/access")
+	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.GET)
 	public String wexinTokenAccess(@RequestParam(name = "signature", required = false) String signature,
 			@RequestParam(name = "echostr", required = false) String echostr,
 			@RequestParam(name = "timestamp", required = false) String timestamp,
-			@RequestParam(name = "nonce", required = false) String nonce, @RequestBody(required = false) String body)
+			@RequestParam(name = "nonce", required = false) String nonce) throws Exception {
+		// 判定此次请求为验证
+		if (wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
+			return echostr;
+		else
+			return null;
+	}
+
+	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.POST)
+	public Message wexinMessageAccess(@RequestParam(value = "signature", required = false) String signature,
+			@RequestParam(value = "timestamp", required = false) String timestamp,
+			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody Message message)
 			throws Exception {
 
-		String returnStr = "success";
-
-		if (!wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
-			return "validate failed...";
-
-		// 判定此次请求为验证
-		if (StringUtils.isBlank(body)) {
-			return echostr;
-		}
 		// 其它判定为消息处理
-		else {
-			log.debug("/restfull/wmp/access body =======================>");
-			log.debug(body);
-			// xml 转 message 对象
-			Message message = XMLParseUtils.generateJavaBean(body, Message.class);
-			// 处理
-			wexinMessagePlatformService.dispatch(message);
+		log.debug("/restfull/wmp/access body =======================>");
+		log.debug(XMLParseUtils.generateXmlString(message));
+		// xml 转 message 对象
+		// Message message = XMLParseUtils.generateJavaBean(body,
+		// Message.class);
+		// 处理
+		Message returnMessage = wexinMessagePlatformService.dispatch(message);
 
-			// message 对象 转 xml
-			returnStr = XMLParseUtils.generateXmlString(message);
-		}
+		// message 对象 转 xml
+		// String returnStr = XMLParseUtils.generateXmlString(message);
 
-		return returnStr;
+		log.debug("/restfull/wmp/access return =======================>");
+		log.debug(XMLParseUtils.generateXmlString(returnMessage));
+		return returnMessage;
 	}
 
 	@RequestMapping("/restfull/wmp/refreshMenu")

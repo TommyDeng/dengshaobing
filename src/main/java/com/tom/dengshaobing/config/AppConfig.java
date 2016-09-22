@@ -52,10 +52,10 @@ public class AppConfig {
 		return dataSourceTransactionManager;
 	}
 
-//	@Bean
-//	public TaskScheduler taskScheduler() {
-//		return new ThreadPoolTaskScheduler();
-//	}
+	@Bean
+	public TaskScheduler taskScheduler() {
+		return new ThreadPoolTaskScheduler();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppConfig.class, args);

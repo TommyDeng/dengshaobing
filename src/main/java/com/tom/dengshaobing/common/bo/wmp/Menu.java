@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.common.bo.wmp;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,6 +9,7 @@ import java.util.List;
  *
  */
 
-public class Menu {
+public class Menu implements Serializable{
+	private static final long serialVersionUID = -8440708456219817892L;
 	List<Button> button;// ✓
 }

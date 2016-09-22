@@ -1,6 +1,5 @@
 package com.tom.utils;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +28,7 @@ public class StoredConfigUtils {
 	private static void load() {
 		InputStream inMain = null;
 		try {
-			inMain = new FileInputStream(configFileRelativePath);
+			inMain = StoredConfigUtils.class.getResourceAsStream(configFileRelativePath);
 			properties = new Properties();
 			properties.load(inMain);
 		} catch (Exception e) {
