@@ -1,7 +1,6 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +34,9 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	@Autowired
 	WmpBussService wmpBussService;
+
+	@Autowired
+	HttpProcessSerice httpProcessSerice;
 
 	String accessToken;
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
@@ -74,7 +76,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 				.setParameter("grant_type", "client_credential")
 				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
 				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).build();
-		String content = commonService.httpGet(uri);
+		String content = httpProcessSerice.httpGet(uri);
 		accessToken = JsonParseUtils.getStringValueByFieldName(content, "access_token");
 		log.info("AccessToken fetched =======================>");
 		log.info(this.accessToken);
@@ -84,7 +86,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	public List<String> getIPList() throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/getcallbackip")
 				.setParameter("access_token", getAccessToken()).build();
-		String content = commonService.httpGet(uri);
+		String content = httpProcessSerice.httpGet(uri);
 		return JsonParseUtils.getListValueByFieldName(content, "ip_list");
 	}
 
@@ -92,14 +94,14 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	public void createMenu(String menuJsonStr) throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create").setCharset(DefaultSetting.CHARSET)
 				.setParameter("access_token", getAccessToken()).build();
-		commonService.httpPost(uri, menuJsonStr);
+		httpProcessSerice.httpPost(uri, menuJsonStr);
 	}
 
 	@Override
 	public void deleteMenu() throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/delete")
 				.setParameter("access_token", getAccessToken()).build();
-		commonService.httpGet(uri);
+		httpProcessSerice.httpGet(uri);
 	}
 
 	@Override

@@ -12,6 +12,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 
  * @author TommyDeng <250575979@qq.com>
@@ -27,6 +29,9 @@ public class XMLParseUtils {
 	 * @throws Exception
 	 */
 	public static String generateXmlString(Object obj) throws Exception {
+		if (obj == null)
+			return null;
+
 		JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		// jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -56,6 +61,9 @@ public class XMLParseUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T generateJavaBean(String xmlStr, Class<T> cls) throws Exception {
+		if (StringUtils.isBlank(xmlStr))
+			return null;
+
 		JAXBContext jaxbContext = JAXBContext.newInstance(cls);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
@@ -81,6 +89,8 @@ public class XMLParseUtils {
 	 * @throws Exception
 	 */
 	public static String formatXMLStr(String xmlStr) throws Exception {
+		if (StringUtils.isBlank(xmlStr))
+			return null;
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
