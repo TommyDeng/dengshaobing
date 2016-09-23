@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.tom.dengshaobing.common.bo.wmp.Message;
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.config.TestConfig;
 import com.tom.dengshaobing.config.WebConfig;
 import com.tom.dengshaobing.controller.WexinMessagePlatformController;
@@ -53,8 +53,8 @@ public class ServiceTest extends TestSuite {
 		String signature = "5c5e1eddb69c2c5d215feddfee46b97cf2fea866";
 		String timestamp = "1474297059";
 		String nonce = "841823922";
-		Message message = XMLParseUtils.generateJavaBean("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><xml><ToUserName>gh_853375ce543c</ToUserName><FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName><CreateTime>1474552151</CreateTime><MsgType>event</MsgType><Event>CLICK</Event><EventKey>rselfmenu_3_3</EventKey></xml>", Message.class);
-		Message returnMessage = WexinMessagePlatformController.wexinMessageAccess(signature, timestamp, nonce, message);
+		MessageXml message = XMLParseUtils.generateJavaBean("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><xml><ToUserName>gh_853375ce543c</ToUserName><FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName><CreateTime>1474552151</CreateTime><MsgType>event</MsgType><Event>CLICK</Event><EventKey>rselfmenu_3_3</EventKey></xml>", MessageXml.class);
+		MessageXml returnMessage = WexinMessagePlatformController.wexinMessageAccess(signature, timestamp, nonce, message);
 		System.err.println(returnMessage);
 	}
 

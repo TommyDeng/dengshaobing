@@ -1,6 +1,6 @@
 package com.tom.dengshaobing.service;
 
-import com.tom.dengshaobing.common.bo.wmp.Message;
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 
 /**
  * 小烧饼
@@ -9,94 +9,94 @@ import com.tom.dengshaobing.common.bo.wmp.Message;
  *
  */
 
-public class JerryWmpBussServiceImpl implements WmpBussService {
+public class JerryWmpBussServiceImpl extends WmpBussService {
 
 	@Override
-	public Message processMenu_1_1(Message message) {
+	public MessageXml processMenu_1_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_2(Message message) {
+	public MessageXml processMenu_1_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_3(Message message) {
+	public MessageXml processMenu_1_3(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_4(Message message) {
+	public MessageXml processMenu_1_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_5(Message message) {
+	public MessageXml processMenu_1_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_1(Message message) {
+	public MessageXml processMenu_2_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_2(Message message) {
+	public MessageXml processMenu_2_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_3(Message message) {
+	public MessageXml processMenu_2_3(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_4(Message message) {
+	public MessageXml processMenu_2_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_5(Message message) {
+	public MessageXml processMenu_2_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_1(Message message) {
+	public MessageXml processMenu_3_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_2(Message message) {
+	public MessageXml processMenu_3_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_3(Message message) {
+	public MessageXml processMenu_3_3(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_4(Message message) {
+	public MessageXml processMenu_3_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_5(Message message) {
+	public MessageXml processMenu_3_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,8 +2,8 @@ package com.tom.dengshaobing.service;
 
 import org.springframework.stereotype.Service;
 
-import com.tom.dengshaobing.common.bo.wmp.Message;
-import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
+import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 import com.tom.utils.StoredConfigUtils;
 
 /**
@@ -14,88 +14,88 @@ import com.tom.utils.StoredConfigUtils;
  */
 
 @Service
-public class EggShopWmpBussServiceImpl implements WmpBussService {
+public class EggShopWmpBussServiceImpl extends WmpBussService {
 
 	@Override
-	public Message processMenu_1_1(Message message) {
+	public MessageXml processMenu_1_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_2(Message message) {
+	public MessageXml processMenu_1_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_3(Message message) {
+	public MessageXml processMenu_1_3(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_4(Message message) {
+	public MessageXml processMenu_1_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_1_5(Message message) {
+	public MessageXml processMenu_1_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_1(Message message) {
+	public MessageXml processMenu_2_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_2(Message message) {
+	public MessageXml processMenu_2_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_3(Message message) {
+	public MessageXml processMenu_2_3(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_4(Message message) {
+	public MessageXml processMenu_2_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_2_5(Message message) {
+	public MessageXml processMenu_2_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_1(Message message) {
+	public MessageXml processMenu_3_1(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_2(Message message) {
+	public MessageXml processMenu_3_2(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_3(Message message) {
+	public MessageXml processMenu_3_3(MessageXml message) {
 		// 查询当前vote
 		String voteGood = StoredConfigUtils.getValue("Application.VoteGood");
 		Integer voteGoodInt = Integer.parseInt(voteGood);
 		voteGoodInt = voteGoodInt + 1;
 		StoredConfigUtils.setValue("Application.VoteGood", voteGoodInt.toString());
-		Message returnMessage = new Message();
+		MessageXml returnMessage = new MessageXml();
 		returnMessage.ToUserName = message.FromUserName;
 		returnMessage.FromUserName = message.ToUserName;
 		returnMessage.CreateTime = System.currentTimeMillis();
@@ -105,13 +105,13 @@ public class EggShopWmpBussServiceImpl implements WmpBussService {
 	}
 
 	@Override
-	public Message processMenu_3_4(Message message) {
+	public MessageXml processMenu_3_4(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Message processMenu_3_5(Message message) {
+	public MessageXml processMenu_3_5(MessageXml message) {
 		// TODO Auto-generated method stub
 		return null;
 	}

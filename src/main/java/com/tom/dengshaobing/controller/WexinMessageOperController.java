@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tom.dengshaobing.common.DefaultSetting;
-import com.tom.dengshaobing.common.bo.wmp.Menu;
+import com.tom.dengshaobing.common.bo.wmp.xml.Menu;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 import com.tom.utils.JsonParseUtils;
 

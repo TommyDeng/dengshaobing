@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.common.bo.wmp.type;
+package com.tom.dengshaobing.common.bo.wmp.xml.type;
 
 /**
  * 

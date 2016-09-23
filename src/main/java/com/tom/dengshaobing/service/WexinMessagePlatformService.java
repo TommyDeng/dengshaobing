@@ -2,7 +2,7 @@ package com.tom.dengshaobing.service;
 
 import java.util.List;
 
-import com.tom.dengshaobing.common.bo.wmp.Message;
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 
 /**
  * 微信公众平台服务类
@@ -13,6 +13,13 @@ import com.tom.dengshaobing.common.bo.wmp.Message;
  */
 
 public interface WexinMessagePlatformService {
+	/**
+	 * 将消息分配给相应的服务类处理
+	 * 
+	 * @param message
+	 * @return
+	 */
+	MessageXml dispatch(MessageXml message);
 
 	/**
 	 * NOT_INIT未初始化. REFETCHING 重新获取中. VALID 可用.
@@ -47,6 +54,7 @@ public interface WexinMessagePlatformService {
 
 	/**
 	 * 获取AccessToken
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
@@ -84,13 +92,5 @@ public interface WexinMessagePlatformService {
 	 */
 	void deleteMenu() throws Exception;
 
-	
-	/**
-	 * 将消息分配给相应的服务类处理
-	 * @param message
-	 * @return
-	 */
-	Message dispatch(Message message);
-	
 	
 }

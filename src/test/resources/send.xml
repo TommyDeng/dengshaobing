@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xml><ToUserName>gh_853375ce543c</ToUserName><FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName><CreateTime>1474552151</CreateTime><MsgType>event</MsgType><Event>CLICK</Event><EventKey>rselfmenu_3_3</EventKey></xml>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xml>
+	<ToUserName>gh_853375ce543c</ToUserName>
+	<FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName>
+	<CreateTime>1474619659</CreateTime>
+	<MsgType>text</MsgType>
+	<Content>/:dig</Content>
+	<MsgId>6333443209855872887</MsgId>
+</xml>

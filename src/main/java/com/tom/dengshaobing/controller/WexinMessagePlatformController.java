@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tom.dengshaobing.common.bo.wmp.Message;
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 import com.tom.utils.XMLParseUtils;
 
@@ -54,9 +54,9 @@ public class WexinMessagePlatformController {
 	}
 
 	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.POST)
-	public Message wexinMessageAccess(@RequestParam(value = "signature", required = false) String signature,
+	public MessageXml wexinMessageAccess(@RequestParam(value = "signature", required = false) String signature,
 			@RequestParam(value = "timestamp", required = false) String timestamp,
-			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody Message message)
+			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody MessageXml message)
 			throws Exception {
 		// 验证
 		if (!wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
@@ -66,7 +66,7 @@ public class WexinMessagePlatformController {
 		log.info("/restfull/wmp/access body =======================>");
 		log.info(XMLParseUtils.generateXmlString(message));
 
-		Message returnMessage = wexinMessagePlatformService.dispatch(message);
+		MessageXml returnMessage = wexinMessagePlatformService.dispatch(message);
 
 		log.info("/restfull/wmp/access return =======================>");
 		log.info(XMLParseUtils.generateXmlString(returnMessage));

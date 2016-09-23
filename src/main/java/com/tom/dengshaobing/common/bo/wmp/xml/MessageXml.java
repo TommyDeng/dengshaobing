@@ -1,12 +1,12 @@
-package com.tom.dengshaobing.common.bo.wmp;
+package com.tom.dengshaobing.common.bo.wmp.xml;
 
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.tom.dengshaobing.common.bo.wmp.type.EventType;
-import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
+import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
+import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -14,7 +14,7 @@ import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
  *
  */
 @XmlRootElement(name = "xml")
-public class Message implements Serializable{
+public class MessageXml implements Serializable{
 	private static final long serialVersionUID = -1151474720304951311L;
 	@XmlElement
 	public String ToUserName;
