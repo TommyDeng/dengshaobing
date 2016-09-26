@@ -39,7 +39,7 @@ public class WexinMessagePlatformController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.GET)
-	public String wexinTokenAccess(@RequestParam(name = "signature", required = false) String signature,
+	public String wexinAccess(@RequestParam(name = "signature", required = false) String signature,
 			@RequestParam(name = "echostr", required = false) String echostr,
 			@RequestParam(name = "timestamp", required = false) String timestamp,
 			@RequestParam(name = "nonce", required = false) String nonce) throws Exception {
@@ -73,4 +73,16 @@ public class WexinMessagePlatformController {
 		return returnMessage;
 	}
 
+	
+	@RequestMapping(value = "/restfull/wmp/authorize", method = RequestMethod.GET)
+	public String wexinAuthorize(@RequestParam(name = "code", required = false) String code,
+			@RequestParam(name = "state", required = false) String state) throws Exception {
+
+		log.info("/restfull/wmp/access validate success =======================>");
+
+		wexinMessagePlatformService.getOauth2AccessToken(code);
+
+		// GET请求均判定为服务器绑定认证
+		return state;
+	}
 }

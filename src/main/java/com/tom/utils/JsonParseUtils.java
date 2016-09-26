@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -22,7 +23,7 @@ public class JsonParseUtils {
 		if (obj == null)
 			return null;
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		return gson.toJson(obj);
 
 	}
@@ -32,7 +33,7 @@ public class JsonParseUtils {
 		if (StringUtils.isBlank(jsonStr))
 			return null;
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		return gson.fromJson(jsonStr, cls);
 	}
 

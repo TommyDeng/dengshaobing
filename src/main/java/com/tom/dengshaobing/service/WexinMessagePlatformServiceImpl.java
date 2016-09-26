@@ -1,6 +1,7 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.tom.dengshaobing.common.DefaultSetting;
+import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.utils.JsonParseUtils;
 
@@ -102,7 +105,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		return returnMessage;
 	}
 
-	String accessToken;
+	AccessToken accessToken;
 	AccessTokenStatus accessTokenStatus = AccessTokenStatus.NOT_INIT;
 
 	@Override
@@ -127,7 +130,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	}
 
 	@Override
-	public String getAccessToken() throws Exception {
+	public AccessToken getAccessToken() throws Exception {
 		if (accessToken == null) {
 			fetchAccessToken();
 		}
@@ -141,15 +144,25 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
 				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).build();
 		String content = httpProcessSerice.httpGet(uri);
-		accessToken = JsonParseUtils.getStringValueByFieldName(content, "access_token");
+		accessToken = JsonParseUtils.generateJavaBean(content, AccessToken.class);
 		log.info("AccessToken fetched =======================>");
-		log.info(this.accessToken);
+		log.info(this.accessToken.access_token);
+	}
+
+	@Override
+	public Oauth2AccessToken getOauth2AccessToken(String code) throws Exception {
+		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/oauth2/access_token")
+				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
+				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret"))
+				.setParameter("code", code).setParameter("grant_type", "authorization_code").build();
+		String content = httpProcessSerice.httpGet(uri);
+		return JsonParseUtils.generateJavaBean(content, Oauth2AccessToken.class);
 	}
 
 	@Override
 	public List<String> getIPList() throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/getcallbackip")
-				.setParameter("access_token", getAccessToken()).build();
+				.setParameter("access_token", getAccessToken().access_token).build();
 		String content = httpProcessSerice.httpGet(uri);
 		return JsonParseUtils.getListValueByFieldName(content, "ip_list");
 	}
@@ -157,14 +170,14 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	@Override
 	public void createMenu(String menuJsonStr) throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create").setCharset(DefaultSetting.CHARSET)
-				.setParameter("access_token", getAccessToken()).build();
+				.setParameter("access_token", getAccessToken().access_token).build();
 		httpProcessSerice.httpPost(uri, menuJsonStr);
 	}
 
 	@Override
 	public void deleteMenu() throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/delete")
-				.setParameter("access_token", getAccessToken()).build();
+				.setParameter("access_token", getAccessToken().access_token).build();
 		httpProcessSerice.httpGet(uri);
 	}
 

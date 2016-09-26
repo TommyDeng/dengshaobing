@@ -2,6 +2,8 @@ package com.tom.dengshaobing.service;
 
 import java.util.List;
 
+import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 
 /**
@@ -52,6 +54,15 @@ public interface WexinMessagePlatformService {
 	 */
 	boolean checkSignature(String signature, String timestamp, String nonce);
 
+
+	/**
+	 * 当微信回调时，获取Oauth2AccessToken
+	 * @param code
+	 * @return
+	 * @throws Exception 
+	 */
+	Oauth2AccessToken getOauth2AccessToken(String code) throws Exception;
+
 	/**
 	 * 获取AccessToken
 	 * 
@@ -66,7 +77,7 @@ public interface WexinMessagePlatformService {
 	 * @return
 	 * @throws Exception
 	 */
-	String getAccessToken() throws Exception;
+	AccessToken getAccessToken() throws Exception;
 
 	/**
 	 * 获取微信服务器IP地址

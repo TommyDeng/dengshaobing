@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.CommonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,7 @@ public class GreetingController {
 	}
 
 	@RequestMapping("/visitorList")
-	public String visitorList(ModelMap map) throws Exception {
+	public String visitorList(ModelMap map,@RequestBody Object message) throws Exception {
 		map.put("visitorList", commonService.listVisit());
 		return "visitorList";
 	}
