@@ -1,0 +1,8 @@
+HTTP:
+1.Redirect,forword
+2.Mine Type
+3.webservice(ws,jws??...)
+
+Spring MVC
+
+Maven

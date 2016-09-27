@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+
+<link rel="import" href="../template/include/bootstrap.html" />
+<title></title>
+</head>
+<body>
+	<div class="container">
+		<h3>table title</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>INDEX</th>
+					<th>ID</th>
+					<th>NAME</th>
+					<th>CREATE_TIME</th>
+				</tr>
+			</thead>
+			<tbody th:remove="all-but-first">
+				<tr th:each="recode : ${list}">
+					<td th:text="${recodeStat.count}" />
+					<td th:text="${recode.ID}" />
+					<td th:text="${recode.NAME}" />
+					<td
+						th:text="${#dates.format(recode.CREATE_TIME, 'yyyy-MM-dd hh:mm:ss.SSS')}" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

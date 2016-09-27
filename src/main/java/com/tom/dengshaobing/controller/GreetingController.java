@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.CommonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +31,12 @@ public class GreetingController {
 			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name) throws Exception {
 		map.put("host", name);
 		commonService.logVisit(name);
-		log.info(name+" visit.");
+		log.info(name + " visit.");
 		return "thmlf";
 	}
 
 	@RequestMapping("/visitorList")
-	public String visitorList(ModelMap map,@RequestBody Object message) throws Exception {
+	public String visitorList(ModelMap map, @RequestBody Object message) throws Exception {
 		map.put("visitorList", commonService.listVisit());
 		return "visitorList";
 	}

@@ -7,6 +7,7 @@ import java.util.Random;
 import org.apache.commons.lang3.StringUtils;
 
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
+import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
 import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 
 /**
@@ -35,6 +36,16 @@ public abstract class WmpBussService {
 		MessageType msgType = messageIn.MsgType;
 		if (MessageType.text.equals(msgType)) {
 			uglyRobotForText(messageIn, messageOut);
+		} else if (MessageType.event.equals(msgType)) {
+
+			// 关注
+			EventType eventType = messageIn.Event;
+			if (EventType.subscribe.equals(eventType)) {
+				messageOut.MsgType = MessageType.text;
+				messageOut.MsgId = messageIn.MsgId;
+				messageOut.Content = "Welcome!";
+			}
+
 		} else {
 			messageOut.MsgType = MessageType.text;
 			messageOut.MsgId = messageIn.MsgId;

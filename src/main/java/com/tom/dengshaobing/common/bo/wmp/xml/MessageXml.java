@@ -8,13 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
 import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 
+import lombok.ToString;
+
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月22日 上午11:26:08
  *
  */
+@ToString
 @XmlRootElement(name = "xml")
-public class MessageXml implements Serializable{
+public class MessageXml implements Serializable {
 	private static final long serialVersionUID = -1151474720304951311L;
 	@XmlElement
 	public String ToUserName;

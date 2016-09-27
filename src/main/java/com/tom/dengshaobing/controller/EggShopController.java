@@ -1,15 +1,10 @@
 package com.tom.dengshaobing.controller;
 
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.dengshaobing.service.CommonService;
 
@@ -28,26 +23,26 @@ public class EggShopController {
 	@Autowired
 	CommonService commonService;
 
+	// 点击购买
 	@RequestMapping("/buy")
-	public String buy(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
-
-		map.put("host", request.getParameter("openid"));
+	public String buy(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
 		log.info("===================buy invoked===============================");
-		Enumeration<String> paramNameEnum = request.getParameterNames();
-		for (String parmName; paramNameEnum.hasMoreElements();) {
-			parmName = paramNameEnum.nextElement().toString();
-			String thisValue = request.getParameter(parmName);
-			log.info(parmName + "--------------" + thisValue);
-		}
+		map.put("host", openId);
 
-		return "thmlf";
+		return "eggshop/buy";
 	}
 
+	// 已购清单
 	@RequestMapping("/list")
 	public String list(ModelMap map) throws Exception {
-		map.put("host", "");
-
-		return "thmlf";
+		map.put("list", commonService.listVisit());
+		return "eggshop/list";
 	}
 
+	// 点击 myprofile
+	@RequestMapping("/myprofile")
+	public String myprofile(ModelMap map) throws Exception {
+		map.put("visitorList", commonService.listVisit());
+		return "eggshop/myprofile";
+	}
 }

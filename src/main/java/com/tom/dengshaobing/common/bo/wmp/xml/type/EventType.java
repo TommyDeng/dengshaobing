@@ -7,5 +7,10 @@ package com.tom.dengshaobing.common.bo.wmp.xml.type;
  */
 
 public enum EventType {
-	subscribe, unsubscribe, SCAN, LOCATION, CLICK, VIEW
+	subscribe, // 关注
+	unsubscribe, // 取消关注
+	SCAN, // 扫码
+	LOCATION, // 定位
+	CLICK, // 点击事件
+	VIEW// 点击链接
 }

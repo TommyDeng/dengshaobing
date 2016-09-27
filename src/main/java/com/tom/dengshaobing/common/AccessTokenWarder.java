@@ -15,8 +15,8 @@ public class AccessTokenWarder {
 
 	@Scheduled(fixedRate = 7200000)
 	public void accessTokenFetch() throws Exception {
-		wexinMessagePlatformService.setAccessTokenStatus(AccessTokenStatus.REFETCHING);
-		wexinMessagePlatformService.fetchAccessToken();
-		wexinMessagePlatformService.setAccessTokenStatus(AccessTokenStatus.VALID);
+//		wexinMessagePlatformService.setAccessTokenStatus(AccessTokenStatus.REFETCHING);
+//		wexinMessagePlatformService.fetchAccessToken();
+//		wexinMessagePlatformService.setAccessTokenStatus(AccessTokenStatus.VALID);
 	}
 }

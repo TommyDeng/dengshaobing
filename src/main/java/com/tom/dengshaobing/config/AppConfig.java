@@ -32,7 +32,6 @@ public class AppConfig {
 	@Autowired
 	private Environment env;
 
-	
 	@Bean
 	public DataSource getDataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();

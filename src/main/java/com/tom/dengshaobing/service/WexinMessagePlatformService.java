@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 
 /**
@@ -54,15 +55,6 @@ public interface WexinMessagePlatformService {
 	 */
 	boolean checkSignature(String signature, String timestamp, String nonce);
 
-
-	/**
-	 * 当微信回调时，获取Oauth2AccessToken
-	 * @param code
-	 * @return
-	 * @throws Exception 
-	 */
-	Oauth2AccessToken getOauth2AccessToken(String code) throws Exception;
-
 	/**
 	 * 获取AccessToken
 	 * 
@@ -78,6 +70,43 @@ public interface WexinMessagePlatformService {
 	 * @throws Exception
 	 */
 	AccessToken getAccessToken() throws Exception;
+
+	/**
+	 * 当微信回调时，获取Oauth2AccessToken
+	 * 
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	Oauth2AccessToken getOauth2AccessToken(String code) throws Exception;
+
+	/**
+	 * 拉取用户信息
+	 * 
+	 * @param oauth2AccessToken
+	 * @return
+	 * @throws Exception
+	 */
+	Oauth2UserInfo getOauth2UserInfo(Oauth2AccessToken oauth2AccessToken) throws Exception;
+
+	/**
+	 * 检验授权凭证（access_token）是否有效
+	 * 
+	 * @param accessToken
+	 * @param openId
+	 * @return
+	 * @throws Exception
+	 */
+	boolean checkOauth2AccessToken(String accessToken, String openId) throws Exception;
+
+	/**
+	 * 刷新access_token
+	 * 
+	 * @param refreshToken
+	 * @return
+	 * @throws Exception
+	 */
+	Oauth2AccessToken refreshOauth2AccessToken(String refreshToken) throws Exception;
 
 	/**
 	 * 获取微信服务器IP地址
@@ -103,5 +132,4 @@ public interface WexinMessagePlatformService {
 	 */
 	void deleteMenu() throws Exception;
 
-	
 }

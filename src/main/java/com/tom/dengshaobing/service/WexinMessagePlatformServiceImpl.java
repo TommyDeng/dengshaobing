@@ -1,11 +1,11 @@
 package com.tom.dengshaobing.service;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.utils.JsonParseUtils;
 
@@ -144,19 +146,78 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
 				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).build();
 		String content = httpProcessSerice.httpGet(uri);
-		accessToken = JsonParseUtils.generateJavaBean(content, AccessToken.class);
+		AccessToken result = JsonParseUtils.generateJavaBean(content, AccessToken.class);
+
+		logIfErrorOccurred(uri, result);
+
+		accessToken = result;
 		log.info("AccessToken fetched =======================>");
-		log.info(this.accessToken.access_token);
+		log.info(this.accessToken.toString());
 	}
 
 	@Override
 	public Oauth2AccessToken getOauth2AccessToken(String code) throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/oauth2/access_token")
 				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
-				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret"))
-				.setParameter("code", code).setParameter("grant_type", "authorization_code").build();
+				.setParameter("secret", env.getProperty("WeixinPlatform.AppSecret")).setParameter("code", code)
+				.setParameter("grant_type", "authorization_code").build();
 		String content = httpProcessSerice.httpGet(uri);
-		return JsonParseUtils.generateJavaBean(content, Oauth2AccessToken.class);
+		Oauth2AccessToken result = JsonParseUtils.generateJavaBean(content, Oauth2AccessToken.class);
+
+		logIfErrorOccurred(uri, result);
+
+		log.info("getOauth2AccessToken =======================>");
+		log.info(result.toString());
+
+		return result;
+	}
+
+	@Override
+	public Oauth2UserInfo getOauth2UserInfo(Oauth2AccessToken oauth2AccessToken) throws Exception {
+		// 检验授权凭证（access_token）是否有效
+		if (!checkOauth2AccessToken(oauth2AccessToken.access_token, oauth2AccessToken.openid)) {
+			oauth2AccessToken = refreshOauth2AccessToken(oauth2AccessToken.refresh_token);
+		}
+
+		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/userinfo")
+				.setParameter("access_token", oauth2AccessToken.access_token)
+				.setParameter("openid", oauth2AccessToken.openid).setParameter("lang", "zh_CN").build();
+		String content = httpProcessSerice.httpGet(uri);
+		Oauth2UserInfo result = JsonParseUtils.generateJavaBean(content, Oauth2UserInfo.class);
+		logIfErrorOccurred(uri, result);
+
+		log.info("getOauth2UserInfo =======================>");
+		log.info(result.toString());
+
+		return result;
+	}
+
+	@Override
+	public boolean checkOauth2AccessToken(String accessToken, String openId) throws Exception {
+		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/auth").setParameter("access_token", accessToken)
+				.setParameter("openid", openId).build();
+		String content = httpProcessSerice.httpGet(uri);
+		Errorable result = JsonParseUtils.generateJavaBean(content, Errorable.class);
+
+		log.info("checkOauth2AccessToken =======================>");
+		log.info(result.toString());
+
+		return result.errcode == 0;
+	}
+
+	@Override
+	public Oauth2AccessToken refreshOauth2AccessToken(String refreshToken) throws Exception {
+		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/oauth2/refresh_token")
+				.setParameter("appid", env.getProperty("WeixinPlatform.AppID"))
+				.setParameter("grant_type", "refresh_token").setParameter("refresh_token", refreshToken).build();
+		String content = httpProcessSerice.httpGet(uri);
+		Oauth2AccessToken result = JsonParseUtils.generateJavaBean(content, Oauth2AccessToken.class);
+		logIfErrorOccurred(uri, result);
+
+		log.info("refreshOauth2AccessToken =======================>");
+		log.info(result.toString());
+
+		return result;
 	}
 
 	@Override
@@ -171,14 +232,25 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	public void createMenu(String menuJsonStr) throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/create").setCharset(DefaultSetting.CHARSET)
 				.setParameter("access_token", getAccessToken().access_token).build();
-		httpProcessSerice.httpPost(uri, menuJsonStr);
+		String content = httpProcessSerice.httpPost(uri, menuJsonStr);
+		Errorable result = JsonParseUtils.generateJavaBean(content, Errorable.class);
+		logIfErrorOccurred(uri, result);
 	}
 
 	@Override
 	public void deleteMenu() throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/cgi-bin/menu/delete")
 				.setParameter("access_token", getAccessToken().access_token).build();
-		httpProcessSerice.httpGet(uri);
+		String content = httpProcessSerice.httpGet(uri);
+		Errorable result = JsonParseUtils.generateJavaBean(content, Errorable.class);
+		logIfErrorOccurred(uri, result);
+	}
+
+	private void logIfErrorOccurred(URI uri, Errorable errorable) throws Exception {
+		if (errorable.errcode != null && errorable.errcode != 0) {
+			commonService.logErrorable(uri.toString(), errorable);
+			throw new Exception(uri.toString() + IOUtils.LINE_SEPARATOR + errorable);
+		}
 	}
 
 }

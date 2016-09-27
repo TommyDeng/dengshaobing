@@ -25,10 +25,10 @@ import junit.framework.TestSuite;
 public class ServiceTest extends TestSuite {
 	@Autowired
 	WexinMessagePlatformService WexinMessagePlatformService;
-	
+
 	@Autowired
 	WexinMessagePlatformController WexinMessagePlatformController;
-	
+
 	@Test
 	public void checkSignature() {
 		String signature = "5c5e1eddb69c2c5d215feddfee46b97cf2fea866";
@@ -47,14 +47,17 @@ public class ServiceTest extends TestSuite {
 		String menuCreateJsonStr = "{\"button\":[{\"type\":\"click\",\"name\":\"今日报送\",\"key\":\"V1001_TODAY_MUSIC\"},{\"name\":\"菜单\",\"sub_button\":[{\"type\":\"view\",\"name\":\"搜索\",\"url\":\"http://www.soso.com/\"},{\"type\":\"view\",\"name\":\"视频\",\"url\":\"http://v.qq.com/\"},{\"type\":\"click\",\"name\":\"赞一下我们\",\"key\":\"V1001_GOOD\"}]}]}";
 		WexinMessagePlatformService.createMenu(menuCreateJsonStr);
 	}
-	
+
 	@Test
 	public void wexinMessageAccess() throws Exception {
 		String signature = "5c5e1eddb69c2c5d215feddfee46b97cf2fea866";
 		String timestamp = "1474297059";
 		String nonce = "841823922";
-		MessageXml message = XMLParseUtils.generateJavaBean("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><xml><ToUserName>gh_853375ce543c</ToUserName><FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName><CreateTime>1474552151</CreateTime><MsgType>event</MsgType><Event>CLICK</Event><EventKey>rselfmenu_3_3</EventKey></xml>", MessageXml.class);
-		MessageXml returnMessage = WexinMessagePlatformController.wexinMessageAccess(signature, timestamp, nonce, message);
+		MessageXml message = XMLParseUtils.generateJavaBean(
+				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><xml><ToUserName>gh_853375ce543c</ToUserName><FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName><CreateTime>1474552151</CreateTime><MsgType>event</MsgType><Event>CLICK</Event><EventKey>rselfmenu_3_3</EventKey></xml>",
+				MessageXml.class);
+		MessageXml returnMessage = WexinMessagePlatformController.wexinMessageAccess(signature, timestamp, nonce,
+				message);
 		System.err.println(returnMessage);
 	}
 

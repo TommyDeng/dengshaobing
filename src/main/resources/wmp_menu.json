@@ -7,14 +7,14 @@
 					"name": "买点东西",
 					"type": "view",
 					"key": "rselfmenu_1_1",
-					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Feggshop%2Fbuy&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_base&state=http://www.dengshaobing.com/eggshop/buy#wechat_redirect",
 					"sub_button": []
 				},
 				{
 					"name": "已购买清单",
 					"type": "view",
 					"key": "rselfmenu_1_2",
-					"url": "http://www.dengshaobing.com/eggshop/list",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_base&state=http://www.dengshaobing.com/eggshop/list#wechat_redirect",
 					"sub_button": []
 				},
 				{
@@ -32,11 +32,11 @@
 					"name": "我的账户",
 					"type": "view",
 					"key": "rselfmenu_2_1",
-					"url": "http://www.dengshaobing.com/",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/eggshop/myprofile#wechat_redirect",
 					"sub_button": []
 				},
 				{
-					"name": "上传头像",
+					"name": "上传图片",
 					"type": "pic_photo_or_album",
 					"key": "rselfmenu_2_2",
 					"sub_button": []

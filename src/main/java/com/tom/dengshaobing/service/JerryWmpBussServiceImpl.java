@@ -4,6 +4,7 @@ import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 
 /**
  * 小烧饼
+ * 
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月22日 下午2:33:39
  *

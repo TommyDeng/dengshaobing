@@ -14,7 +14,7 @@ import junit.framework.TestSuite;
  *
  */
 @Ignore
-public class JsoupUtilsTest  extends TestSuite {
+public class JsoupUtilsTest extends TestSuite {
 	public static void main(String[] args) throws Exception {
 		String url = "http://stackoverflow.com/questions/2835505";
 		Document document = Jsoup.connect(url).get();

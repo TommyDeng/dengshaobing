@@ -1,12 +1,17 @@
 package com.tom.dengshaobing.controller;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2Scope;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 import com.tom.utils.XMLParseUtils;
@@ -22,14 +27,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-@RestController
+@Controller
 public class WexinMessagePlatformController {
 
 	@Autowired
 	WexinMessagePlatformService wexinMessagePlatformService;
 
 	/**
-	 * 接口配置
+	 * 接收微信平台发送的服务器验证绑定请求,验证sha1 返回echostr参数
 	 * 
 	 * @param signature
 	 * @param echostr
@@ -38,6 +43,7 @@ public class WexinMessagePlatformController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.GET)
 	public String wexinAccess(@RequestParam(name = "signature", required = false) String signature,
 			@RequestParam(name = "echostr", required = false) String echostr,
@@ -53,6 +59,17 @@ public class WexinMessagePlatformController {
 
 	}
 
+	/**
+	 * 接收微信推送的用户点击动作
+	 * 
+	 * @param signature
+	 * @param timestamp
+	 * @param nonce
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
 	@RequestMapping(value = "/restfull/wmp/access", method = RequestMethod.POST)
 	public MessageXml wexinMessageAccess(@RequestParam(value = "signature", required = false) String signature,
 			@RequestParam(value = "timestamp", required = false) String timestamp,
@@ -73,16 +90,43 @@ public class WexinMessagePlatformController {
 		return returnMessage;
 	}
 
-	
+	/**
+	 * 使用前先设置OAuth2.0网页授权的授权回调页面域名如：www.xxx.com
+	 * 
+	 * 处理REDIRECT_URL绑定的请求
+	 * 
+	 * @param code
+	 * @param state
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/restfull/wmp/authorize", method = RequestMethod.GET)
 	public String wexinAuthorize(@RequestParam(name = "code", required = false) String code,
 			@RequestParam(name = "state", required = false) String state) throws Exception {
 
-		log.info("/restfull/wmp/access validate success =======================>");
+		log.info("/restfull/wmp/access wexinAuthorize revoked =======================>");
 
-		wexinMessagePlatformService.getOauth2AccessToken(code);
+		Oauth2AccessToken oauth2AccessToken = wexinMessagePlatformService.getOauth2AccessToken(code);
 
-		// GET请求均判定为服务器绑定认证
-		return state;
+		Oauth2UserInfo userInfo = null;
+		// 当scope为snsapi_userinfo，需要继续拉取用户信息
+		if (Oauth2Scope.snsapi_userinfo.equals(oauth2AccessToken.scope)) {
+			userInfo = wexinMessagePlatformService.getOauth2UserInfo(oauth2AccessToken);
+		}
+
+		String redirectUri = contractRedirectUriByOauth2AccessToken(state, oauth2AccessToken, userInfo);
+		log.info("/restfull/wmp/access wexinAuthorize redirect =======================>" + redirectUri);
+		// redirect只能get,无法post
+		return "redirect:" + redirectUri;
 	}
+
+	private String contractRedirectUriByOauth2AccessToken(String baseUri, Oauth2AccessToken accessToken,
+			Oauth2UserInfo userInfo) throws Exception {
+		URIBuilder redirectURIBuilder = new URIBuilder(baseUri);
+		//
+		redirectURIBuilder.setParameter("openid", accessToken.openid);
+		return redirectURIBuilder.build().toString();
+
+	}
+
 }
