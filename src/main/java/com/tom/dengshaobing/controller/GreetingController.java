@@ -45,15 +45,6 @@ public class GreetingController extends BaseController {
 		return "visitorList";
 	}
 
-	@RequestMapping("/list")
-	public String list(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
-
-		TableMeta tm = commonService.listVisit();
-		tm.title = "Recent Visitor:";
-
-		map.put(SxTableMeta, tm);
-		return "eggshop/list";
-	}
 
 	@RequestMapping("/detect-device")
 	public @ResponseBody String detectDevice(Device device) {

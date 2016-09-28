@@ -1,9 +1,11 @@
-package com.tom.dengshaobing.service;
+package com.tom.dengshaobing.service.eggshop;
 
 import org.springframework.stereotype.Service;
 
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
+import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
 import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
+import com.tom.dengshaobing.service.WmpBussService;
 import com.tom.utils.StoredConfigUtils;
 
 /**
@@ -14,7 +16,37 @@ import com.tom.utils.StoredConfigUtils;
  */
 
 @Service
-public class EggShopWmpBussServiceImpl extends WmpBussService {
+public class EggShopWmpServiceImpl extends WmpBussService {
+	@Override
+	MessageXml processInput(MessageXml messageIn) {
+		MessageXml messageOut = new MessageXml();
+
+		// swap message to user
+		messageOut.ToUserName = messageIn.FromUserName;
+		messageOut.FromUserName = messageIn.ToUserName;
+		messageOut.CreateTime = System.currentTimeMillis();
+
+		// 根据不同消息类型做处理
+		MessageType msgType = messageIn.MsgType;
+		if (MessageType.text.equals(msgType)) {
+			messageOut.Content = "暂时不支持普通消息发送,请点击菜单进行操作.谢谢!";
+		} else if (MessageType.event.equals(msgType)) {
+
+			// 关注
+			EventType eventType = messageIn.Event;
+			if (EventType.subscribe.equals(eventType)) {
+				messageOut.MsgType = MessageType.text;
+				messageOut.MsgId = messageIn.MsgId;
+				messageOut.Content = "欢迎关注本公众号!";
+			}
+
+		} else {
+			messageOut.MsgType = MessageType.text;
+			messageOut.MsgId = messageIn.MsgId;
+			messageOut.Content = "OK, got it!";
+		}
+		return messageOut;
+	};
 
 	@Override
 	public MessageXml processMenu_1_1(MessageXml message) {

@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.service.CommonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,10 @@ public class EggShopController extends BaseController {
 	@RequestMapping("/list")
 	public String list(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
 		log.info("===================list invoked===============================");
-		map.put(SxTableMeta, commonService.listVisit());
+		TableMeta tableMeta = commonService.listVisit();
+		tableMeta.title = "Recent Visitor:";
+
+		map.put(SxTableMeta, tableMeta);
 		return "eggshop/list";
 	}
 

@@ -10,7 +10,7 @@ import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
  *
  */
 
-public class JerryWmpBussServiceImpl extends WmpBussService {
+public class JerryWmpServiceImpl extends WmpBussService {
 
 	@Override
 	public MessageXml processMenu_1_1(MessageXml message) {
