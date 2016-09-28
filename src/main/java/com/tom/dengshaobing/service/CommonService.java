@@ -3,6 +3,7 @@ package com.tom.dengshaobing.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
 
 /**
@@ -25,7 +26,7 @@ public interface CommonService {
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> listVisit();
+	TableMeta listVisit();
 
 	/**
 	 * 记录错误Errorable消息

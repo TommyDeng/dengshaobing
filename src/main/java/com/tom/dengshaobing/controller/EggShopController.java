@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequestMapping("/eggshop")
-public class EggShopController {
+public class EggShopController extends BaseController {
 
 	@Autowired
 	CommonService commonService;
@@ -34,14 +34,17 @@ public class EggShopController {
 
 	// 已购清单
 	@RequestMapping("/list")
-	public String list(ModelMap map) throws Exception {
-		map.put("list", commonService.listVisit());
+	public String list(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
+		log.info("===================list invoked===============================");
+		map.put(SxTableMeta, commonService.listVisit());
 		return "eggshop/list";
 	}
 
 	// 点击 myprofile
 	@RequestMapping("/myprofile")
-	public String myprofile(ModelMap map) throws Exception {
+	public String myprofile(@RequestParam(name = "openid", required = false) String openId, ModelMap map)
+			throws Exception {
+		log.info("===================myprofile invoked===============================");
 		map.put("visitorList", commonService.listVisit());
 		return "eggshop/myprofile";
 	}

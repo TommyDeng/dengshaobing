@@ -9,6 +9,8 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import com.tom.dengshaobing.common.DefaultSetting;
+
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月13日 下午7:53:58
@@ -33,6 +35,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		templateResolver.setPrefix("/template/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
 		return templateResolver;
 	}
 
@@ -58,6 +61,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		thymeleafViewResolver.setCache(false);
+		thymeleafViewResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
 		// thymeleafViewResolver.setOrder(1);
 		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
 		// });

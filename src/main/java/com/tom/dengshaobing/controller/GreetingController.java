@@ -1,5 +1,8 @@
 package com.tom.dengshaobing.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.service.CommonService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class GreetingController {
+public class GreetingController extends BaseController {
 
 	@Autowired
 	CommonService commonService;
@@ -39,6 +43,16 @@ public class GreetingController {
 	public String visitorList(ModelMap map, @RequestBody Object message) throws Exception {
 		map.put("visitorList", commonService.listVisit());
 		return "visitorList";
+	}
+
+	@RequestMapping("/list")
+	public String list(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
+
+		TableMeta tm = commonService.listVisit();
+		tm.title = "Recent Visitor:";
+
+		map.put(SxTableMeta, tm);
+		return "eggshop/list";
 	}
 
 	@RequestMapping("/detect-device")

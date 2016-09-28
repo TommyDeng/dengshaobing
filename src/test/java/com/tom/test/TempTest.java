@@ -1,9 +1,11 @@
 package com.tom.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
-import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
-import com.tom.dengshaobing.common.bo.wmp.json.Oauth2Scope;
+import com.tom.dengshaobing.common.DefaultSetting;
 
 import junit.framework.TestSuite;
 
@@ -18,11 +20,9 @@ public class TempTest extends TestSuite {
 
 	@Test
 	public void temp() throws Exception {
-		Oauth2AccessToken Oauth2AccessToken = new Oauth2AccessToken();
-		Oauth2AccessToken.access_token = "aaa";
-		Oauth2AccessToken.openid = "bbb";
-		Oauth2AccessToken.expires_in = 123L;
-		Oauth2AccessToken.scope = Oauth2Scope.snsapi_userinfo;
-		System.out.println(Oauth2AccessToken.toString());
+		
+		
+		System.err.println(DefaultSetting.CHARSET.name());
+		
 	}
 }
