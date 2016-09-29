@@ -17,14 +17,14 @@ import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
  * @version 创建时间：2016年9月22日 下午2:32:30
  *
  */
-public abstract class WmpBussService {
+public abstract class WmpEventService {
 	/**
 	 * 非菜单点击类消息
 	 * 
 	 * @param message
 	 * @return
 	 */
-	MessageXml processInput(MessageXml messageIn) {
+	public MessageXml processInput(MessageXml messageIn) {
 		MessageXml messageOut = new MessageXml();
 
 		// swap message to user
@@ -111,34 +111,34 @@ public abstract class WmpBussService {
 
 	}
 
-	abstract MessageXml processMenu_1_1(MessageXml message);
+	public abstract MessageXml processMenu_1_1(MessageXml message);
 
-	abstract MessageXml processMenu_1_2(MessageXml message);
+	public abstract MessageXml processMenu_1_2(MessageXml message);
 
-	abstract MessageXml processMenu_1_3(MessageXml message);
+	public abstract MessageXml processMenu_1_3(MessageXml message);
 
-	abstract MessageXml processMenu_1_4(MessageXml message);
+	public abstract MessageXml processMenu_1_4(MessageXml message);
 
-	abstract MessageXml processMenu_1_5(MessageXml message);
+	public abstract MessageXml processMenu_1_5(MessageXml message);
 
-	abstract MessageXml processMenu_2_1(MessageXml message);
+	public abstract MessageXml processMenu_2_1(MessageXml message);
 
-	abstract MessageXml processMenu_2_2(MessageXml message);
+	public abstract MessageXml processMenu_2_2(MessageXml message);
 
-	abstract MessageXml processMenu_2_3(MessageXml message);
+	public abstract MessageXml processMenu_2_3(MessageXml message);
 
-	abstract MessageXml processMenu_2_4(MessageXml message);
+	public abstract MessageXml processMenu_2_4(MessageXml message);
 
-	abstract MessageXml processMenu_2_5(MessageXml message);
+	public abstract MessageXml processMenu_2_5(MessageXml message);
 
-	abstract MessageXml processMenu_3_1(MessageXml message);
+	public abstract MessageXml processMenu_3_1(MessageXml message);
 
-	abstract MessageXml processMenu_3_2(MessageXml message);
+	public abstract MessageXml processMenu_3_2(MessageXml message);
 
-	abstract MessageXml processMenu_3_3(MessageXml message);
+	public abstract MessageXml processMenu_3_3(MessageXml message);
 
-	abstract MessageXml processMenu_3_4(MessageXml message);
+	public abstract MessageXml processMenu_3_4(MessageXml message);
 
-	abstract MessageXml processMenu_3_5(MessageXml message);
+	public abstract MessageXml processMenu_3_5(MessageXml message);
 
 }

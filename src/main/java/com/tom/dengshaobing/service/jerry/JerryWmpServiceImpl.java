@@ -1,6 +1,7 @@
-package com.tom.dengshaobing.service;
+package com.tom.dengshaobing.service.jerry;
 
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
+import com.tom.dengshaobing.service.WmpEventService;
 
 /**
  * 小烧饼
@@ -10,7 +11,7 @@ import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
  *
  */
 
-public class JerryWmpServiceImpl extends WmpBussService {
+public class JerryWmpServiceImpl extends WmpEventService {
 
 	@Override
 	public MessageXml processMenu_1_1(MessageXml message) {

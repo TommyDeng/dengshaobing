@@ -38,7 +38,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	CommonService commonService;
 
 	@Autowired
-	WmpBussService wmpBussService;
+	WmpEventService wmpBussService;
 
 	@Autowired
 	HttpProcessSerice httpProcessSerice;
