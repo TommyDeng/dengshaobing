@@ -93,11 +93,11 @@ public interface WexinMessagePlatformService {
 	 * 检验授权凭证（access_token）是否有效
 	 * 
 	 * @param accessToken
-	 * @param openId
+	 * @param openid
 	 * @return
 	 * @throws Exception
 	 */
-	boolean checkOauth2AccessToken(String accessToken, String openId) throws Exception;
+	boolean checkOauth2AccessToken(String accessToken, String openid) throws Exception;
 
 	/**
 	 * 刷新access_token

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sqls>
+	<sql name="SYS001">
+	<![CDATA[
+select 1 from dual
+	]]>
+	</sql>
+
+	<sql name="SYS002">
+	<![CDATA[
+SELECT NAME as 访问者,
+       to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') as 访问时间
+  FROM LOG_VISIT
+ order by id desc
+	]]>
+	</sql>
+</sqls>

@@ -1,11 +1,8 @@
 package com.tom.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 
-import com.tom.dengshaobing.common.DefaultSetting;
+import com.tom.dengshaobing.sqlstatements.SqlStatements;
 
 import junit.framework.TestSuite;
 
@@ -21,8 +18,7 @@ public class TempTest extends TestSuite {
 	@Test
 	public void temp() throws Exception {
 		
-		
-		System.err.println(DefaultSetting.CHARSET.name());
+		System.err.println(SqlStatements.get("001"));
 		
 	}
 }

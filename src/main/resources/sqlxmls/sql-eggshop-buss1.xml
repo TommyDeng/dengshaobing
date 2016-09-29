@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sqls>
+	<sql name="BUSS001">
+	<![CDATA[
+SELECT ID FROM TX_USER where OPENID = :OPENID 
+	]]>
+	</sql>
+
+	<sql name="BUSS002">
+	<![CDATA[
+select od.SUMMARY 订单,
+       od.TOTAL_AMT 金额,
+       od.STATUS 状态,
+       to_char(od.CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
+  from TX_ORDER od
+ where od.USER_UC = :USER_UC
+	]]>
+	</sql>
+	<sql name="BUSS003">
+	<![CDATA[
+insert into TX_USER
+  (OPENID, STATUS, TYPE, CREATE_TIME)
+values
+  (:OPENID, :STATUS, :TYPE, sysdate)
+	]]>
+	</sql>
+	<sql name="BUSS004">
+	<![CDATA[
+SELECT NAME ,PRICE FROM TX_PRODUCT 
+	]]>
+	</sql>
+	
+	
+	
+</sqls>

@@ -193,9 +193,9 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	}
 
 	@Override
-	public boolean checkOauth2AccessToken(String accessToken, String openId) throws Exception {
+	public boolean checkOauth2AccessToken(String accessToken, String openid) throws Exception {
 		URI uri = new URIBuilder("https://api.weixin.qq.com/sns/auth").setParameter("access_token", accessToken)
-				.setParameter("openid", openId).build();
+				.setParameter("openid", openid).build();
 		String content = httpProcessSerice.httpGet(uri);
 		Errorable result = JsonParseUtils.generateJavaBean(content, Errorable.class);
 

@@ -16,16 +16,24 @@
 <body>
 
 	<div class="container">
+		<form class="form-horizontal" role="form" action="#"
+			th:object="${formData}" th:action="@{/add}">
+			<div class="form-group">
+				<label for="inputName">Name</label> <input type="text"
+					th:field="*{datePlanted}" class="form-control" id="inputName"
+					placeholder="Product Name" />
+			</div>
+			<div class="form-group">
+				<label for="inputPrice">Price</label> <input type="number"
+					class="form-control" id="inputPrice" placeholder="0.00" />
+			</div>
 
-		<form class="form-horizontal" role="form">
 			<div class="form-group">
-				<label for="inputEmail">Email address</label> <input type="email"
-					class="form-control" id="inputEmail" placeholder="Enter email" />
+				<label for="inputDescription">Description</label>
+				<textarea class="form-control" id="inputDescription" rows="5"
+					placeholder="Product Description..."></textarea>
 			</div>
-			<div class="form-group">
-				<label for="inputPassword">Password</label> <input type="password"
-					class="form-control" id="inputPassword" placeholder="Password" />
-			</div>
+
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
 	</div>

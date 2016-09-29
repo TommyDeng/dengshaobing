@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.service.CommonService;
+import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,38 +18,79 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Controller
-@Slf4j
 @RequestMapping("/eggshop")
 public class EggShopController extends BaseController {
 
 	@Autowired
 	CommonService commonService;
 
-	// 点击购买
-	@RequestMapping("/buy")
-	public String buy(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
-		log.info("===================buy invoked===============================");
-		map.put("host", openId);
+	@Autowired
+	EggShopBussService eggShopBussService;
+
+	@RequestMapping("/product/init")
+	public String productInit(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
+			throws Exception {
+		// 查询用户userUC
+		String userUC = eggShopBussService.getUserUCByOpenid(openid);
+		
+		
+		return "eggshop/product/productList";
+	}
+
+	@RequestMapping("/product/add")
+	public String productAdd(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
+			throws Exception {
+		// 查询用户userUC
+		String userUC = eggShopBussService.getUserUCByOpenid(openid);
 
 		return "eggshop/buy";
 	}
 
-	// 已购清单
-	@RequestMapping("/list")
-	public String list(@RequestParam(name = "openid", required = false) String openId, ModelMap map) throws Exception {
-		log.info("===================list invoked===============================");
-		TableMeta tableMeta = commonService.listVisit();
-		tableMeta.title = "Recent Visitor:";
+	@RequestMapping("/product/list")
+	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
+			throws Exception {
 
+		// 查询所有产品
+		TableMeta tableMeta = eggShopBussService.listAllProduct();
+		tableMeta.title = "product";
+		map.put(SxTableMeta, tableMeta);
+
+		return "eggshop/product/productList";
+	}
+
+	@RequestMapping("/buy/init")
+	public String buyInit(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
+			throws Exception {
+		// 查询用户userUC
+		String userUC = eggShopBussService.getUserUCByOpenid(openid);
+
+		return "eggshop/buy";
+	}
+
+	@RequestMapping("/buy/add")
+	public String buyAdd(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
+			throws Exception {
+		// 查询用户userUC
+		String userUC = eggShopBussService.getUserUCByOpenid(openid);
+
+		return "eggshop/buy";
+	}
+
+	@RequestMapping("/list/init")
+	public String listInit(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
+		// 查询用户userUC
+		String userUC = eggShopBussService.getUserUCByOpenid(openid);
+
+		// 查询用户order
+		TableMeta tableMeta = eggShopBussService.listOrderByUserUC(userUC);
+		tableMeta.title = "Order";
 		map.put(SxTableMeta, tableMeta);
 		return "eggshop/list";
 	}
 
-	// 点击 myprofile
-	@RequestMapping("/myprofile")
-	public String myprofile(@RequestParam(name = "openid", required = false) String openId, ModelMap map)
+	@RequestMapping("/myprofile/init")
+	public String myprofile(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
 			throws Exception {
-		log.info("===================myprofile invoked===============================");
 		map.put("visitorList", commonService.listVisit());
 		return "eggshop/myprofile";
 	}

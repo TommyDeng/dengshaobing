@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedCaseInsensitiveMap;
@@ -112,5 +113,26 @@ public class DataAccessServiceImpl implements DataAccessService {
 			}
 		}
 		return obj;
+	}
+
+	@Override
+	public <T> T queryForOneObject(String sql, Map<String, ?> paramMap, Class<T> cls) {
+		List<T> resultList = namedParameterJdbcTemplate.query(sql, paramMap, new RowMapper<T>() {
+
+			@Override
+			@SuppressWarnings("unchecked")
+			public T mapRow(ResultSet rs, int rowNum) throws SQLException {
+				// 取第一列
+				// H2 [Not supported] without throw unsupported,fuck!
+				// return rs.getObject(1, cls);
+				return (T) rs.getObject(1);
+			}
+
+		});
+		if (resultList.isEmpty()) {
+			return null;
+		} else {
+			return resultList.get(0);// 取第一行
+		}
 	}
 }
