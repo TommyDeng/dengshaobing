@@ -1,5 +1,8 @@
 package com.tom.dengshaobing.service.eggshop;
 
+import java.util.Map;
+import java.util.UUID;
+
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 
 /**
@@ -9,10 +12,12 @@ import com.tom.dengshaobing.common.bo.sys.TableMeta;
  */
 
 public interface EggShopBussService {
-	String getUserUCByOpenid(String openid);
+	UUID getUserUCByOpenid(String openid);
 
-	TableMeta listOrderByUserUC(String userUC);
+	TableMeta listOrderByUserUC(UUID userUC);
 
 	TableMeta listAllProduct();
+
+	void addProduct(Map<String, Object> properties, UUID userUC);
 
 }

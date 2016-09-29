@@ -2,7 +2,7 @@
 <sqls>
 	<sql name="BUSS001">
 	<![CDATA[
-SELECT ID FROM TX_USER where OPENID = :OPENID 
+SELECT UNIQUE_CODE FROM TX_USER where OPENID = :OPENID 
 	]]>
 	</sql>
 
@@ -19,9 +19,9 @@ select od.SUMMARY 订单,
 	<sql name="BUSS003">
 	<![CDATA[
 insert into TX_USER
-  (OPENID, STATUS, TYPE, CREATE_TIME)
+  (UNIQUE_CODE, OPENID, STATUS, TYPE, CREATE_TIME)
 values
-  (:OPENID, :STATUS, :TYPE, sysdate)
+  (:UNIQUE_CODE, :OPENID, :STATUS, :TYPE, sysdate)
 	]]>
 	</sql>
 	<sql name="BUSS004">
@@ -29,7 +29,22 @@ values
 SELECT NAME ,PRICE FROM TX_PRODUCT 
 	]]>
 	</sql>
+
+	<sql name="BUSS005">
+	<![CDATA[
+insert into TX_PRODUCT
+	 (UNIQUE_CODE ,NAME ,PRICE ,CREATOR ,CREATE_TIME )
+values
+	 (:UNIQUE_CODE ,:NAME ,:PRICE ,:CREATOR ,sysdate )
+	]]>
+	</sql>
 	
-	
-	
+	<sql name="BUSS006">
+	<![CDATA[
+insert into TX_PRODUCT_DETAIL 
+	 (UNIQUE_CODE ,PRODUCT_UC ,REMARK ,CREATOR ,CREATE_TIME  )
+values
+	 (:UNIQUE_CODE ,:PRODUCT_UC ,:REMARK ,:CREATOR ,sysdate )
+	]]>
+	</sql>
 </sqls>

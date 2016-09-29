@@ -7,7 +7,9 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.tom.dengshaobing.common.DefaultSetting;
 
@@ -30,9 +32,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	 * @return
 	 */
 	@Bean
-	ServletContextTemplateResolver templateResolver() {
-		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-		templateResolver.setPrefix("/template/");
+	TemplateResolver templateResolver() {
+		TemplateResolver templateResolver = new ServletContextTemplateResolver();
+		// TemplateResolver templateResolver = new
+		// ClassLoaderTemplateResolver();
+		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
