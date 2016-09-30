@@ -37,36 +37,22 @@ public class EggShopController extends BaseController {
 	EggShopBussService eggShopBussService;
 
 	MapForm mapForm = new MapForm();
-	
-	@RequestMapping("/product/init")
-	public String productInit(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		// 查询用户userUC
-		String userUC = (String) map.get(PxOpenid);
-		log.info("userUC:" + userUC);
 
-		
-		map.put(SxFormData, mapForm);
-
-		return "eggshop/product/product";
+	public MapForm getMapForm() {
+		return mapForm;
 	}
 
-	@RequestMapping("/product/add")
-	public String productAdd(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(name = "openid", required = false) String openid, @ModelAttribute MapForm mapForm,
-			ModelMap map) throws Exception {
-		// 查询用户userUC
-		UUID userUC = eggShopBussService.getUserUCByOpenid(openid);
-		eggShopBussService.addProduct(mapForm.getProperties(), userUC);
-		return "redirect:list";
+	public void setMapForm(MapForm mapForm) {
+		this.mapForm = mapForm;
 	}
 
+	// product start
 	@RequestMapping("/product/list")
 	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
 			throws Exception {
 		UUID userUC = eggShopBussService.getUserUCByOpenid(openid);
-		
-		// 查询所有产品
+
+		// all product
 		TableMeta tableMeta = eggShopBussService.listAllProduct();
 		tableMeta.title = "product";
 		map.put(SxTableMeta, tableMeta);
@@ -74,6 +60,37 @@ public class EggShopController extends BaseController {
 		return "eggshop/product/productList";
 	}
 
+	@RequestMapping("/product/init")
+	public String productInit(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
+		map.put(SxFormData, mapForm);
+		return "eggshop/product/product";
+	}
+
+	@RequestMapping("/product/add")
+	public String productAdd(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
+		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
+
+		eggShopBussService.addProduct(mapForm.getProperties(), userUC);
+		return "redirect:list";
+	}
+
+	@RequestMapping("/product/update")
+	public String productUpdate(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
+		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
+		UUID productUC = (UUID) mapForm.getProperties().get("productUC");
+		eggShopBussService.updateProduct(mapForm.getProperties(), userUC);
+		return "redirect:list";
+	}
+
+	@RequestMapping("/product/delete")
+	public String productDelete(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
+		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
+		UUID productUC = (UUID) mapForm.getProperties().get("productUC");
+		eggShopBussService.deleteProduct(productUC, userUC);
+		return "redirect:list";
+	}
+
+	// buy start
 	@RequestMapping("/buy/init")
 	public String buyInit(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
 			throws Exception {

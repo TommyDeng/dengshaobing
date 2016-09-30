@@ -17,9 +17,11 @@ public interface CommonService {
 	/**
 	 * 记录用户登陆日志
 	 * 
-	 * @param visitorName
+	 * @param name
+	 * @param deviceType
+	 * @throws Exception
 	 */
-	void logVisit(String name);
+	void logVisit(String name, String deviceType) throws Exception;
 
 	/**
 	 * 查询所有用户登陆日志
@@ -33,7 +35,8 @@ public interface CommonService {
 	 * 
 	 * @param uri
 	 * @param error
+	 * @throws Exception
 	 */
-	void logErrorable(String uri, Errorable error);
+	void logErrorable(String uri, Errorable error) throws Exception;
 
 }

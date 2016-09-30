@@ -2,6 +2,7 @@ package com.tom.test;
 
 import org.junit.Test;
 
+import com.tom.dengshaobing.service.DataAccessServiceImpl;
 import com.tom.dengshaobing.sqlstatements.SqlStatements;
 
 import junit.framework.TestSuite;
@@ -18,7 +19,7 @@ public class TempTest extends TestSuite {
 	@Test
 	public void temp() throws Exception {
 		
-		System.err.println(SqlStatements.get("001"));
+		DataAccessServiceImpl ds = new DataAccessServiceImpl();
 		
 	}
 }

@@ -1,11 +1,7 @@
 package com.tom.dengshaobing.service;
 
 import java.util.Map;
-
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import java.util.UUID;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 
@@ -35,5 +31,44 @@ public interface DataAccessService {
 	 * @return
 	 */
 	<T> T queryForOneObject(String sql, Map<String, ?> paramMap, Class<T> cls);
+
+	/**
+	 * 单条插入，paramMap中无对应项则赋值为null
+	 * 
+	 * @param tableName
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	int insertSingle(String tableName, Map<String, ?> paramMap) throws Exception;
+
+	/**
+	 * 单条修改，只更新paramMap中对应项,必须包含PK
+	 * 
+	 * @param tableName
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	int updateSingle(String tableName, Map<String, ?> paramMap) throws Exception;
+
+	
+	/**
+	 * 根据pk查询单条记录
+	 * @param tableName
+	 * @param pk
+	 * @return
+	 * @throws Exception 
+	 */
+	Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception;
+
+	/**
+	 *  根据pk删除单条记录
+	 * @param tableName
+	 * @param pk
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteRowById(String tableName, Object pk) throws Exception;
 
 }

@@ -1,19 +1,24 @@
 package com.tom.dengshaobing.service;
 
+import java.lang.reflect.Method;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterUtils;
+import org.springframework.jdbc.core.namedparam.ParsedSql;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
@@ -135,4 +140,209 @@ public class DataAccessServiceImpl implements DataAccessService {
 			return resultList.get(0);// 取第一行
 		}
 	}
+
+	@Override
+	public int insertSingle(String tableName, Map<String, ?> paramMap) throws Exception {
+		String insertSql = getInsertSqlByTableNameAndParamMap(tableName, paramMap);
+		setNullIfPlaceHolderNotExistsInParamMap(insertSql, paramMap);
+		return namedParameterJdbcTemplate.update(insertSql, paramMap);
+	}
+
+	@Override
+	public int updateSingle(String tableName, Map<String, ?> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return namedParameterJdbcTemplate.update(getUpdateSqlByTableNameAndParamMap(tableName, paramMap), paramMap);
+	}
+
+	/**
+	 * 根据表名生成全字段insert语句
+	 * 
+	 * @param tableName
+	 * @return
+	 * @throws Exception
+	 */
+	protected String getInsertSqlByTableNameAndParamMap(String tableName, Map<String, ?> paramMap) throws Exception {
+
+		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
+
+		StringBuilder returnSql = new StringBuilder();
+		StringBuilder paramPlaceholderSql = new StringBuilder();
+
+		returnSql.append("insert into " + tableName);
+		returnSql.append("(");
+		paramPlaceholderSql.append("(");
+
+		for (Map<String, Object> columnDesc : columnsDescList) {
+			// columnDesc.get("FIELD");// COLUMN_NAME
+			// columnDesc.get("TYPE");// VARCHAR(2500)
+			// columnDesc.get("NULL");// YES or NO
+			// columnDesc.get("KEY");// PRI or ''
+			// columnDesc.get("DEFAULT");// NULL
+
+			String fieldName = (String) columnDesc.get("FIELD");
+			// 有默认值,paramMap无设置,则不做处理
+			if (!"NULL".equals(columnDesc.get("DEFAULT")) && !paramMap.containsKey(fieldName)) {
+				continue;
+			}
+			returnSql.append(fieldName);
+			returnSql.append(",");
+
+			paramPlaceholderSql.append(":" + fieldName);
+			paramPlaceholderSql.append(",");
+		}
+		returnSql.delete(returnSql.length() - 1, returnSql.length());
+		paramPlaceholderSql.delete(paramPlaceholderSql.length() - 1, paramPlaceholderSql.length());
+
+		returnSql.append(")");
+		paramPlaceholderSql.append(")");
+
+		returnSql.append(" values ");
+		returnSql.append(paramPlaceholderSql);
+
+		return returnSql.toString();
+	}
+
+	/**
+	 * 根据表名生成paramMap中存在的字段update语句
+	 * 
+	 * @param tableName
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	protected String getUpdateSqlByTableNameAndParamMap(String tableName, Map<String, ?> paramMap) throws Exception {
+
+		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
+
+		StringBuilder returnSql = new StringBuilder();
+
+		StringBuilder whereClauseSql = new StringBuilder();
+
+		boolean updateFeildEmpty = true;
+		returnSql.append("update " + tableName);
+		returnSql.append(" set ");
+
+		for (Map<String, Object> columnDesc : columnsDescList) {
+			// columnDesc.get("FIELD");// COLUMN_NAME
+			// columnDesc.get("TYPE");// VARCHAR(2500)
+			// columnDesc.get("NULL");// YES or NO
+			// columnDesc.get("KEY");// PRI or ''
+			// columnDesc.get("DEFAULT");// NULL
+
+			String fieldName = (String) columnDesc.get("FIELD");
+
+			// PK for where clause
+			if ("PRI".equals(columnDesc.get("KEY"))) {
+				if (paramMap.containsKey(fieldName)) {
+					// only support for 1 pk
+					whereClauseSql.append(fieldName + "=:" + fieldName);
+				} else {// PK not exists in paramMap
+					throw new Exception("PK not exists in paramMap" + fieldName);
+				}
+			} else {
+				// paramMap contains then set field value
+				if (paramMap.containsKey(fieldName)) {
+					returnSql.append(fieldName + "=:" + fieldName);
+					returnSql.append(",");
+					updateFeildEmpty = false;
+				}
+			}
+		}
+
+		if (updateFeildEmpty) {
+			throw new Exception("update feild empty in paramMap");
+		}
+		// delete ,
+		returnSql.delete(returnSql.length() - 1, returnSql.length());
+		returnSql.append(" where ").append(whereClauseSql);
+		return tableName;
+	}
+
+	/**
+	 * 获取表字段说明
+	 * 
+	 * @param tableName
+	 * @return
+	 * @throws Exception
+	 */
+	protected List<Map<String, Object>> getColumnsDescListByTableName(String tableName) throws Exception {
+		String descTableSql = "show columns from " + tableName;
+		Map<String, Object> paramMap = new HashMap<>();
+		// paramMap.put("TABLE_NAME", tableName);
+
+		List<Map<String, Object>> columnsDescList = namedParameterJdbcTemplate.queryForList(descTableSql, paramMap);
+		if (columnsDescList == null || columnsDescList.size() == 0) {
+			throw new Exception("table not exsits :" + tableName);
+		}
+		return columnsDescList;
+	}
+
+	/**
+	 * 将paramMap中不存在的于sql中的place holder赋值为null
+	 * 
+	 * @param sql
+	 * @param paramMap
+	 * @throws Exception
+	 */
+	private static void setNullIfPlaceHolderNotExistsInParamMap(String sql, Map<String, ?> paramMap) throws Exception {
+		ParsedSql parsedSql = NamedParameterUtils.parseSqlStatement(sql);
+		// ParsedSql in org.springframework.jdbc.core.namedparam
+		// List<String> paramNames = parsedSql.getParameterNames();
+
+		// Method[] methods = ParsedSql.class.getMethods();
+		// Method[] methodsUnvisiable = ParsedSql.class.getDeclaredMethods();
+		// method not visible, use reflection to access!
+		Method method = ParsedSql.class.getDeclaredMethod("getParameterNames");
+		method.setAccessible(true);
+
+		@SuppressWarnings("unchecked")
+		List<String> paramNames = (List<String>) method.invoke(parsedSql);
+
+		for (String paramName : paramNames) {
+			if (!paramMap.containsKey(paramName)) {
+				paramMap.put(paramName, null);
+			}
+		}
+	}
+
+	@Override
+	public Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception {
+
+		String sql = "select * from " + tableName + " where ";
+		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
+
+		String pkFieldName = "";
+		for (Map<String, Object> columnsDesc : columnsDescList) {
+			if ("PRI".equals((String) columnsDesc.get("KEY"))) {
+				pkFieldName = (String) columnsDesc.get("FIELD");
+				break;
+			}
+		}
+
+		sql += pkFieldName + " = :" + pkFieldName;
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put(pkFieldName, pk);
+		return namedParameterJdbcTemplate.queryForMap(sql, paramMap);
+	}
+
+	@Override
+	public int deleteRowById(String tableName, Object pk) throws Exception {
+
+		String sql = "delete from " + tableName + " where ";
+		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
+
+		String pkFieldName = "";
+		for (Map<String, Object> columnsDesc : columnsDescList) {
+			if ("PRI".equals((String) columnsDesc.get("KEY"))) {
+				pkFieldName = (String) columnsDesc.get("FIELD");
+				break;
+			}
+		}
+
+		sql += pkFieldName + " = :" + pkFieldName;
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put(pkFieldName, pk);
+		return namedParameterJdbcTemplate.update(sql, paramMap);
+	}
+
 }

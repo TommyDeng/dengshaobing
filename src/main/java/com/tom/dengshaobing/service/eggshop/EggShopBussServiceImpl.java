@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,58 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public UUID getUserUCByOpenid(String openid) {
+	public TableMeta listAllProduct() {
+		return dataAccessService.queryTableMetaBySql(SqlStatements.get("BUSS004"), null);
+	}
+
+	@Override
+	public void addProduct(Map<String, Object> properties, UUID userUC) throws Exception {
+		if (properties == null)
+			return;
+		String creator = userUC == null ? null : userUC.toString();
+
+		String productUC = UUID.randomUUID().toString();
+		Map<String, Object> insertParamMap = new HashMap<>();
+		insertParamMap.put("UNIQUE_CODE", productUC);
+		insertParamMap.put("NAME", properties.get("name"));
+		insertParamMap.put("PRICE", properties.get("price"));
+		insertParamMap.put("CREATOR", creator);
+		dataAccessService.insertSingle("TX_PRODUCT", insertParamMap);
+
+		insertParamMap.put("UNIQUE_CODE", productUC);
+		insertParamMap.put("REMARK", properties.get("remark"));
+		dataAccessService.insertSingle("TX_PRODUCT_DETAIL", insertParamMap);
+
+	}
+
+	@Override
+	public Map<String, Object> queryProduct(UUID productUC, UUID userUC) throws Exception {
+		return dataAccessService.queryRowMapById("TX_PRODUCT", productUC);
+	}
+
+	@Override
+	public Map<String, Object> queryProductDetail(UUID productUC, UUID userUC) throws Exception {
+		return dataAccessService.queryRowMapById("TX_PRODUCT_DETAIL", productUC);
+	}
+
+	@Override
+	public void updateProduct(Map<String, Object> properties, UUID userUC) throws Exception {
+		dataAccessService.updateSingle("TX_PRODUCT", properties);
+	}
+
+	@Override
+	public void updateProductDetail(Map<String, Object> properties, UUID userUC) throws Exception {
+		dataAccessService.updateSingle("TX_PRODUCT_DETAIL", properties);
+	}
+
+	@Override
+	public void deleteProduct(UUID productUC, UUID userUC) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public UUID getUserUCByOpenid(String openid) throws Exception {
 		if (StringUtils.isBlank(openid)) {
 			return null;
 		}
@@ -56,35 +106,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 			insertParamMap.put("OPENID", openid);
 			insertParamMap.put("STATUS", Const.USER_STATUS.Active);
 			insertParamMap.put("TYPE", Const.USER_TYPE.Weixin);
-			namedParameterJdbcTemplate.update(SqlStatements.get("BUSS003"), insertParamMap);
+			dataAccessService.insertSingle("TX_USER", insertParamMap);
 
 			// 重新查询
 			userUC = dataAccessService.queryForOneObject(SqlStatements.get("BUSS001"), paramMap, UUID.class);
 		}
 		return userUC;
-	}
-
-	@Override
-	public TableMeta listAllProduct() {
-		return dataAccessService.queryTableMetaBySql(SqlStatements.get("BUSS004"), null);
-	}
-
-	@Override
-	public void addProduct(Map<String, Object> properties, UUID userUC) {
-		String productUC = UUID.randomUUID().toString();
-		Map<String, Object> insertParamMap = new HashMap<>();
-		insertParamMap.put("UNIQUE_CODE", productUC);
-		insertParamMap.put("NAME", properties.get("name"));
-		insertParamMap.put("PRICE", properties.get("price"));
-		insertParamMap.put("CREATOR", userUC.toString());
-
-		namedParameterJdbcTemplate.update(SqlStatements.get("BUSS005"), insertParamMap);
-
-		insertParamMap.put("UNIQUE_CODE", UUID.randomUUID().toString());
-		insertParamMap.put("PRODUCT_UC", productUC);
-		insertParamMap.put("REMARK", properties.get("remark"));
-		namedParameterJdbcTemplate.update(SqlStatements.get("BUSS006"), insertParamMap);
-
 	}
 
 }

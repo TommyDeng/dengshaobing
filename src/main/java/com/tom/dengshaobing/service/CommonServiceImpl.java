@@ -29,13 +29,11 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	@Transactional
-	public void logVisit(String visitorName) {
-		String sql = "insert into LOG_VISIT(name, create_time) values(:name,:create_time)";
-		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
-		sqlParamMap.put("name", visitorName);
-		sqlParamMap.put("create_time", Calendar.getInstance());
-		namedParameterJdbcTemplate.update(sql, sqlParamMap);
-
+	public void logVisit(String visitorName, String deviceType) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("name".toUpperCase(), visitorName);
+		paramMap.put("remark".toUpperCase(), deviceType);
+		dataAccessService.insertSingle("LOG_VISIT", paramMap);
 	}
 
 	@Override
@@ -44,13 +42,12 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public void logErrorable(String uri, Errorable error) {
-		String sql = "insert into LOG_ERRORABLE(uri, errorable, create_time) values(:uri,:errorable,:create_time)";
-		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
-		sqlParamMap.put("uri", uri);
-		sqlParamMap.put("errorable", error.toString());
-		sqlParamMap.put("create_time", Calendar.getInstance());
-		namedParameterJdbcTemplate.update(sql, sqlParamMap);
+	public void logErrorable(String uri, Errorable error) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("uri".toUpperCase(), uri);
+		paramMap.put("errorable".toUpperCase(), error.toString());
+		paramMap.put("create_time".toUpperCase(), Calendar.getInstance());
+		dataAccessService.insertSingle("LOG_ERRORABLE", paramMap);
 	}
 
 }

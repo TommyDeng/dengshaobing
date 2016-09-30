@@ -14,5 +14,5 @@ public class BaseController {
 
 	protected final String PxOpenid = "openid";// openid
 
-
+	protected final String PxUserUC = "userUC";// userUC
 }
