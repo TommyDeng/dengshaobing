@@ -52,13 +52,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		String productUC = UUID.randomUUID().toString();
 		Map<String, Object> insertParamMap = new HashMap<>();
 		insertParamMap.put("UNIQUE_CODE", productUC);
-		insertParamMap.put("NAME", properties.get("name"));
-		insertParamMap.put("PRICE", properties.get("price"));
+		insertParamMap.put("NAME", properties.get("NAME"));
+		insertParamMap.put("PRICE", properties.get("PRICE"));
 		insertParamMap.put("CREATOR", creator);
 		dataAccessService.insertSingle("TX_PRODUCT", insertParamMap);
 
-		insertParamMap.put("UNIQUE_CODE", productUC);
-		insertParamMap.put("REMARK", properties.get("remark"));
+		insertParamMap.put("REMARK", properties.get("REMARK"));
 		dataAccessService.insertSingle("TX_PRODUCT_DETAIL", insertParamMap);
 
 	}

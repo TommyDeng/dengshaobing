@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -66,19 +67,15 @@ public class EggShopController extends BaseController {
 		return "eggshop/product/product";
 	}
 
-	@RequestMapping("/product/add")
-	public String productAdd(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
+	@RequestMapping("/product/save")
+	public String productSave(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
 		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
 
-		eggShopBussService.addProduct(mapForm.getProperties(), userUC);
-		return "redirect:list";
-	}
-
-	@RequestMapping("/product/update")
-	public String productUpdate(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
-		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
-		UUID productUC = (UUID) mapForm.getProperties().get("productUC");
-		eggShopBussService.updateProduct(mapForm.getProperties(), userUC);
+		if (StringUtils.isBlank((String) mapForm.getProperties().get("UNIQUE_CODE"))) {
+			eggShopBussService.addProduct(mapForm.getProperties(), userUC);
+		} else {
+			eggShopBussService.updateProduct(mapForm.getProperties(), userUC);
+		}
 		return "redirect:list";
 	}
 
