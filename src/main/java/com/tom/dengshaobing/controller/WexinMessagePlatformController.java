@@ -53,7 +53,7 @@ public class WexinMessagePlatformController {
 		if (!wexinMessagePlatformService.checkSignature(signature, timestamp, nonce))
 			return null;
 		log.info("/restfull/wmp/access validate success =======================>");
-		log.info(XMLParseUtils.generateXmlString(echostr));
+		log.info(echostr);
 		// GET请求均判定为服务器绑定认证
 		return echostr;
 
