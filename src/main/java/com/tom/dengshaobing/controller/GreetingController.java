@@ -25,7 +25,7 @@ public class GreetingController extends BaseController {
 	CommonService commonService;
 
 	@RequestMapping("/")
-	public String greeting(ModelMap map,
+	public String index(ModelMap map,
 			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name, Device device)
 			throws Exception {
 		String deviceType = "unknown";
@@ -40,6 +40,13 @@ public class GreetingController extends BaseController {
 		map.put("host", name);
 		commonService.logVisit(name, deviceType);
 		return "index";
+	}
+
+	@RequestMapping("/aboutme")
+	public String aboutme(ModelMap map) throws Exception {
+
+		// map.put("host", name);
+		return "aboutme";
 	}
 
 }
