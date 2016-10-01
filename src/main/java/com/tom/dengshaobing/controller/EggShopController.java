@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller;
 
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,16 +63,29 @@ public class EggShopController extends BaseController {
 	}
 
 	@RequestMapping("/product/init")
-	public String productInit(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws Exception {
+	public String productInit(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
+			throws Exception {
+		if (rowUC != null) {
+			Map<String, Object> product = eggShopBussService.queryProduct(UUID.fromString(rowUC), null);
+			Map<String, Object> productDetail = eggShopBussService.queryProductDetail(UUID.fromString(rowUC), null);
+			mapForm.setProperties(product);
+			mapForm.putAllProperties(productDetail);
+
+		} else {
+			mapForm = new MapForm();
+		}
 		map.put(SxFormData, mapForm);
+		map.put(PxRowUC, rowUC);
+
 		return "eggshop/product/product";
 	}
 
 	@RequestMapping("/product/save")
-	public String productSave(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
+	public String productSave(@ModelAttribute MapForm mapForm, ModelMap map,String rowUC) throws Exception {
 		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
 
-		if (StringUtils.isBlank((String) mapForm.getProperties().get("UNIQUE_CODE"))) {
+		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
+		if (StringUtils.isBlank(rowUC)) {
 			eggShopBussService.addProduct(mapForm.getProperties(), userUC);
 		} else {
 			eggShopBussService.updateProduct(mapForm.getProperties(), userUC);
@@ -80,10 +94,8 @@ public class EggShopController extends BaseController {
 	}
 
 	@RequestMapping("/product/delete")
-	public String productDelete(@ModelAttribute MapForm mapForm, ModelMap map) throws Exception {
-		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
-		UUID productUC = (UUID) mapForm.getProperties().get("productUC");
-		eggShopBussService.deleteProduct(productUC, userUC);
+	public String productDelete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+		eggShopBussService.deleteProduct(UUID.fromString(rowUC), null);
 		return "redirect:list";
 	}
 

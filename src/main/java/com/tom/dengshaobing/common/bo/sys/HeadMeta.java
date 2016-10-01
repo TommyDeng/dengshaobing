@@ -10,10 +10,12 @@ import lombok.Data;
 @Data
 public class HeadMeta {
 	public int index;
-	
-	public String columnLabel;//可支持中文
-	
-	public String columnName;//列名
-	
-	public String className;
+
+	public String columnLabel;// 可支持中文
+
+	public String columnName;// 列名
+
+	public String className;// 字段类型对于的class
+
+	public boolean display;// 是否显示
 }

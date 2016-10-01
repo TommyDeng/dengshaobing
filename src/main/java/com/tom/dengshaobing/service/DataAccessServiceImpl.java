@@ -57,7 +57,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 					headMeta.columnLabel = rsmd.getColumnLabel(i);
 					headMeta.columnName = String.valueOf(i);// use index
 					headMeta.className = rsmd.getColumnClassName(i);
-
+					headMeta.display = !"UNIQUE_CODE".equals(headMeta.columnLabel);
+					
 					headList.add(headMeta);
 				}
 
@@ -255,7 +256,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 		// delete ,
 		returnSql.delete(returnSql.length() - 1, returnSql.length());
 		returnSql.append(" where ").append(whereClauseSql);
-		return tableName;
+		return returnSql.toString();
 	}
 
 	/**

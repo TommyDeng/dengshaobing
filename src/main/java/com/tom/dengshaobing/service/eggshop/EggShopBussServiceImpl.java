@@ -83,9 +83,9 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void deleteProduct(UUID productUC, UUID userUC) {
-		// TODO Auto-generated method stub
-
+	public void deleteProduct(UUID productUC, UUID userUC) throws Exception {
+		dataAccessService.deleteRowById("TX_PRODUCT", productUC);
+		dataAccessService.deleteRowById("TX_PRODUCT_DETAIL", productUC);
 	}
 
 	@Override

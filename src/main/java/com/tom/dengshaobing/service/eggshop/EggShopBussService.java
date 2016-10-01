@@ -69,8 +69,9 @@ public interface EggShopBussService {
 	 * 
 	 * @param productUC
 	 * @param userUC
+	 * @throws Exception 
 	 */
-	void deleteProduct(UUID productUC, UUID userUC);
+	void deleteProduct(UUID productUC, UUID userUC) throws Exception;
 
 	/**
 	 * 查询用户订单

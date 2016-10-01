@@ -18,7 +18,7 @@ select od.SUMMARY 订单,
 	</sql>
 	<sql name="BUSS004">
 	<![CDATA[
-SELECT NAME ,PRICE FROM TX_PRODUCT 
+SELECT UNIQUE_CODE  ,NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM TX_PRODUCT 
 	]]>
 	</sql>
 </sqls>
