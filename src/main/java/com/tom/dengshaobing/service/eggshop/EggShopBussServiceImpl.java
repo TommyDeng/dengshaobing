@@ -1,6 +1,7 @@
 package com.tom.dengshaobing.service.eggshop;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -111,6 +112,26 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 			userUC = dataAccessService.queryForOneObject(SqlStatements.get("BUSS001"), paramMap, UUID.class);
 		}
 		return userUC;
+	}
+
+	@Override
+	public Map<String, Object> queryOrder(UUID orderUC, UUID userUC) throws Exception {
+		return dataAccessService.queryRowMapById("TX_ORDER", orderUC);
+	}
+
+	@Override
+	public TableMeta queryOrderItem(UUID orderUC, UUID userUC) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ORDER_UC", orderUC);
+		return dataAccessService.queryTableMetaBySql("BUSS003", paramMap);
+	}
+
+	@Override
+	public void discardOrder(UUID orderUC, UUID userUC) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ORDER_UC", orderUC);
+		paramMap.put("STATUS", Const.ORDER_STATUS.Disable);
+		dataAccessService.updateSingle("TX_ORDER", paramMap);
 	}
 
 }

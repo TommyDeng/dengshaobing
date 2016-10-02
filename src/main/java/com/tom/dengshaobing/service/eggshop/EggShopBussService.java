@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.service.eggshop;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -48,6 +49,7 @@ public interface EggShopBussService {
 
 	/**
 	 * 查询产品明细
+	 * 
 	 * @param productUC
 	 * @param userUC
 	 * @return
@@ -65,11 +67,20 @@ public interface EggShopBussService {
 	void updateProduct(Map<String, Object> properties, UUID userUC) throws Exception;
 
 	/**
+	 * 更新产品明细
+	 * 
+	 * @param properties
+	 * @param userUC
+	 * @throws Exception
+	 */
+	void updateProductDetail(Map<String, Object> properties, UUID userUC) throws Exception;
+
+	/**
 	 * 删除产品
 	 * 
 	 * @param productUC
 	 * @param userUC
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	void deleteProduct(UUID productUC, UUID userUC) throws Exception;
 
@@ -82,10 +93,30 @@ public interface EggShopBussService {
 	TableMeta listOrderByUserUC(UUID userUC);
 
 	/**
-	 * @param properties
+	 * 查询order
+	 * 
+	 * @param orderUC
 	 * @param userUC
-	 * @throws Exception
+	 * @return
+	 * @throws Exception 
 	 */
-	void updateProductDetail(Map<String, Object> properties, UUID userUC) throws Exception;
+	Map<String, Object> queryOrder(UUID orderUC, UUID userUC) throws Exception;
+
+	/**
+	 * 查询order子项
+	 * 
+	 * @param orderUC
+	 * @param userUC
+	 * @return
+	 */
+	TableMeta queryOrderItem(UUID orderUC, UUID userUC);
+
+	/**
+	 * 废弃
+	 * @param orderUC
+	 * @param userUC
+	 * @throws Exception 
+	 */
+	void discardOrder(UUID orderUC, UUID userUC) throws Exception;
 
 }

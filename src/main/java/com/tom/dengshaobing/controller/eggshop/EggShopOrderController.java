@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/eggshop/order")
 public class EggShopOrderController extends BaseController {
+	public static final String BasePath = "/eggshop/order/";
 
 	@Autowired
 	CommonService commonService;
@@ -49,28 +51,25 @@ public class EggShopOrderController extends BaseController {
 		this.mapForm = mapForm;
 	}
 
-	// product start
 	@RequestMapping("/list")
-	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
-			throws Exception {
+	public String list(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
 		UUID userUC = bussService.getUserUCByOpenid(openid);
 
-		// all product
-		TableMeta tableMeta = bussService.listAllProduct();
-		tableMeta.title = "product";
+		TableMeta tableMeta = bussService.listOrderByUserUC(userUC);
+		tableMeta.title = "Order";
 		map.put(SxTableMeta, tableMeta);
 
-		return "list";
+		return BasePath + "/list";
 	}
 
 	@RequestMapping("/edit")
-	public String productInit(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
+	public String edit(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
 			throws Exception {
 		if (rowUC != null) {
-			Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), null);
-			Map<String, Object> productDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
-			mapForm.setProperties(product);
-			mapForm.putAllProperties(productDetail);
+			Map<String, Object> row = bussService.queryOrder(UUID.fromString(rowUC), null);
+			TableMeta rowDetailTableMeta = bussService.queryOrderItem(UUID.fromString(rowUC), null);
+			mapForm.setProperties(row);
+			map.put(SxTableMeta, rowDetailTableMeta);
 
 		} else {
 			mapForm = new MapForm();
@@ -78,6 +77,50 @@ public class EggShopOrderController extends BaseController {
 		map.put(SxFormData, mapForm);
 		map.put(PxRowUC, rowUC);
 
-		return "edit";
+		return BasePath + "edit";
+	}
+
+	@RequestMapping("/view")
+	public String view(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
+			throws Exception {
+		if (rowUC != null) {
+			Map<String, Object> row = bussService.queryProduct(UUID.fromString(rowUC), null);
+			Map<String, Object> rowDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
+			mapForm.setProperties(row);
+			mapForm.putAllProperties(rowDetail);
+
+		} else {
+			mapForm = new MapForm();
+		}
+		map.put(SxFormData, mapForm);
+		map.put(PxRowUC, rowUC);
+
+		return BasePath + "/view";
+	}
+
+	@RequestMapping("/save")
+	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
+
+		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
+		if (StringUtils.isBlank(rowUC)) {
+			bussService.addProduct(mapForm.getProperties(), userUC);
+		} else {
+			// function disable
+			// bussService.updateProduct(mapForm.getProperties(), userUC);
+		}
+		return "redirect:list";
+	}
+
+	@RequestMapping("/delete")
+	public String delete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+		bussService.deleteProduct(UUID.fromString(rowUC), null);
+		return "redirect:list";
+	}
+
+	@RequestMapping("/discard")
+	public String discard(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+		bussService.discardOrder(UUID.fromString(rowUC), null);
+		return "redirect:list";
 	}
 }

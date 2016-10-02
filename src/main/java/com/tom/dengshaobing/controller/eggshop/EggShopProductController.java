@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/eggshop/product")
 public class EggShopProductController extends BaseController {
+	public static final String BasePath = "/eggshop/product/";
 
 	@Autowired
 	CommonService commonService;
@@ -49,28 +50,25 @@ public class EggShopProductController extends BaseController {
 		this.mapForm = mapForm;
 	}
 
-	// product start
 	@RequestMapping("/list")
-	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map)
-			throws Exception {
+	public String list(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
 		UUID userUC = bussService.getUserUCByOpenid(openid);
-
-		// all product
+		
 		TableMeta tableMeta = bussService.listAllProduct();
-		tableMeta.title = "product";
+		tableMeta.title = "Product";
 		map.put(SxTableMeta, tableMeta);
 
-		return "list";
+		return BasePath + "list";
 	}
 
 	@RequestMapping("/edit")
-	public String productInit(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
+	public String edit(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
 			throws Exception {
 		if (rowUC != null) {
-			Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), null);
-			Map<String, Object> productDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
-			mapForm.setProperties(product);
-			mapForm.putAllProperties(productDetail);
+			Map<String, Object> row = bussService.queryProduct(UUID.fromString(rowUC), null);
+			Map<String, Object> rowDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
+			mapForm.setProperties(row);
+			mapForm.putAllProperties(rowDetail);
 
 		} else {
 			mapForm = new MapForm();
@@ -78,11 +76,29 @@ public class EggShopProductController extends BaseController {
 		map.put(SxFormData, mapForm);
 		map.put(PxRowUC, rowUC);
 
-		return "edit";
+		return BasePath + "edit";
+	}
+
+	@RequestMapping("/view")
+	public String view(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
+			throws Exception {
+		if (rowUC != null) {
+			Map<String, Object> row = bussService.queryProduct(UUID.fromString(rowUC), null);
+			Map<String, Object> rowDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
+			mapForm.setProperties(row);
+			mapForm.putAllProperties(rowDetail);
+
+		} else {
+			mapForm = new MapForm();
+		}
+		map.put(SxFormData, mapForm);
+		map.put(PxRowUC, rowUC);
+
+		return BasePath + "view";
 	}
 
 	@RequestMapping("/save")
-	public String productSave(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
 		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
 
 		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
@@ -95,7 +111,7 @@ public class EggShopProductController extends BaseController {
 	}
 
 	@RequestMapping("/delete")
-	public String productDelete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+	public String delete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
 		bussService.deleteProduct(UUID.fromString(rowUC), null);
 		return "redirect:list";
 	}

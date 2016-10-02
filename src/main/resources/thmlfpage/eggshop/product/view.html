@@ -14,10 +14,9 @@
 <title></title>
 </head>
 <body>
-
 	<div class="container">
 		<form class="form-horizontal" role="form" action="#"
-			th:object="${formData}" th:action="@{save}">
+			th:object="${formData}">
 			<div class="container">
 				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
 				<div class="form-group">
@@ -37,8 +36,11 @@
 						th:field="*{properties[REMARK]}"
 						placeholder="Product Description..."></textarea>
 				</div>
-
-				<button type="submit" class="btn btn-default">Submit</button>
+				<div class="btn-toolbar" role="toolbar">
+					<div class="btn-group">
+						<a class="btn btn-default" role="button" th:href="@{list}">Back</a>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>

@@ -16,5 +16,10 @@ public class Const {
 		public static final String Active = "1";
 		public static final String Disable = "2";
 	};
+	
+	public static final class ORDER_STATUS {
+		public static final String Active = "1";
+		public static final String Disable = "2";
+	};
 
 }

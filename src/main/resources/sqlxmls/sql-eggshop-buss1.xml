@@ -8,14 +8,27 @@ SELECT UNIQUE_CODE FROM TX_USER where OPENID = :OPENID
 
 	<sql name="BUSS002">
 	<![CDATA[
-select od.SUMMARY 订单,
-       od.TOTAL_AMT 金额,
-       od.STATUS 状态,
-       to_char(od.CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
-  from TX_ORDER od
- where od.USER_UC = :USER_UC
+select UNIQUE_CODE,
+       SUMMARY 订单,
+       TOTAL_AMT 金额,
+       STATUS 状态,
+       to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
+  from TX_ORDER
+  order by CREATE_TIME desc
+ where USER_UC = :USER_UC
 	]]>
 	</sql>
+
+	<sql name="BUSS003">
+	<![CDATA[
+select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金额
+  from TX_ORDER_ITEM oi
+  left join TX_PRODUCT p
+    on oi.PRODUCT_UC = p.UNIQUE_CODE
+ where oi.ORDER_UC = :ORDER_UC
+	]]>
+	</sql>
+	
 	<sql name="BUSS004">
 	<![CDATA[
 SELECT UNIQUE_CODE  ,NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM TX_PRODUCT 
