@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/eggshop/order")
-public class EggshopOrderController extends BaseController {
+public class EggShopOrderController extends BaseController {
 
 	@Autowired
 	CommonService commonService;
