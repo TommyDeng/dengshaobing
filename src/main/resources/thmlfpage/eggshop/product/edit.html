@@ -37,12 +37,19 @@
 						th:field="*{properties[REMARK]}"
 						placeholder="Product Description..."></textarea>
 				</div>
-
-				<button type="submit" class="btn btn-default"
-					th:formaction="@{save(rowUC=${rowUC})}" th:formmethod="post">Submit</button>
-				<a class="btn btn-default" role="button" th:href="@{list}">Back</a>
-				<a class="btn btn-default" role="button" th:if="${rowUC}!=null"
-					th:href="@{delete(rowUC=${rowUC})}">Delete</a>
+				<div class="btn-toolbar" role="toolbar">
+					<div class="btn-group">
+						<button type="submit" class="btn btn-primary"
+							th:formaction="@{save(rowUC=${rowUC})}" th:formmethod="post">Submit</button>
+					</div>
+					<div class="btn-group">
+						<a class="btn btn-default" role="button" th:href="@{list}">Back</a>
+					</div>
+					<div class="btn-group">
+						<a class="btn btn-default" role="button" th:if="${rowUC}!=null"
+							th:href="@{delete(rowUC=${rowUC})}">Delete</a>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
