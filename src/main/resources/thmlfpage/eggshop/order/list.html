@@ -7,14 +7,16 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<link rel="stylesheet" href="/dengshaobing/css/bootstrap.min.css" />
-<script src="/dengshaobing/js/jquery-3.1.0.min.js"></script>
-<script src="/dengshaobing/js/bootstrap.min.js"></script>
+<link rel="import" href="/dengshaobing/include/basic_style.html" />
 
 <title></title>
 </head>
 <body>
 	<div class="container">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#">Sending</a></li>
+			<li role="presentation"><a href="#">All</a></li>
+		</ul>
 		<table class="table table-striped table-condensed">
 			<caption th:text="${tableMeta.title}"></caption>
 			<thead>

@@ -16,11 +16,11 @@ public interface DataAccessService {
 	/**
 	 * sql 返回 TableMeta
 	 * 
-	 * @param sql
+	 * @param sqlName
 	 * @param paramMap
 	 * @return
 	 */
-	TableMeta queryTableMetaBySql(String sql, Map<String, ?> paramMap);
+	TableMeta queryTableMetaBySql(String sqlName, Map<String, ?> paramMap);
 
 	/**
 	 * 执行sql后返回第一行第一列
@@ -30,7 +30,7 @@ public interface DataAccessService {
 	 * @param cls
 	 * @return
 	 */
-	<T> T queryForOneObject(String sql, Map<String, ?> paramMap, Class<T> cls);
+	<T> T queryForOneObject(String sqlName, Map<String, ?> paramMap, Class<T> cls);
 
 	/**
 	 * 单条插入，paramMap中无对应项则赋值为null
@@ -52,18 +52,19 @@ public interface DataAccessService {
 	 */
 	int updateSingle(String tableName, Map<String, ?> paramMap) throws Exception;
 
-	
 	/**
 	 * 根据pk查询单条记录
+	 * 
 	 * @param tableName
 	 * @param pk
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception;
 
 	/**
-	 *  根据pk删除单条记录
+	 * 根据pk删除单条记录
+	 * 
 	 * @param tableName
 	 * @param pk
 	 * @return
@@ -71,4 +72,12 @@ public interface DataAccessService {
 	 */
 	int deleteRowById(String tableName, Object pk) throws Exception;
 
+	/**
+	 * 执行sql
+	 * 
+	 * @param sql
+	 * @param paramMap
+	 * @return
+	 */
+	int update(String sqlName, Map<String, ?> paramMap);
 }

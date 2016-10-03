@@ -36,12 +36,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_ID", userUC);
 
-		return dataAccessService.queryTableMetaBySql(SqlStatements.get("BUSS002"), paramMap);
+		return dataAccessService.queryTableMetaBySql("BUSS002", paramMap);
 	}
 
 	@Override
 	public TableMeta listAllProduct() {
-		return dataAccessService.queryTableMetaBySql(SqlStatements.get("BUSS004"), null);
+		return dataAccessService.queryTableMetaBySql("BUSS004", null);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap.put("OPENID", openid);
 		UUID userUC = null;
 
-		userUC = dataAccessService.queryForOneObject(SqlStatements.get("BUSS001"), paramMap, UUID.class);
+		userUC = dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class);
 		// 无用户直接绑定
 		if (userUC == null) {
 			Map<String, Object> insertParamMap = new HashMap<>();
@@ -109,7 +109,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 			dataAccessService.insertSingle("TX_USER", insertParamMap);
 
 			// 重新查询
-			userUC = dataAccessService.queryForOneObject(SqlStatements.get("BUSS001"), paramMap, UUID.class);
+			userUC = dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class);
 		}
 		return userUC;
 	}
@@ -134,4 +134,11 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		dataAccessService.updateSingle("TX_ORDER", paramMap);
 	}
 
+	@Override
+	public void deleteOrder(UUID orderUC, UUID userUC) throws Exception {
+		dataAccessService.deleteRowById("TX_ORDER", orderUC);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ORDER_UC", orderUC);
+		dataAccessService.update("BUSS005", paramMap);
+	}
 }

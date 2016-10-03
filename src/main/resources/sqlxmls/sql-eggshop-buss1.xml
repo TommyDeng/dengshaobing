@@ -34,4 +34,12 @@ select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金�
 SELECT UNIQUE_CODE  ,NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM TX_PRODUCT 
 	]]>
 	</sql>
+	
+	<sql name="BUSS005">
+	<![CDATA[
+delete from TX_ORDER_ITEM where ORDER_UC = :ORDER_UC 
+	]]>
+	</sql>	
+	
+	
 </sqls>

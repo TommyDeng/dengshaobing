@@ -114,7 +114,7 @@ public class EggShopOrderController extends BaseController {
 
 	@RequestMapping("/delete")
 	public String delete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
-		bussService.deleteProduct(UUID.fromString(rowUC), null);
+		bussService.deleteOrder(UUID.fromString(rowUC), null);
 		return "redirect:list";
 	}
 

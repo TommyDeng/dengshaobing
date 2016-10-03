@@ -112,11 +112,19 @@ public interface EggShopBussService {
 	TableMeta queryOrderItem(UUID orderUC, UUID userUC);
 
 	/**
-	 * 废弃
+	 * 废弃order
 	 * @param orderUC
 	 * @param userUC
 	 * @throws Exception 
 	 */
 	void discardOrder(UUID orderUC, UUID userUC) throws Exception;
+
+	/**
+	 * 删除order
+	 * @param orderUC
+	 * @param userUC
+	 * @throws Exception 
+	 */
+	void deleteOrder(UUID orderUC, UUID userUC) throws Exception;
 
 }

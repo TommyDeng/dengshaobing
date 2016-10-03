@@ -24,6 +24,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import com.tom.dengshaobing.common.bo.sys.HeadMeta;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
+import com.tom.dengshaobing.sqlstatements.SqlStatements;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -38,9 +39,9 @@ public class DataAccessServiceImpl implements DataAccessService {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
-	public TableMeta queryTableMetaBySql(String sql, Map<String, ?> paramMap) {
+	public TableMeta queryTableMetaBySql(String sqlName, Map<String, ?> paramMap) {
 		TableMeta tableMeta = new TableMeta();
-		namedParameterJdbcTemplate.query(sql, paramMap, new ResultSetExtractor<List<Map<String, Object>>>() {
+		namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap, new ResultSetExtractor<List<Map<String, Object>>>() {
 			@Override
 			public List<Map<String, Object>> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
 
@@ -122,8 +123,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public <T> T queryForOneObject(String sql, Map<String, ?> paramMap, Class<T> cls) {
-		List<T> resultList = namedParameterJdbcTemplate.query(sql, paramMap, new RowMapper<T>() {
+	public <T> T queryForOneObject(String sqlName, Map<String, ?> paramMap, Class<T> cls) {
+		List<T> resultList = namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap, new RowMapper<T>() {
 
 			@Override
 			@SuppressWarnings("unchecked")
@@ -344,6 +345,11 @@ public class DataAccessServiceImpl implements DataAccessService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put(pkFieldName, pk);
 		return namedParameterJdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public int update(String sqlName, Map<String, ?> paramMap) {
+		return namedParameterJdbcTemplate.update(SqlStatements.get(sqlName), paramMap);
 	}
 
 }
