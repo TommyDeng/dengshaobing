@@ -34,12 +34,11 @@
 			<caption th:text="${tableMeta.title}">SHOPPING CART</caption>
 			<thead>
 				<tr>
-					<!-- add operation -->
-					<th><a class="btn btn-default" th:href="@{edit}" role="button"><span
-							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></th>
+					<th></th>
 
 					<th th:each="head : ${tableMeta.headList}"
 						th:text="${head.columnLabel}" th:if="${head.display}"></th>
+
 					<th><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 					</th>
 				</tr>
@@ -59,7 +58,6 @@
 						class="btn btn-default" role="button"
 						th:href="@{view(rowUC=${recode[1]})}"><span
 							class="glyphicon glyphicon-search" aria-hidden="true"></span> </a></td>
-
 				</tr>
 			</tbody>
 		</table>

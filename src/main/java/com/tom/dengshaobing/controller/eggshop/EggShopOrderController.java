@@ -59,7 +59,7 @@ public class EggShopOrderController extends BaseController {
 		tableMeta.title = "Order";
 		map.put(SxTableMeta, tableMeta);
 
-		return BasePath + "/list";
+		return BasePath + "list";
 	}
 
 	@RequestMapping("/edit")
@@ -95,7 +95,7 @@ public class EggShopOrderController extends BaseController {
 		map.put(SxFormData, mapForm);
 		map.put(PxRowUC, rowUC);
 
-		return BasePath + "/view";
+		return BasePath + "view";
 	}
 
 	@RequestMapping("/save")

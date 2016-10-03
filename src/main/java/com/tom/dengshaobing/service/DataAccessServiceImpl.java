@@ -39,44 +39,47 @@ public class DataAccessServiceImpl implements DataAccessService {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
-	public TableMeta queryTableMetaBySql(String sqlName, Map<String, ?> paramMap) {
+	public TableMeta queryTableMeta(String sqlName, Map<String, ?> paramMap) {
 		TableMeta tableMeta = new TableMeta();
-		namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap, new ResultSetExtractor<List<Map<String, Object>>>() {
-			@Override
-			public List<Map<String, Object>> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+		namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap,
+				new ResultSetExtractor<List<Map<String, Object>>>() {
+					@Override
+					public List<Map<String, Object>> extractData(ResultSet resultSet)
+							throws SQLException, DataAccessException {
 
-				List<Map<String, Object>> dataList = new ArrayList<>();
-				List<HeadMeta> headList = new ArrayList<>();
+						List<Map<String, Object>> dataList = new ArrayList<>();
+						List<HeadMeta> headList = new ArrayList<>();
 
-				// set meta data
-				ResultSetMetaData rsmd = resultSet.getMetaData();
-				int columnCount = rsmd.getColumnCount();
+						// set meta data
+						ResultSetMetaData rsmd = resultSet.getMetaData();
+						int columnCount = rsmd.getColumnCount();
 
-				for (int i = 1; i <= columnCount; i++) {
-					HeadMeta headMeta = new HeadMeta();
-					headMeta.index = i;
-					headMeta.columnLabel = rsmd.getColumnLabel(i);
-					headMeta.columnName = String.valueOf(i);// use index
-					headMeta.className = rsmd.getColumnClassName(i);
-					headMeta.display = !"UNIQUE_CODE".equals(headMeta.columnLabel);
-					
-					headList.add(headMeta);
-				}
+						for (int i = 1; i <= columnCount; i++) {
+							HeadMeta headMeta = new HeadMeta();
+							headMeta.index = i;
+							headMeta.columnLabel = rsmd.getColumnLabel(i);
+							headMeta.columnName = String.valueOf(i);// use index
+							headMeta.className = rsmd.getColumnClassName(i);
+							headMeta.display = !"UNIQUE_CODE".equals(headMeta.columnLabel);
 
-				while (resultSet.next()) {
-					Map<String, Object> mapOfColValues = new LinkedCaseInsensitiveMap<Object>(columnCount);
-					for (int i = 1; i <= columnCount; i++) {
-						// String key = lookupColumnName(rsmd, i);
-						Object obj = getResultSetValue(resultSet, i);
-						mapOfColValues.put(String.valueOf(i), obj);// use index
+							headList.add(headMeta);
+						}
+
+						while (resultSet.next()) {
+							Map<String, Object> mapOfColValues = new LinkedCaseInsensitiveMap<Object>(columnCount);
+							for (int i = 1; i <= columnCount; i++) {
+								// String key = lookupColumnName(rsmd, i);
+								Object obj = getResultSetValue(resultSet, i);
+								mapOfColValues.put(String.valueOf(i), obj);// use
+																			// index
+							}
+							dataList.add(mapOfColValues);
+						}
+						tableMeta.dataList = dataList;
+						tableMeta.headList = headList;
+						return dataList;
 					}
-					dataList.add(mapOfColValues);
-				}
-				tableMeta.dataList = dataList;
-				tableMeta.headList = headList;
-				return dataList;
-			}
-		});
+				});
 
 		return tableMeta;
 	}
@@ -350,6 +353,11 @@ public class DataAccessServiceImpl implements DataAccessService {
 	@Override
 	public int update(String sqlName, Map<String, ?> paramMap) {
 		return namedParameterJdbcTemplate.update(SqlStatements.get(sqlName), paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> queryMapList(String sqlName, Map<String, ?> paramMap) {
+		return namedParameterJdbcTemplate.queryForList(SqlStatements.get(sqlName), paramMap);
 	}
 
 }

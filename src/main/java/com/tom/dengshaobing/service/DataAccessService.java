@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public interface DataAccessService {
 	 * @param paramMap
 	 * @return
 	 */
-	TableMeta queryTableMetaBySql(String sqlName, Map<String, ?> paramMap);
+	TableMeta queryTableMeta(String sqlName, Map<String, ?> paramMap);
 
 	/**
 	 * 执行sql后返回第一行第一列
@@ -75,9 +76,17 @@ public interface DataAccessService {
 	/**
 	 * 执行sql
 	 * 
-	 * @param sql
+	 * @param sqlName
 	 * @param paramMap
 	 * @return
 	 */
 	int update(String sqlName, Map<String, ?> paramMap);
+
+	/**
+	 * 查询MapList
+	 * @param sqlName
+	 * @param paramMap
+	 * @return
+	 */
+	List<Map<String, Object>> queryMapList(String sqlName, Map<String, ?> paramMap);
 }

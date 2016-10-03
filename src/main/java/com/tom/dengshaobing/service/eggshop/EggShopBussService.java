@@ -98,7 +98,7 @@ public interface EggShopBussService {
 	 * @param orderUC
 	 * @param userUC
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	Map<String, Object> queryOrder(UUID orderUC, UUID userUC) throws Exception;
 
@@ -113,18 +113,27 @@ public interface EggShopBussService {
 
 	/**
 	 * 废弃order
+	 * 
 	 * @param orderUC
 	 * @param userUC
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	void discardOrder(UUID orderUC, UUID userUC) throws Exception;
 
 	/**
 	 * 删除order
+	 * 
 	 * @param orderUC
 	 * @param userUC
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	void deleteOrder(UUID orderUC, UUID userUC) throws Exception;
+
+	
+	/**
+	 * 获取所有产品(main页面展示)
+	 * @return
+	 */
+	List<Map<String, Object>> listAllProductForMain();
 
 }

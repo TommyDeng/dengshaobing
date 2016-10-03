@@ -11,6 +11,8 @@ public class BaseController {
 
 	protected final String SxFormData = "formData";// 页面formData变量
 
+	protected final String SxMapList = "mapList";// 页面mapList变量
+	
 	protected final String PxOpenid = "openid";// openid:当前操作用户openid
 
 	protected final String PxUserUC = "userUC";// userUC:当前操作用户ID

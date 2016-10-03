@@ -14,8 +14,8 @@ select UNIQUE_CODE,
        STATUS 状态,
        to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
   from TX_ORDER
-  order by CREATE_TIME desc
  where USER_UC = :USER_UC
+   order by CREATE_TIME desc
 	]]>
 	</sql>
 
@@ -28,18 +28,23 @@ select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金�
  where oi.ORDER_UC = :ORDER_UC
 	]]>
 	</sql>
-	
+
 	<sql name="BUSS004">
 	<![CDATA[
 SELECT UNIQUE_CODE  ,NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM TX_PRODUCT 
 	]]>
 	</sql>
-	
+
 	<sql name="BUSS005">
 	<![CDATA[
 delete from TX_ORDER_ITEM where ORDER_UC = :ORDER_UC 
 	]]>
-	</sql>	
-	
-	
+	</sql>
+
+	<sql name="BUSS006">
+	<![CDATA[
+SELECT p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL pd on p.UNIQUE_CODE = pd.UNIQUE_CODE 
+	]]>
+	</sql>
+
 </sqls>

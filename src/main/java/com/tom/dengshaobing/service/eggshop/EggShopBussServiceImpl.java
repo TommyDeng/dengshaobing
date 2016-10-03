@@ -34,14 +34,14 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Override
 	public TableMeta listOrderByUserUC(UUID userUC) {
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("USER_ID", userUC);
+		paramMap.put("USER_UC", userUC);
 
-		return dataAccessService.queryTableMetaBySql("BUSS002", paramMap);
+		return dataAccessService.queryTableMeta("BUSS002", paramMap);
 	}
 
 	@Override
 	public TableMeta listAllProduct() {
-		return dataAccessService.queryTableMetaBySql("BUSS004", null);
+		return dataAccessService.queryTableMeta("BUSS004", null);
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	public TableMeta queryOrderItem(UUID orderUC, UUID userUC) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
-		return dataAccessService.queryTableMetaBySql("BUSS003", paramMap);
+		return dataAccessService.queryTableMeta("BUSS003", paramMap);
 	}
 
 	@Override
@@ -140,5 +140,10 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		dataAccessService.update("BUSS005", paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> listAllProductForMain() {
+		return dataAccessService.queryMapList("BUSS006", null);
 	}
 }

@@ -38,7 +38,7 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public TableMeta listVisit() {
-		return dataAccessService.queryTableMetaBySql(SqlStatements.get("002"), new HashMap<>());
+		return dataAccessService.queryTableMeta(SqlStatements.get("002"), new HashMap<>());
 	}
 
 	@Override
