@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -327,7 +326,14 @@ public class DataAccessServiceImpl implements DataAccessService {
 		sql += pkFieldName + " = :" + pkFieldName;
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put(pkFieldName, pk);
-		return namedParameterJdbcTemplate.queryForMap(sql, paramMap);
+
+		List<Map<String, Object>> mapList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
+		if (mapList == null || mapList.size() == 0) {
+			return null;
+		} else {
+			return mapList.get(0);
+		}
+
 	}
 
 	@Override

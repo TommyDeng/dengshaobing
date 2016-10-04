@@ -15,6 +15,8 @@ public class MapForm {
 	}
 
 	public void putAllProperties(Map<String, Object> properties) {
+		if (properties == null)
+			return;
 		if (this.properties == null) {
 			this.properties = properties;
 		} else {
