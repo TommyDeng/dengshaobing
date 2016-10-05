@@ -3,6 +3,9 @@ HTTP:
 2.Mine Type
 3.webservice(ws,jws??...)
 
+HTTPS
+
+
 Spring MVC
 
 Maven

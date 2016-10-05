@@ -1,9 +1,13 @@
 package com.tom.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 
-import com.tom.dengshaobing.service.DataAccessServiceImpl;
-import com.tom.dengshaobing.sqlstatements.SqlStatements;
+import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
+import com.tom.utils.SqlUtils;
 
 import junit.framework.TestSuite;
 
@@ -18,8 +22,10 @@ public class TempTest extends TestSuite {
 
 	@Test
 	public void temp() throws Exception {
-		
-		DataAccessServiceImpl ds = new DataAccessServiceImpl();
-		
+		Oauth2UserInfo userInfo = new Oauth2UserInfo();
+		userInfo.city = "123";
+		Map<String, Object> paramMap = new HashMap<>();
+		BeanUtils.populate(userInfo, paramMap);
+		System.out.println(SqlUtils.revertKeyUpcase(paramMap));
 	}
 }

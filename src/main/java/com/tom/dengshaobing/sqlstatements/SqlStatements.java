@@ -34,7 +34,7 @@ public class SqlStatements {
 	}
 
 	public static String get(String sqlName) {
-		return sqlContainer.get(sqlName);
+		return sqlContainer.get(sqlName).toUpperCase();
 	}
 
 	private static void loadAll() throws Exception {

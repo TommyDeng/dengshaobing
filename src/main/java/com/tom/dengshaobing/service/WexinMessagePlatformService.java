@@ -132,4 +132,11 @@ public interface WexinMessagePlatformService {
 	 */
 	void deleteMenu() throws Exception;
 
+	/**
+	 * 将用户信息和openid对应关系存储到本地数据库
+	 * 
+	 * @param userInfo
+	 * @throws Exception 
+	 */
+	void storeOauth2UserInfo(Oauth2UserInfo userInfo) throws Exception;
 }

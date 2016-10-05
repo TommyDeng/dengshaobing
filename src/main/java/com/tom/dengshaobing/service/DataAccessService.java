@@ -21,7 +21,7 @@ public interface DataAccessService {
 	 * @param paramMap
 	 * @return
 	 */
-	TableMeta queryTableMeta(String sqlName, Map<String, ?> paramMap);
+	TableMeta queryTableMeta(String sqlName, Map<String, Object> paramMap);
 
 	/**
 	 * 执行sql后返回第一行第一列
@@ -31,7 +31,7 @@ public interface DataAccessService {
 	 * @param cls
 	 * @return
 	 */
-	<T> T queryForOneObject(String sqlName, Map<String, ?> paramMap, Class<T> cls);
+	<T> T queryForOneObject(String sqlName, Map<String, Object> paramMap, Class<T> cls);
 
 	/**
 	 * 单条插入，paramMap中无对应项则赋值为null
@@ -41,7 +41,7 @@ public interface DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	int insertSingle(String tableName, Map<String, ?> paramMap) throws Exception;
+	int insertSingle(String tableName, Map<String, Object> paramMap) throws Exception;
 
 	/**
 	 * 单条修改，只更新paramMap中对应项,必须包含PK
@@ -51,7 +51,7 @@ public interface DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	int updateSingle(String tableName, Map<String, ?> paramMap) throws Exception;
+	int updateSingle(String tableName, Map<String, Object> paramMap) throws Exception;
 
 	/**
 	 * 根据pk查询单条记录
@@ -80,7 +80,7 @@ public interface DataAccessService {
 	 * @param paramMap
 	 * @return
 	 */
-	int update(String sqlName, Map<String, ?> paramMap);
+	int update(String sqlName, Map<String, Object> paramMap);
 
 	/**
 	 * 查询MapList
@@ -88,5 +88,5 @@ public interface DataAccessService {
 	 * @param paramMap
 	 * @return
 	 */
-	List<Map<String, Object>> queryMapList(String sqlName, Map<String, ?> paramMap);
+	List<Map<String, Object>> queryMapList(String sqlName, Map<String, Object> paramMap);
 }

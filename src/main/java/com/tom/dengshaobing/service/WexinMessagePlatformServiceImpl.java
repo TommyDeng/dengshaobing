@@ -2,7 +2,10 @@ package com.tom.dengshaobing.service;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -36,6 +39,9 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	@Autowired
 	CommonService commonService;
+
+	@Autowired
+	DataAccessService dataAccessService;
 
 	@Autowired
 	WmpEventService wmpBussService;
@@ -251,6 +257,28 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 			commonService.logErrorable(uri.toString(), errorable);
 			throw new Exception(uri.toString() + IOUtils.LINE_SEPARATOR + errorable);
 		}
+	}
+
+	@Override
+	public void storeOauth2UserInfo(Oauth2UserInfo userInfo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("UNIQUE_CODE", UUID.randomUUID().toString());
+		paramMap.put("OPENID", userInfo.openid);
+		paramMap.put("NICKNAME", userInfo.nickname);
+		paramMap.put("SEX", userInfo.sex);
+		paramMap.put("CITY", userInfo.city);
+		paramMap.put("COUNTRY", userInfo.country);
+		paramMap.put("PROVINCE", userInfo.province);
+		paramMap.put("LANGUAGE", userInfo.language);
+		paramMap.put("HEADIMGURL", userInfo.headimgurl);
+		paramMap.put("UNIONID", userInfo.unionid);
+		paramMap.put("GROUPID", userInfo.groupid);
+		paramMap.put("REMARK", userInfo.remark);
+
+		
+		
+		dataAccessService.insertSingle("TX_USERINFO_EX", paramMap);
 	}
 
 }

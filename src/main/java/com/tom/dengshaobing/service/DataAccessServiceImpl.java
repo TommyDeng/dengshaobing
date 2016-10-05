@@ -24,6 +24,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import com.tom.dengshaobing.common.bo.sys.HeadMeta;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.sqlstatements.SqlStatements;
+import com.tom.utils.SqlUtils;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -38,7 +39,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
-	public TableMeta queryTableMeta(String sqlName, Map<String, ?> paramMap) {
+	public TableMeta queryTableMeta(String sqlName, Map<String, Object> paramMap) {
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		TableMeta tableMeta = new TableMeta();
 		namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap,
 				new ResultSetExtractor<List<Map<String, Object>>>() {
@@ -56,7 +58,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 						for (int i = 1; i <= columnCount; i++) {
 							HeadMeta headMeta = new HeadMeta();
 							headMeta.index = i;
-							headMeta.columnLabel = rsmd.getColumnLabel(i);
+							headMeta.columnLabel = rsmd.getColumnLabel(i).toUpperCase();
 							headMeta.columnName = String.valueOf(i);// use index
 							headMeta.className = rsmd.getColumnClassName(i);
 							headMeta.display = !"UNIQUE_CODE".equals(headMeta.columnLabel);
@@ -125,7 +127,10 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public <T> T queryForOneObject(String sqlName, Map<String, ?> paramMap, Class<T> cls) {
+	public <T> T queryForOneObject(String sqlName, Map<String, Object> paramMap, Class<T> cls) {
+
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
+
 		List<T> resultList = namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap, new RowMapper<T>() {
 
 			@Override
@@ -138,7 +143,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 			}
 
 		});
-		if (resultList.isEmpty()) {
+		if (resultList == null || resultList.isEmpty()) {
 			return null;
 		} else {
 			return resultList.get(0);// 取第一行
@@ -146,15 +151,18 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public int insertSingle(String tableName, Map<String, ?> paramMap) throws Exception {
-		String insertSql = getInsertSqlByTableNameAndParamMap(tableName, paramMap);
+	public int insertSingle(String tableName, Map<String, Object> paramMap) throws Exception {
+		tableName = tableName.toUpperCase();
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
+		String insertSql = getInsertSqlByTableNameAndParamMap(tableName, paramMap).toUpperCase();
 		setNullIfPlaceHolderNotExistsInParamMap(insertSql, paramMap);
 		return namedParameterJdbcTemplate.update(insertSql, paramMap);
 	}
 
 	@Override
-	public int updateSingle(String tableName, Map<String, ?> paramMap) throws Exception {
-		// TODO Auto-generated method stub
+	public int updateSingle(String tableName, Map<String, Object> paramMap) throws Exception {
+		tableName = tableName.toUpperCase();
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		return namedParameterJdbcTemplate.update(getUpdateSqlByTableNameAndParamMap(tableName, paramMap), paramMap);
 	}
 
@@ -165,8 +173,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	protected String getInsertSqlByTableNameAndParamMap(String tableName, Map<String, ?> paramMap) throws Exception {
-
+	protected String getInsertSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap)
+			throws Exception {
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
 		StringBuilder returnSql = new StringBuilder();
@@ -214,8 +222,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	protected String getUpdateSqlByTableNameAndParamMap(String tableName, Map<String, ?> paramMap) throws Exception {
-
+	protected String getUpdateSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap)
+			throws Exception {
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
 		StringBuilder returnSql = new StringBuilder();
@@ -288,7 +296,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @param paramMap
 	 * @throws Exception
 	 */
-	private static void setNullIfPlaceHolderNotExistsInParamMap(String sql, Map<String, ?> paramMap) throws Exception {
+	private static void setNullIfPlaceHolderNotExistsInParamMap(String sql, Map<String, Object> paramMap)
+			throws Exception {
 		ParsedSql parsedSql = NamedParameterUtils.parseSqlStatement(sql);
 		// ParsedSql in org.springframework.jdbc.core.namedparam
 		// List<String> paramNames = parsedSql.getParameterNames();
@@ -311,7 +320,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 
 	@Override
 	public Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception {
-
+		tableName = tableName.toUpperCase();
 		String sql = "select * from " + tableName + " where ";
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
@@ -338,7 +347,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 
 	@Override
 	public int deleteRowById(String tableName, Object pk) throws Exception {
-
+		tableName = tableName.toUpperCase();
 		String sql = "delete from " + tableName + " where ";
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
@@ -357,12 +366,14 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public int update(String sqlName, Map<String, ?> paramMap) {
+	public int update(String sqlName, Map<String, Object> paramMap) {
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		return namedParameterJdbcTemplate.update(SqlStatements.get(sqlName), paramMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> queryMapList(String sqlName, Map<String, ?> paramMap) {
+	public List<Map<String, Object>> queryMapList(String sqlName, Map<String, Object> paramMap) {
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		return namedParameterJdbcTemplate.queryForList(SqlStatements.get(sqlName), paramMap);
 	}
 
