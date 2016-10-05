@@ -54,6 +54,17 @@ public interface DataAccessService {
 	int updateSingle(String tableName, Map<String, Object> paramMap) throws Exception;
 
 	/**
+	 * 有记录是修改，无记录时插入，只更新paramMap中对应项,必须包含PK
+	 * 
+	 * @param tableName
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	int mergeSingle(String tableName, Map<String, Object> paramMap) throws Exception;
+
+	
+	/**
 	 * 根据pk查询单条记录
 	 * 
 	 * @param tableName

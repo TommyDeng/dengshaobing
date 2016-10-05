@@ -50,4 +50,10 @@ public class CommonServiceImpl implements CommonService {
 		dataAccessService.insertSingle("LOG_ERRORABLE", paramMap);
 	}
 
+	@Override
+	public String getAppToken(String entranceId) {
+		// 暂无实现,使用传入值作为唯一标示
+		return entranceId;
+	}
+
 }

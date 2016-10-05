@@ -47,4 +47,5 @@ SELECT p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL
 	]]>
 	</sql>
 
+	
 </sqls>

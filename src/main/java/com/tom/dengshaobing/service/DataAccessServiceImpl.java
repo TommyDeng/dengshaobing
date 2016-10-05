@@ -154,9 +154,8 @@ public class DataAccessServiceImpl implements DataAccessService {
 	public int insertSingle(String tableName, Map<String, Object> paramMap) throws Exception {
 		tableName = tableName.toUpperCase();
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
-		String insertSql = getInsertSqlByTableNameAndParamMap(tableName, paramMap).toUpperCase();
-		setNullIfPlaceHolderNotExistsInParamMap(insertSql, paramMap);
-		return namedParameterJdbcTemplate.update(insertSql, paramMap);
+		// setNullIfPlaceHolderNotExistsInParamMap(insertSql, paramMap);
+		return namedParameterJdbcTemplate.update(getInsertSqlByTableNameAndParamMap(tableName, paramMap), paramMap);
 	}
 
 	@Override
@@ -166,6 +165,13 @@ public class DataAccessServiceImpl implements DataAccessService {
 		return namedParameterJdbcTemplate.update(getUpdateSqlByTableNameAndParamMap(tableName, paramMap), paramMap);
 	}
 
+	@Override
+	public int mergeSingle(String tableName, Map<String, Object> paramMap) throws Exception {
+		tableName = tableName.toUpperCase();
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
+		return namedParameterJdbcTemplate.update(getMergeSqlByTableNameAndParamMap(tableName, paramMap), paramMap);
+	}
+
 	/**
 	 * 根据表名生成全字段insert语句
 	 * 
@@ -173,16 +179,15 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	protected String getInsertSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap)
-			throws Exception {
+	private String getInsertSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap) throws Exception {
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
 		StringBuilder returnSql = new StringBuilder();
-		StringBuilder paramPlaceholderSql = new StringBuilder();
+		StringBuilder paramPlaceholder = new StringBuilder();
 
 		returnSql.append("insert into " + tableName);
 		returnSql.append("(");
-		paramPlaceholderSql.append("(");
+		paramPlaceholder.append("(");
 
 		for (Map<String, Object> columnDesc : columnsDescList) {
 			// columnDesc.get("FIELD");// COLUMN_NAME
@@ -192,26 +197,23 @@ public class DataAccessServiceImpl implements DataAccessService {
 			// columnDesc.get("DEFAULT");// NULL
 
 			String fieldName = (String) columnDesc.get("FIELD");
-			// 有默认值,paramMap无设置,则不做处理
-			if (!"NULL".equals(columnDesc.get("DEFAULT")) && !paramMap.containsKey(fieldName)) {
-				continue;
-			}
-			returnSql.append(fieldName);
-			returnSql.append(",");
 
-			paramPlaceholderSql.append(":" + fieldName);
-			paramPlaceholderSql.append(",");
+			// paramMap contains then set field value
+			if (paramMap.containsKey(fieldName)) {
+				returnSql.append(fieldName + ",");
+				paramPlaceholder.append(":" + fieldName + ",");
+			}
 		}
 		returnSql.delete(returnSql.length() - 1, returnSql.length());
-		paramPlaceholderSql.delete(paramPlaceholderSql.length() - 1, paramPlaceholderSql.length());
+		paramPlaceholder.delete(paramPlaceholder.length() - 1, paramPlaceholder.length());
 
 		returnSql.append(")");
-		paramPlaceholderSql.append(")");
+		paramPlaceholder.append(")");
 
 		returnSql.append(" values ");
-		returnSql.append(paramPlaceholderSql);
+		returnSql.append(paramPlaceholder);
 
-		return returnSql.toString();
+		return returnSql.toString().toUpperCase();
 	}
 
 	/**
@@ -222,15 +224,14 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	protected String getUpdateSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap)
-			throws Exception {
+	private String getUpdateSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap) throws Exception {
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 
 		StringBuilder returnSql = new StringBuilder();
 
 		StringBuilder whereClauseSql = new StringBuilder();
 
-		boolean updateFeildEmpty = true;
+		boolean setFeildEmpty = true;
 		returnSql.append("update " + tableName);
 		returnSql.append(" set ");
 
@@ -254,20 +255,80 @@ public class DataAccessServiceImpl implements DataAccessService {
 			} else {
 				// paramMap contains then set field value
 				if (paramMap.containsKey(fieldName)) {
-					returnSql.append(fieldName + "=:" + fieldName);
-					returnSql.append(",");
-					updateFeildEmpty = false;
+					returnSql.append(fieldName + "=:" + fieldName + ",");
+					setFeildEmpty = false;
 				}
 			}
 		}
 
-		if (updateFeildEmpty) {
+		if (setFeildEmpty) {
 			throw new Exception("update feild empty in paramMap");
 		}
 		// delete ,
 		returnSql.delete(returnSql.length() - 1, returnSql.length());
 		returnSql.append(" where ").append(whereClauseSql);
-		return returnSql.toString();
+		return returnSql.toString().toUpperCase();
+	}
+
+	private String getMergeSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap) throws Exception {
+		// MERGE INTO TX_USERINFO_WX(OPENID,NICKNAME) KEY(OPENID )
+		// VALUES(:OPENID, :NICKNAME)
+		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
+
+		StringBuilder returnSql = new StringBuilder();
+
+		StringBuilder paramPlaceholder = new StringBuilder();
+		StringBuilder keyPlaceholder = new StringBuilder();
+
+		boolean setFeildEmpty = true;
+		returnSql.append("merge into " + tableName);
+		returnSql.append("(");
+		paramPlaceholder.append("(");
+
+		for (Map<String, Object> columnDesc : columnsDescList) {
+			// columnDesc.get("FIELD");// COLUMN_NAME
+			// columnDesc.get("TYPE");// VARCHAR(2500)
+			// columnDesc.get("NULL");// YES or NO
+			// columnDesc.get("KEY");// PRI or ''
+			// columnDesc.get("DEFAULT");// NULL
+
+			String fieldName = (String) columnDesc.get("FIELD");
+
+			if ("PRI".equals(columnDesc.get("KEY"))) {
+				if (paramMap.containsKey(fieldName)) {
+					// only support for 1 pk
+					keyPlaceholder.append("(" + fieldName + ")");
+				} else {// PK not exists in paramMap
+					throw new Exception("PK not exists in paramMap" + fieldName);
+				}
+			}
+
+			// paramMap contains then set field value
+			if (paramMap.containsKey(fieldName)) {
+				returnSql.append(fieldName + ",");
+				paramPlaceholder.append(":" + fieldName + ",");
+
+				setFeildEmpty = false;
+			}
+
+		}
+
+		if (setFeildEmpty) {
+			throw new Exception("update feild empty in paramMap");
+		}
+
+		returnSql.delete(returnSql.length() - 1, returnSql.length());
+		paramPlaceholder.delete(paramPlaceholder.length() - 1, paramPlaceholder.length());
+
+		returnSql.append(")");
+		paramPlaceholder.append(")");
+
+		returnSql.append(" key ");
+		returnSql.append(keyPlaceholder);
+		returnSql.append(" values ");
+		returnSql.append(paramPlaceholder);
+
+		return null;
 	}
 
 	/**
@@ -277,7 +338,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	protected List<Map<String, Object>> getColumnsDescListByTableName(String tableName) throws Exception {
+	private List<Map<String, Object>> getColumnsDescListByTableName(String tableName) throws Exception {
 		String descTableSql = "show columns from " + tableName;
 		Map<String, Object> paramMap = new HashMap<>();
 		// paramMap.put("TABLE_NAME", tableName);
@@ -296,6 +357,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	 * @param paramMap
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unused")
 	private static void setNullIfPlaceHolderNotExistsInParamMap(String sql, Map<String, Object> paramMap)
 			throws Exception {
 		ParsedSql parsedSql = NamedParameterUtils.parseSqlStatement(sql);

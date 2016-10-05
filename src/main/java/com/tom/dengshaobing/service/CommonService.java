@@ -39,4 +39,14 @@ public interface CommonService {
 	 */
 	void logErrorable(String uri, Errorable error) throws Exception;
 
+	
+	/**
+	 * 为实现restfull
+	 * 登录或者微信登录以后分配给用户的唯一会话ID
+	 * 
+	 * @param entranceId
+	 * @return
+	 */
+	String getAppToken(String entranceId);
+
 }

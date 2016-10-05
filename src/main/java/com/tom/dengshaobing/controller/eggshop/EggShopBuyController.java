@@ -53,10 +53,11 @@ public class EggShopBuyController extends BaseController {
 
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		UUID userUC = bussService.getUserUCByOpenid(openid);
+		
+		String appToken = this.getAppToken(openid, commonService);
 
 		map.put(SxMapList, bussService.listAllProductForMain());
-
+		
 		return BasePath + "main";
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
@@ -261,6 +262,11 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 
 	@Override
 	public void storeOauth2UserInfo(Oauth2UserInfo userInfo) throws Exception {
+
+		if (userInfo == null) {
+			return;
+		}
+
 		Map<String, Object> paramMap = new HashMap<>();
 
 		paramMap.put("UNIQUE_CODE", UUID.randomUUID().toString());
@@ -276,9 +282,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("GROUPID", userInfo.groupid);
 		paramMap.put("REMARK", userInfo.remark);
 
-		
-		
-		dataAccessService.insertSingle("TX_USERINFO_EX", paramMap);
+		dataAccessService.mergeSingle("TX_USERINFO_EX", paramMap);
 	}
 
 }
