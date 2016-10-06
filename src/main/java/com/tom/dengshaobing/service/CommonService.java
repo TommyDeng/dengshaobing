@@ -1,7 +1,7 @@
 package com.tom.dengshaobing.service;
 
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
@@ -39,14 +39,31 @@ public interface CommonService {
 	 */
 	void logErrorable(String uri, Errorable error) throws Exception;
 
-	
 	/**
-	 * 为实现restfull
-	 * 登录或者微信登录以后分配给用户的唯一会话ID
+	 * 为实现restfull 登录或者微信登录以后分配给用户的唯一会话ID
 	 * 
 	 * @param entranceId
 	 * @return
+	 * @throws Exception
 	 */
-	String getAppToken(String entranceId);
+	String getAppTokenByEntranceId(String entranceId, String entranceType) throws Exception;
+
+	/**
+	 * 使用token获取用户uc
+	 * 
+	 * @param appToken
+	 * @param commonService
+	 * @return
+	 */
+	UUID getUserUCByAppToken(String appToken);
+
+	/**
+	 * 绑定openid,并获取userUC
+	 * 
+	 * @param appToken
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getWXUserInfo(String appToken) throws Exception;
 
 }

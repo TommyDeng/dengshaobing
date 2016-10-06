@@ -261,15 +261,24 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 	}
 
 	@Override
-	public void storeOauth2UserInfo(Oauth2UserInfo userInfo) throws Exception {
+	public void storeOauth2UserInfo(Oauth2AccessToken oauth2AccessToken, Oauth2UserInfo userInfo) throws Exception {
+
+		if (oauth2AccessToken == null) {
+			return;
+		}
+		UUID userUC = UUID.randomUUID();
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", userUC);
+		paramMap.put("OPENID", oauth2AccessToken.openid);
+		paramMap.put("STATUS", Const.USER_STATUS.Active);
+		paramMap.put("TYPE", Const.USER_TYPE.Weixin);
+		dataAccessService.mergeSingle("TX_USER", paramMap);
 
 		if (userInfo == null) {
 			return;
 		}
-
-		Map<String, Object> paramMap = new HashMap<>();
-
-		paramMap.put("UNIQUE_CODE", UUID.randomUUID().toString());
+		paramMap.put("UNIQUE_CODE", userUC);
 		paramMap.put("OPENID", userInfo.openid);
 		paramMap.put("NICKNAME", userInfo.nickname);
 		paramMap.put("SEX", userInfo.sex);
@@ -282,7 +291,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("GROUPID", userInfo.groupid);
 		paramMap.put("REMARK", userInfo.remark);
 
-		dataAccessService.mergeSingle("TX_USERINFO_EX", paramMap);
+		dataAccessService.mergeSingle("TX_USERINFO_WX", paramMap);
 	}
 
 }

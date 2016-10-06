@@ -112,9 +112,10 @@ public class WexinMessagePlatformController {
 		// 当scope为snsapi_userinfo，需要继续拉取用户信息
 		if (Oauth2Scope.snsapi_userinfo.equals(oauth2AccessToken.scope)) {
 			userInfo = wexinMessagePlatformService.getOauth2UserInfo(oauth2AccessToken);
-			wexinMessagePlatformService.storeOauth2UserInfo(userInfo);
 		}
-
+		
+		//保存
+		wexinMessagePlatformService.storeOauth2UserInfo(oauth2AccessToken,userInfo);
 		String redirectUri = contractRedirectUriByOauth2AccessToken(state, oauth2AccessToken, userInfo);
 		log.info("/restfull/wmp/access wexinAuthorize redirect =======================>" + redirectUri);
 		// redirect只能get,无法post

@@ -3,6 +3,7 @@ package com.tom.dengshaobing.service;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
+import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 import com.tom.dengshaobing.sqlstatements.SqlStatements;
 
 /**
@@ -26,6 +28,9 @@ public class CommonServiceImpl implements CommonService {
 
 	@Autowired
 	DataAccessService dataAccessService;
+
+	@Autowired
+	EggShopBussService bussService;
 
 	@Override
 	@Transactional
@@ -51,9 +56,25 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public String getAppToken(String entranceId) {
-		// 暂无实现,使用传入值作为唯一标示
-		return entranceId;
+	public String getAppTokenByEntranceId(String entranceId, String entranceType) throws Exception {
+		// 简单实现,使用USER_UC作为token
+		if (entranceId == null) {
+			return entranceId;
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("OPENID", entranceId);
+		return dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class).toString();
 	}
 
+	@Override
+	public UUID getUserUCByAppToken(String appToken) {
+		// 暂时使用USER_UC作为token,所以直接返回UUID类型即可
+		return UUID.fromString(appToken);
+	}
+
+	@Override
+	public Map<String, Object> getWXUserInfo(String appToken) throws Exception {
+		UUID userUC = getUserUCByAppToken(appToken);
+		return dataAccessService.queryRowMapById("TX_USERINFO_WX", userUC);
+	}
 }

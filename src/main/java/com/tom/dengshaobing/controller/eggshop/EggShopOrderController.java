@@ -53,9 +53,9 @@ public class EggShopOrderController extends BaseController {
 
 	@RequestMapping("/list")
 	public String list(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		UUID userUC = bussService.getUserUCByOpenid(openid);
+		String appToken = this.getAppToken(openid, "", commonService);
 
-		TableMeta tableMeta = bussService.listOrderByUserUC(userUC);
+		TableMeta tableMeta = bussService.listOrder(appToken);
 		tableMeta.title = "Order";
 		map.put(SxTableMeta, tableMeta);
 
@@ -104,7 +104,7 @@ public class EggShopOrderController extends BaseController {
 
 		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
 		if (StringUtils.isBlank(rowUC)) {
-			bussService.addProduct(mapForm.getProperties(), userUC);
+			bussService.addProduct(mapForm.getProperties(), null);
 		} else {
 			// function disable
 			// bussService.updateProduct(mapForm.getProperties(), userUC);

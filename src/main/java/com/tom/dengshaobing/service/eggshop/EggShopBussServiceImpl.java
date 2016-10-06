@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
+import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.DataAccessService;
 
 /**
@@ -30,8 +31,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Autowired
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	@Autowired
+	CommonService commonService;
+
 	@Override
-	public TableMeta listOrderByUserUC(UUID userUC) {
+	public TableMeta listOrder(String appToken) {
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 
@@ -44,17 +49,17 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void addProduct(Map<String, Object> properties, UUID userUC) throws Exception {
+	public void addProduct(Map<String, Object> properties, String appToken) throws Exception {
 		if (properties == null)
 			return;
-		String creator = userUC == null ? null : userUC.toString();
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
 
 		String productUC = UUID.randomUUID().toString();
 		Map<String, Object> insertParamMap = new HashMap<>();
 		insertParamMap.put("UNIQUE_CODE", productUC);
 		insertParamMap.put("NAME", properties.get("NAME"));
 		insertParamMap.put("PRICE", properties.get("PRICE"));
-		insertParamMap.put("CREATOR", creator);
+		insertParamMap.put("CREATOR", String.valueOf(userUC));
 		dataAccessService.insertSingle("TX_PRODUCT", insertParamMap);
 
 		insertParamMap.put("REMARK", properties.get("REMARK"));
@@ -63,70 +68,45 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Map<String, Object> queryProduct(UUID productUC, UUID userUC) throws Exception {
+	public Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception {
 		return dataAccessService.queryRowMapById("TX_PRODUCT", productUC);
 	}
 
 	@Override
-	public Map<String, Object> queryProductDetail(UUID productUC, UUID userUC) throws Exception {
+	public Map<String, Object> queryProductDetail(UUID productUC, String appToken) throws Exception {
 		return dataAccessService.queryRowMapById("TX_PRODUCT_DETAIL", productUC);
 	}
 
 	@Override
-	public void updateProduct(Map<String, Object> properties, UUID userUC) throws Exception {
+	public void updateProduct(Map<String, Object> properties, String appToken) throws Exception {
 		dataAccessService.updateSingle("TX_PRODUCT", properties);
 	}
 
 	@Override
-	public void updateProductDetail(Map<String, Object> properties, UUID userUC) throws Exception {
+	public void updateProductDetail(Map<String, Object> properties, String appToken) throws Exception {
 		dataAccessService.updateSingle("TX_PRODUCT_DETAIL", properties);
 	}
 
 	@Override
-	public void deleteProduct(UUID productUC, UUID userUC) throws Exception {
+	public void deleteProduct(UUID productUC, String appToken) throws Exception {
 		dataAccessService.deleteRowById("TX_PRODUCT", productUC);
 		dataAccessService.deleteRowById("TX_PRODUCT_DETAIL", productUC);
 	}
 
 	@Override
-	public UUID getUserUCByOpenid(String openid) throws Exception {
-		if (StringUtils.isBlank(openid)) {
-			return null;
-		}
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("OPENID", openid);
-		UUID userUC = null;
-
-		userUC = dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class);
-		// 无用户直接绑定
-		if (userUC == null) {
-			Map<String, Object> insertParamMap = new HashMap<>();
-			insertParamMap.put("UNIQUE_CODE", UUID.randomUUID().toString());
-			insertParamMap.put("OPENID", openid);
-			insertParamMap.put("STATUS", Const.USER_STATUS.Active);
-			insertParamMap.put("TYPE", Const.USER_TYPE.Weixin);
-			dataAccessService.insertSingle("TX_USER", insertParamMap);
-
-			// 重新查询
-			userUC = dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class);
-		}
-		return userUC;
-	}
-
-	@Override
-	public Map<String, Object> queryOrder(UUID orderUC, UUID userUC) throws Exception {
+	public Map<String, Object> queryOrder(UUID orderUC, String appToken) throws Exception {
 		return dataAccessService.queryRowMapById("TX_ORDER", orderUC);
 	}
 
 	@Override
-	public TableMeta queryOrderItem(UUID orderUC, UUID userUC) {
+	public TableMeta queryOrderItem(UUID orderUC, String appToken) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		return dataAccessService.queryTableMeta("BUSS003", paramMap);
 	}
 
 	@Override
-	public void discardOrder(UUID orderUC, UUID userUC) throws Exception {
+	public void discardOrder(UUID orderUC, String appToken) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		paramMap.put("STATUS", Const.ORDER_STATUS.Disable);
@@ -134,7 +114,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void deleteOrder(UUID orderUC, UUID userUC) throws Exception {
+	public void deleteOrder(UUID orderUC, String appToken) throws Exception {
 		dataAccessService.deleteRowById("TX_ORDER", orderUC);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
@@ -144,5 +124,16 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Override
 	public List<Map<String, Object>> listAllProductForMain() {
 		return dataAccessService.queryMapList("BUSS006", null);
+	}
+
+	@Override
+	public Map<String, Object> getShoppingCartInfo(String appToken) {
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		// 仅查询数量
+		int cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Integer.class);
+		paramMap.put("CART_COUNT", cartItemCount);
+		return paramMap;
 	}
 }

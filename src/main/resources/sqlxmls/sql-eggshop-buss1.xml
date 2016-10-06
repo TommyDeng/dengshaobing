@@ -47,5 +47,9 @@ SELECT p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL
 	]]>
 	</sql>
 
-	
+	<sql name="BUSS007">
+	<![CDATA[
+SELECT cout(1) FROM TX_SHOPPING_CART  where USER_UC  = :USER_UC 
+	]]>
+	</sql>
 </sqls>

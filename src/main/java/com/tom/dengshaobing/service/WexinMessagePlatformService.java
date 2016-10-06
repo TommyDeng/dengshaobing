@@ -135,8 +135,10 @@ public interface WexinMessagePlatformService {
 	/**
 	 * 将用户信息和openid对应关系存储到本地数据库
 	 * 
+	 * @param oauth2AccessToken
+	 * 
 	 * @param userInfo
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	void storeOauth2UserInfo(Oauth2UserInfo userInfo) throws Exception;
+	void storeOauth2UserInfo(Oauth2AccessToken oauth2AccessToken, Oauth2UserInfo userInfo) throws Exception;
 }

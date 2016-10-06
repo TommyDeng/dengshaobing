@@ -1,19 +1,14 @@
 package com.tom.dengshaobing.controller.eggshop;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.spring4.view.ThymeleafView;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
@@ -53,25 +48,25 @@ public class EggShopBuyController extends BaseController {
 
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		
-		String appToken = this.getAppToken(openid, commonService);
+		String appToken = this.getAppToken(openid, "", commonService);
 
+		headerRending(appToken, map);
+		map.put(PxAT, appToken);
 		map.put(SxMapList, bussService.listAllProductForMain());
-		
 		return BasePath + "main";
 	}
 
 	@RequestMapping("/item")
-	public String item(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
-			throws Exception {
+	public String item(ModelMap map, String rowUC, String AT) throws Exception {
 
 		return BasePath + "item";
 	}
 
 	@RequestMapping("/shoppingcart")
-	public String shoppingcart(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
-			throws Exception {
-		TableMeta tableMeta = bussService.listOrderByUserUC(null);
+	public String shoppingcart(ModelMap map, String AT) throws Exception {
+		map.put(PxAT, AT);
+
+		TableMeta tableMeta = bussService.listOrder(null);
 		tableMeta.title = "SHOPPING CART";
 		map.put(SxTableMeta, tableMeta);
 		return BasePath + "shoppingcart";

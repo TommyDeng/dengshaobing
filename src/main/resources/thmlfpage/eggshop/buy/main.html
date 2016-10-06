@@ -14,17 +14,19 @@
 <title></title>
 </head>
 <body style="padding-bottom: 70px; padding-top: 70px;">
-	<div class="container">
+	<div class="container" th:fragment="header">
 		<nav class="navbar-default navbar-fixed-top">
 
 			<div class="pull-left" style="margin: 10px">
-				<img src="/dengshaobing/img/techlink/bootstrap.ico" alt="..." /> <label>User
-					Name</label>
+				<img src="/dengshaobing/img/techlink/bootstrap.ico"
+					th:src="${userInfo.HEADIMGURL}" alt="..." /> <label
+					th:label="${userInfo.NICKNAME}">User Name</label>
 			</div>
 			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button" href="shoppingcart"> <span
+				<a class="btn btn-primary" type="button"
+					th:href="@{shoppingcart(AT=${AT})}"> <span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<span class="badge">4</span>
+					<span class="badge" th:text="${cartInfo.COUNT}"></span>
 				</a>
 			</div>
 		</nav>
@@ -37,8 +39,9 @@
 					<h3 th:text="${recode.NAME}"></h3>
 					<p th:text="${recode.REMARK}"></p>
 					<p>
-						<a href="item" class="btn btn-primary" role="button">View</a> <a
-							href="#" class="btn btn-default" role="button">Add to Cart</a>
+						<a th:href="@{item(rowUC=${recode[1]},AT=${AT})}"
+							class="btn btn-primary" role="button">View</a> <a href="#"
+							class="btn btn-default" role="button">Add to Cart</a>
 					</p>
 				</div>
 			</div>

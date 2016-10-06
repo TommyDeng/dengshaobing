@@ -13,14 +13,6 @@ import com.tom.dengshaobing.common.bo.sys.TableMeta;
  */
 
 public interface EggShopBussService {
-	/**
-	 * 绑定openid,并获取userUC
-	 * 
-	 * @param openid
-	 * @return
-	 * @throws Exception
-	 */
-	UUID getUserUCByOpenid(String openid) throws Exception;
 
 	/**
 	 * 查询所有产品列表
@@ -36,7 +28,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void addProduct(Map<String, Object> properties, UUID userUC) throws Exception;
+	void addProduct(Map<String, Object> properties, String appToken) throws Exception;
 
 	/**
 	 * 查询产品
@@ -45,7 +37,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	Map<String, Object> queryProduct(UUID productUC, UUID userUC) throws Exception;
+	Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception;
 
 	/**
 	 * 查询产品明细
@@ -55,7 +47,7 @@ public interface EggShopBussService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> queryProductDetail(UUID productUC, UUID userUC) throws Exception;
+	Map<String, Object> queryProductDetail(UUID productUC, String appToken) throws Exception;
 
 	/**
 	 * 更新产品
@@ -64,7 +56,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void updateProduct(Map<String, Object> properties, UUID userUC) throws Exception;
+	void updateProduct(Map<String, Object> properties, String appToken) throws Exception;
 
 	/**
 	 * 更新产品明细
@@ -73,7 +65,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void updateProductDetail(Map<String, Object> properties, UUID userUC) throws Exception;
+	void updateProductDetail(Map<String, Object> properties, String appToken) throws Exception;
 
 	/**
 	 * 删除产品
@@ -82,7 +74,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void deleteProduct(UUID productUC, UUID userUC) throws Exception;
+	void deleteProduct(UUID productUC, String appToken) throws Exception;
 
 	/**
 	 * 查询用户订单
@@ -90,7 +82,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @return
 	 */
-	TableMeta listOrderByUserUC(UUID userUC);
+	TableMeta listOrder(String appToken);
 
 	/**
 	 * 查询order
@@ -100,7 +92,7 @@ public interface EggShopBussService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> queryOrder(UUID orderUC, UUID userUC) throws Exception;
+	Map<String, Object> queryOrder(UUID orderUC, String appToken) throws Exception;
 
 	/**
 	 * 查询order子项
@@ -109,7 +101,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @return
 	 */
-	TableMeta queryOrderItem(UUID orderUC, UUID userUC);
+	TableMeta queryOrderItem(UUID orderUC, String appToken);
 
 	/**
 	 * 废弃order
@@ -118,7 +110,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void discardOrder(UUID orderUC, UUID userUC) throws Exception;
+	void discardOrder(UUID orderUC, String appToken) throws Exception;
 
 	/**
 	 * 删除order
@@ -127,13 +119,21 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void deleteOrder(UUID orderUC, UUID userUC) throws Exception;
+	void deleteOrder(UUID orderUC, String appToken) throws Exception;
 
-	
 	/**
 	 * 获取所有产品(main页面展示)
+	 * 
 	 * @return
 	 */
 	List<Map<String, Object>> listAllProductForMain();
+
+	/**
+	 * 获取cart信息
+	 * 
+	 * @param appToken
+	 * @return
+	 */
+	Map<String, Object> getShoppingCartInfo(String appToken);
 
 }
