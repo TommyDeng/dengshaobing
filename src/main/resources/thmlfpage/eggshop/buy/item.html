@@ -17,15 +17,17 @@
 		<nav class="navbar-default navbar-fixed-top">
 
 			<div class="pull-left" style="margin: 10px">
-				<a class="btn btn-default" type="button" href="main"> <span
-					class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <span>Back</span>
+				<a class="btn btn-default" type="button" th:href="@{main(AT=${AT})}">
+					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+					<span>Back</span>
 				</a>
 
 			</div>
 			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button" href="shoppingcart"> <span
+				<a class="btn btn-primary" type="button"
+					th:href="@{shoppingcart(AT=${AT})}"> <span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<span class="badge">4</span>
+					<span class="badge" th:text="${cartInfo.CART_COUNT}"></span>
 				</a>
 			</div>
 		</nav>
@@ -33,25 +35,14 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="thumbnail" >
+			<div class="thumbnail">
 				<img src="/dengshaobing/img/test/itemmock.png" alt="..." />
 				<div class="caption">
-					<h3>Thumbnail label</h3>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
-					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-						Donec id elit non mi porta gravida at eget metus. Nullam id dolor
-						id nibh ultricies vehicula ut id elit.</p>
+					<h3>
+						<label th:text="${product.NAME}"></label>
+					</h3>
+					<kbd th:text="'RMB '+${product.PRICE}"></kbd>
+					<p th:text="${productDetail.REMARK}"></p>
 				</div>
 			</div>
 		</div>

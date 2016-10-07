@@ -132,7 +132,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		// 仅查询数量
-		int cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Integer.class);
+		long cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Long.class);
 		paramMap.put("CART_COUNT", cartItemCount);
 		return paramMap;
 	}

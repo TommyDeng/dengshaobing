@@ -69,6 +69,8 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public UUID getUserUCByAppToken(String appToken) {
 		// 暂时使用USER_UC作为token,所以直接返回UUID类型即可
+		if (appToken == null)
+			return null;
 		return UUID.fromString(appToken);
 	}
 

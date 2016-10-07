@@ -19,14 +19,15 @@
 
 			<div class="pull-left" style="margin: 10px">
 				<img src="/dengshaobing/img/techlink/bootstrap.ico"
-					th:src="${userInfo.HEADIMGURL}" alt="..." /> <label
-					th:label="${userInfo.NICKNAME}">User Name</label>
+					th:src="${userInfo.HEADIMGURL}" alt="..."
+					style="width: 30px; height: 30px" /> <label
+					th:text="${userInfo.NICKNAME}"></label>
 			</div>
 			<div class="pull-right" style="margin: 10px">
 				<a class="btn btn-primary" type="button"
 					th:href="@{shoppingcart(AT=${AT})}"> <span
 					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<span class="badge" th:text="${cartInfo.COUNT}"></span>
+					<span class="badge" th:text="${cartInfo.CART_COUNT}"></span>
 				</a>
 			</div>
 		</nav>
@@ -39,9 +40,8 @@
 					<h3 th:text="${recode.NAME}"></h3>
 					<p th:text="${recode.REMARK}"></p>
 					<p>
-						<a th:href="@{item(rowUC=${recode[1]},AT=${AT})}"
-							class="btn btn-primary" role="button">View</a> <a href="#"
-							class="btn btn-default" role="button">Add to Cart</a>
+						<a th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"
+							class="btn btn-primary" role="button">View</a>
 					</p>
 				</div>
 			</div>

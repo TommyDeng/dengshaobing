@@ -1,14 +1,15 @@
 package com.tom.dengshaobing.controller.eggshop;
 
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.spring4.view.ThymeleafView;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
@@ -47,18 +48,34 @@ public class EggShopBuyController extends BaseController {
 	}
 
 	@RequestMapping("/main")
-	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		String appToken = this.getAppToken(openid, "", commonService);
+	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+		String appToken = null;
+		if (StringUtils.isNotBlank(AT)) {
+			appToken = AT;
+		} else {
+			appToken = this.getAppToken(openid, "", commonService);
+		}
+
+		map.put(PxAT, appToken);
 
 		headerRending(appToken, map);
-		map.put(PxAT, appToken);
+
 		map.put(SxMapList, bussService.listAllProductForMain());
 		return BasePath + "main";
 	}
 
 	@RequestMapping("/item")
 	public String item(ModelMap map, String rowUC, String AT) throws Exception {
+		map.put(PxAT, AT);
 
+		headerRending(AT, map);
+
+		Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), AT);
+		Map<String, Object> productDetail = bussService.queryProductDetail(UUID.fromString(rowUC), AT);
+
+		map.put("product", product);
+		map.put("productDetail", productDetail);
 		return BasePath + "item";
 	}
 

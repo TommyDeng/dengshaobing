@@ -43,13 +43,13 @@ delete from TX_ORDER_ITEM where ORDER_UC = :ORDER_UC
 
 	<sql name="BUSS006">
 	<![CDATA[
-SELECT p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL pd on p.UNIQUE_CODE = pd.UNIQUE_CODE 
+SELECT p.UNIQUE_CODE , p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL pd on p.UNIQUE_CODE = pd.UNIQUE_CODE 
 	]]>
 	</sql>
 
 	<sql name="BUSS007">
 	<![CDATA[
-SELECT cout(1) FROM TX_SHOPPING_CART  where USER_UC  = :USER_UC 
+SELECT count(1) FROM TX_SHOPPING_CART  where USER_UC  = :USER_UC 
 	]]>
 	</sql>
 </sqls>
