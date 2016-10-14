@@ -18,4 +18,6 @@ public class HeadMeta {
 	public String className;// 字段类型对于的class
 
 	public boolean display;// 是否显示
+	
+	public boolean uriAttachable;// 是否有链接
 }

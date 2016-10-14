@@ -17,12 +17,14 @@
 		<nav class="navbar-default navbar-fixed-top">
 
 			<div class="pull-left" style="margin: 10px">
-				<a class="btn btn-default" type="button" href="main"> <span
-					class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <span>Back</span>
+				<a class="btn btn-default" type="button" th:href="@{main(AT=${AT})}">
+					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+					<span>Back</span>
 				</a>
 			</div>
 			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button" href="checkout"> <span
+				<a class="btn btn-primary" type="button"
+					th:href="@{checkout(AT=${AT})}"> <span
 					class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
 					Checkout
 				</a>
@@ -49,14 +51,13 @@
 
 					<td th:each="head : ${tableMeta.headList}"
 						th:text="${recode[__${head.columnName}__]}"
-						th:if="${head.display}"></td>
+						th:if="${head.display}"><a class="btn btn-default"
+						th:if="${head.uriAttachable}" role="button"
+						th:href="@{edit(rowUC=${recode[1]})}"></a></td>
 
 					<!-- update operation -->
 					<td><a class="btn btn-default" role="button"
-						th:href="@{edit(rowUC=${recode[1]})}"><span
-							class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a> <a
-						class="btn btn-default" role="button"
-						th:href="@{view(rowUC=${recode[1]})}"><span
+						th:href="@{item(rowUC=${recode[1]},AT=${AT})}"><span
 							class="glyphicon glyphicon-search" aria-hidden="true"></span> </a></td>
 				</tr>
 			</tbody>

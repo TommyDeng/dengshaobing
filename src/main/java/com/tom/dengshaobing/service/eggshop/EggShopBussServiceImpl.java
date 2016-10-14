@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.service.eggshop;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,8 +133,35 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		// 仅查询数量
-		long cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Long.class);
+		Long cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Long.class);
 		paramMap.put("CART_COUNT", cartItemCount);
 		return paramMap;
+	}
+
+	@Override
+	public Long addItemShoppingCart(UUID productUC, int productCount, String appToken) {
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
+		// 查询此种商品在cart表中数量
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		paramMap.put("PRODUCT_UC", productUC);
+		BigDecimal count = dataAccessService.queryForOneObject("BUSS008", paramMap, BigDecimal.class);
+
+		paramMap.put("UNIQUE_CODE", UUID.randomUUID());
+		paramMap.put("PRODUCT_COUNT",
+				count == null ? new BigDecimal(productCount) : count.add(new BigDecimal(productCount)));
+		dataAccessService.update("BUSS009", paramMap);
+		// 重新查询数量
+		Map<String, Object> cartInfoMap = getShoppingCartInfo(appToken);
+		return (Long) cartInfoMap.get("CART_COUNT");
+	}
+
+	@Override
+	public TableMeta listShoppingCart(String appToken) {
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+
+		return dataAccessService.queryTableMeta("BUSS010", paramMap);
 	}
 }

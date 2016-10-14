@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
@@ -79,11 +80,19 @@ public class EggShopBuyController extends BaseController {
 		return BasePath + "item";
 	}
 
+	@RequestMapping("/addItem")
+	@ResponseBody
+	public String addItem(ModelMap map, String itemUC, String itemCount, String AT) throws Exception {
+		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Integer.parseInt(itemCount),
+				AT);
+		return String.valueOf(shoppingCartCount);
+	}
+
 	@RequestMapping("/shoppingcart")
 	public String shoppingcart(ModelMap map, String AT) throws Exception {
 		map.put(PxAT, AT);
 
-		TableMeta tableMeta = bussService.listOrder(null);
+		TableMeta tableMeta = bussService.listShoppingCart(AT);
 		tableMeta.title = "SHOPPING CART";
 		map.put(SxTableMeta, tableMeta);
 		return BasePath + "shoppingcart";

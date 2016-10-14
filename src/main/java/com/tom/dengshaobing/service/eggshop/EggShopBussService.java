@@ -136,4 +136,22 @@ public interface EggShopBussService {
 	 */
 	Map<String, Object> getShoppingCartInfo(String appToken);
 
+	/**
+	 * 添加到cart
+	 * 
+	 * @param productUC
+	 * @param productCount
+	 * @param appToken
+	 * @return
+	 */
+	Long addItemShoppingCart(UUID productUC, int productCount, String appToken);
+
+	/**
+	 * 获取cart信息
+	 * 
+	 * @param appToken
+	 * @return
+	 */
+	TableMeta listShoppingCart(String appToken);
+
 }
