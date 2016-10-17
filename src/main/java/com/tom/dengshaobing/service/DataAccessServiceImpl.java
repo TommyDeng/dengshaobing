@@ -42,6 +42,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	public TableMeta queryTableMeta(String sqlName, Map<String, Object> paramMap) {
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		TableMeta tableMeta = new TableMeta();
+
 		namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap,
 				new ResultSetExtractor<List<Map<String, Object>>>() {
 					@Override
@@ -56,12 +57,22 @@ public class DataAccessServiceImpl implements DataAccessService {
 						int columnCount = rsmd.getColumnCount();
 
 						for (int i = 1; i <= columnCount; i++) {
+							String columnName = rsmd.getColumnName(i);// 字段名
+							String columnLabel = rsmd.getColumnLabel(i);// 字段别名
+
 							HeadMeta headMeta = new HeadMeta();
 							headMeta.index = i;
-							headMeta.columnLabel = rsmd.getColumnLabel(i).toUpperCase();
-							headMeta.columnName = String.valueOf(i);// use index
+							headMeta.columnLabel = SqlUtils.getDisplayLabel(columnLabel).toUpperCase();
+							headMeta.columnName = columnName.toUpperCase();//
 							headMeta.className = rsmd.getColumnClassName(i);
-							headMeta.display = !"UNIQUE_CODE".equals(headMeta.columnLabel);
+
+							// 含有$H 则不显示
+							headMeta.display = !columnLabel.contains(SqlUtils.Hiden);
+							// 含有$L 则代表有链接
+							headMeta.uriAttachable = columnLabel.contains(SqlUtils.WithLink);
+
+							// 含有$K 代表主键
+							headMeta.isKey = columnLabel.contains(SqlUtils.Key);
 
 							headList.add(headMeta);
 						}

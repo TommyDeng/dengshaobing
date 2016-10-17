@@ -15,5 +15,7 @@ public class TempTest extends TestSuite {
 
 	@Test
 	public void temp() throws Exception {
+		String token = "$F";
+		System.out.println("aas" + token.replaceAll("\\"+token, ""));
 	}
 }

@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 
-@Slf4j
 @Controller
 @RequestMapping("/eggshop/buy")
 public class EggShopBuyController extends BaseController {
@@ -94,10 +93,19 @@ public class EggShopBuyController extends BaseController {
 
 		TableMeta tableMeta = bussService.listShoppingCart(AT);
 		tableMeta.title = "SHOPPING CART";
+
 		map.put(SxTableMeta, tableMeta);
 		return BasePath + "shoppingcart";
 	}
 
+	@RequestMapping("/changeItemQty")
+	@ResponseBody
+	public String changeItemQty(ModelMap map, String itemUC, String itemCount, String AT) throws Exception {
+		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Integer.parseInt(itemCount),
+				AT);
+		return String.valueOf(shoppingCartCount);
+	}
+	
 	@RequestMapping("/checkout")
 	public String checkout(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
 

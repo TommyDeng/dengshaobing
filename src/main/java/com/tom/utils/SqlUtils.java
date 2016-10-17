@@ -23,4 +23,17 @@ public class SqlUtils {
 		}
 		return returnMap;
 	}
+
+	public static final String Key = "$K";// 代表此字段为行主键
+	public static final String Hiden = "$H";// 不显示
+	public static final String WithLink = "$L";// 此字段有链接
+
+	public static String getDisplayLabel(String columnLabel) {
+		return columnLabel.replaceAll("\\" + Key, "").replaceAll("\\" + Hiden, "").replaceAll("\\" + WithLink, "");
+	}
+
+	public static boolean containsHanScript(String s) {
+		return s.codePoints()
+				.anyMatch(codepoint -> Character.UnicodeScript.of(codepoint) == Character.UnicodeScript.HAN);
+	}
 }

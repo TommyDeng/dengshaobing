@@ -23,17 +23,15 @@
 			<caption th:text="${tableMeta.title}"></caption>
 			<thead>
 				<tr>
-					<th>#</th>
 					<th th:each="head : ${tableMeta.headList}"
 						th:text="${head.columnLabel}"></th>
 				</tr>
 			</thead>
 			<tbody th:remove="all-but-first">
 				<tr th:each="recode : ${tableMeta.dataList}">
-					<td th:text="${recodeStat.count}" />
 
 					<th th:each="head : ${tableMeta.headList}"
-						th:text="${recode[__${head.columnName}__]}"></th>
+						th:text="${recode[__${head.index}__]}"></th>
 				</tr>
 			</tbody>
 		</table>

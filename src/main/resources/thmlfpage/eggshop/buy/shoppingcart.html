@@ -10,7 +10,27 @@
 <link rel="stylesheet" href="/dengshaobing/css/bootstrap.min.css" />
 <script src="/dengshaobing/js/jquery-3.1.0.min.js"></script>
 <script src="/dengshaobing/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function changeItemQty(itemUC, AT, inputItem, itemPrice) {
+		var itemCount = $(inputItem).val();
+		$.post("changeItemQty", {
+			itemUC : itemUC,
+			AT : AT,
+			itemCount : itemCount
+		}, function(resultVar) {
+			var targetRefreshItem = $(inputItem).parent().parent().siblings()
+					.next().next();
+			targetRefreshItem.fadeToggle('fast');
+			targetRefreshItem.children().html(itemPrice * inputItem);
+			targetRefreshItem.fadeToggle('fast');
+		});
+	}
+</script>
+
+
 <title></title>
+
 </head>
 <body style="padding-bottom: 70px; padding-top: 70px;">
 	<div class="container">
@@ -36,29 +56,29 @@
 			<caption th:text="${tableMeta.title}">SHOPPING CART</caption>
 			<thead>
 				<tr>
-					<th></th>
-
 					<th th:each="head : ${tableMeta.headList}"
 						th:text="${head.columnLabel}" th:if="${head.display}"></th>
-
-					<th><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-					</th>
 				</tr>
 			</thead>
 			<tbody th:remove="all-but-first">
 				<tr th:each="recode : ${tableMeta.dataList}">
-					<td th:text="${recodeStat.count}" />
 
-					<td th:each="head : ${tableMeta.headList}"
-						th:text="${recode[__${head.columnName}__]}"
-						th:if="${head.display}"><a class="btn btn-default"
-						th:if="${head.uriAttachable}" role="button"
-						th:href="@{edit(rowUC=${recode[1]})}"></a></td>
-
-					<!-- update operation -->
-					<td><a class="btn btn-default" role="button"
-						th:href="@{item(rowUC=${recode[1]},AT=${AT})}"><span
-							class="glyphicon glyphicon-search" aria-hidden="true"></span> </a></td>
+					<td th:each="head : ${tableMeta.headList}" th:if="${head.display}">
+						<div
+							th:if="${head.uriAttachable and !head.columnLabel.equals('数量')}">
+							<a th:text="${recode[__${head.index}__]}"
+								th:href="@{item(rowUC=${recode[2]},AT=${AT})}"></a>
+						</div>
+						<div
+							th:if="${!head.uriAttachable and !head.columnLabel.equals('数量')}">
+							<label th:text="${recode[__${head.index}__]}"></label>
+						</div>
+						<div th:if="${head.columnLabel.equals('数量')}">
+							<input type="number" th:value="${recode[__${head.index}__]}"
+								th:width="80px"
+								th:onchange="'changeItemQty(\''+${recode[1]}+'\',\''+${AT}+'\',this,\''+${recode[4]}+'\');'"></input>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>

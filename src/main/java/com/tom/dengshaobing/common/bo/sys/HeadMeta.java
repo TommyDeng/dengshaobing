@@ -11,13 +11,15 @@ import lombok.Data;
 public class HeadMeta {
 	public int index;
 
-	public String columnLabel;// 可支持中文
+	public String columnLabel;// 显示在前端页面的名称，可支持中文
 
-	public String columnName;// 列名
+	public String columnName;// 字段名列名
 
 	public String className;// 字段类型对于的class
 
 	public boolean display;// 是否显示
 	
-	public boolean uriAttachable;// 是否有链接
+	public boolean uriAttachable;// 链接
+	
+	public boolean isKey;// 主键 
 }

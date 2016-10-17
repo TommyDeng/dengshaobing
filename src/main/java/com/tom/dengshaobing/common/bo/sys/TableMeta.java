@@ -15,6 +15,17 @@ public class TableMeta {
 	public String title;
 
 	public List<HeadMeta> headList;
-	
+
 	public List<Map<String, Object>> dataList;
+
+	public HeadMeta getHeadMetaByLabel(String label) {
+		if (headList != null && headList.size() > 0) {
+			for (HeadMeta headMeta : headList) {
+				if (label.equals(headMeta.getColumnLabel())) {
+					return headMeta;
+				}
+			}
+		}
+		return null;
+	}
 }
