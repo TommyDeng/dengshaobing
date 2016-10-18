@@ -34,6 +34,16 @@ public interface DataAccessService {
 	<T> T queryForOneObject(String sqlName, Map<String, Object> paramMap, Class<T> cls);
 
 	/**
+	 * 执行sql后返回第一行Map
+	 * 
+	 * @param sql
+	 * @param paramMap
+	 * @return
+	 */
+	Map<String, Object> queryForOneRowMap(String sqlName, Map<String, Object> paramMap);
+
+	
+	/**
 	 * 单条插入，paramMap中无对应项则赋值为null
 	 * 
 	 * @param tableName

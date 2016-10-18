@@ -35,7 +35,7 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	@Override
 	public String httpGet(URI uri) throws Exception {
 		Content content = Request.Get(uri).execute().returnContent();
-		String contentStr = content.asString();
+		String contentStr = content.asString(DefaultSetting.CHARSET);
 		this.logHttpRequest(HttpGet.METHOD_NAME, uri.toString(), null, contentStr);
 		return contentStr;
 	}
@@ -43,7 +43,7 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	@Override
 	public String httpPost(URI uri, Form form) throws Exception {
 		Content content = Request.Post(uri).bodyForm(form.build()).execute().returnContent();
-		String contentStr = content.asString();
+		String contentStr = content.asString(DefaultSetting.CHARSET);
 		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(),
 				StringUtils.join(form.build().toArray(), IOUtils.LINE_SEPARATOR), contentStr);
 		return contentStr;
@@ -53,7 +53,7 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	public String httpPost(URI uri, String entityStr) throws Exception {
 		Content content = Request.Post(uri).body(new StringEntity(entityStr, DefaultSetting.CHARSET)).execute()
 				.returnContent();
-		String contentStr = content.asString();
+		String contentStr = content.asString(DefaultSetting.CHARSET);
 		this.logHttpRequest(HttpPost.METHOD_NAME, uri.toString(), entityStr, contentStr);
 		return contentStr;
 	}
@@ -62,7 +62,7 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	@SuppressWarnings(value = { "under implementing" })
 	public Serializable httpPost(URI uri, Serializable ser) throws Exception {
 		Content content = Request.Post(uri).body(new SerializableEntity(ser)).execute().returnContent();
-		return content.asString();
+		return content.asString(DefaultSetting.CHARSET);
 	}
 
 	private void logHttpRequest(String httpMethodName, String uri, String formStr, String responseStr) {

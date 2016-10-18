@@ -10,8 +10,8 @@ vi + /opt/apache-tomcat-9.0.0.M10/logs/catalina.out
 ==============================
 H2
 ==============================
-./opt/h2/bin/startup.sh
-./opt/h2/bin/shutdown.sh
+java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers
+java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -tcpShutdown tcp://localhost:9092
 
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Shell
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Shell -url jdbc:h2:tcp://localhost/~/test -user sa -password sa -driver org.h2.Driver

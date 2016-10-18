@@ -31,6 +31,7 @@
 			</thead>
 			<tbody th:remove="all-but-first">
 				<tr th:each="recode : ${tableMeta.dataList}">
+					<td th:text="${recodeStat.count}" />
 
 					<td th:each="head : ${tableMeta.headList}"
 						th:text="${recode[__${head.index}__]}" th:if="${head.display}"></td>

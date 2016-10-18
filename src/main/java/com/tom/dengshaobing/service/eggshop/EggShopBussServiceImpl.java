@@ -139,7 +139,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Long addItemShoppingCart(UUID productUC, int productCount, String appToken) {
+	public Long addItemShoppingCart(UUID productUC, Long productCount, String appToken) {
 		UUID userUC = commonService.getUserUCByAppToken(appToken);
 		// 查询此种商品在cart表中数量
 		Map<String, Object> paramMap = new HashMap<>();
@@ -163,5 +163,16 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap.put("USER_UC", userUC);
 
 		return dataAccessService.queryTableMeta("BUSS010", paramMap);
+	}
+
+	@Override
+	public Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String appToken) throws Exception {
+		UUID userUC = commonService.getUserUCByAppToken(appToken);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", cartUC);
+		paramMap.put("PRODUCT_COUNT", new BigDecimal(productCount));
+		paramMap.put("CREATOR", userUC);
+		dataAccessService.updateSingle("TX_SHOPPING_CART", paramMap);
+		return productCount;
 	}
 }

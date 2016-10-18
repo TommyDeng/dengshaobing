@@ -12,17 +12,17 @@
 <script src="/dengshaobing/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	function changeItemQty(itemUC, AT, inputItem, itemPrice) {
+	function changeItemQty(cartItemUC, AT, inputItem, itemPrice) {
 		var itemCount = $(inputItem).val();
 		$.post("changeItemQty", {
-			itemUC : itemUC,
+			cartItemUC : cartItemUC,
 			AT : AT,
 			itemCount : itemCount
 		}, function(resultVar) {
 			var targetRefreshItem = $(inputItem).parent().parent().siblings()
-					.next().next();
+					.last().children().children();
 			targetRefreshItem.fadeToggle('fast');
-			targetRefreshItem.children().html(itemPrice * inputItem);
+			targetRefreshItem.html(resultVar * itemPrice);
 			targetRefreshItem.fadeToggle('fast');
 		});
 	}
@@ -75,7 +75,7 @@
 						</div>
 						<div th:if="${head.columnLabel.equals('数量')}">
 							<input type="number" th:value="${recode[__${head.index}__]}"
-								th:width="80px"
+								style="width: 80px"
 								th:onchange="'changeItemQty(\''+${recode[1]}+'\',\''+${AT}+'\',this,\''+${recode[4]}+'\');'"></input>
 						</div>
 					</td>

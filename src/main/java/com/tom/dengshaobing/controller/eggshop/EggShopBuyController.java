@@ -82,7 +82,7 @@ public class EggShopBuyController extends BaseController {
 	@RequestMapping("/addItem")
 	@ResponseBody
 	public String addItem(ModelMap map, String itemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Integer.parseInt(itemCount),
+		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Long.parseLong(itemCount),
 				AT);
 		return String.valueOf(shoppingCartCount);
 	}
@@ -100,8 +100,8 @@ public class EggShopBuyController extends BaseController {
 
 	@RequestMapping("/changeItemQty")
 	@ResponseBody
-	public String changeItemQty(ModelMap map, String itemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Integer.parseInt(itemCount),
+	public String changeItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
+		Long shoppingCartCount = bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC), Long.parseLong(itemCount),
 				AT);
 		return String.valueOf(shoppingCartCount);
 	}

@@ -162,6 +162,12 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
+	public Map<String, Object> queryForOneRowMap(String sqlName, Map<String, Object> paramMap) {
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
+		return namedParameterJdbcTemplate.queryForMap(SqlStatements.get(sqlName), paramMap);
+	}
+
+	@Override
 	public int insertSingle(String tableName, Map<String, Object> paramMap) throws Exception {
 		tableName = tableName.toUpperCase();
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
@@ -339,7 +345,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 		returnSql.append(" values ");
 		returnSql.append(paramPlaceholder);
 
-		return null;
+		return returnSql.toString();
 	}
 
 	/**

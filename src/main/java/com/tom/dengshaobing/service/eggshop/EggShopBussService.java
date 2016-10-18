@@ -144,7 +144,7 @@ public interface EggShopBussService {
 	 * @param appToken
 	 * @return
 	 */
-	Long addItemShoppingCart(UUID productUC, int productCount, String appToken);
+	Long addItemShoppingCart(UUID productUC, Long productCount, String appToken);
 
 	/**
 	 * 获取cart信息
@@ -153,5 +153,15 @@ public interface EggShopBussService {
 	 * @return
 	 */
 	TableMeta listShoppingCart(String appToken);
+
+	/**
+	 * 变更cart项数量
+	 * @param fromString
+	 * @param parseInt
+	 * @param aT
+	 * @return
+	 * @throws Exception 
+	 */
+	Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String appToken) throws Exception;
 
 }
