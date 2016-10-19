@@ -267,7 +267,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 					// only support for 1 pk
 					whereClauseSql.append(fieldName + "=:" + fieldName);
 				} else {// PK not exists in paramMap
-					throw new Exception("PK not exists in paramMap" + fieldName);
+					throw new Exception("PK not exists in paramMap :" + fieldName);
 				}
 			} else {
 				// paramMap contains then set field value

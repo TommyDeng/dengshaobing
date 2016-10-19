@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.springframework.core.env.Environment;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -17,6 +19,12 @@ public class ProjectConfigUtils {
 
 	private static Properties projectProperties = new Properties();
 
+	/**
+	 * use Environment env.getProperty();
+	 * @param key
+	 * @return
+	 */
+	@Deprecated
 	public static String getValue(String key) {
 		return projectProperties.getProperty(key);
 	}

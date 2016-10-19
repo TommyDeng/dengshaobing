@@ -13,6 +13,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
@@ -101,7 +103,13 @@ public class EggShopProductController extends BaseController {
 	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
 		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
 
-		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
+		//保存文件并返回UUID
+		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
+		UUID storeUUID = commonService.storeUploadFile(thumbnailFile);
+
+		// 写回UUID
+		mapForm.getProperties().put("THUMBNAIL", storeUUID);
+
 		if (StringUtils.isBlank(rowUC)) {
 			bussService.addProduct(mapForm.getProperties(), null);
 		} else {

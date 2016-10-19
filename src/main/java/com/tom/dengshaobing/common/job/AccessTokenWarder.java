@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.common;
+package com.tom.dengshaobing.common.job;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -2,8 +2,11 @@ package com.tom.dengshaobing.config;
 
 import javax.servlet.Filter;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import com.tom.dengshaobing.common.DefaultSetting;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -21,7 +24,7 @@ public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatc
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebConfig.class };
+		return null;
 	}
 
 	@Override
@@ -32,7 +35,7 @@ public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatc
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-		encodingFilter.setEncoding("UTF-8");
+		encodingFilter.setEncoding(DefaultSetting.CHARSET.name());
 		return new Filter[] { encodingFilter };
 	}
 }

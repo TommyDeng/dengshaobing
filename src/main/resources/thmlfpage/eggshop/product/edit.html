@@ -14,8 +14,8 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" role="form" action="#"
-			th:object="${formData}">
+		<form class="form-horizontal" role="form" th:object="${formData}"
+			enctype="multipart/form-data">
 			<div class="container">
 				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
 				<div class="form-group">
@@ -24,14 +24,18 @@
 						placeholder="Product Name" />
 				</div>
 				<div class="form-group">
-					<label for="inputPrice">Price</label> <input type="number"
+					<label for="inputPrice">Price</label> <input th:type="number"
 						th:field="*{properties[PRICE]}" class="form-control"
 						id="inputPrice" placeholder="0.00" />
 				</div>
 				<div class="form-group">
-					<label for="inputImage">Image</label> <input type="file"
-						id="inputImage" th:field="*{properties[THUMBNAIL]}" />
-					<p class="help-block">Select Thumbnail</p>
+					<label>Thumbnail</label> <br /> <img
+						src="/dengshaobing/img/test/itemmock.png" alt="..."
+						style="width: 150px; height: 150px" />
+				</div>
+				<div class="form-group">
+					<input th:type="file" th:field="*{properties[THUMBNAIL]}" />
+					<p class="help-block">Select a Thumbnail</p>
 				</div>
 				<div class="form-group">
 					<label for="inputDescription">Description</label>

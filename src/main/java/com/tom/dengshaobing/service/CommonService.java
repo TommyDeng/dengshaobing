@@ -3,6 +3,8 @@ package com.tom.dengshaobing.service;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
 
@@ -65,5 +67,15 @@ public interface CommonService {
 	 * @throws Exception
 	 */
 	Map<String, Object> getWXUserInfo(String appToken) throws Exception;
+
+	/**
+	 * 存储文件并返回UUID
+	 * @param thumbnailFile
+	 * @return
+	 * @throws Exception 
+	 */
+	UUID storeUploadFile(CommonsMultipartFile thumbnailFile) throws Exception;
+	
+	
 
 }

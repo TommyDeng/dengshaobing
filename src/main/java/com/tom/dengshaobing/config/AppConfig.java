@@ -1,5 +1,7 @@
 package com.tom.dengshaobing.config;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,23 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
+import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
+
+import com.tom.dengshaobing.common.DefaultSetting;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -23,11 +38,80 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 @Configuration
-@ComponentScan
-@EnableTransactionManagement
 @EnableScheduling
 @PropertySource("classpath:system.properties")
-public class AppConfig {
+@ComponentScan(basePackages = "com.tom.dengshaobing")
+public class AppConfig extends WebMvcConfigurationSupport {
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
+	@Bean
+	public DeviceResolverHandlerInterceptor deviceResolverHandlerInterceptor() {
+		return new DeviceResolverHandlerInterceptor();
+	}
+
+	@Bean
+	public DeviceHandlerMethodArgumentResolver deviceHandlerMethodArgumentResolver() {
+		return new DeviceHandlerMethodArgumentResolver();
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(deviceResolverHandlerInterceptor());
+	}
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(deviceHandlerMethodArgumentResolver());
+	}
+
+	/**
+	 * thymeleaf templateResolver
+	 * 
+	 * @return
+	 */
+	@Bean
+	TemplateResolver templateResolver() {
+		TemplateResolver templateResolver = new ServletContextTemplateResolver();
+		// TemplateResolver templateResolver = new
+		// ClassLoaderTemplateResolver();
+		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
+		return templateResolver;
+	}
+
+	/**
+	 * thymeleaf templateEngine
+	 * 
+	 * @return
+	 */
+	@Bean
+	SpringTemplateEngine templateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver());
+		return templateEngine;
+	}
+
+	/**
+	 * thymeleaf thymeleafViewResolver
+	 * 
+	 * @return
+	 */
+	@Bean
+	ThymeleafViewResolver thymeleafViewResolver() {
+		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+		thymeleafViewResolver.setTemplateEngine(templateEngine());
+		thymeleafViewResolver.setCache(false);
+		thymeleafViewResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
+		// thymeleafViewResolver.setOrder(1);
+		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
+		// });
+		return thymeleafViewResolver;
+	}
 
 	@Autowired
 	private Environment env;
@@ -48,6 +132,15 @@ public class AppConfig {
 	public DataSourceTransactionManager transactionManager() {
 		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(getDataSource());
 		return dataSourceTransactionManager;
+	}
+
+	@Bean
+	MultipartResolver multipartResolver() {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setDefaultEncoding(DefaultSetting.CHARSET.name());
+		// one of the properties available; the maximum file size in bytes
+		commonsMultipartResolver.setMaxUploadSize(1024 * 200);// 200k
+		return commonsMultipartResolver;
 	}
 
 	@Bean

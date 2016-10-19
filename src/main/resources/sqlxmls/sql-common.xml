@@ -14,4 +14,17 @@ SELECT NAME as 访问者,
  order by id desc
 	]]>
 	</sql>
+
+	<sql name="SYS003">
+	<![CDATA[
+select count(1) from TX_USER where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
+	]]>
+	</sql>
+
+	<sql name="SYS004">
+	<![CDATA[
+select count(1) from TX_USERINFO_WX where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
+	]]>
+	</sql>
+
 </sqls>
