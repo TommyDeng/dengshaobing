@@ -60,22 +60,20 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		insertParamMap.put("UNIQUE_CODE", productUC);
 		insertParamMap.put("NAME", properties.get("NAME"));
 		insertParamMap.put("PRICE", properties.get("PRICE"));
+		insertParamMap.put("BRIEF", properties.get("BRIEF"));
+		insertParamMap.put("THUMBNAIL", properties.get("THUMBNAIL"));
+		insertParamMap.put("DETAIL_DESCIPTION", properties.get("DETAIL_DESCIPTION"));
 		insertParamMap.put("CREATOR", String.valueOf(userUC));
 		dataAccessService.insertSingle("TX_PRODUCT", insertParamMap);
-
-		insertParamMap.put("REMARK", properties.get("REMARK"));
-		dataAccessService.insertSingle("TX_PRODUCT_DETAIL", insertParamMap);
 
 	}
 
 	@Override
 	public Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception {
-		return dataAccessService.queryRowMapById("TX_PRODUCT", productUC);
-	}
-
-	@Override
-	public Map<String, Object> queryProductDetail(UUID productUC, String appToken) throws Exception {
-		return dataAccessService.queryRowMapById("TX_PRODUCT_DETAIL", productUC);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", productUC);
+		return dataAccessService.queryForOneRowMap("BUSS006", paramMap);
+		// return dataAccessService.queryRowMapById("TX_PRODUCT", productUC);
 	}
 
 	@Override
@@ -84,14 +82,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void updateProductDetail(Map<String, Object> properties, String appToken) throws Exception {
-		dataAccessService.updateSingle("TX_PRODUCT_DETAIL", properties);
-	}
-
-	@Override
 	public void deleteProduct(UUID productUC, String appToken) throws Exception {
 		dataAccessService.deleteRowById("TX_PRODUCT", productUC);
-		dataAccessService.deleteRowById("TX_PRODUCT_DETAIL", productUC);
 	}
 
 	@Override
@@ -124,7 +116,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 	@Override
 	public List<Map<String, Object>> listAllProductForMain() {
-		return dataAccessService.queryMapList("BUSS006", null);
+		return dataAccessService.queryMapList("BUSS012", null);
 	}
 
 	@Override

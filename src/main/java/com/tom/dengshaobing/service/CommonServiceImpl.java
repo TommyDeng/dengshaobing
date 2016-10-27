@@ -98,7 +98,11 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public UUID storeUploadFile(CommonsMultipartFile thumbnailFile) throws Exception {
 		UUID storedUUID = UUID.randomUUID();
-		String filePath = env.getProperty("FileStore.BaseFolder") + storedUUID.toString();
+		String extendsion = FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
+
+		String filePath = env.getProperty("FileStore.BaseFolder") + storedUUID.toString()
+				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
+
 		File destinationFile = new File(servletContext.getRealPath(filePath));
 
 		FileUtils.copyInputStreamToFile(thumbnailFile.getInputStream(), destinationFile);
@@ -107,9 +111,9 @@ public class CommonServiceImpl implements CommonService {
 		paramMap.put("UNIQUE_CODE", storedUUID);
 		paramMap.put("NAME", thumbnailFile.getOriginalFilename());
 		paramMap.put("PATH", "/dengshaobing/" + filePath);
-		paramMap.put("FILE_EXTENSION", FilenameUtils.getExtension(thumbnailFile.getOriginalFilename()));
+		paramMap.put("FILE_EXTENSION", extendsion);
 		paramMap.put("FILE_SIZE", thumbnailFile.getSize());
-		paramMap.put("REMARK", thumbnailFile.getContentType() + ":" + destinationFile.getAbsolutePath());
+		paramMap.put("REMARK", thumbnailFile.getContentType() + ";" + destinationFile.getAbsolutePath());
 
 		dataAccessService.insertSingle("TX_FILE_STORE_MAPPING", paramMap);
 		return storedUUID;

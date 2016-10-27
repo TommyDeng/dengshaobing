@@ -79,24 +79,6 @@ public class EggShopOrderController extends BaseController {
 		return BasePath + "edit";
 	}
 
-	@RequestMapping("/view")
-	public String view(HttpServletRequest request, HttpServletResponse response, ModelMap map, String rowUC)
-			throws Exception {
-		if (rowUC != null) {
-			Map<String, Object> row = bussService.queryProduct(UUID.fromString(rowUC), null);
-			Map<String, Object> rowDetail = bussService.queryProductDetail(UUID.fromString(rowUC), null);
-			mapForm.setProperties(row);
-			mapForm.putAllProperties(rowDetail);
-
-		} else {
-			mapForm = new MapForm();
-		}
-		map.put(SxFormData, mapForm);
-		map.put(PxRowUC, rowUC);
-
-		return BasePath + "view";
-	}
-
 	@RequestMapping("/save")
 	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
 		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);

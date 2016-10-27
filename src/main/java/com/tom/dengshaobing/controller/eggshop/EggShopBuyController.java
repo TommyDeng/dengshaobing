@@ -50,16 +50,13 @@ public class EggShopBuyController extends BaseController {
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
-		String appToken = null;
-		if (StringUtils.isNotBlank(AT)) {
-			appToken = AT;
-		} else {
-			appToken = this.getAppToken(openid, "", commonService);
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
 		}
 
-		map.put(PxAT, appToken);
+		map.put(PxAT, AT);
 
-		headerRending(appToken, map);
+		headerRending(AT, map);
 
 		map.put(SxMapList, bussService.listAllProductForMain());
 		return BasePath + "main";
@@ -72,10 +69,8 @@ public class EggShopBuyController extends BaseController {
 		headerRending(AT, map);
 
 		Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), AT);
-		Map<String, Object> productDetail = bussService.queryProductDetail(UUID.fromString(rowUC), AT);
 
 		map.put("product", product);
-		map.put("productDetail", productDetail);
 		return BasePath + "item";
 	}
 
@@ -101,19 +96,21 @@ public class EggShopBuyController extends BaseController {
 	@RequestMapping("/changeItemQty")
 	@ResponseBody
 	public String changeItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC), Long.parseLong(itemCount),
-				AT);
+		Long shoppingCartCount = bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC),
+				Long.parseLong(itemCount), AT);
 		return String.valueOf(shoppingCartCount);
 	}
-	
+
 	@RequestMapping("/checkout")
-	public String checkout(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+	public String checkout(@ModelAttribute MapForm mapForm, ModelMap map, String AT) throws Exception {
+		map.put(PxAT, AT);
 
 		return BasePath + "checkout";
 	}
 
 	@RequestMapping("/checkoutsubmit")
-	public String checkoutsubmit(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
+	public String checkoutsubmit(@ModelAttribute MapForm mapForm, ModelMap map, String AT) throws Exception {
+		map.put(PxAT, AT);
 
 		return "redirect:../product/list";
 	}

@@ -145,6 +145,12 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		}
 		return accessToken;
 	}
+	
+	@Override
+	public AccessToken getCurrentAccessToken() {
+		return accessToken;
+	}
+	
 
 	@Override
 	public void fetchAccessToken() throws Exception {

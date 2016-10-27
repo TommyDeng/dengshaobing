@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.tom.dengshaobing.service.DataAccessService;
+import com.tom.dengshaobing.service.WexinMessagePlatformService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,12 +20,16 @@ public class HealthyPulse {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	@Scheduled(fixedRate = 3600000)
+	@Autowired
+	WexinMessagePlatformService wexinMessagePlatformService;
+
+	@Scheduled(fixedRate = 1200000)
 	public void printPulse() {
 		log.info("Server Pulse.");
+		log.info("CurrentAccessToken : " + wexinMessagePlatformService.getCurrentAccessToken().toString());
 	}
 
-	@Scheduled(fixedRate = 3600000)
+	@Scheduled(fixedRate = 28800000)
 	public void selfClean() throws Exception {
 		log.info("App Self Clean.");
 		// insert admin user

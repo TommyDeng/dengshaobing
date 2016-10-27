@@ -64,12 +64,19 @@ public interface WexinMessagePlatformService {
 	void fetchAccessToken() throws Exception;
 
 	/**
-	 * 获得当前 access_token
+	 * 获得 access_token
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	AccessToken getAccessToken() throws Exception;
+
+	/**
+	 * 获得当前 access_token
+	 * 
+	 * @return
+	 */
+	AccessToken getCurrentAccessToken();
 
 	/**
 	 * 当微信回调时，获取Oauth2AccessToken
@@ -141,4 +148,5 @@ public interface WexinMessagePlatformService {
 	 * @throws Exception
 	 */
 	void storeOauth2UserInfo(Oauth2AccessToken oauth2AccessToken, Oauth2UserInfo userInfo) throws Exception;
+
 }

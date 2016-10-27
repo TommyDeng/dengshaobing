@@ -13,23 +13,26 @@
 <title></title>
 </head>
 <body style="padding-bottom: 70px; padding-top: 70px;">
+
+	<div class="alert alert-success alert-dismissible" role="alert">Well
+		done! You successfully checkout.</div>
 	<div class="container">
 		<nav class="navbar-default navbar-fixed-top">
 
 			<div class="pull-left" style="margin: 10px">
-				<a class="btn btn-default" type="button" href="main"> <span
+				<a class="btn btn-default" type="button"
+					th:href="@{shoppingcart(AT=${AT})}"> <span
 					class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <span>Back</span>
 				</a>
-
 			</div>
+
 			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button" href="checkoutsubmit">
+				<a class="btn btn-primary" type="button" th:href="@{main(AT=${AT})}">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 					Checkout
 				</a>
 			</div>
 		</nav>
 	</div>
-	check out
 </body>
 </html>

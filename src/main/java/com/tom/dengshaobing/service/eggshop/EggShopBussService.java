@@ -39,15 +39,6 @@ public interface EggShopBussService {
 	 */
 	Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception;
 
-	/**
-	 * 查询产品明细
-	 * 
-	 * @param productUC
-	 * @param userUC
-	 * @return
-	 * @throws Exception
-	 */
-	Map<String, Object> queryProductDetail(UUID productUC, String appToken) throws Exception;
 
 	/**
 	 * 更新产品
@@ -58,14 +49,6 @@ public interface EggShopBussService {
 	 */
 	void updateProduct(Map<String, Object> properties, String appToken) throws Exception;
 
-	/**
-	 * 更新产品明细
-	 * 
-	 * @param properties
-	 * @param userUC
-	 * @throws Exception
-	 */
-	void updateProductDetail(Map<String, Object> properties, String appToken) throws Exception;
 
 	/**
 	 * 删除产品

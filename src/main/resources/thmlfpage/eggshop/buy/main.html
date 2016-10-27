@@ -33,19 +33,22 @@
 		</nav>
 	</div>
 	<div class="container">
-		<div class="row">
-			<div class="thumbnail" th:each="recode : ${mapList}">
-				<img src="/dengshaobing/img/test/itemmock.png" alt="..." />
-				<div class="caption">
-					<h3 th:text="${recode.NAME}"></h3>
-					<p th:text="${recode.REMARK}"></p>
-					<p>
-						<a th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"
-							class="btn btn-primary" role="button">View</a>
-					</p>
-				</div>
+		<div class="panel panel-default media" th:each="recode : ${mapList}">
+			<a class="media-left"
+				th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"> <img
+				th:src="${recode.THUMBNAIL_PATH}" style="width: 64px; height: 64px"
+				alt="..." />
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading" th:text="${recode.NAME}"></h4>
+				<p th:text="${recode.BRIEF}"></p>
 			</div>
 		</div>
+	</div>
+
+	<div class="container">
+		<a role="button" class="btn btn-block btn-lg btn-outline"
+			href="/dengshaobing/">View Our Website</a>
 	</div>
 </body>
 </html>

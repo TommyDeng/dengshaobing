@@ -43,7 +43,11 @@ delete from TX_ORDER_ITEM where ORDER_UC = :ORDER_UC
 
 	<sql name="BUSS006">
 	<![CDATA[
-SELECT p.UNIQUE_CODE , p.NAME ,p.PRICE,pd.REMARK   FROM TX_PRODUCT p left join TX_PRODUCT_DETAIL pd on p.UNIQUE_CODE = pd.UNIQUE_CODE 
+SELECT p.*, f.PATH THUMBNAIL_PATH
+  FROM TX_PRODUCT p
+  left join TX_FILE_STORE_MAPPING f
+    on p.THUMBNAIL = f.UNIQUE_CODE
+ where p.UNIQUE_CODE = :UNIQUE_CODE
 	]]>
 	</sql>
 
@@ -92,5 +96,12 @@ SELECT U.UNIQUE_CODE
    AND W.OPENID = :OPENID
 	]]>
 	</sql>
-	
+	<sql name="BUSS012">
+	<![CDATA[
+SELECT p.*, f.PATH THUMBNAIL_PATH
+  FROM TX_PRODUCT p
+  left join TX_FILE_STORE_MAPPING f
+    on p.THUMBNAIL = f.UNIQUE_CODE
+	]]>
+	</sql>
 </sqls>

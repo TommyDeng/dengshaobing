@@ -61,13 +61,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="thumbnail">
-				<img src="/dengshaobing/img/test/itemmock.png" alt="..." />
+				<img th:src="${product.THUMBNAIL_PATH}" alt="..." />
 				<div class="caption">
 					<h3>
 						<label th:text="${product.NAME}"></label>
 					</h3>
 					<kbd th:text="'RMB '+${product.PRICE}"></kbd>
-					<p th:text="${productDetail.REMARK}"></p>
+					<p th:text="${product.BRIEF}"></p>
+					<p th:text="${product.DETAIL_DESCIPTION}"></p>
 				</div>
 			</div>
 		</div>

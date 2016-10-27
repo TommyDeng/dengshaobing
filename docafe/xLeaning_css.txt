@@ -1,0 +1,188 @@
+=====================================================
+********			CSS选择器					********
+=====================================================
+1.选择元素  	无
+p {font-family: "sans serif";}
+
+2.id选择 		#
+#elemId {font-family: "sans serif";}
+div#elemId {font-family: "sans serif";} 选择id为elemId的div元素
+#elemId div {font-family: "sans serif";}选择id为elemId内的div子元素 
+
+3.类选择器		.
+.center {text-align: center}
+
+4.属性选择器	[]
+[title] {color:red;}
+[title=W3School] {color:red;}
+
+4.派生选择器(后代选择器,选择所有层子元素) 	空格 
+body p {font-family: "sans serif";}
+
+5.子元素选择器(仅选择下层) 		 			>
+body > p {color:red;}
+
+6.相邻兄弟选择器	(紧接在 h1 元素后的p)			 +
+h1 + p {margin-top:50px;}
+
+
+=====================================================
+********			常见属性说明				********
+=====================================================
+background-*		背景
+background-color 	元素设置背景色
+background-image 	背景图片
+background-repeat 	背景图片循环
+background-position 图像在背景中的位置
+background-attachment 防止背景随鼠标滚轮滚动
+css3新增
+background-clip		规定背景的绘制区域。背景范围区域。(content-box、padding-box 或 border-box 区域)
+background-origin	规定背景图片的定位区域。背景图片放置区域(content-box、padding-box 或 border-box 区域)	
+background-size		规定背景图片的尺寸。
+ 
+text-*				文本
+text-indent			文本缩进
+text-align			文本水平对齐
+text-transform		文本大小写转换
+text-decoration		文本添加上下划线
+direction			文本方向
+css3新增
+text-shadow			文本应用阴影
+word-wrap			文本强制换行
+
+
+font-*				字体
+font-family			字体系列 (5 种通用字体系列：Serif 字体,Sans-serif 字体,Monospace 字体,Cursive 字体,Fantasy 字体)
+font-style			字体规定斜体
+
+list-style-*		列表
+list-style-type		列表项标志类型
+list-style-image	列表项标志图像
+list-style-position	列表标志位置
+
+outline-*		轮廓
+outline-color	设置轮廓的颜色
+outline-style	设置轮廓的样式
+outline-width	设置轮廓的宽度
+
+padding 		内边距
+padding-top
+padding-right
+padding-bottom
+padding-left
+
+border			边框
+border-width 	属性为边框指定宽度。
+border-collapse	设置是否把表格边框合并为单一的边框
+border-spacing	设置分隔单元格边框的距离
+css3新增
+border-image	设置所有 border-image-* 属性的简写属性。	
+border-radius	设置所有四个 border-*-radius 属性的简写属性。	
+box-shadow		向方框添加一个或多个阴影。
+
+
+margin			外边距
+margin-top
+margin-right
+margin-bottom
+margin-left
+
+
+display	改变生成的框的类型
+div、h1 	或 p 元素常常被称为块级元素
+-block	此元素将显示为块级元素，此元素前后会带有换行符。
+-inline	默认。此元素会被显示为内联元素，元素前后没有换行符。
+-none	删除不显示
+
+position
+-relative(相对位置)
+元素框偏移某个距离。元素仍保持其未定位前的形状，它原本所占的空间仍保留。
+-absolute(绝对位置)
+元素框从文档流完全删除，并相对于其包含块定位。包含块可能是文档中的另一个元素或者是初始包含块。
+元素原先在正常文档流中所占的空间会关闭，就好像元素原来不存在一样。元素定位后生成一个块级框，而不论原来它在正常流中生成何种类型的框。
+结合一下属性使用
+(top		定义了一个定位元素的上外边距边界与其包含块上边界之间的偏移。
+right	定义了定位元素右外边距边界与其包含块右边界之间的偏移。
+bottom	定义了定位元素下外边距边界与其包含块下边界之间的偏移。
+left	定义了定位元素左外边距边界与其包含块左边界之间的偏移。)
+
+float 浮动
+clear 清理
+-left	在左侧不允许浮动元素。
+-right	在右侧不允许浮动元素。
+-both	在左右两侧均不允许浮动元素。
+-none	默认值。允许浮动元素出现在两侧。
+-inherit	规定应该从父元素继承 clear 属性的值。
+
+伪类
+链接样式
+a:link - 普通的、未被访问的链接
+a:visited - 用户已访问的链接
+a:hover - 鼠标指针位于链接的上方
+a:active - 链接被点击的时刻
+
+伪元素
+p:first-line	p 元素的第一行文本
+p:first-letter	文本的首字母
+p:before		在元素的内容之前
+p:after			在元素的内容之后
+
+块元素(block)对齐
+居中:
+margin-left:auto;
+margin-right:auto;
+position左和右对齐:
+position:absolute;
+right:0px;(left:0px;)
+float左和右对齐:
+float:right;
+
+图片透明度
+opacity:0.4;
+
+溢出设置
+overflow:hidden
+
+2D 转换/3D 转换
+transform
+:translate() 		移动，元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置
+:rotate()			旋转，元素顺时针旋转给定的角度。允许负值，元素将逆时针旋转。
+:scale()			收缩，元素的尺寸会增加或减少，根据给定的宽度（X 轴）和高度（Y 轴）参数
+:skew()				倾斜，元素翻转给定的角度，根据给定的水平线（X 轴）和垂直线（Y 轴）
+:matrix()			把所有 2D 转换方法组合在一起,包含数学函数，允许您：旋转、缩放、移动以及倾斜元素
+
+:rotateX()			3D旋转，元素围绕其 X 轴以给定的度数进行旋转
+:rotateY()			3D旋转，元素围绕其 Y 轴以给定的度数进行旋转
+
+过渡
+transition: width 2s;			设置过渡,以及速度
+
+动画
+animation
+animation: myfirst 5s;
+
+@keyframes myfirst
+{
+from {background: red;}
+to {background: yellow;}
+}
+@keyframes myfirst
+{
+0%   {background: red;}
+25%  {background: yellow;}
+50%  {background: blue;}
+100% {background: green;}
+}
+
+多列column
+column-count	规定元素应该被分隔的列数
+column-gap		规定列之间的间隔
+column-rule		设置列之间的宽度、样式和颜色规则
+
+用户界面
+resize			规定是否可由用户调整元素尺寸
+box-sizing		允许您以确切的方式定义适应某个区域的具体内容
+outline-offset	对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓
+
+appearance:button	允许您将元素设置为标准用户界面元素的外观
+appearance: normal|icon|window|button|menu|field;
