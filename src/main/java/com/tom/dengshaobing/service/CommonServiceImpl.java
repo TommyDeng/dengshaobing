@@ -34,9 +34,6 @@ public class CommonServiceImpl implements CommonService {
 	private Environment env;
 
 	@Autowired
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-	@Autowired
 	DataAccessService dataAccessService;
 
 	@Autowired
@@ -110,7 +107,7 @@ public class CommonServiceImpl implements CommonService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UNIQUE_CODE", storedUUID);
 		paramMap.put("NAME", thumbnailFile.getOriginalFilename());
-		paramMap.put("PATH", "/dengshaobing/" + filePath);
+		paramMap.put("PATH", filePath);
 		paramMap.put("FILE_EXTENSION", extendsion);
 		paramMap.put("FILE_SIZE", thumbnailFile.getSize());
 		paramMap.put("REMARK", thumbnailFile.getContentType() + ";" + destinationFile.getAbsolutePath());

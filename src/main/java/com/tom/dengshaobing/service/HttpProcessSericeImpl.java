@@ -28,9 +28,9 @@ import com.tom.dengshaobing.common.DefaultSetting;
  */
 @Service
 public class HttpProcessSericeImpl implements HttpProcessSerice {
-
+	
 	@Autowired
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	DataAccessService dataAccessService;
 
 	@Override
 	public String httpGet(URI uri) throws Exception {
@@ -66,14 +66,13 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	}
 
 	private void logHttpRequest(String httpMethodName, String uri, String formStr, String responseStr) {
-		String sql = "insert into log_http(method_name, uri, request, response, create_time) "
-				+ "values (:method_name, :uri, :request, :response, :create_time)";
 		Map<String, Object> sqlParamMap = new HashMap<String, Object>();
 		sqlParamMap.put("method_name", httpMethodName);
 		sqlParamMap.put("uri", uri);
 		sqlParamMap.put("request", formStr);
 		sqlParamMap.put("response", responseStr);
 		sqlParamMap.put("create_time", Calendar.getInstance());
-		namedParameterJdbcTemplate.update(sql, sqlParamMap);
+		
+		dataAccessService.update("SYS005", sqlParamMap);
 	}
 }

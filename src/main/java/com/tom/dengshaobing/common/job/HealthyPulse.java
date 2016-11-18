@@ -65,7 +65,7 @@ public class HealthyPulse {
 			paramMap.put("GROUPID", "1");
 			paramMap.put("REMARK", "1");
 
-			dataAccessService.insertSingle("TX_USERINFO_WX", paramMap);
+			dataAccessService.insertSingle("ES_USERINFO_WX", paramMap);
 		}
 	}
 }

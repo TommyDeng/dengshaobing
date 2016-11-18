@@ -7,9 +7,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<link rel="stylesheet" href="/dengshaobing/css/bootstrap.min.css" />
-<script src="/dengshaobing/js/jquery-3.1.0.min.js"></script>
-<script src="/dengshaobing/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 <title>Index Page</title>
 </head>
@@ -24,13 +24,7 @@
 		<p>
 			<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
 			And now is
-			<script type="text/javascript">
-				var now = new Date();
-				document.write(1900 + now.getYear() + "-"
-						+ (now.getMonth() + 1) + "-" + now.getDate() + " "
-						+ now.getHours() + ":" + now.getMinutes() + ":"
-						+ now.getSeconds());
-			</script>
+			<b th:text="${#calendars.format(#calendars.createNow())}"></b>
 			. <br /> Shaobing is
 			<script type="text/javascript">
 				var now = new Date();
@@ -41,8 +35,8 @@
 				class="glyphicon glyphicon-gift" aria-hidden="true"></span>
 		</p>
 		<p>
-			<a class="btn btn-primary btn-lg" href="eggshop/buy/main?openid=1" role="button">Getting
-				Started </a>
+			<a class="btn btn-primary btn-lg" href="eggshop/buy/main?openid=1" role="button">Egg Shop</a>
+			<a class="btn btn-primary btn-lg" href="jerry/dish/main?openid=1" role="button">Shao Bing</a>
 		</p>
 		<p>
 			<em>Thank you for using DengShaobing!</em>

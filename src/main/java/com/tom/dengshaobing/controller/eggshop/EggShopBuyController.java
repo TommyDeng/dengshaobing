@@ -47,6 +47,14 @@ public class EggShopBuyController extends BaseController {
 		this.mapForm = mapForm;
 	}
 
+	// 加载用户信息和count
+	@Override
+	public void headerRending(String appToken, ModelMap map) throws Exception {
+		super.headerRending(appToken, map);
+		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(appToken);
+		map.put("cartInfo", cartInfo);
+	}
+	
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {

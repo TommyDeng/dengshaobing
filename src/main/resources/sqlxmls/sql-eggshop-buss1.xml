@@ -13,7 +13,7 @@ select UNIQUE_CODE as UNIQUE_CODE$K$H,
        TOTAL_AMT 金额,
        STATUS 状态,
        to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
-  from TX_ORDER
+  from ES_ORDER
  where USER_UC = :USER_UC
    order by CREATE_TIME desc
 	]]>
@@ -22,8 +22,8 @@ select UNIQUE_CODE as UNIQUE_CODE$K$H,
 	<sql name="BUSS003">
 	<![CDATA[
 select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金额
-  from TX_ORDER_ITEM oi
-  left join TX_PRODUCT p
+  from ES_ORDER_ITEM oi
+  left join ES_PRODUCT p
     on oi.PRODUCT_UC = p.UNIQUE_CODE
  where oi.ORDER_UC = :ORDER_UC
 	]]>
@@ -31,20 +31,20 @@ select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金�
 
 	<sql name="BUSS004">
 	<![CDATA[
-SELECT UNIQUE_CODE as UNIQUE_CODE$K$H, NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM TX_PRODUCT 
+SELECT UNIQUE_CODE as UNIQUE_CODE$K$H, NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM ES_PRODUCT 
 	]]>
 	</sql>
 
 	<sql name="BUSS005">
 	<![CDATA[
-delete from TX_ORDER_ITEM where ORDER_UC = :ORDER_UC 
+delete from ES_ORDER_ITEM where ORDER_UC = :ORDER_UC 
 	]]>
 	</sql>
 
 	<sql name="BUSS006">
 	<![CDATA[
 SELECT p.*, f.PATH THUMBNAIL_PATH
-  FROM TX_PRODUCT p
+  FROM ES_PRODUCT p
   left join TX_FILE_STORE_MAPPING f
     on p.THUMBNAIL = f.UNIQUE_CODE
  where p.UNIQUE_CODE = :UNIQUE_CODE
@@ -53,14 +53,14 @@ SELECT p.*, f.PATH THUMBNAIL_PATH
 
 	<sql name="BUSS007">
 	<![CDATA[
-SELECT count(1) FROM TX_SHOPPING_CART  where USER_UC  = :USER_UC 
+SELECT count(1) FROM ES_SHOPPING_CART  where USER_UC  = :USER_UC 
 	]]>
 	</sql>
 
 	<sql name="BUSS008">
 	<![CDATA[
 SELECT PRODUCT_COUNT
-  FROM TX_SHOPPING_CART
+  FROM ES_SHOPPING_CART
  where USER_UC = :USER_UC
    and PRODUCT_UC = :PRODUCT_UC
    	]]>
@@ -68,7 +68,7 @@ SELECT PRODUCT_COUNT
 
 	<sql name="BUSS009">
 	<![CDATA[
-MERGE INTO TX_SHOPPING_CART(UNIQUE_CODE, USER_UC, PRODUCT_UC, PRODUCT_COUNT)
+MERGE INTO ES_SHOPPING_CART(UNIQUE_CODE, USER_UC, PRODUCT_UC, PRODUCT_COUNT)
  KEY(USER_UC, PRODUCT_UC)
 values(:UNIQUE_CODE, :USER_UC, :PRODUCT_UC, :PRODUCT_COUNT)
    	]]>
@@ -82,7 +82,7 @@ SELECT S.UNIQUE_CODE AS UNIQUE_CODE$K$H,
        P.PRICE 单价,
        CONVERT(S.PRODUCT_COUNT, INT) 数量,
        P.PRICE * S.PRODUCT_COUNT 小计
-  FROM TX_SHOPPING_CART S, TX_PRODUCT P
+  FROM ES_SHOPPING_CART S, ES_PRODUCT P
  WHERE S.PRODUCT_UC = P.UNIQUE_CODE
    AND S.USER_UC = :USER_UC
 	]]>
@@ -99,7 +99,7 @@ SELECT U.UNIQUE_CODE
 	<sql name="BUSS012">
 	<![CDATA[
 SELECT p.*, f.PATH THUMBNAIL_PATH
-  FROM TX_PRODUCT p
+  FROM ES_PRODUCT p
   left join TX_FILE_STORE_MAPPING f
     on p.THUMBNAIL = f.UNIQUE_CODE
 	]]>

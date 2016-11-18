@@ -7,11 +7,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<link rel="stylesheet" href="/dengshaobing/css/bootstrap.min.css" />
-<script src="/dengshaobing/js/jquery-3.1.0.min.js"></script>
-<script src="/dengshaobing/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
-<title>Index Page</title>
+<title>About Me</title>
 </head>
 <body>
 	<div class="container">
@@ -30,22 +30,22 @@
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group">
 				<a href="https://www.w3.org/TR/html5/" target="_blank"><img
-					src="/dengshaobing/img/techlink/html5.ico" class="img-responsive"
+					th:src="@{/img/techlink/html5.ico}" class="img-responsive"
 					style="width: 20px; height: 20px" /></a>
 			</div>
 			<div class="btn-group">
 				<a href="http://getbootstrap.com/" target="_blank"><img
-					src="/dengshaobing/img/techlink/bootstrap.ico"
+					th:src="@{/img/techlink/bootstrap.ico}"
 					class="img-responsive" style="width: 20px; height: 20px" /></a>
 			</div>
 			<div class="btn-group">
 				<a href="http://glyphicons.com/" target="_blank"><img
-					src="/dengshaobing/img/techlink/glyphicons.ico"
+					th:src="@{/img/techlink/glyphicons.ico}"
 					class="img-responsive" style="width: 20px; height: 20px" /></a>
 			</div>
 			<div class="btn-group">
 				<a href="http://www.thymeleaf.org/" target="_blank"><img
-					src="/dengshaobing/img/techlink/thymeleaf.ico"
+					th:src="@{/img/techlink/thymeleaf.ico}"
 					class="img-responsive" style="width: 20px; height: 20px" /></a>
 			</div>
 		</div>

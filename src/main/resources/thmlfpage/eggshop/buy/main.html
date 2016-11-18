@@ -7,9 +7,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<link rel="stylesheet" href="/dengshaobing/css/bootstrap.min.css" />
-<script src="/dengshaobing/js/jquery-3.1.0.min.js"></script>
-<script src="/dengshaobing/js/bootstrap.min.js"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 <title></title>
 </head>
@@ -18,8 +18,7 @@
 		<nav class="navbar-default navbar-fixed-top">
 
 			<div class="pull-left" style="margin: 10px">
-				<img src="/dengshaobing/img/techlink/bootstrap.ico"
-					th:src="${userInfo.HEADIMGURL}" alt="..."
+				<img th:src="${userInfo.HEADIMGURL}" alt="..."
 					style="width: 30px; height: 30px" /> <label
 					th:text="${userInfo.NICKNAME}"></label>
 			</div>
@@ -36,7 +35,7 @@
 		<div class="panel panel-default media" th:each="recode : ${mapList}">
 			<a class="media-left"
 				th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"> <img
-				th:src="${recode.THUMBNAIL_PATH}" style="width: 64px; height: 64px"
+				th:src="@{/${recode.THUMBNAIL_PATH}}" style="width: 64px; height: 64px"
 				alt="..." />
 			</a>
 			<div class="media-body">
@@ -48,7 +47,7 @@
 
 	<div class="container">
 		<a role="button" class="btn btn-block btn-lg btn-outline"
-			href="/dengshaobing/">View Our Website</a>
+			th:href="@{/}">View Our Website</a>
 	</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,14 +25,11 @@ public class BaseController {
 	@Autowired
 	CommonService commonService;
 
-	@Autowired
-	EggShopBussService bussService;
+	protected final String SxTableMeta = "tableMeta";// 页面tableMeta变量(表格数据列表:TableMeta)
 
-	protected final String SxTableMeta = "tableMeta";// 页面tableMeta变量
+	protected final String SxFormData = "formData";// 页面formData变量(新增，修改时的form:MapForm)
 
-	protected final String SxFormData = "formData";// 页面formData变量
-
-	protected final String SxMapList = "mapList";// 页面mapList变量
+	protected final String SxMapList = "mapList";// 页面mapList变量(简单数据列表:List<Map<String, Object>>)
 
 	protected final String PxOpenid = "openid";// openid:当前操作用户openid
 
@@ -47,9 +45,7 @@ public class BaseController {
 	// 加载用户信息和count
 	public void headerRending(String appToken, ModelMap map) throws Exception {
 		Map<String, Object> userInfo = commonService.getWXUserInfo(appToken);
-		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(appToken);
 		map.put("userInfo", userInfo);
-		map.put("cartInfo", cartInfo);
 	}
 
 	public String getAppToken(String entranceId, String entranceType, CommonService commonService) throws Exception {

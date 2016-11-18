@@ -29,6 +29,8 @@ public class EggShopWmpEventServiceImpl extends WmpEventService {
 		// 根据不同消息类型做处理
 		MessageType msgType = messageIn.MsgType;
 		if (MessageType.text.equals(msgType)) {
+			messageOut.MsgType = MessageType.text;
+			messageOut.MsgId = messageIn.MsgId;
 			messageOut.Content = "暂时不支持普通消息发送,请点击菜单进行操作.谢谢!";
 		} else if (MessageType.event.equals(msgType)) {
 

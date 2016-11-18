@@ -80,6 +80,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCacheable(false);
 		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
 		return templateResolver;
 	}

@@ -29,8 +29,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	@Autowired
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
 	CommonService commonService;
@@ -64,7 +62,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		insertParamMap.put("THUMBNAIL", properties.get("THUMBNAIL"));
 		insertParamMap.put("DETAIL_DESCIPTION", properties.get("DETAIL_DESCIPTION"));
 		insertParamMap.put("CREATOR", String.valueOf(userUC));
-		dataAccessService.insertSingle("TX_PRODUCT", insertParamMap);
+		dataAccessService.insertSingle("ES_PRODUCT", insertParamMap);
 
 	}
 
@@ -73,22 +71,22 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
 		return dataAccessService.queryForOneRowMap("BUSS006", paramMap);
-		// return dataAccessService.queryRowMapById("TX_PRODUCT", productUC);
+		// return dataAccessService.queryRowMapById("ES_PRODUCT", productUC);
 	}
 
 	@Override
 	public void updateProduct(Map<String, Object> properties, String appToken) throws Exception {
-		dataAccessService.updateSingle("TX_PRODUCT", properties);
+		dataAccessService.updateSingle("ES_PRODUCT", properties);
 	}
 
 	@Override
 	public void deleteProduct(UUID productUC, String appToken) throws Exception {
-		dataAccessService.deleteRowById("TX_PRODUCT", productUC);
+		dataAccessService.deleteRowById("ES_PRODUCT", productUC);
 	}
 
 	@Override
 	public Map<String, Object> queryOrder(UUID orderUC, String appToken) throws Exception {
-		return dataAccessService.queryRowMapById("TX_ORDER", orderUC);
+		return dataAccessService.queryRowMapById("ES_ORDER", orderUC);
 	}
 
 	@Override
@@ -103,12 +101,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		paramMap.put("STATUS", Const.ORDER_STATUS.Disable);
-		dataAccessService.updateSingle("TX_ORDER", paramMap);
+		dataAccessService.updateSingle("ES_ORDER", paramMap);
 	}
 
 	@Override
 	public void deleteOrder(UUID orderUC, String appToken) throws Exception {
-		dataAccessService.deleteRowById("TX_ORDER", orderUC);
+		dataAccessService.deleteRowById("ES_ORDER", orderUC);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		dataAccessService.update("BUSS005", paramMap);
@@ -164,7 +162,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap.put("UNIQUE_CODE", cartUC);
 		paramMap.put("PRODUCT_COUNT", new BigDecimal(productCount));
 		paramMap.put("CREATOR", userUC);
-		dataAccessService.updateSingle("TX_SHOPPING_CART", paramMap);
+		dataAccessService.updateSingle("ES_SHOPPING_CART", paramMap);
 		return productCount;
 	}
 }

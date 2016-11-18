@@ -2,14 +2,14 @@
 <sqls>
 	<sql name="SYS000">
 	<![CDATA[
-truncate table TX_ORDER;
+truncate table ES_ORDER;
 truncate table LOG_VISIT;
 truncate table TX_USERINFO_WX;
 truncate table SYS_TEST;
-truncate table TX_ORDER_ITEM;
+truncate table ES_ORDER_ITEM;
 truncate table LOG_HTTP;
-truncate table TX_SHOPPING_CART;
-truncate table TX_PRODUCT;
+truncate table ES_SHOPPING_CART;
+truncate table ES_PRODUCT;
 truncate table TX_USER;
 truncate table LOG_ERRORABLE;
 truncate table TX_FILE_STORE_MAPPING;
@@ -43,4 +43,11 @@ select count(1) from TX_USER where UNIQUE_CODE = '00000000-0000-0000-0000-000000
 select count(1) from TX_USERINFO_WX where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
 	]]>
 	</sql>
+	
+	<sql name="SYS005">
+	<![CDATA[
+insert into log_http(method_name, uri, request, response, create_time) values (:method_name, :uri, :request, :response, :create_time)
+	]]>
+	</sql>
+				
 </sqls>

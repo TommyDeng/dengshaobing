@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sqls>
+	<sql name="JR_BUSS001">
+	<![CDATA[
+SELECT UNIQUE_CODE UNIQUE_CODE$K$H, NAME 名称 FROM JR_COOKBOOK
+ WHERE ENABLE = TRUE AND TYPE = :TYPE ORDER BY RAND() LIMIT :count
+	]]>
+	</sql>
+</sqls>

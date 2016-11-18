@@ -31,7 +31,7 @@
 				</div>
 				<div class="form-group">
 					<!-- 原有thumbnail -->
-					<label>Thumbnail</label> <br /> <img th:src="@{'/'+*{properties[THUMBNAIL_PATH]}}"
+					<label>Thumbnail</label> <br /> <img th:src="*{properties[THUMBNAIL_PATH]}"
 						alt="..." style="width: 150px; height: 150px" />
 				</div>
 				<div class="form-group">
