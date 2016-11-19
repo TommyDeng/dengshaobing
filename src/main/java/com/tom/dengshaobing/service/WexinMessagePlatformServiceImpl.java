@@ -286,7 +286,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("OPENID", oauth2AccessToken.openid);
 		paramMap.put("STATUS", Const.USER_STATUS.Active);
 		paramMap.put("TYPE", Const.USER_TYPE.Weixin);
-		dataAccessService.mergeSingle("TX_USER", paramMap);
+		dataAccessService.mergeSingle("SYS_USER", paramMap);
 
 		if (userInfo == null) {
 			return;
@@ -304,7 +304,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("GROUPID", userInfo.groupid);
 		paramMap.put("REMARK", userInfo.remark);
 
-		dataAccessService.mergeSingle("TX_USERINFO_WX", paramMap);
+		dataAccessService.mergeSingle("SYS_USERINFO_WX", paramMap);
 	}
 
 }

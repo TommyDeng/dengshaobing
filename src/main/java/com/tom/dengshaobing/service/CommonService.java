@@ -53,20 +53,20 @@ public interface CommonService {
 	/**
 	 * 使用token获取用户uc
 	 * 
-	 * @param appToken
+	 * @param AT
 	 * @param commonService
 	 * @return
 	 */
-	UUID getUserUCByAppToken(String appToken);
+	UUID getUserUCByAppToken(String AT);
 
 	/**
 	 * 绑定openid,并获取userUC
 	 * 
-	 * @param appToken
+	 * @param AT
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> getWXUserInfo(String appToken) throws Exception;
+	Map<String, Object> getWXUserInfo(String AT) throws Exception;
 
 	/**
 	 * 存储文件并返回UUID

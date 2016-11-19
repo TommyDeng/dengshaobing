@@ -102,9 +102,9 @@ public class EggShopProductController extends BaseController {
 		}
 
 		if (StringUtils.isBlank(rowUC)) {
-			bussService.addProduct(mapForm.getProperties(), null);
+			bussService.addProduct(mapForm.getProperties(), AT);
 		} else {
-			bussService.updateProduct(mapForm.getProperties(), null);
+			bussService.updateProduct(mapForm.getProperties(), AT);
 		}
 		return "redirect:list";
 	}
@@ -113,7 +113,7 @@ public class EggShopProductController extends BaseController {
 	public String delete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT) throws Exception {
 		map.put(PxAT, AT);
 
-		bussService.deleteProduct(UUID.fromString(rowUC), null);
+		bussService.deleteProduct(UUID.fromString(rowUC), AT);
 		return "redirect:list";
 	}
 

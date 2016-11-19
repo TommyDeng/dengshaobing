@@ -4,15 +4,15 @@
 	<![CDATA[
 truncate table ES_ORDER;
 truncate table LOG_VISIT;
-truncate table TX_USERINFO_WX;
+truncate table SYS_USERINFO_WX;
 truncate table SYS_TEST;
 truncate table ES_ORDER_ITEM;
 truncate table LOG_HTTP;
 truncate table ES_SHOPPING_CART;
 truncate table ES_PRODUCT;
-truncate table TX_USER;
+truncate table SYS_USER;
 truncate table LOG_ERRORABLE;
-truncate table TX_FILE_STORE_MAPPING;
+truncate table SYS_FILE_STORE_MAPPING;
 	]]>
 	</sql>
 
@@ -34,13 +34,13 @@ SELECT NAME as 访问者,
 
 	<sql name="SYS003">
 	<![CDATA[
-select count(1) from TX_USER where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
+select count(1) from SYS_USER where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
 	]]>
 	</sql>
 
 	<sql name="SYS004">
 	<![CDATA[
-select count(1) from TX_USERINFO_WX where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
+select count(1) from SYS_USERINFO_WX where UNIQUE_CODE = '00000000-0000-0000-0000-000000000001'
 	]]>
 	</sql>
 	

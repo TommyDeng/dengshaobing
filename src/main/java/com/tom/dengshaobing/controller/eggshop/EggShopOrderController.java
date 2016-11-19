@@ -52,9 +52,9 @@ public class EggShopOrderController extends BaseController {
 
 	@RequestMapping("/list")
 	public String list(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
-		String appToken = this.getAppToken(openid, "", commonService);
+		String AT = this.getAppToken(openid, "", commonService);
 
-		TableMeta tableMeta = bussService.listOrder(appToken);
+		TableMeta tableMeta = bussService.listOrder(AT);
 		tableMeta.title = "Order";
 		map.put(SxTableMeta, tableMeta);
 

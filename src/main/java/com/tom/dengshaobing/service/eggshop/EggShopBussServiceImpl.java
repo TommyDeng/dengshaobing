@@ -34,8 +34,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	CommonService commonService;
 
 	@Override
-	public TableMeta listOrder(String appToken) {
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+	public TableMeta listOrder(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 
@@ -48,10 +48,10 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void addProduct(Map<String, Object> properties, String appToken) throws Exception {
+	public void addProduct(Map<String, Object> properties, String AT) throws Exception {
 		if (properties == null)
 			return;
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 
 		String productUC = UUID.randomUUID().toString();
 		Map<String, Object> insertParamMap = new HashMap<>();
@@ -67,7 +67,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception {
+	public Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
 		return dataAccessService.queryForOneRowMap("BUSS006", paramMap);
@@ -75,29 +75,29 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void updateProduct(Map<String, Object> properties, String appToken) throws Exception {
+	public void updateProduct(Map<String, Object> properties, String AT) throws Exception {
 		dataAccessService.updateSingle("ES_PRODUCT", properties);
 	}
 
 	@Override
-	public void deleteProduct(UUID productUC, String appToken) throws Exception {
+	public void deleteProduct(UUID productUC, String AT) throws Exception {
 		dataAccessService.deleteRowById("ES_PRODUCT", productUC);
 	}
 
 	@Override
-	public Map<String, Object> queryOrder(UUID orderUC, String appToken) throws Exception {
+	public Map<String, Object> queryOrder(UUID orderUC, String AT) throws Exception {
 		return dataAccessService.queryRowMapById("ES_ORDER", orderUC);
 	}
 
 	@Override
-	public TableMeta queryOrderItem(UUID orderUC, String appToken) {
+	public TableMeta queryOrderItem(UUID orderUC, String AT) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		return dataAccessService.queryTableMeta("BUSS003", paramMap);
 	}
 
 	@Override
-	public void discardOrder(UUID orderUC, String appToken) throws Exception {
+	public void discardOrder(UUID orderUC, String AT) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		paramMap.put("STATUS", Const.ORDER_STATUS.Disable);
@@ -105,7 +105,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void deleteOrder(UUID orderUC, String appToken) throws Exception {
+	public void deleteOrder(UUID orderUC, String AT) throws Exception {
 		dataAccessService.deleteRowById("ES_ORDER", orderUC);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
@@ -118,8 +118,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Map<String, Object> getShoppingCartInfo(String appToken) {
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+	public Map<String, Object> getShoppingCartInfo(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		// 仅查询数量
@@ -129,8 +129,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Long addItemShoppingCart(UUID productUC, Long productCount, String appToken) {
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+	public Long addItemShoppingCart(UUID productUC, Long productCount, String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 		// 查询此种商品在cart表中数量
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
@@ -142,13 +142,13 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 				count == null ? new BigDecimal(productCount) : count.add(new BigDecimal(productCount)));
 		dataAccessService.update("BUSS009", paramMap);
 		// 重新查询数量
-		Map<String, Object> cartInfoMap = getShoppingCartInfo(appToken);
+		Map<String, Object> cartInfoMap = getShoppingCartInfo(AT);
 		return (Long) cartInfoMap.get("CART_COUNT");
 	}
 
 	@Override
-	public TableMeta listShoppingCart(String appToken) {
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+	public TableMeta listShoppingCart(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 
@@ -156,8 +156,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String appToken) throws Exception {
-		UUID userUC = commonService.getUserUCByAppToken(appToken);
+	public Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String AT) throws Exception {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", cartUC);
 		paramMap.put("PRODUCT_COUNT", new BigDecimal(productCount));

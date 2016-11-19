@@ -44,6 +44,17 @@ public interface DataAccessService {
 
 	
 	/**
+	 * 根据pk查询单条记录,返回所有字段
+	 * 
+	 * @param tableName
+	 * @param pk
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception;
+
+	
+	/**
 	 * 单条插入，paramMap中无对应项则赋值为null
 	 * 
 	 * @param tableName
@@ -72,17 +83,6 @@ public interface DataAccessService {
 	 * @throws Exception
 	 */
 	int mergeSingle(String tableName, Map<String, Object> paramMap) throws Exception;
-
-	
-	/**
-	 * 根据pk查询单条记录
-	 * 
-	 * @param tableName
-	 * @param pk
-	 * @return
-	 * @throws Exception
-	 */
-	Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception;
 
 	/**
 	 * 根据pk删除单条记录

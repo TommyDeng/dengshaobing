@@ -25,19 +25,9 @@
 						placeholder="Product Name" />
 				</div>
 				<div class="form-group">
-					<label for="inputPrice">Price</label> <input th:type="number"
-						th:field="*{properties[PRICE]}" class="form-control"
-						id="inputPrice" placeholder="0.00" />
-				</div>
-				<div class="form-group">
-					<!-- 原有thumbnail -->
-					<label>Thumbnail</label> <br /> <img th:src="*{properties[THUMBNAIL_PATH]}"
-						alt="..." style="width: 150px; height: 150px" />
-				</div>
-				<div class="form-group">
-					<!-- 重新选择 -->
-					<input th:type="file" th:field="*{properties[THUMBNAIL]}" />
-					<p class="help-block">Select a Thumbnail</p>
+					<label for="inputPrice">Healthy Rating</label> <input th:type="number"
+						th:field="*{properties[HEALTHY_RATING]}" class="form-control"
+						id="inputPrice" placeholder="0" />
 				</div>
 				<div class="form-group">
 					<label for="inputBrief">Brief Introduction</label>
@@ -45,24 +35,20 @@
 						th:field="*{properties[BRIEF]}"
 						placeholder="Brief Introduction..."></textarea>
 				</div>
-				<div class="form-group">
-					<label for="inputDescription">Detail Description</label>
-					<textarea class="form-control" id="inputDescription" rows="5"
-						th:field="*{properties[DETAIL_DESCIPTION]}"
-						placeholder="Detail Description..."></textarea>
-				</div>
 				<div class="btn-toolbar" role="toolbar">
 					<div class="pull-left" style="margin: 10px">
-						<a class="btn btn-default" role="button" th:href="@{list(AT=${AT})}"><span
+						<a class="btn btn-default" role="button"
+							th:href="@{cookbook(AT=${AT})}"><span
 							class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
 							<span>Back</span></a>
 					</div>
 
 					<div class="pull-right" style="margin: 10px">
 						<button type="submit" class="btn btn-primary"
-							th:formaction="@{save(rowUC=${rowUC},AT=${AT})}" th:formmethod="post">Submit</button>
+							th:formaction="@{save(rowUC=${rowUC},AT=${AT})}"
+							th:formmethod="post">Submit</button>
 						<a class="btn btn-danger" role="button" th:if="${rowUC}!=null"
-							th:href="@{delete(rowUC=${rowUC},AT=${AT})}">Delete</a>
+							th:href="@{delete(rowUC=*{properties[UNIQUE_CODE]},AT=${AT})}">Delete</a>
 					</div>
 				</div>
 			</div>

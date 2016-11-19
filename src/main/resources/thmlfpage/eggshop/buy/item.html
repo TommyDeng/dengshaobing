@@ -61,7 +61,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="thumbnail">
-				<img th:src="@{product.THUMBNAIL_PATH}" alt="..." />
+				<img th:src="@{'/'+${product.THUMBNAIL_PATH}}" alt="..." />
 				<div class="caption">
 					<h3>
 						<label th:text="${product.NAME}"></label>

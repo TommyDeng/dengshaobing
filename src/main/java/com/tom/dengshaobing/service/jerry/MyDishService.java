@@ -2,6 +2,7 @@ package com.tom.dengshaobing.service.jerry;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 
@@ -12,6 +13,8 @@ import com.tom.dengshaobing.common.bo.sys.TableMeta;
  */
 
 public interface MyDishService {
+
+	TableMeta listAllCookbook();
 
 	/**
 	 * @param recommendCount
@@ -24,5 +27,15 @@ public interface MyDishService {
 	 * @return
 	 */
 	TableMeta getRecommendedVegeList(int recommendCount);
+
+	Map<String, Object> queryCookbook(UUID fromString, String AT) throws Exception;
+
+	void addCookbook(Map<String, Object> properties, String AT) throws Exception;
+
+	void deleteCookbook(UUID fromString, String AT) throws Exception;
+
+	void updateCookbook(Map<String, Object> properties, String AT) throws Exception;
+
+	void listAllCookbook(String AT);
 
 }

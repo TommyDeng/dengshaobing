@@ -37,14 +37,14 @@ public class BaseController {
 
 	protected final String PxRowUC = "rowUC";// rowUC:记录ID
 
-	protected final String PxAT = "AT"; // appToken
+	protected final String PxAT = "AT"; // AppToken
 
 	HttpServletRequest request;
 	HttpServletResponse response;
 
 	// 加载用户信息和count
-	public void headerRending(String appToken, ModelMap map) throws Exception {
-		Map<String, Object> userInfo = commonService.getWXUserInfo(appToken);
+	public void headerRending(String AT, ModelMap map) throws Exception {
+		Map<String, Object> userInfo = commonService.getWXUserInfo(AT);
 		map.put("userInfo", userInfo);
 	}
 

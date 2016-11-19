@@ -79,17 +79,17 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public UUID getUserUCByAppToken(String appToken) {
+	public UUID getUserUCByAppToken(String AT) {
 		// 暂时使用USER_UC作为token,所以直接返回UUID类型即可
-		if (appToken == null)
+		if (AT == null)
 			return null;
-		return UUID.fromString(appToken);
+		return UUID.fromString(AT);
 	}
 
 	@Override
-	public Map<String, Object> getWXUserInfo(String appToken) throws Exception {
-		UUID userUC = getUserUCByAppToken(appToken);
-		return dataAccessService.queryRowMapById("TX_USERINFO_WX", userUC);
+	public Map<String, Object> getWXUserInfo(String AT) throws Exception {
+		UUID userUC = getUserUCByAppToken(AT);
+		return dataAccessService.queryRowMapById("SYS_USERINFO_WX", userUC);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class CommonServiceImpl implements CommonService {
 		paramMap.put("FILE_SIZE", thumbnailFile.getSize());
 		paramMap.put("REMARK", thumbnailFile.getContentType() + ";" + destinationFile.getAbsolutePath());
 
-		dataAccessService.insertSingle("TX_FILE_STORE_MAPPING", paramMap);
+		dataAccessService.insertSingle("SYS_FILE_STORE_MAPPING", paramMap);
 		return storedUUID;
 	}
 }

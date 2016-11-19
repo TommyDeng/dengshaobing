@@ -28,7 +28,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void addProduct(Map<String, Object> properties, String appToken) throws Exception;
+	void addProduct(Map<String, Object> properties, String AT) throws Exception;
 
 	/**
 	 * 查询产品
@@ -37,7 +37,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	Map<String, Object> queryProduct(UUID productUC, String appToken) throws Exception;
+	Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception;
 
 
 	/**
@@ -47,7 +47,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void updateProduct(Map<String, Object> properties, String appToken) throws Exception;
+	void updateProduct(Map<String, Object> properties, String AT) throws Exception;
 
 
 	/**
@@ -57,7 +57,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void deleteProduct(UUID productUC, String appToken) throws Exception;
+	void deleteProduct(UUID productUC, String AT) throws Exception;
 
 	/**
 	 * 查询用户订单
@@ -65,7 +65,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @return
 	 */
-	TableMeta listOrder(String appToken);
+	TableMeta listOrder(String AT);
 
 	/**
 	 * 查询order
@@ -75,7 +75,7 @@ public interface EggShopBussService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> queryOrder(UUID orderUC, String appToken) throws Exception;
+	Map<String, Object> queryOrder(UUID orderUC, String AT) throws Exception;
 
 	/**
 	 * 查询order子项
@@ -84,7 +84,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @return
 	 */
-	TableMeta queryOrderItem(UUID orderUC, String appToken);
+	TableMeta queryOrderItem(UUID orderUC, String AT);
 
 	/**
 	 * 废弃order
@@ -93,7 +93,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void discardOrder(UUID orderUC, String appToken) throws Exception;
+	void discardOrder(UUID orderUC, String AT) throws Exception;
 
 	/**
 	 * 删除order
@@ -102,7 +102,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @throws Exception
 	 */
-	void deleteOrder(UUID orderUC, String appToken) throws Exception;
+	void deleteOrder(UUID orderUC, String AT) throws Exception;
 
 	/**
 	 * 获取所有产品(main页面展示)
@@ -114,28 +114,28 @@ public interface EggShopBussService {
 	/**
 	 * 获取cart信息
 	 * 
-	 * @param appToken
+	 * @param AT
 	 * @return
 	 */
-	Map<String, Object> getShoppingCartInfo(String appToken);
+	Map<String, Object> getShoppingCartInfo(String AT);
 
 	/**
 	 * 添加到cart
 	 * 
 	 * @param productUC
 	 * @param productCount
-	 * @param appToken
+	 * @param AT
 	 * @return
 	 */
-	Long addItemShoppingCart(UUID productUC, Long productCount, String appToken);
+	Long addItemShoppingCart(UUID productUC, Long productCount, String AT);
 
 	/**
 	 * 获取cart信息
 	 * 
-	 * @param appToken
+	 * @param AT
 	 * @return
 	 */
-	TableMeta listShoppingCart(String appToken);
+	TableMeta listShoppingCart(String AT);
 
 	/**
 	 * 变更cart项数量
@@ -145,6 +145,6 @@ public interface EggShopBussService {
 	 * @return
 	 * @throws Exception 
 	 */
-	Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String appToken) throws Exception;
+	Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String AT) throws Exception;
 
 }

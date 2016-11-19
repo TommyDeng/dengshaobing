@@ -45,7 +45,7 @@ public class HealthyPulse {
 			paramMap.put("STATUS", "1");
 			paramMap.put("REMARK", "test");
 			paramMap.put("CREATOR", "admin");
-			dataAccessService.insertSingle("TX_USER", paramMap);
+			dataAccessService.insertSingle("SYS_USER", paramMap);
 		}
 
 		count = dataAccessService.queryForOneObject("SYS004", null, Long.class);
@@ -65,7 +65,7 @@ public class HealthyPulse {
 			paramMap.put("GROUPID", "1");
 			paramMap.put("REMARK", "1");
 
-			dataAccessService.insertSingle("ES_USERINFO_WX", paramMap);
+			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
 		}
 	}
 }

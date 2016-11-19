@@ -288,7 +288,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	private String getMergeSqlByTableNameAndParamMap(String tableName, Map<String, Object> paramMap) throws Exception {
-		// MERGE INTO TX_USERINFO_WX(OPENID,NICKNAME) KEY(OPENID )
+		// MERGE INTO SYS_USERINFO_WX(OPENID,NICKNAME) KEY(OPENID )
 		// VALUES(:OPENID, :NICKNAME)
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);
 

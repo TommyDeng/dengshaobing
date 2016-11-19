@@ -16,38 +16,34 @@
 <body style="padding-bottom: 70px; padding-top: 70px;">
 	<div class="container" th:fragment="header">
 		<nav class="navbar-default navbar-fixed-top">
-
 			<div class="pull-left" style="margin: 10px">
 				<img th:src="${userInfo.HEADIMGURL}" alt="..."
 					style="width: 30px; height: 30px" /> <label
 					th:text="${userInfo.NICKNAME}"></label>
 			</div>
-			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button"
-					th:href="@{shoppingcart(AT=${AT})}"> <span
-					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<span class="badge" th:text="${cartInfo.CART_COUNT}"></span>
-				</a>
-			</div>
 		</nav>
 	</div>
+
 	<div class="container">
-		<div class="panel panel-default media" th:each="recode : ${mapList}">
-			<a class="media-left"
-				th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"> <img
-				th:src="@{'/'+${recode.THUMBNAIL_PATH}}" style="width: 64px; height: 64px"
-				alt="..." />
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading" th:text="${recode.NAME}"></h4>
-				<p th:text="${recode.BRIEF}"></p>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation"><a th:href="@{make_diet(AT=${AT})}">Main</a></li>
+			<li role="presentation"><a th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
+			<li role="presentation" class="active"><a>History</a></li>
+		</ul>
+
+		<div class="panel panel-default" style="margin-top: 20px;">
+			<div class="panel-heading">
+				<div class="btn-group">历史清单</div>
 			</div>
+			<div class="panel-body">正在建设中。。。</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<a role="button" class="btn btn-block btn-lg btn-outline"
-			th:href="@{/}">View Our Website</a>
+		<nav class="navbar-default navbar-fixed-bottom">
+			<p style="float: right;">© 2016 Dengshaobing. All rights
+				reserved.</p>
+		</nav>
 	</div>
 </body>
 </html>

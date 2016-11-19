@@ -49,9 +49,9 @@ public class EggShopBuyController extends BaseController {
 
 	// 加载用户信息和count
 	@Override
-	public void headerRending(String appToken, ModelMap map) throws Exception {
-		super.headerRending(appToken, map);
-		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(appToken);
+	public void headerRending(String AT, ModelMap map) throws Exception {
+		super.headerRending(AT, map);
+		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
 	}
 	
