@@ -29,7 +29,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Autowired
 	DataAccessService dataAccessService;
 
-
 	@Autowired
 	CommonService commonService;
 
@@ -164,5 +163,28 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap.put("CREATOR", userUC);
 		dataAccessService.updateSingle("ES_SHOPPING_CART", paramMap);
 		return productCount;
+	}
+
+	@Override
+	public Map<String, Object> getUserInfo(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", userUC);
+		return dataAccessService.queryForOneRowMap("BUSS013", paramMap);
+	}
+
+	@Override
+	public Map<String, Object> getWeixinUserInfo(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", userUC);
+		return dataAccessService.queryForOneRowMap("BUSS014", paramMap);
+	}
+	
+	@Override
+	public void saveUserInfo(Map<String, Object> userInfo,String AT) throws Exception {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		userInfo.put("UNIQUE_CODE", userUC);
+		dataAccessService.updateSingle("SYS_USER", userInfo);
 	}
 }

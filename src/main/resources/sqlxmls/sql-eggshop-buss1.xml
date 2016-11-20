@@ -104,4 +104,15 @@ SELECT p.*, f.PATH THUMBNAIL_PATH
     on p.THUMBNAIL = f.UNIQUE_CODE
 	]]>
 	</sql>
+	
+	<sql name="BUSS013">
+	<![CDATA[
+SELECT * FROM SYS_USER WHERE UNIQUE_CODE = :UNIQUE_CODE
+	]]>
+	</sql>
+	<sql name="BUSS014">
+	<![CDATA[
+SELECT * FROM SYS_USERINFO_WX WHERE UNIQUE_CODE = :UNIQUE_CODE
+	]]>
+	</sql>
 </sqls>

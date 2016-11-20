@@ -39,7 +39,6 @@ public interface EggShopBussService {
 	 */
 	Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception;
 
-
 	/**
 	 * 更新产品
 	 * 
@@ -48,7 +47,6 @@ public interface EggShopBussService {
 	 * @throws Exception
 	 */
 	void updateProduct(Map<String, Object> properties, String AT) throws Exception;
-
 
 	/**
 	 * 删除产品
@@ -139,12 +137,37 @@ public interface EggShopBussService {
 
 	/**
 	 * 变更cart项数量
+	 * 
 	 * @param fromString
 	 * @param parseInt
 	 * @param aT
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String AT) throws Exception;
+
+	/**
+	 * 获取用户所有信息
+	 * 
+	 * @param AT
+	 * @return
+	 */
+	Map<String, Object> getUserInfo(String AT);
+
+	/**
+	 * 获取用户微信信息
+	 * 
+	 * @param AT
+	 * @return
+	 */
+	Map<String, Object> getWeixinUserInfo(String AT);
+
+	/**
+	 * 更新或保存用户信息
+	 * @param userInfo
+	 * @param AT
+	 * @throws Exception 
+	 */
+	void saveUserInfo(Map<String, Object> userInfo, String AT) throws Exception;
 
 }

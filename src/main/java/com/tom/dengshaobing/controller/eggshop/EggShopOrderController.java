@@ -35,9 +35,6 @@ public class EggShopOrderController extends BaseController {
 	public static final String BasePath = "/eggshop/order/";
 
 	@Autowired
-	CommonService commonService;
-
-	@Autowired
 	EggShopBussService bussService;
 
 	MapForm mapForm = new MapForm();

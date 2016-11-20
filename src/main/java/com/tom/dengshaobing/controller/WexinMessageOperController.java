@@ -39,9 +39,7 @@ public class WexinMessageOperController {
 	public String refreshMenu() throws Exception {
 
 		log.info("/restfull/wmp/refreshMenu refresh start =======================>");
-
 		wexinMessagePlatformService.deleteMenu();
-
 		log.info("/restfull/wmp/refreshMenu menu deleted =======================>");
 
 		String menuFilePath = env.getProperty("WeixinPlatform.MenuJsonFilePath");

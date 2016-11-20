@@ -23,7 +23,7 @@ import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 public class BaseController {
 
 	@Autowired
-	CommonService commonService;
+	protected CommonService commonService;
 
 	protected final String SxTableMeta = "tableMeta";// 页面tableMeta变量(表格数据列表:TableMeta)
 

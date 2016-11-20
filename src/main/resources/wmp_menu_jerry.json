@@ -1,0 +1,18 @@
+{
+	"button": [
+		{
+			"name": "我的主页",
+			"type": "view",
+			"key": "rselfmenu_1_1",
+			"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2jerry%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com#wechat_redirect",
+			"sub_button": []
+		},
+		{
+			"name": "我的菜单",
+			"type": "view",
+			"key": "rselfmenu_2_1",
+			"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2jerry%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/jerry/dish/make_diet#wechat_redirect",
+			"sub_button": []
+		}
+	]
+}

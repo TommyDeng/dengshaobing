@@ -145,12 +145,11 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		}
 		return accessToken;
 	}
-	
+
 	@Override
 	public AccessToken getCurrentAccessToken() {
 		return accessToken;
 	}
-	
 
 	@Override
 	public void fetchAccessToken() throws Exception {
@@ -274,13 +273,13 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		}
 		Map<String, Object> queryParamMap = new HashMap<>();
 		queryParamMap.put("OPENID", oauth2AccessToken.openid);
-		
-		UUID userUC = dataAccessService.queryForOneObject("BUSS011", queryParamMap,UUID.class);
-		
-		if(userUC==null){
+
+		UUID userUC = dataAccessService.queryForOneObject("BUSS011", queryParamMap, UUID.class);
+
+		if (userUC == null) {
 			userUC = UUID.randomUUID();
 		}
-		
+
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", userUC);
 		paramMap.put("OPENID", oauth2AccessToken.openid);

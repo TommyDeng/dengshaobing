@@ -33,9 +33,6 @@ public class MyDishController extends BaseController {
 	public static final String BasePath = "/jerry/dish/";
 
 	@Autowired
-	CommonService commonService;
-
-	@Autowired
 	MyDishService myDishService;
 
 	MapForm mapForm = new MapForm();
