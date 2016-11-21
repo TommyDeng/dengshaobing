@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link th:href="@{/css/docs.min.css}" rel="stylesheet" />
-<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<head th:replace="base :: common_header(~{::title},~{::link})">
+</head>
 <script type="text/javascript">
 	function modifyClicked() {
 		$("#btn_modify").hide();
@@ -27,7 +17,6 @@
 		var AT = $("#AT").val();
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
-		console.info('1');
 		$.post("saveUserInfo", {
 			mobile : mobile,
 			email : email,
@@ -45,10 +34,8 @@
 		$("#ipt_email").hide();
 	}
 </script>
-
-<title></title>
-</head>
-<body style="padding-top: 20px;">
+<body style="padding-bottom: 70px; padding-top: 70px;">
+	<div th:replace="/eggshop/common/fragment :: header-back-user"></div>
 	<div class="container">
 		<input id="AT" type="hidden" th:value="${AT}" />
 		<div class="panel panel-primary">
@@ -59,7 +46,7 @@
 					onclick="saveClicked()" id="btn_save" role="button"
 					style="float: right; display: none">保存</a>
 			</div>
-			<div class="panel-body" th:object="${userInfo}">
+			<div class="panel-body" th:object="${contactInfo}">
 
 				<strong>手机号码</strong><br />
 				<div class="input-group">
@@ -80,41 +67,11 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Weixin</h3>
 			</div>
-			<div class="panel-body" th:object="${weixinUserInfo}">
-
-				<p>
-					<strong>昵称</strong>
-				</p>
-				<p th:text="*{NICKNAME}"></p>
-
-
-				<p>
-					<strong>性别</strong>
-				</p>
-				<p th:text="*{SEX}=='1'?'男':'女'"></p>
-				<p>
-					<strong>国家</strong>
-				</p>
-				<p th:text="*{COUNTRY}"></p>
-
-
-				<p>
-					<strong>省份</strong>
-				</p>
-				<p th:text="*{PROVINCE}"></p>
-
-
-				<p>
-					<strong>城市</strong>
-				</p>
-				<p th:text="*{CITY}"></p>
-
-
-				<p>
-					<strong>语言</strong>
-				</p>
-				<p th:text="*{LANGUAGE}"></p>
-
+			<div class="panel-body">
+				<div th:each="entry : ${weixinUserInfo}">
+					<strong th:text="${entry.key}">昵称</strong>
+					<p th:text="${entry.value}"></p>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<head th:replace="base :: common_header(~{::title},~{::link})">
+</head>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#add-item-btn").click(function() {
@@ -31,33 +22,11 @@
 		});
 	});
 </script>
-<title></title>
-</head>
 <body style="padding-bottom: 70px; padding-top: 70px;">
 	<input id="item-UC" type="hidden" th:value="${product.UNIQUE_CODE}" />
 	<input id="AT" type="hidden" th:value="${AT}" />
 
-	<div class="container">
-		<nav class="navbar-default navbar-fixed-top">
-
-			<div class="pull-left" style="margin: 10px">
-				<a class="btn btn-default" type="button" th:href="@{main(AT=${AT})}">
-					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-					<span>Back</span>
-				</a>
-
-			</div>
-			<div class="pull-right" style="margin: 10px">
-				<a class="btn btn-primary" type="button"
-					th:href="@{shoppingcart(AT=${AT})}"> <span
-					class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-					<span id="shoppingcart-count" class="badge"
-					th:text="${cartInfo.CART_COUNT}"></span>
-				</a>
-			</div>
-		</nav>
-	</div>
-
+	<div th:replace="/eggshop/common/fragment :: header-back-shoppingcart"></div>
 	<div class="container">
 		<div class="row">
 			<div class="thumbnail">
@@ -73,29 +42,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<div class="container">
-		<nav class="navbar-default navbar-fixed-bottom">
-			<p class="text-center">
-				<span class="badge"><select id="item-count"
-					class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-				</select></span>
-				<button id="add-item-btn" class="btn btn-info" type="button">
-					Add <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-				</button>
-			</p>
-		</nav>
-	</div>
+	<div th:replace="/eggshop/common/fragment :: add2cart"></div>
 </body>
 </html>

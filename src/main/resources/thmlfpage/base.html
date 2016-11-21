@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_header(title,links)">
+
+<title th:replace="${title}?${title}:_">Dengshaobing Page</title>
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<!--/* Per-page placeholder for additional links */-->
+<th:block th:replace="${links}?${links}:_" />
+
+</head>
+<body>
+	<!--  -->
+	<div th:fragment="copy-right">
+		<a role="button" style="float: right;" 
+			th:href="@{/}">&copy; 2016 Dengshaobing. All rights
+				reserved.</a>
+	</div>
+</body>
+</html>

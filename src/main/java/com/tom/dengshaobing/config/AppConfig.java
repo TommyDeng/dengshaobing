@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +29,9 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import com.tom.dengshaobing.common.DefaultSetting;
 
@@ -42,6 +45,7 @@ import com.tom.dengshaobing.common.DefaultSetting;
 @PropertySource("classpath:system.properties")
 @ComponentScan(basePackages = "com.tom.dengshaobing")
 public class AppConfig extends WebMvcConfigurationSupport {
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
@@ -73,13 +77,11 @@ public class AppConfig extends WebMvcConfigurationSupport {
 	 * @return
 	 */
 	@Bean
-	TemplateResolver templateResolver() {
-		TemplateResolver templateResolver = new ServletContextTemplateResolver();
-		// TemplateResolver templateResolver = new
-		// ClassLoaderTemplateResolver();
+	SpringResourceTemplateResolver templateResolver() {
+		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage/");
 		templateResolver.setSuffix(".html");
-		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCacheable(false);
 		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
 		return templateResolver;
@@ -106,7 +108,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 	ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
-		thymeleafViewResolver.setCache(false);
+		// thymeleafViewResolver.setCache(false);
 		thymeleafViewResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
 		// thymeleafViewResolver.setOrder(1);
 		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"

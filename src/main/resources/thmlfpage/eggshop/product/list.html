@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
-<title></title>
+<head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
 <body>
 	<input id="AT" type="hidden" th:value="${AT}" />
@@ -21,8 +10,9 @@
 			<thead>
 				<tr>
 					<!-- add operation -->
-					<th><a class="btn btn-default" th:href="@{edit(AT=${AT})}" role="button"><span
-							class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></th>
+					<th><a class="btn btn-default" th:href="@{edit(AT=${AT})}"
+						role="button"><span class="glyphicon glyphicon-plus"
+							aria-hidden="true"></span></a></th>
 
 					<th th:each="head : ${tableMeta.headList}"
 						th:text="${head.columnLabel}" th:if="${head.display}"></th>
@@ -33,7 +23,6 @@
 			<tbody th:remove="all-but-first">
 				<tr th:each="recode : ${tableMeta.dataList}">
 					<td th:text="${recodeStat.count}" />
-
 					<td th:each="head : ${tableMeta.headList}"
 						th:text="${recode[__${head.index}__]}" th:if="${head.display}"></td>
 

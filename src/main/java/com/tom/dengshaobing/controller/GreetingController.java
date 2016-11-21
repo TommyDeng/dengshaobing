@@ -48,5 +48,4 @@ public class GreetingController extends BaseController {
 		// map.put("host", name);
 		return "aboutme";
 	}
-
 }

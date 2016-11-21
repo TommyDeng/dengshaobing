@@ -57,7 +57,7 @@ public class EggShopUserController extends BaseController {
 		headerRending(AT, map);
 
 		map.put("weixinUserInfo", bussService.getWeixinUserInfo(AT));
-		map.put("userInfo", bussService.getUserInfo(AT));
+		map.put("contactInfo", bussService.getUserInfo(AT));
 		return BasePath + "myprofile";
 	}
 
