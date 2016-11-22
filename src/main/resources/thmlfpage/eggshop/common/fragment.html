@@ -1,7 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-	<!--  -->
+
+	<!-- page footer -->
+
+	<div th:fragment="nav-menu-footer">
+		<nav class="navbar-default navbar-fixed-bottom">
+		<ul class="nav nav-pills" role="tablist">
+  <li role="presentation" class="active"><a href="#">Home</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+</ul>
+		</nav>
+	</div>
+
+	<div th:fragment="add2cart">
+		<nav class="navbar-default navbar-fixed-bottom">
+			<p class="text-center">
+				<span class="badge"><select id="item-count"
+					class="form-control">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+				</select></span>
+				<button id="add-item-btn" class="btn btn-info" type="button">
+					Add <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+				</button>
+			</p>
+		</nav>
+	</div>
+
+	<!-- page header -->
 	<div th:fragment="header-user-shoppingcart">
 		<nav class="navbar-default navbar-fixed-top">
 			<div class="pull-left" style="margin: 10px">
@@ -23,7 +59,7 @@
 			</div>
 		</nav>
 	</div>
-	
+
 	<div th:fragment="header-back-shoppingcart">
 		<nav class="navbar-default navbar-fixed-top">
 			<div class="pull-left" style="margin: 10px">
@@ -57,12 +93,19 @@
 		</nav>
 	</div>
 
-	<!--  -->
+	<!-- tips -->
 	<div th:fragment="user-tips">
 		<a th:href="@{/eggshop/user/myprofile(AT=${AT})}"><img
 			th:src="${userInfo.HEADIMGURL}" alt="..."
 			style="width: 30px; height: 30px" /> <label
 			th:text="${userInfo.NICKNAME}"></label></a>
+	</div>
+
+	<div th:fragment="backmain-tips">
+		<a class="btn btn-default" type="button"
+			th:href="@{/eggshop/buy/main(AT=${AT})}"> <span
+			class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		</a>
 	</div>
 
 	<div th:fragment="shoppingcart-tips">
@@ -74,11 +117,20 @@
 		</a>
 	</div>
 
-	<div th:fragment="backmain-tips">
-		<a class="btn btn-default" type="button" th:href="@{/eggshop/buy/main(AT=${AT})}">
-			<span class="glyphicon glyphicon glyphicon-home" aria-hidden="true"></span>
-			<span>Main</span>
+	<div th:fragment="order-tips">
+		<a class="btn btn-default" type="button"
+			th:href="@{/eggshop/buy/main(AT=${AT})}"> <span
+			class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 		</a>
+	</div>
+
+
+	<div th:fragment="myprofile-tips">
+		<a class="btn btn-default" type="button"
+			th:href="@{/eggshop/user/myprofile(AT=${AT})}"> <span
+			class="glyphicon glyphicon-user" aria-hidden="true"></span>
+		</a>
+
 	</div>
 
 	<div th:fragment="preorder-tips">
@@ -96,28 +148,5 @@
 		</a>
 	</div>
 
-	<!--  -->
-	<div th:fragment="add2cart">
-		<nav class="navbar-default navbar-fixed-bottom">
-			<p class="text-center">
-				<span class="badge"><select id="item-count"
-					class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-				</select></span>
-				<button id="add-item-btn" class="btn btn-info" type="button">
-					Add <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-				</button>
-			</p>
-		</nav>
-	</div>
 </body>
 </html>

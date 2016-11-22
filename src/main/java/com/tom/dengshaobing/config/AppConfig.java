@@ -84,6 +84,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCacheable(false);
 		templateResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
+		templateResolver.setOrder(1);
 		return templateResolver;
 	}
 
@@ -110,7 +111,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		// thymeleafViewResolver.setCache(false);
 		thymeleafViewResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
-		// thymeleafViewResolver.setOrder(1);
+//		 thymeleafViewResolver.setOrder(1);
 		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
 		// });
 		return thymeleafViewResolver;

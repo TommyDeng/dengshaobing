@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 	function modifyClicked() {
 		$("#btn_modify").hide();
 		$("#dsp_mobile").hide();
@@ -14,13 +14,12 @@
 	}
 
 	function saveClicked() {
-		var AT = $("#AT").val();
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
 		$.post("saveUserInfo", {
 			mobile : mobile,
 			email : email,
-			AT : AT
+			AT : /*[[${AT}]]*/
 		}, function(resultVar) {
 		});
 
@@ -37,7 +36,6 @@
 <body style="padding-bottom: 70px; padding-top: 70px;">
 	<div th:replace="/eggshop/common/fragment :: header-back-user"></div>
 	<div class="container">
-		<input id="AT" type="hidden" th:value="${AT}" />
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="display: inline">Contact</h3>
@@ -63,15 +61,23 @@
 				</div>
 			</div>
 		</div>
+		<!-- html comment -->
+		<!--/* This code will be removed at Thymeleaf parsing time! */-->
+		<!--/*-->
+		<div>you can see me only before Thymeleaf processes me!</div>
+		<!--*/-->
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Weixin</h3>
 			</div>
 			<div class="panel-body">
-				<div th:each="entry : ${weixinUserInfo}">
-					<strong th:text="${entry.key}">昵称</strong>
-					<p th:text="${entry.value}"></p>
-				</div>
+				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
+				<p>
+					<b th:text="${entry.key + ':'}">昵称</b> <span
+						th:text="${entry.value}"></span>
+				</p>
+				<!--/*/ </th:block> /*/-->
 			</div>
 		</div>
 	</div>
