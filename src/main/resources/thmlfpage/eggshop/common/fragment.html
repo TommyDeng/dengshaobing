@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
 	<!-- page footer -->
-
-	<div th:fragment="nav-menu-footer">
-		<nav class="navbar-default navbar-fixed-bottom">
-		<ul class="nav nav-pills" role="tablist">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
-</ul>
+	<div th:fragment="shop-footer">
+		<nav>
+			<ul class="nav nav-justified">
+				<li class="active"><a href="#">主页</a></li>
+				<li><a href="#">分类</a></li>
+				<li><a href="#">购物车</a></li>
+				<li><a href="#">我的</a></li>
+			</ul>
 		</nav>
 	</div>
+
+	<div th:fragment="shop-header">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Project name</a>
+				</div>
+				<div id="navbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
 
 	<div th:fragment="add2cart">
 		<nav class="navbar-default navbar-fixed-bottom">
