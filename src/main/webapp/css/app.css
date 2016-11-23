@@ -1,11 +1,28 @@
+.shop-main-page-body {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
 .shop-header {
-	background-color: #eee;
+	background-color: rgba(0, 0, 0, .075);;
 }
 
 .shop-footer {
-	background-color: #eee;
+	background-color: #ffffff;
+	border-top-style: solid;
+	border-top-width: 7px;
+	border-top-color: #F9F9F9;
 }
 
-.carousel {
+.main-carousel {
 	background-color: aliceblue;
+}
+
+.item-cube {
+	background-color: aliceblue;
+	height: 130px;
+}
+
+.item-cube>figcaption {
+	line-height: 1;
 }

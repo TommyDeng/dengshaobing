@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px; padding-top: 70px;">
+<body class="shop-main-page-body">
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="container">
-		<div class="carousel slide" data-ride="carousel" data-interval="1000">
+		<div class="carousel slide main-carousel" data-ride="carousel" th:data-interval="${2000}">
 			<ol class="carousel-indicators">
 				<li data-target="#carousel-example-generic" data-slide-to="0"
 					class="active"></li>
@@ -41,7 +41,7 @@
 		</div>
 
 		<div class="card">
-			<div class="card-header">Featured</div>
+			<div class="card-header">Most Populate</div>
 			<div class="card-block">
 				<table class="table table-sm">
 					<tbody>
@@ -69,72 +69,56 @@
 
 
 		<div class="container">
-			<div class="row flex-items-xs-top">
-				<div class="col-xs-12 col-sm-6">
-					<div class="card">
-						<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
-							alt="Card image cap">
-						<div class="card-block">
-							<h4 class="card-title">Card title</h4>
-							<p class="card-text">This card has supporting text below as a
-								natural lead-in to additional content.</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</p>
-						</div>
-					</div>
+			<div class="row">
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A c</figcaption>
+					</figure>
 				</div>
-				<div class="col-xs-12 col-sm-6">
-					<div class="card">
-						<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
-							alt="Card image cap">
-						<div class="card-block">
-							<h4 class="card-title">Card title</h4>
-							<p class="card-text">This card has supporting text below as a
-								natural lead-in to additional content.</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</p>
-						</div>
-					</div>
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A capaas s21s</figcaption>
+					</figure>
+				</div>
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A cap</figcaption>
+					</figure>
 				</div>
 			</div>
 			<div class="row">
-				<div class="card col-xs">
-					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
-						alt="Card image cap">
-					<div class="card-block">
-						<h4 class="card-title">Card title</h4>
-						<p class="card-text">This card has supporting text below as a
-							natural lead-in to additional content.</p>
-						<p class="card-text">
-							<small class="text-muted">Last updated 3 mins ago</small>
-						</p>
-					</div>
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A cap</figcaption>
+					</figure>
 				</div>
-				<div class="card col-xs">
-					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
-						alt="Card image cap">
-					<div class="card-block">
-						<h4 class="card-title">Card title</h4>
-						<p class="card-text">This card has supporting text below as a
-							natural lead-in to additional content.</p>
-						<p class="card-text">
-							<small class="text-muted">Last updated 3 mins ago</small>
-						</p>
-					</div>
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A cap</figcaption>
+					</figure>
 				</div>
-				<div class="card col-xs">
-					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
-						alt="Card image cap">
-					<div class="card-block">
-						<h4 class="card-title">Card title</h4>
-						<p class="card-text">This card has supporting text below as a
-							natural lead-in to additional content.</p>
-						<p class="card-text">
-							<small class="text-muted">Last updated 3 mins ago</small>
-						</p>
-					</div>
+				<div class="col-xs-4 col-sm-6">
+					<figure class="figure item-cube">
+						<img th:src="@{/img/test/itemmock.png}"
+							class="figure-img img-fluid rounded"
+							alt="A generic square placeholder image with rounded corners in a figure.">
+						<figcaption class="">A cap</figcaption>
+					</figure>
 				</div>
 			</div>
 		</div>
