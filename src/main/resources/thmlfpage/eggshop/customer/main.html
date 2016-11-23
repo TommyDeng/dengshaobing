@@ -1,17 +1,145 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
-<style type="text/css">
-.nav-justified {
-	background-color: #eee;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-}
-</style>
 </head>
 <body style="padding-bottom: 70px; padding-top: 70px;">
-	<div th:replace="/eggshop/common/fragment :: shop-header"></div>
-	<div class="container"></div>
-	<div th:replace="/eggshop/common/fragment :: shop-footer"></div>
+	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
+	<div class="container">
+		<div class="carousel slide" data-ride="carousel" data-interval="1000">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0"
+					class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="carousel-item active" onclick="alert(1);">
+					<img th:src="@{/img/test/itemmock.png}" alt="First slide">
+					<div class="carousel-caption">
+						<h3>First slide</h3>
+						<p>Praesent commodo cursus magna, vel scelerisque nisl
+							consectetur.</p>
+					</div>
+				</div>
+				<div class="carousel-item" onclick="alert(2);">
+					<img th:src="@{/img/test/itemmock.png}" alt="Second slide">
+					<div class="carousel-caption">
+						<h3>Second slide</h3>
+						<p>Praesent commodo cursus magna, vel scelerisque nisl
+							consectetur.</p>
+					</div>
+				</div>
+				<div class="carousel-item" onclick="alert(3);">
+					<img th:src="@{/img/test/itemmock.png}" alt="Third slide">
+					<div class="carousel-caption">
+						<h3>Third slide</h3>
+						<p>Praesent commodo cursus magna, vel scelerisque nisl
+							consectetur.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">Featured</div>
+			<div class="card-block">
+				<table class="table table-sm">
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Mark</td>
+							<td>Otto</td>
+							<td>@mdo</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Jacob</td>
+							<td>Thornton</td>
+							<td>@fat</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td colspan="2">Larry the Bird</td>
+							<td>@twitter</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="row flex-items-xs-top">
+				<div class="col-xs-12 col-sm-6">
+					<div class="card">
+						<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
+							alt="Card image cap">
+						<div class="card-block">
+							<h4 class="card-title">Card title</h4>
+							<p class="card-text">This card has supporting text below as a
+								natural lead-in to additional content.</p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="card">
+						<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
+							alt="Card image cap">
+						<div class="card-block">
+							<h4 class="card-title">Card title</h4>
+							<p class="card-text">This card has supporting text below as a
+								natural lead-in to additional content.</p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="card col-xs">
+					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
+						alt="Card image cap">
+					<div class="card-block">
+						<h4 class="card-title">Card title</h4>
+						<p class="card-text">This card has supporting text below as a
+							natural lead-in to additional content.</p>
+						<p class="card-text">
+							<small class="text-muted">Last updated 3 mins ago</small>
+						</p>
+					</div>
+				</div>
+				<div class="card col-xs">
+					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
+						alt="Card image cap">
+					<div class="card-block">
+						<h4 class="card-title">Card title</h4>
+						<p class="card-text">This card has supporting text below as a
+							natural lead-in to additional content.</p>
+						<p class="card-text">
+							<small class="text-muted">Last updated 3 mins ago</small>
+						</p>
+					</div>
+				</div>
+				<div class="card col-xs">
+					<img class="card-img-top" th:src="@{/img/test/itemmock.png}"
+						alt="Card image cap">
+					<div class="card-block">
+						<h4 class="card-title">Card title</h4>
+						<p class="card-text">This card has supporting text below as a
+							natural lead-in to additional content.</p>
+						<p class="card-text">
+							<small class="text-muted">Last updated 3 mins ago</small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div th:insert="/eggshop/common/fragment :: shop-footer"></div>
 </body>
 </html>
