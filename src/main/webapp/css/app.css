@@ -1,6 +1,6 @@
 .shop-main-page-body {
-	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-top: 28px;
+	padding-bottom: 45px;
 }
 
 .shop-header {
@@ -12,6 +12,25 @@
 	border-top-style: solid;
 	border-top-width: 7px;
 	border-top-color: #F9F9F9;
+}
+
+.shop-footer>div {
+	float: left;
+	width: 25%;
+}
+
+.shop-footer>div>div {
+	margin-left: auto;
+	margin-right: auto;
+	width: 30px;
+}
+
+.shop-footer a {
+	color: #808080;
+}
+
+.shop-footer .a-select {
+	color: #c9302c;
 }
 
 .main-carousel {
@@ -26,3 +45,21 @@
 .item-cube>figcaption {
 	line-height: 1;
 }
+
+.category-sidebar {
+	padding-left: 0;
+	float: left;
+	width: 25%;
+	/* 	height: 100%; */
+	overflow: auto;
+	background: #f1f1f3;
+	/* 	white-space: pre-wrap; */
+}
+
+.category-sidebar>div {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30px;
+}
+

@@ -2,19 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 	<!-- page footer -->
-	<div th:fragment="shop-footer" class="navbar-fixed-bottom shop-footer">
-		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+	<div th:fragment="shop-footer(active)"
+		class="navbar-fixed-bottom shop-footer">
+		<div th:class="${active==1?'shop-footer-div-select':''}">
+			<div>
+				<a th:href="@{${active==1?'#':'main'}(AT=${AT})}"><i
+					th:class="|fa fa-home fa-2x ${active==1?'a-select':''}|"
+					aria-hidden="true"></i></a>
+			</div>
 		</div>
-		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-list" aria-hidden="true"></i></a>
+		<div th:class="${active==2?'shop-footer-div-select':''}">
+			<div>
+				<a th:href="@{${active==2?'#':'category'}(AT=${AT})}"><i
+					th:class="|fa fa-list fa-2x ${active==2?'a-select':''}|"
+					aria-hidden="true"></i></a>
+			</div>
 		</div>
-		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-				<span class="badge" th:text="${cartInfo.CART_COUNT}">6</span></a>
+		<div th:class="${active==3?'shop-footer-div-select':''}">
+			<div>
+				<a th:href="@{${active==3?'#':'cart'}(AT=${AT})}"><i
+					th:class="|fa fa-shopping-cart fa-2x ${active==3?'a-select':''}|"
+					aria-hidden="true"><span class="badge"
+						th:text="${cartInfo.CART_COUNT}">6</span></i> </a>
+			</div>
 		</div>
-		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+		<div th:class="${active==4?'shop-footer-div-select':''}">
+			<div>
+				<a th:href="@{${active==4?'#':'myprofile'}(AT=${AT})}"><i
+					th:class="|fa fa-user-circle-o fa-2x ${active==4?'a-select':''}|"
+					aria-hidden="true"></i></a>
+			</div>
 		</div>
 	</div>
 	<div th:fragment="shop-header" class="navbar-fixed-top shop-header">

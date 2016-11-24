@@ -5,7 +5,7 @@
 <body class="shop-main-page-body">
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="container">
-		<div class="carousel slide main-carousel" data-ride="carousel" th:data-interval="${2000}">
+		<div class="carousel slide main-carousel" data-ride="carousel" th:data-interval="${20000}">
 			<ol class="carousel-indicators">
 				<li data-target="#carousel-example-generic" data-slide-to="0"
 					class="active"></li>
@@ -41,7 +41,7 @@
 		</div>
 
 		<div class="card">
-			<div class="card-header">Most Populate</div>
+			<div class="card-header">Hot</div>
 			<div class="card-block">
 				<table class="table table-sm">
 					<tbody>
@@ -69,8 +69,9 @@
 
 
 		<div class="container">
+		<div class="card-header">Recent</div>
 			<div class="row">
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -78,7 +79,7 @@
 						<figcaption class="">A c</figcaption>
 					</figure>
 				</div>
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -86,7 +87,7 @@
 						<figcaption class="">A capaas s21s</figcaption>
 					</figure>
 				</div>
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -96,7 +97,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -104,7 +105,7 @@
 						<figcaption class="">A cap</figcaption>
 					</figure>
 				</div>
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -112,7 +113,7 @@
 						<figcaption class="">A cap</figcaption>
 					</figure>
 				</div>
-				<div class="col-xs-4 col-sm-6">
+				<div class="col-xs-4">
 					<figure class="figure item-cube">
 						<img th:src="@{/img/test/itemmock.png}"
 							class="figure-img img-fluid rounded"
@@ -124,6 +125,6 @@
 		</div>
 
 	</div>
-	<div th:insert="/eggshop/common/fragment :: shop-footer"></div>
+	<div th:insert="/eggshop/common/fragment :: shop-footer(1)"></div>
 </body>
 </html>

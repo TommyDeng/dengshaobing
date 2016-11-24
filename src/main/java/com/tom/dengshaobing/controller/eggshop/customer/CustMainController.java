@@ -51,73 +51,63 @@ public class CustMainController extends BaseController {
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
 	}
-	
+
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
 		if (StringUtils.isBlank(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
-
 		map.put(PxAT, AT);
-
+		map.put("testCss", "3");
 		headerRending(AT, map);
 
 		map.put(SxMapList, bussService.listAllProductForMain());
 		return BasePath + "main";
 	}
 
-	@RequestMapping("/item")
-	public String item(ModelMap map, String rowUC, String AT) throws Exception {
-		map.put(PxAT, AT);
+	@RequestMapping("/category")
+	public String category(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
 
+		map.put(PxAT, AT);
 		headerRending(AT, map);
 
-		Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), AT);
-
-		map.put("product", product);
-		return BasePath + "item";
+		map.put(SxMapList, bussService.listAllProductForMain());
+		return BasePath + "category";
 	}
 
-	@RequestMapping("/addItem")
-	@ResponseBody
-	public String addItem(ModelMap map, String itemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(itemUC), Long.parseLong(itemCount),
-				AT);
-		return String.valueOf(shoppingCartCount);
-	}
+	@RequestMapping("/cart")
+	public String cart(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
 
-	@RequestMapping("/shoppingcart")
-	public String shoppingcart(ModelMap map, String AT) throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
+
 		map.put(PxAT, AT);
+		headerRending(AT, map);
 
 		TableMeta tableMeta = bussService.listShoppingCart(AT);
 		tableMeta.title = "SHOPPING CART";
 
 		map.put(SxTableMeta, tableMeta);
-		return BasePath + "shoppingcart";
+		return BasePath + "cart";
 	}
 
-	@RequestMapping("/changeItemQty")
-	@ResponseBody
-	public String changeItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC),
-				Long.parseLong(itemCount), AT);
-		return String.valueOf(shoppingCartCount);
-	}
+	@RequestMapping("/myprofile")
+	public String myprofile(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
 
-	@RequestMapping("/checkout")
-	public String checkout(@ModelAttribute MapForm mapForm, ModelMap map, String AT) throws Exception {
 		map.put(PxAT, AT);
-
-		return BasePath + "checkout";
-	}
-
-	@RequestMapping("/checkoutsubmit")
-	public String checkoutsubmit(@ModelAttribute MapForm mapForm, ModelMap map, String AT) throws Exception {
-		map.put(PxAT, AT);
-
-		return "redirect:../product/list";
+		headerRending(AT, map);
+		return BasePath + "myprofile";
 	}
 
 }

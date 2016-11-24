@@ -2,22 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px; padding-top: 70px;">
-	<div th:replace="/eggshop/common/fragment :: header-user-shoppingcart"></div>
+<body class="shop-main-page-body">
+	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="container">
-		<div class="panel panel-default media" th:each="recode : ${mapList}">
-			<a class="media-left"
-				th:href="@{item(rowUC=${recode.UNIQUE_CODE},AT=${AT})}"> <img
-				th:src="@{'/'+${recode.THUMBNAIL_PATH}}"
-				style="width: 64px; height: 64px" alt="..." />
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading" th:text="${recode.NAME}"></h4>
-				<p th:text="${recode.BRIEF}"></p>
+		<div class="row">
+			<div class="col-xs-3 category-sidebar">
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+				<div>
+					<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<div class="container">
+					<div class="card-header">Recent</div>
+					<div class="row">
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A c</figcaption>
+							</figure>
+						</div>
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A capaas s21s</figcaption>
+							</figure>
+						</div>
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A cap</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A cap</figcaption>
+							</figure>
+						</div>
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A cap</figcaption>
+							</figure>
+						</div>
+						<div class="col-xs-4">
+							<figure class="figure item-cube">
+								<img th:src="@{/img/test/itemmock.png}"
+									class="figure-img img-fluid rounded"
+									alt="A generic square placeholder image with rounded corners in a figure.">
+								<figcaption class="">A cap</figcaption>
+							</figure>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-<!-- 	<div th:replace="/base :: copy-right"></div> -->
-	<div th:replace="/eggshop/common/fragment :: nav-menu-footer"></div>
+	<div th:insert="/eggshop/common/fragment :: shop-footer(2)"></div>
 </body>
 </html>

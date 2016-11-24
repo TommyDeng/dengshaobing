@@ -18,10 +18,10 @@
 		});
 	}
 </script>
-<body style="padding-bottom: 70px; padding-top: 70px;">
-	<div th:replace="/eggshop/common/fragment :: header-back-preorder"></div>
+<body class="shop-main-page-body">
+	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="container">
-		<table class="table table-striped table-condensed">
+		<table class="table table-striped table-sm">
 			<caption th:text="${tableMeta.title}">SHOPPING CART</caption>
 			<thead>
 				<tr>
@@ -52,5 +52,6 @@
 			</tbody>
 		</table>
 	</div>
+	<div th:insert="/eggshop/common/fragment :: shop-footer(3)"></div>
 </body>
 </html>
