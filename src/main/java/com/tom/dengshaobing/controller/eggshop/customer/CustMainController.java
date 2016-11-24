@@ -106,7 +106,11 @@ public class CustMainController extends BaseController {
 		}
 
 		map.put(PxAT, AT);
+
 		headerRending(AT, map);
+
+		map.put("weixinUserInfo", bussService.getWeixinUserInfo(AT));
+		map.put("contactInfo", bussService.getUserInfo(AT));
 		return BasePath + "myprofile";
 	}
 

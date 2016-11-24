@@ -1,6 +1,11 @@
 .shop-main-page-body {
 	padding-top: 28px;
-	padding-bottom: 45px;
+	padding-bottom: 50px;
+}
+
+.shop-main-page-body .container {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .shop-header {
@@ -22,7 +27,7 @@
 .shop-footer>div>div {
 	margin-left: auto;
 	margin-right: auto;
-	width: 30px;
+	width: 45px;
 }
 
 .shop-footer a {
@@ -31,6 +36,11 @@
 
 .shop-footer .a-select {
 	color: #c9302c;
+}
+
+.shop-footer i {
+	height: 48px;
+	width: 48px;
 }
 
 .main-carousel {
@@ -47,19 +57,35 @@
 }
 
 .category-sidebar {
-	padding-left: 0;
 	float: left;
 	width: 25%;
-	/* 	height: 100%; */
-	overflow: auto;
+	top: 28px;
+	bottom: 0;
+	position: fixed;
+	overflow-y: auto;
 	background: #f1f1f3;
-	/* 	white-space: pre-wrap; */
 }
 
 .category-sidebar>div {
-	margin-top: 10px;
+	margin-top: 25%;
 	margin-left: auto;
 	margin-right: auto;
-	width: 30px;
+	width: 50%;
 }
 
+.category-content {
+	float: left;
+	width: 75%;
+	position: absolute;
+	left: 25%;
+	overflow-y: auto;
+}
+
+.myprofile-userheading>img {
+	border-radius: 50%;
+	position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: auto;
+    display: inline-block;
+}

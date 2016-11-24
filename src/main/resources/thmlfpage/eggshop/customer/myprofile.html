@@ -33,18 +33,28 @@
 		$("#ipt_email").hide();
 	}
 </script>
-<body style="padding-bottom: 70px; padding-top: 70px;">
-	<div th:replace="/eggshop/common/fragment :: header-back-user"></div>
+<body class="shop-main-page-body">
+	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
+
+	<div class="myprofile-userheading">
+		<img
+			src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+			width="120" height="120" class="img-fluid"
+			alt="Generic placeholder thumbnail">
+		<h4>Label</h4>
+		<span class="text-muted">Something else</span>
+	</div>
 	<div class="container">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="display: inline">Contact</h3>
+
+		<div class="card">
+			<div class="card-header">
+				<h3 style="display: inline">Contact</h3>
 				<a class="btn btn-default" onclick="modifyClicked()" id="btn_modify"
 					role="button" style="float: right">修改</a><a class="btn btn-default"
 					onclick="saveClicked()" id="btn_save" role="button"
 					style="float: right; display: none">保存</a>
 			</div>
-			<div class="panel-body" th:object="${contactInfo}">
+			<div class="card-block" th:object="${contactInfo}">
 
 				<strong>手机号码</strong><br />
 				<div class="input-group">
@@ -67,11 +77,11 @@
 		<div>you can see me only before Thymeleaf processes me!</div>
 		<!--*/-->
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<h3 class="panel-title">Weixin</h3>
 			</div>
-			<div class="panel-body">
+			<div class="card-block">
 				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
 				<p>
 					<b th:text="${entry.key + ':'}">昵称</b> <span
@@ -81,5 +91,6 @@
 			</div>
 		</div>
 	</div>
+	<div th:insert="/eggshop/common/fragment :: shop-footer(4)"></div>
 </body>
 </html>
