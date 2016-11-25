@@ -114,4 +114,17 @@ public class CustMainController extends BaseController {
 		return BasePath + "myprofile";
 	}
 
+	@RequestMapping("/itemdetail")
+	public String item(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
+
+		map.put(PxAT, AT);
+
+		headerRending(AT, map);
+
+		return BasePath + "itemdetail";
+	}
 }

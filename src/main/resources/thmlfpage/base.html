@@ -13,12 +13,14 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet"
 	th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/swiper-3.4.0/css/swiper.min.css}" />
 <link rel="stylesheet" th:href="@{/css/app.css}" />
 
 
 <script th:src="@{/js/jquery-3.1.0.min.js}"></script>
 <script th:src="@{/js/tether.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/swiper-3.4.0/js/swiper.min.js}"></script>
 <script th:src="@{/js/app.js}"></script>
 
 
@@ -28,9 +30,10 @@
 </head>
 <body>
 	<!--  -->
-	<div th:fragment="copy-right">
-		<a role="button" style="float: right;" th:href="@{/}">&copy; 2016
-			Dengshaobing. All rights reserved.</a>
+	<div th:fragment="copy-right"
+		style="text-align: right; position: fixed; bottom: 0;">
+		<a role="button" th:href="@{/}">&copy; 2016 Dengshaobing. All
+			rights reserved.</a>
 	</div>
 </body>
 </html>

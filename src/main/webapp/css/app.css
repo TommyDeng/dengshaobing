@@ -9,7 +9,7 @@
 }
 
 .shop-header {
-	background-color: rgba(0, 0, 0, .075);;
+	background-color: rgba(0, 0, 0, .075);
 }
 
 .shop-footer {
@@ -43,10 +43,6 @@
 	width: 48px;
 }
 
-.main-carousel {
-	background-color: aliceblue;
-}
-
 .item-cube {
 	background-color: aliceblue;
 	height: 130px;
@@ -54,6 +50,14 @@
 
 .item-cube>figcaption {
 	line-height: 1;
+}
+
+.itemdetail-swiper-container {
+	background-color: aliceblue;
+}
+
+.main-swiper-container {
+	background-color: aliceblue;
 }
 
 .category-sidebar {
@@ -84,8 +88,15 @@
 .myprofile-userheading>img {
 	border-radius: 50%;
 	position: absolute;
-    margin: auto;
-    top: 0; left: 0; right: 0; bottom: 0;
-    overflow: auto;
-    display: inline-block;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+	display: inline-block;
+}
+
+.itemdetail-cotent div {
+	word-wrap: break-word;
 }

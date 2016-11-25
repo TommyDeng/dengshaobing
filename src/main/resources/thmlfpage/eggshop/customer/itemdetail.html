@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+
+</head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//initialize swiper when document ready  
+		var swiper = new Swiper('.swiper-container', {
+			pagination : '.swiper-pagination',
+			paginationClickable : true,
+			loop : true,
+		// 			autoplay : 2500,
+		// 			autoplayDisableOnInteraction : false
+		});
+	});
+</script>
+<body>
+	<input id="AT" type="hidden" th:value="${AT}" />
+	<!-- Swiper -->
+	<div class="swiper-container itemdetail-swiper-container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<img th:src="@{/img/test/itemmock.png}" alt="1 slide">
+			</div>
+			<div class="swiper-slide">
+				<img th:src="@{/img/test/itemmock.png}" alt="2 slide">
+			</div>
+			<div class="swiper-slide">
+				<img th:src="@{/img/test/itemmock.png}" alt="3 slide">
+			</div>
+			<div class="swiper-slide">
+				<img th:src="@{/img/test/itemmock.png}" alt="4 slide">
+			</div>
+		</div>
+		<!-- Add Pagination -->
+		<div class="swiper-pagination"></div>
+	</div>
+	<div class="card itemdetail-cotent">
+		<div class="card-header">
+			<p>product.NAME</p>
+			<kbd>RMB 88.88</kbd>
+		</div>
+		<div class="card-block">
+			<p>product.BRIEFproduct.BRIEFproduct.BRIEF</p>
+			<p>${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}${product.DETAIL_DESCIPTION}</p>
+		</div>
+	</div>
+	<div>
+		<p style="text-align: center;">
+			<img title="TinyMCE Logo"
+				src="//www.tinymce.com/images/glyph-tinymce@2x.png"
+				alt="TinyMCE Logo" width="110" height="97" />
+		</p>
+
+		<h1 style="text-align: center;">Welcome to the TinyMCE editor
+			demo!</h1>
+
+		<p>
+			Please try out the features provided in this basic example.<br>
+			Note that any <strong>MoxieManager</strong> file and image management
+			functionality in this example is part of our commercial offering –
+			the demo is to show the integration.
+		</p>
+
+		<h2>Got questions or need help?</h2>
+
+		<ul>
+			<li>Our <a href="http://www.tinymce.com/docs/">documentation</a>
+				is a great resource for learning how to configure TinyMCE.
+			</li>
+			<li>Have a specific question? Visit the <a
+				href="http://community.tinymce.com/forum/" target="_blank">Community
+					Forum</a>.
+			</li>
+			<li>We also offer enterprise grade support as part of <a
+				href="www.tinymce.com/pricing">TinyMCE Enterprise</a>.
+			</li>
+		</ul>
+
+		<h2>A simple table to play with</h2>
+
+		<table style="text-align: center;">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Cost</th>
+					<th>Really?</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>TinyMCE</td>
+					<td>Free</td>
+					<td>YES!</td>
+				</tr>
+				<tr>
+					<td>Plupload</td>
+					<td>Free</td>
+					<td>YES!</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>Found a bug?</h2>
+
+		<p>
+			If you think you have found a bug please create an issue on the <a
+				href="https://github.com/tinymce/tinymce/issues">GitHub repo</a> to
+			report it to the developers.
+		</p>
+
+		<h2>Finally ...</h2>
+
+		<p>
+			Don't forget to check out our other product <a
+				href="http://www.plupload.com" target="_blank">Plupload</a>, your
+			ultimate upload solution featuring HTML5 upload support.
+		</p>
+		<p>
+			Thanks for supporting TinyMCE! We hope it helps you and your users
+			create great content.<br>All the best from the TinyMCE team.
+		</p>
+	</div>
+
+	<div th:replace="/eggshop/common/fragment :: add2cart"></div>
+</body>
+</html>
