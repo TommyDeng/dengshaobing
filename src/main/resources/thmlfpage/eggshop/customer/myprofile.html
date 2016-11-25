@@ -38,14 +38,14 @@
 
 	<div class="myprofile-userheading">
 		<img
-			src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+			th:src="${userInfo.HEADIMGURL}"
 			width="120" height="120" class="img-fluid"
 			alt="Generic placeholder thumbnail">
-		<h4>Label</h4>
-		<span class="text-muted">Something else</span>
+		<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
+		<span class="text-muted">积分:5852</span>
 	</div>
-	<div class="container">
 
+	<div class="container">
 		<div class="card">
 			<div class="card-header">
 				<h3 style="display: inline">Contact</h3>

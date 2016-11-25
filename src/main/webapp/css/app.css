@@ -85,7 +85,12 @@
 	overflow-y: auto;
 }
 
+.myprofile-userheading {
+	text-align: center !important;
+}
+
 .myprofile-userheading>img {
+	border-radius: 15%;
 	border-radius: 50%;
 	position: absolute;
 	margin: auto;
