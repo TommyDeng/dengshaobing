@@ -35,8 +35,7 @@
 	</div>
 	<div th:fragment="shop-header" class="navbar-fixed-top shop-header">
 		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-cog fa-spin fa-1x fa-fw"
-				aria-hidden="true"></i></a>
+			<a th:href="@{/}"><i class="fa fa-pagelines fa-lg" aria-hidden="true">Dengshaobing</i></a>
 		</div>
 		<div class="col-xs-3"></div>
 		<div class="col-xs-3"></div>
@@ -46,27 +45,30 @@
 		</div>
 	</div>
 
+	<div th:fragment="itemdetail-addcart-footer"
+		class="navbar-fixed-bottom itemdetail-addcart-footer">
+		<select id="item-count" class="">
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
+			<option>7</option>
+			<option>8</option>
+			<option>9</option>
+			<option>10</option>
+		</select><a id="add-item-btn"> <i class="fa fa-cart-plus fa-2x fa-border"
+			aria-hidden="true"></i>
+		</a>
+	</div>
 
-	<div th:fragment="add2cart">
-		<nav class="navbar-default navbar-fixed-bottom">
-			<p class="text-center">
-				<span class="badge"><select id="item-count"
-					class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-				</select></span> <a id="add-item-btn" class="btn btn-info"> Add <i
-					class="fa fa-cart-plus fa-1x" aria-hidden="true"></i>
-				</a>
-			</p>
-		</nav>
+	<div th:fragment="backward-header(previous)"
+		class="navbar-fixed-top backward-header">
+		<div class="col-xs-3">
+			<a th:href="@{${previous}(AT=${AT})}"><i
+				class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></a>
+		</div>
 	</div>
 
 	<!-- page header -->

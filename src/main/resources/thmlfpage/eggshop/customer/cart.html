@@ -35,7 +35,7 @@
 						<div
 							th:if="${head.uriAttachable and !head.columnLabel.equals('数量')}">
 							<a th:text="${recode[__${head.index}__]}"
-								th:href="@{item(rowUC=${recode[2]},AT=${AT})}"></a>
+								th:href="@{itemdetail(rowUC=${recode[2]},AT=${AT})}"></a>
 						</div>
 						<div
 							th:if="${!head.uriAttachable and !head.columnLabel.equals('数量')}">

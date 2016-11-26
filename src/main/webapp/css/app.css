@@ -8,8 +8,12 @@
 	padding-right: 0;
 }
 
+.shop-itemdetail-page-body {
+	padding-bottom: 50px;
+}
+
 .shop-header {
-	background-color: rgba(0, 0, 0, .075);
+	background-color: rgba(0, 0, 0, 0);
 }
 
 .shop-footer {
@@ -77,6 +81,10 @@
 	width: 50%;
 }
 
+.category-sidebar .a-select {
+	color: #c9302c;
+}
+
 .category-content {
 	float: left;
 	width: 75%;
@@ -91,17 +99,19 @@
 
 .myprofile-userheading>img {
 	border-radius: 15%;
-	border-radius: 50%;
-	position: absolute;
-	margin: auto;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	overflow: auto;
-	display: inline-block;
 }
 
 .itemdetail-cotent div {
 	word-wrap: break-word;
+}
+
+.backward-header {
+	margin-top:10px;
+	background-color: rgba(0, 0, 0, 0);
+	float: left;
+}
+
+.itemdetail-addcart-footer {
+	background-color: #ffffff;
+	text-align: center;
 }

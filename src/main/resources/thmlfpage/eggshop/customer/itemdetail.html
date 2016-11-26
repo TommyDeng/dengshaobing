@@ -15,8 +15,9 @@
 		});
 	});
 </script>
-<body>
-	<input id="AT" type="hidden" th:value="${AT}" />
+<body class="shop-itemdetail-page-body">
+	<div
+		th:replace="/eggshop/common/fragment :: backward-header(cart)"></div>
 	<!-- Swiper -->
 	<div class="swiper-container itemdetail-swiper-container">
 		<div class="swiper-wrapper">
@@ -48,8 +49,7 @@
 	</div>
 	<div>
 		<p style="text-align: center;">
-			<img title="TinyMCE Logo"
-				src="//www.tinymce.com/images/glyph-tinymce@2x.png"
+			<img title="TinyMCE Logo" th:src="@{/img/test/itemmock.png}"
 				alt="TinyMCE Logo" width="110" height="97" />
 		</p>
 
@@ -122,7 +122,6 @@
 			create great content.<br>All the best from the TinyMCE team.
 		</p>
 	</div>
-
-	<div th:replace="/eggshop/common/fragment :: add2cart"></div>
+	<div th:replace="/eggshop/common/fragment :: itemdetail-addcart-footer"></div>
 </body>
 </html>

@@ -64,6 +64,22 @@ public class MyDishController extends BaseController {
 		return BasePath + "make_diet";
 	}
 
+	@RequestMapping("/changeRecommendedList")
+	public String changeRecommendedList(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+			String AT, String TYPE) throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
+		map.put(PxAT, AT);
+
+		headerRending(AT, map);
+
+		map.put("meatTableMeta", myDishService.getRecommendedMeatList(recommendCount));
+		map.put("vegeTableMeta", myDishService.getRecommendedVegeList(recommendCount));
+
+		return BasePath + "make_diet";
+	}
+
 	@RequestMapping("/cookbook")
 	public String cookbook(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
@@ -116,8 +132,9 @@ public class MyDishController extends BaseController {
 	}
 
 	@RequestMapping("/dishes_history")
-	public String dishesHistory(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT) throws Exception {
-		
+	public String dishesHistory(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+
 		if (StringUtils.isBlank(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}

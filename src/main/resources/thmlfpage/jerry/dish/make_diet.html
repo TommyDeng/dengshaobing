@@ -1,36 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
-<link th:href="@{/css/docs.min.css}" rel="stylesheet" />
 </head>
-<script type="text/javascript">
-	function changeRecommendedList(dishType) {
-		$.post("changeRecommendedList", {
-			dishType : dishType,
-			AT : AT
-		}, function(resultVar) {
-			var targetRefreshItem = $(inputItem).parent().parent().siblings()
-					.last().children().children();
-			targetRefreshItem.fadeToggle('fast');
-			targetRefreshItem.html(resultVar * itemPrice);
-			targetRefreshItem.fadeToggle('fast');
-		});
-	}
-
-	function selectVege(dishUC) {
-		$.post("changeItemQty", {
-			cartItemUC : cartItemUC,
-			AT : AT,
-			itemCount : itemCount
-		}, function(resultVar) {
-			var targetRefreshItem = $(inputItem).parent().parent().siblings()
-					.last().children().children();
-			targetRefreshItem.fadeToggle('fast');
-			targetRefreshItem.html(resultVar * itemPrice);
-			targetRefreshItem.fadeToggle('fast');
-		});
-	}
-</script>
 <body style="padding-bottom: 70px; padding-top: 70px;">
 	<div class="container">
 		<nav class="navbar-default navbar-fixed-top">
@@ -41,26 +12,31 @@
 			</div>
 		</nav>
 	</div>
-
 	<div class="container">
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#">Main</a></li>
-			<li role="presentation"><a th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
-			<li role="presentation"><a th:href="@{dishes_history(AT=${AT})}">History</a></li>
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="nav-item"><a
+				class="nav-link active" href="#">Main</a></li>
+			<li role="presentation" class="nav-item"><a class="nav-link"
+				th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
+			<li role="presentation" class="nav-item"><a class="nav-link"
+				th:href="@{dishes_history(AT=${AT})}">History</a></li>
 		</ul>
+		<div class="panel-heading">
+			<div class="btn-group" style="margin-top: 20px;">
+				<a th:href="@{changeRecommendedList(AT=${AT},TYPE='MEAT')}"
+					class="btn btn-primary" style="float: right;"> <i
+					class="fa fa-refresh fa-spin" aria-hidden="true"></i>Reset
+				</a>
+			</div>
+		</div>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-xs-6">
 				<div class="panel panel-default ">
-					<div class="panel-heading">
-						Meat<a th:href="@{changeRecommendedMeatList}"
-							style="float: right;"> <span
-							class="glyphicon glyphicon-refresh"></span></a>
-					</div>
+					<div class="panel-heading">Meat</div>
 					<div class="panel-body">
 						<table class="table table-striped table-condensed">
 							<tbody th:remove="all-but-first">
-								<tr th:each="recode : ${meatTableMeta.dataList}"
-									th:onclick="@{selectMeat(${recode[1]})}">
+								<tr th:each="recode : ${meatTableMeta.dataList}">
 									<td th:each="head : ${meatTableMeta.headList}"
 										th:text="${recode[__${head.index}__]}" th:if="${head.display}"></td>
 								</tr>
@@ -72,16 +48,11 @@
 
 			<div class="col-xs-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						Vege<a th:href="@{changeRecommendedVegeList}"
-							style="float: right;"><span
-							class="glyphicon glyphicon-refresh"></span></a>
-					</div>
+					<div class="panel-heading">Vege</div>
 					<div class="panel-body">
 						<table class="table table-striped table-condensed">
 							<tbody th:remove="all-but-first">
-								<tr th:each="recode : ${vegeTableMeta.dataList}"
-									th:onclick="${'selectVege('''+{recode[1]}+''')'}">
+								<tr th:each="recode : ${vegeTableMeta.dataList}">
 									<td th:each="head : ${vegeTableMeta.headList}"
 										th:text="${recode[__${head.index}__]}" th:if="${head.display}"></td>
 								</tr>
@@ -92,40 +63,8 @@
 			</div>
 		</div>
 
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="btn-group">
-					<button type="button" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok"></span> OK
-					</button>
-					<button type="button" class="btn btn-default">
-						<span class="glyphicon glyphicon-repeat"></span> Reset
-					</button>
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="bs-glyphicons">
-					<ul class="bs-glyphicons-list">
-						<li><span class="glyphicon glyphicon-cutlery"></span> <span
-							class="glyphicon-class">glyphicon-meat1</span></li>
-						<li><span class="glyphicon glyphicon-cutlery"></span> <span
-							class="glyphicon-class">glyphicon-meat2</span></li>
-						<li><span class="glyphicon glyphicon-leaf"></span> <span
-							class="glyphicon-class">glyphicon-vege1</span></li>
-						<li><span class="glyphicon glyphicon-leaf"></span> <span
-							class="glyphicon-class">glyphicon-vege2</span></li>
-					</ul>
-				</div>
-			</div>
-		</div>
 	</div>
 
-	<div class="container">
-		<nav class="navbar-default navbar-fixed-bottom">
-			<p style="float: right;">© 2016 Dengshaobing. All rights
-				reserved.</p>
-		</nav>
-	</div>
+	<div th:replace="/base :: copy-right"></div>
 </body>
 </html>

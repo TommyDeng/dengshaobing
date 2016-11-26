@@ -15,23 +15,22 @@
 
 	<div class="container">
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation"><a th:href="@{make_diet(AT=${AT})}">Main</a></li>
-			<li role="presentation"><a th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
-			<li role="presentation" class="active"><a>History</a></li>
+			<li role="presentation" class="nav-item"><a class="nav-link"
+				th:href="@{make_diet(AT=${AT})}">Main</a></li>
+			<li role="presentation" class="nav-item"><a class="nav-link"
+				th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
+			<li role="presentation" class="nav-item"><a
+				class="nav-link active">History</a></li>
 		</ul>
 
 		<div class="panel panel-default" style="margin-top: 20px;">
 			<div class="panel-heading">
-				<div class="btn-group">历史清单</div>
+				<div class="btn-group">这些天吃了什么</div>
 			</div>
-			<div class="panel-body">正在建设中。。。</div>
+			<div class="panel-body">暂时想不起来，努力回忆中。。。</div>
 		</div>
 	</div>
 
-	<div class="container">
-		<nav class="navbar-default navbar-fixed-bottom">
-			
-		</nav>
-	</div>
+	<div th:replace="/base :: copy-right"></div>
 </body>
 </html>

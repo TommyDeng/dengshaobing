@@ -5,7 +5,7 @@
 <body class="shop-main-page-body">
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="category-sidebar">
-		<div>
+		<div class="a-select">
 			<i class="fa fa-id-badge fa-3x" aria-hidden="true"></i>
 		</div>
 		<div>
@@ -65,7 +65,7 @@
 				<figcaption class="">A cap</figcaption>
 			</figure>
 		</div>
-		
+
 		<div class="col-xs-4">
 			<figure class="figure item-cube">
 				<img th:src="@{/img/test/itemmock.png}"
@@ -105,7 +105,8 @@
 					alt="A generic square placeholder image with rounded corners in a figure.">
 				<figcaption class="">A cap</figcaption>
 			</figure>
-		</div><div class="col-xs-4">
+		</div>
+		<div class="col-xs-4">
 			<figure class="figure item-cube">
 				<img th:src="@{/img/test/itemmock.png}"
 					class="figure-img img-fluid rounded"
