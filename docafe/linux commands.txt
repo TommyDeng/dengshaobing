@@ -13,6 +13,7 @@ H2
 开启关闭H2
 ./opt/h2/bin/h2.sh -webAllowOthers
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers
+nohup java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers &
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -tcpShutdown tcp://localhost:9092
 
 命令行连接数据库
@@ -65,8 +66,12 @@ nginx相关
 ==============================
 启动停止
 nginx
-nginx -s quit
-nginx -s stop
+nginx -s reload
+
+stop — fast shutdown
+quit — graceful shutdown
+reload — reloading the configuration file
+reopen — reopening the log files
 
 测试配置文件
 nginx -t
