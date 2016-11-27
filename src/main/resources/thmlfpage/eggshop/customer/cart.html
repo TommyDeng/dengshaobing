@@ -28,7 +28,7 @@
 						th:text="${head.columnLabel}" th:if="${head.display}"></th>
 				</tr>
 			</thead>
-			<tbody th:remove="all-but-first">
+			<tbody>
 				<tr th:each="recode : ${tableMeta.dataList}">
 
 					<td th:each="head : ${tableMeta.headList}" th:if="${head.display}">
@@ -48,9 +48,18 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td><a th:href="@{itemdetail(AT=${AT})}">demo</a></td>
+					<td>8.88</td>
+					<td><input type="number" value="10" style="width: 80px"></input>
+					</td>
+					<td>88.88</td>
+				</tr>
 			</tbody>
 		</table>
+		<div th:insert="/eggshop/common/fragment :: cart-preorder-footer"></div>
 	</div>
+
 	<div th:insert="/eggshop/common/fragment :: shop-footer(3)"></div>
 </body>
 </html>

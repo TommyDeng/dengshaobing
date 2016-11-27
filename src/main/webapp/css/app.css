@@ -1,3 +1,31 @@
+
+.version-tag {
+    display: block;
+    position: absolute;
+    width: 120px;
+    border: solid #fff;
+    border-width: 2px 1px;
+    padding: .25em 2.25em;
+    margin: 18px -30px 0 0;
+    right: 0;
+    top: 0px;
+    background: #f7cf57;
+    color: #000;
+    font-size: .8em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    z-index: 9;
+    -webkit-transform: rotate(45deg) translate(4.8em, -1em);
+    -moz-transform: rotate(45deg) translate(4.8em, -1em);
+    -ms-transform: rotate(45deg) translate(4.8em, -1em);
+    -o-transform: rotate(45deg) translate(4.8em, -1em);
+    transform: rotate(45deg);
+    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+    -o-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+    box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+}
 .shop-main-page-body {
 	padding-top: 28px;
 	padding-bottom: 50px;
@@ -81,8 +109,13 @@
 	width: 50%;
 }
 
+.category-sidebar img {
+	height: 45px;
+	width: 45px;
+}
+
 .category-sidebar .a-select {
-	color: #c9302c;
+	background-color: gainsboro;
 }
 
 .category-content {
@@ -106,7 +139,7 @@
 }
 
 .backward-header {
-	margin-top:10px;
+	margin-top: 10px;
 	background-color: rgba(0, 0, 0, 0);
 	float: left;
 }
@@ -114,4 +147,26 @@
 .itemdetail-addcart-footer {
 	background-color: #ffffff;
 	text-align: center;
+}
+
+.cart-preorder-footer {
+	bottom: 55px;
+	position: fixed;
+	width: 100%;
+}
+
+.cart-preorder-footer>div {
+	float: right;
+}
+
+.preorder-payment-weixin {
+	display: inline-block;
+	line-height: 48px;
+	color: #33c37f;
+	font-size: 1.4rem;
+	background: url(/dengshaobing/img/eggshop/wx.png) no-repeat;
+	background-size: 3rem 3rem;
+	padding-left: 55px;
+	border: 1px solid #33c37f;
+	border-radius: .3rem;
 }

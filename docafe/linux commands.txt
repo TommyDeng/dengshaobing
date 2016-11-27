@@ -56,6 +56,10 @@ chmod 777 /home/jdk.bin
 yum安装
 yum install nginx
 
+
+passwd修改密码
+passwd 
+
 ==============================
 nginx相关
 ==============================

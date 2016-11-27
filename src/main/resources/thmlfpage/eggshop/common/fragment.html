@@ -35,7 +35,8 @@
 	</div>
 	<div th:fragment="shop-header" class="navbar-fixed-top shop-header">
 		<div class="col-xs-3">
-			<a th:href="@{/}"><i class="fa fa-pagelines fa-lg" aria-hidden="true">Dengshaobing</i></a>
+			<a th:href="@{/}"><i class="fa fa-pagelines fa-lg"
+				aria-hidden="true">Dengshaobing</i></a>
 		</div>
 		<div class="col-xs-3"></div>
 		<div class="col-xs-3"></div>
@@ -61,6 +62,13 @@
 		</select><a id="add-item-btn"> <i class="fa fa-cart-plus fa-2x fa-border"
 			aria-hidden="true"></i>
 		</a>
+	</div>
+
+	<div th:fragment="cart-preorder-footer"
+		class=" cart-preorder-footer"><div>SUM:￥88.88<a class="btn btn-default" th:href="@{preorder(AT=${AT})}"> <i class="fa fa-credit-card fa-2x"
+			aria-hidden="true"></i>
+		</a></div>
+		
 	</div>
 
 	<div th:fragment="backward-header(previous)"

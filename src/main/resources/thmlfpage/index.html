@@ -4,32 +4,30 @@
 <title>Index</title>
 </head>
 <body>
+	<p class="version-tag" th:href="@{/versionDetail}">v0.1alpha</p>
 	<div class="container">
-		<h1>
-			<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-			Welcome!
-		</h1>
+		<h1>Welcome!</h1>
 		<br /> <br /> <br />
+		<p>Thank you for using DengShaobing!</p>
 		<p>
-			<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-			And now is <b th:text="${#calendars.format(#calendars.createNow())}"></b>
-			. <br /> Shaobing is
-			<script type="text/javascript">
+			<i class="fa fa-clock-o" aria-hidden="true"></i> <b
+				th:text="${#calendars.format(#calendars.createNow())}"></b> . <br />
+			<em> <i class="fa fa-child" aria-hidden="true"></i>Shaobing is <script
+					type="text/javascript">
 				var now = new Date();
 				var birth = new Date("2016/04/07");
 				document.write(Math.floor((now - birth) / 86400000))
-			</script>
-			days old. Wish you happy today :P <span
-				class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+			</script> days old. Wish you happy today <i class="fa fa-smile-o"
+				aria-hidden="true"></i>
+			</em>
 		</p>
 		<p>
-			<a class="btn btn-primary btn-lg" href="eggshop/customer/main?openid=1"
-				role="button">Egg Shop</a> <a class="btn btn-primary btn-lg"
-				href="jerry/dish/make_diet?openid=1" role="button">Shao Bing</a>
+			<a class="btn btn-primary btn-lg"
+				href="eggshop/customer/main?openid=1" role="button">Egg Shop</a> <a
+				class="btn btn-primary btn-lg" href="jerry/dish/make_diet?openid=1"
+				role="button">Shao Bing</a>
 		</p>
-		<p>
-			<em>Thank you for using DengShaobing!</em>
-		</p>
+
 
 	</div>
 	<footer class="bs-docs-footer">
@@ -42,6 +40,6 @@
 		</div>
 	</footer>
 	<div th:replace="/base :: copy-right"></div>
-	
+
 </body>
 </html>

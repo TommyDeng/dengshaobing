@@ -37,10 +37,8 @@
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 
 	<div class="myprofile-userheading">
-		<img
-			th:src="${userInfo.HEADIMGURL}"
-			width="120" height="120" class="img-fluid"
-			alt="Generic placeholder thumbnail">
+		<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
+			class="img-fluid" alt="Generic placeholder thumbnail">
 		<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
 		<span class="text-muted">积分:5852</span>
 	</div>
@@ -48,14 +46,43 @@
 	<div class="container">
 		<div class="card">
 			<div class="card-header">
-				<h3 style="display: inline">Contact</h3>
-				<a class="btn btn-default" onclick="modifyClicked()" id="btn_modify"
-					role="button" style="float: right">修改</a><a class="btn btn-default"
+				<h5 style="display: inline-block; line-height: 30px;"
+					class="panel-title">
+					<b>我的订单</b>
+				</h5>
+			</div>
+			<div class="card-block">
+				<div class="btn-group btn-group-sm" role="group"
+					aria-label="First group">
+					<button type="button" class="btn btn-outline-primary">全部订单</button>
+					<button type="button" class="btn btn-outline-warning">待发送</button>
+					<button type="button" class="btn btn-outline-info">待收货</button>
+					<button type="button" class="btn btn-outline-success">已完成</button>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<div style="display: inline; float: left;">
+					<b>地址管理</b>
+				</div>
+				<div style="display: inline; float: right;">
+					<b>></b>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h5 style="display: inline-block; line-height: 30px;"
+					class="panel-title">
+					<b>联系方式</b>
+				</h5>
+				<a class="btn btn-info" onclick="modifyClicked()" id="btn_modify"
+					role="button" style="float: right">修改</a><a class="btn btn-info"
 					onclick="saveClicked()" id="btn_save" role="button"
 					style="float: right; display: none">保存</a>
 			</div>
 			<div class="card-block" th:object="${contactInfo}">
-
 				<strong>手机号码</strong><br />
 				<div class="input-group">
 					<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
@@ -79,7 +106,10 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h3 class="panel-title">Weixin</h3>
+				<h5 style="display: inline-block; line-height: 30px;"
+					class="panel-title">
+					<b>个人信息</b>
+				</h5>
 			</div>
 			<div class="card-block">
 				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->

@@ -50,4 +50,12 @@ public class GreetingController extends BaseController {
 		// map.put("host", name);
 		return "aboutme";
 	}
+	
+	
+	@RequestMapping("/versiondetail")
+	public String versiondetail(ModelMap map) throws Exception {
+		// map.put("host", name);
+		return "versiondetail";
+	}
+	
 }

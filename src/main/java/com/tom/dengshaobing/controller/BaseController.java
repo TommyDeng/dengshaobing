@@ -38,6 +38,8 @@ public class BaseController {
 	protected final String PxRowUC = "rowUC";// rowUC:记录ID
 
 	protected final String PxAT = "AT"; // AppToken
+	
+	protected final String Px = "AT"; // AppToken
 
 	HttpServletRequest request;
 	HttpServletResponse response;
