@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sqls>
+	<sql name="ES_BUSS001">
+	<![CDATA[
+SELECT t.PRODUCT_UC ,m.PATH FROM ES_MAIN_SWIPER t,
+SYS_FILE_STORE_MAPPING m 
+where t.THUMBNAIL = m.UNIQUE_CODE
+and  (t.VALID_TIME is null or t.VALID_TIME > sysdate)
+order by ORDER_NUM 
+LIMIT 10
+	]]>
+	</sql>
+
+	<sql name="ES_BUSS002">
+	<![CDATA[
+SELECT p.UNIQUE_CODE ,p.NAME ,m.PATH ,count(1) SALECOUNT FROM ES_PRODUCT p left join ES_ORDER_ITEM i on p.UNIQUE_CODE =i.PRODUCT_UC 
+left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE 
+group by p.UNIQUE_CODE 
+order by salecount desc
+LIMIT 5
+	]]>
+	</sql>
+	
+		<sql name="ES_BUSS003">
+	<![CDATA[
+SELECT p.UNIQUE_CODE ,p.NAME ,p.BRIEF , m.PATH FROM ES_PRODUCT p 
+left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE 
+order by p.CREATE_TIME desc
+LIMIT 15
+	]]>
+	</sql>
+
+</sqls>

@@ -9,7 +9,7 @@
 			pagination : '.swiper-pagination',
 			paginationClickable : true,
 			loop : true,
-			autoplay : 2500,
+			// 			autoplay : 2500,
 			autoplayDisableOnInteraction : false
 		});
 	});
@@ -20,18 +20,13 @@
 
 		<!-- Swiper -->
 		<div class="swiper-container main-swiper-container">
-			<div class="swiper-wrapper ">
-				<div class="swiper-slide">
-					<img th:src="@{/img/test/itemmock.png}" alt="1 slide">
-				</div>
-				<div class="swiper-slide">
-					<img th:src="@{/img/test/itemmock.png}" alt="2 slide">
-				</div>
-				<div class="swiper-slide">
-					<img th:src="@{/img/test/itemmock.png}" alt="3 slide">
-				</div>
-				<div class="swiper-slide">
-					<img th:src="@{/img/test/itemmock.png}" alt="4 slide">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" th:each="swiper : ${swiperList}">
+					<a
+						th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previous=${previous})}">
+						<img th:src="@{'~/'+${swiper.PATH}}" th:alt="${swiperStat.count}"
+						width="100%">
+					</a>
 				</div>
 			</div>
 			<!-- Add Pagination -->
@@ -43,121 +38,29 @@
 			<div class="card-block">
 				<table class="table table-sm">
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td colspan="2">Larry the Bird</td>
-							<td>@twitter</td>
+						<tr th:each="record : ${hotList}">
+							<th scope="row"><a th:text="${record.NAME}"
+								th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previous=${previous})}">Item</a></th>
+							<td th:text="${record.SALECOUNT}">2</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
-
 		<div class="card">
 			<div class="card-header">Recent</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A c</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A capaas s21s</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A c</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A capaas s21s</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A capaas s21s</figcaption>
-				</figure>
-			</div>
-			<div class="col-xs-4">
-				<figure class="figure item-cube">
-					<img th:src="@{/img/test/itemmock.png}"
-						class="figure-img img-fluid rounded"
-						alt="A generic square placeholder image with rounded corners in a figure.">
-					<figcaption class="">A cap</figcaption>
-				</figure>
+			<div class="col-xs-4" th:each="record : ${recentList}">
+				<a
+					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previous=${previous})}">
+					<figure class="figure item-cube">
+						<img th:src="@{'~/'+${record.PATH}}"
+							class="figure-img img-fluid rounded" th:alt="${record.BRIEF}">
+						<figcaption class="" th:text="${record.NAME}">Item</figcaption>
+					</figure>
+				</a>
 			</div>
 		</div>
-
 	</div>
 	<div th:insert="/eggshop/common/fragment :: shop-footer(1)"></div>
 </body>

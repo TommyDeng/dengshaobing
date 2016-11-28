@@ -46,12 +46,12 @@ public class EggShopBuyController extends BaseController {
 
 	// 加载用户信息和count
 	@Override
-	public void headerRending(String AT, ModelMap map) throws Exception {
-		super.headerRending(AT, map);
+	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
+		super.pageInit(AT, openid, map);
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
 	}
-	
+
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
@@ -61,17 +61,18 @@ public class EggShopBuyController extends BaseController {
 
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
+		pageInit(AT, openid, map);
 
 		map.put(SxMapList, bussService.listAllProductForMain());
 		return BasePath + "main";
 	}
 
 	@RequestMapping("/item")
-	public String item(ModelMap map, String rowUC, String AT) throws Exception {
+	public String item(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String rowUC,
+			String AT) throws Exception {
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
+		pageInit(AT, openid, map);
 
 		Map<String, Object> product = bussService.queryProduct(UUID.fromString(rowUC), AT);
 

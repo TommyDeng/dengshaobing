@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
@@ -29,7 +30,8 @@ public class BaseController {
 
 	protected final String SxFormData = "formData";// 页面formData变量(新增，修改时的form:MapForm)
 
-	protected final String SxMapList = "mapList";// 页面mapList变量(简单数据列表:List<Map<String, Object>>)
+	protected final String SxMapList = "mapList";// 页面mapList变量(简单数据列表:List<Map<String,
+													// Object>>)
 
 	protected final String PxOpenid = "openid";// openid:当前操作用户openid
 
@@ -38,14 +40,19 @@ public class BaseController {
 	protected final String PxRowUC = "rowUC";// rowUC:记录ID
 
 	protected final String PxAT = "AT"; // AppToken
-	
+
 	protected final String Px = "AT"; // AppToken
 
 	HttpServletRequest request;
 	HttpServletResponse response;
 
 	// 加载用户信息和count
-	public void headerRending(String AT, ModelMap map) throws Exception {
+	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
+		if (StringUtils.isBlank(AT)) {
+			AT = this.getAppToken(openid, "", commonService);
+		}
+		map.put(PxAT, AT);
+
 		Map<String, Object> userInfo = commonService.getWXUserInfo(AT);
 		map.put("userInfo", userInfo);
 	}

@@ -56,7 +56,7 @@ public class MyDishController extends BaseController {
 		}
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
+		pageInit(AT, openid, map);
 
 		map.put("meatTableMeta", myDishService.getRecommendedMeatList(recommendCount));
 		map.put("vegeTableMeta", myDishService.getRecommendedVegeList(recommendCount));
@@ -72,7 +72,7 @@ public class MyDishController extends BaseController {
 		}
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
+		pageInit(AT, openid, map);
 
 		map.put("meatTableMeta", myDishService.getRecommendedMeatList(recommendCount));
 		map.put("vegeTableMeta", myDishService.getRecommendedVegeList(recommendCount));
@@ -89,7 +89,7 @@ public class MyDishController extends BaseController {
 		}
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
+		pageInit(AT, openid, map);
 
 		map.put(SxTableMeta, myDishService.listAllCookbook());
 		return BasePath + "cookbook";
@@ -140,8 +140,7 @@ public class MyDishController extends BaseController {
 		}
 		map.put(PxAT, AT);
 
-		headerRending(AT, map);
-
+		pageInit(AT, openid, map);
 		myDishService.listAllCookbook(AT);
 		return BasePath + "dishes_history";
 	}
