@@ -1,6 +1,7 @@
 package com.tom.dengshaobing.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -97,12 +97,14 @@ public class CommonServiceImpl implements CommonService {
 		UUID storedUUID = UUID.randomUUID();
 		String extendsion = FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
 
-		String filePath = env.getProperty("FileStore.BaseFolder") + storedUUID.toString()
+		String filePath = env.getProperty("Multimedia.BaseFolder") + storedUUID.toString()
 				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
 
-		File destinationFile = new File(servletContext.getRealPath(filePath));
+//		File destinationFile = new File(servletContext.getRealPath(filePath));
+		
+		File destinationFile = new File(filePath);
 
-		FileUtils.copyInputStreamToFile(thumbnailFile.getInputStream(), destinationFile);
+		FileUtils.copyInputStreamToFile(thumbnailFile.getInputStream(), new File(filePath));
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UNIQUE_CODE", storedUUID);
@@ -115,4 +117,5 @@ public class CommonServiceImpl implements CommonService {
 		dataAccessService.insertSingle("SYS_FILE_STORE_MAPPING", paramMap);
 		return storedUUID;
 	}
+	
 }
