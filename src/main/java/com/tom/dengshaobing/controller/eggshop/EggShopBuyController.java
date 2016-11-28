@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
-import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author TommyDeng <250575979@qq.com>
