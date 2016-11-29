@@ -48,7 +48,7 @@
 
 	<div th:fragment="itemdetail-addcart-footer"
 		class="navbar-fixed-bottom itemdetail-addcart-footer">
-		<select id="item-count" class="">
+		<select id="product-count" class="">
 			<option>1</option>
 			<option>2</option>
 			<option>3</option>
@@ -59,22 +59,26 @@
 			<option>8</option>
 			<option>9</option>
 			<option>10</option>
-		</select><a id="add-item-btn"> <i class="fa fa-cart-plus fa-2x fa-border"
-			aria-hidden="true"></i>
-		</a>
+		</select> <a id="addItem-btn"><i class="fa fa-plus-square fa-2x fa-border"
+			aria-hidden="true"></i> </a><a id="cart-btn" th:href="@{cart(AT=${AT})}"><i
+			class="fa fa-shopping-cart fa-2x fa-border" aria-hidden="true"
+			><span id="cart-count-span" th:text="${cartInfo.CART_COUNT}"></span></i></a>
 	</div>
 
-	<div th:fragment="cart-preorder-footer"
-		class=" cart-preorder-footer"><div>SUM:￥88.88<a class="btn btn-default" th:href="@{preorder(AT=${AT})}"> <i class="fa fa-credit-card fa-2x"
-			aria-hidden="true"></i>
-		</a></div>
-		
+	<div th:fragment="cart-preorder-footer" class=" cart-preorder-footer">
+		<div>
+			SUM:￥88.88<a class="btn btn-default" th:href="@{preorder(AT=${AT})}">
+				<i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
+			</a>
+		</div>
+
 	</div>
 
-	<div th:fragment="backward-header(previous)"
+	<div th:fragment="backward-header(previousPage)"
 		class="navbar-fixed-top backward-header">
 		<div class="col-xs-3">
-			<a th:href="@{${previous}(AT=${AT})}"><i
+			<a
+				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
 				class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></a>
 		</div>
 	</div>

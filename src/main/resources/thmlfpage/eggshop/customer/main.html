@@ -23,7 +23,7 @@
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" th:each="swiper : ${swiperList}">
 					<a
-						th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previous=${previous})}">
+						th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previousPage=${previousPage})}">
 						<img th:src="@{'~/'+${swiper.PATH}}" th:alt="${swiperStat.count}"
 						width="100%">
 					</a>
@@ -40,7 +40,7 @@
 					<tbody>
 						<tr th:each="record : ${hotList}">
 							<th scope="row"><a th:text="${record.NAME}"
-								th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previous=${previous})}">Item</a></th>
+								th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">Item</a></th>
 							<td th:text="${record.SALECOUNT}">2</td>
 						</tr>
 					</tbody>
@@ -52,7 +52,7 @@
 			<div class="card-header">Recent</div>
 			<div class="col-xs-4" th:each="record : ${recentList}">
 				<a
-					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previous=${previous})}">
+					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
 					<figure class="figure item-cube">
 						<img th:src="@{'~/'+${record.PATH}}"
 							class="figure-img img-fluid rounded" th:alt="${record.BRIEF}">

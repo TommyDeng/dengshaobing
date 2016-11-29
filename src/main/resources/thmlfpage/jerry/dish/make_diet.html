@@ -2,16 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px; padding-top: 70px;">
-	<div class="container">
-		<nav class="navbar-default navbar-fixed-top">
-			<div class="pull-left" style="margin: 10px">
-				<img th:src="${userInfo.HEADIMGURL}" alt="..."
-					style="width: 30px; height: 30px" /> <label
-					th:text="${userInfo.NICKNAME}"></label>
-			</div>
-		</nav>
-	</div>
+<body style="padding-bottom: 70px;">
 	<div class="container">
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="nav-item"><a

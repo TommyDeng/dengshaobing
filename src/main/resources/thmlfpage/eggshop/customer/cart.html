@@ -35,7 +35,7 @@
 						<div
 							th:if="${head.uriAttachable and !head.columnLabel.equals('数量')}">
 							<a th:text="${recode[__${head.index}__]}"
-								th:href="@{itemdetail(rowUC=${recode[2]},AT=${AT})}"></a>
+								th:href="@{itemdetail(productUC=${recode[2]},AT=${AT},previousPage=${previousPage})}"></a>
 						</div>
 						<div
 							th:if="${!head.uriAttachable and !head.columnLabel.equals('数量')}">
@@ -47,13 +47,6 @@
 								th:onchange="'changeItemQty(\''+${recode[1]}+'\',\''+${AT}+'\',this,\''+${recode[4]}+'\');'"></input>
 						</div>
 					</td>
-				</tr>
-				<tr>
-					<td><a th:href="@{itemdetail(AT=${AT})}">demo</a></td>
-					<td>8.88</td>
-					<td><input type="number" value="10" style="width: 80px"></input>
-					</td>
-					<td>88.88</td>
 				</tr>
 			</tbody>
 		</table>

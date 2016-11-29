@@ -122,8 +122,8 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		// 仅查询数量
-		Long cartItemCount = dataAccessService.queryForOneObject("BUSS007", paramMap, Long.class);
-		paramMap.put("CART_COUNT", cartItemCount);
+		BigDecimal cartItemCount = dataAccessService.queryForOneObject("ES_BUSS009", paramMap, BigDecimal.class);
+		paramMap.put("CART_COUNT", cartItemCount.longValue());
 		return paramMap;
 	}
 
@@ -134,12 +134,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		paramMap.put("PRODUCT_UC", productUC);
-		BigDecimal count = dataAccessService.queryForOneObject("BUSS008", paramMap, BigDecimal.class);
+		BigDecimal count = dataAccessService.queryForOneObject("ES_BUSS007", paramMap, BigDecimal.class);
 
 		paramMap.put("UNIQUE_CODE", UUID.randomUUID());
 		paramMap.put("PRODUCT_COUNT",
 				count == null ? new BigDecimal(productCount) : count.add(new BigDecimal(productCount)));
-		dataAccessService.update("BUSS009", paramMap);
+		dataAccessService.update("ES_BUSS008", paramMap);
 		// 重新查询数量
 		Map<String, Object> cartInfoMap = getShoppingCartInfo(AT);
 		return (Long) cartInfoMap.get("CART_COUNT");

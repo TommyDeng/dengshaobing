@@ -1,31 +1,31 @@
-
 .version-tag {
-    display: block;
-    position: absolute;
-    width: 120px;
-    border: solid #fff;
-    border-width: 2px 1px;
-    padding: .25em 2.25em;
-    margin: 18px -30px 0 0;
-    right: 0;
-    top: 0px;
-    background: #f7cf57;
-    color: #000;
-    font-size: .8em;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 0 1px 1px #fff;
-    z-index: 9;
-    -webkit-transform: rotate(45deg) translate(4.8em, -1em);
-    -moz-transform: rotate(45deg) translate(4.8em, -1em);
-    -ms-transform: rotate(45deg) translate(4.8em, -1em);
-    -o-transform: rotate(45deg) translate(4.8em, -1em);
-    transform: rotate(45deg);
-    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
-    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
-    -o-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
-    box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+	display: block;
+	position: absolute;
+	width: 120px;
+	border: solid #fff;
+	border-width: 2px 1px;
+	padding: .25em 2.25em;
+	margin: 18px -30px 0 0;
+	right: 0;
+	top: 0px;
+	background: #f7cf57;
+	color: #000;
+	font-size: .8em;
+	font-weight: bold;
+	text-align: center;
+	text-shadow: 0 1px 1px #fff;
+	z-index: 9;
+	-webkit-transform: rotate(45deg) translate(4.8em, -1em);
+	-moz-transform: rotate(45deg) translate(4.8em, -1em);
+	-ms-transform: rotate(45deg) translate(4.8em, -1em);
+	-o-transform: rotate(45deg) translate(4.8em, -1em);
+	transform: rotate(45deg);
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+	-o-box-shadow: 0 0 6px rgba(0, 0, 0, .40);
+	box-shadow: 0 0 6px rgba(0, 0, 0, .40);
 }
+
 .shop-main-page-body {
 	padding-top: 28px;
 	padding-bottom: 50px;
@@ -83,10 +83,6 @@
 	line-height: 1;
 }
 
-.itemdetail-swiper-container {
-	background-color: aliceblue;
-}
-
 .main-swiper-container {
 	background-color: aliceblue;
 }
@@ -137,15 +133,23 @@
 	word-wrap: break-word;
 }
 
-.backward-header {
-	margin-top: 10px;
-	background-color: rgba(0, 0, 0, 0);
-	float: left;
+.itemdetail-swiper-container {
+	background-color: aliceblue;
 }
 
 .itemdetail-addcart-footer {
 	background-color: #ffffff;
 	text-align: center;
+}
+
+.itemdetail-addcart-footer #cart-btn  {
+	float: left;
+}
+
+.backward-header {
+	margin-top: 10px;
+	background-color: rgba(0, 0, 0, 0);
+	float: left;
 }
 
 .cart-preorder-footer {

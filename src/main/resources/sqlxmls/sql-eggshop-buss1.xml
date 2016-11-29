@@ -41,39 +41,6 @@ delete from ES_ORDER_ITEM where ORDER_UC = :ORDER_UC
 	]]>
 	</sql>
 
-	<sql name="BUSS006">
-	<![CDATA[
-SELECT p.*, f.PATH THUMBNAIL_PATH
-  FROM ES_PRODUCT p
-  left join SYS_FILE_STORE_MAPPING f
-    on p.THUMBNAIL = f.UNIQUE_CODE
- where p.UNIQUE_CODE = :UNIQUE_CODE
-	]]>
-	</sql>
-
-	<sql name="BUSS007">
-	<![CDATA[
-SELECT count(1) FROM ES_SHOPPING_CART  where USER_UC  = :USER_UC 
-	]]>
-	</sql>
-
-	<sql name="BUSS008">
-	<![CDATA[
-SELECT PRODUCT_COUNT
-  FROM ES_SHOPPING_CART
- where USER_UC = :USER_UC
-   and PRODUCT_UC = :PRODUCT_UC
-   	]]>
-	</sql>
-
-	<sql name="BUSS009">
-	<![CDATA[
-MERGE INTO ES_SHOPPING_CART(UNIQUE_CODE, USER_UC, PRODUCT_UC, PRODUCT_COUNT)
- KEY(USER_UC, PRODUCT_UC)
-values(:UNIQUE_CODE, :USER_UC, :PRODUCT_UC, :PRODUCT_COUNT)
-   	]]>
-	</sql>
-
 	<sql name="BUSS010">
 	<![CDATA[
 SELECT S.UNIQUE_CODE AS UNIQUE_CODE$K$H,
