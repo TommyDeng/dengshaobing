@@ -456,4 +456,9 @@ public class DataAccessServiceImpl implements DataAccessService {
 		return namedParameterJdbcTemplate.queryForList(SqlStatements.get(sqlName), paramMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> queryMapList(String sqlName) {
+		return queryMapList(sqlName, null);
+	}
+
 }

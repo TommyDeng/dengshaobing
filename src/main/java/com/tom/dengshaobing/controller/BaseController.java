@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,31 +34,37 @@ public class BaseController {
 	protected final String SxMapList = "mapList";// 页面mapList变量(简单数据列表:List<Map<String,
 													// Object>>)
 
-	protected final String PxOpenid = "openid";// openid:当前操作用户openid
-
-	protected final String PxUserUC = "userUC";// userUC:当前操作用户ID
-
-	protected final String PxRowUC = "rowUC";// rowUC:记录ID
-
 	protected final String PxAT = "AT"; // AppToken
 
-	protected final String Px = "AT"; // AppToken
-
-	HttpServletRequest request;
-	HttpServletResponse response;
-
-	// 加载用户信息和count
+	/**
+	 * 初始化页面变量AT，并传递
+	 * 
+	 * @param openid
+	 * @param map
+	 * @throws Exception
+	 */
 	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
 		if (StringUtils.isBlank(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);
-
-		Map<String, Object> userInfo = commonService.getWXUserInfo(AT);
-		map.put("userInfo", userInfo);
 	}
 
 	public String getAppToken(String entranceId, String entranceType, CommonService commonService) throws Exception {
+		return commonService.getAppTokenByEntranceId(entranceId, entranceType);
+	}
+
+	/**
+	 * 入口处获得App Token
+	 * 
+	 * @param entranceId
+	 * @param entranceType
+	 * @param commonService
+	 * @return
+	 * @throws Exception
+	 */
+	public String getAppTokenByEntrance(String entranceId, String entranceType, CommonService commonService)
+			throws Exception {
 		return commonService.getAppTokenByEntranceId(entranceId, entranceType);
 	}
 }

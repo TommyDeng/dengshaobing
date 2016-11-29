@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
-import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,16 +70,13 @@ public class EggShopOrderController extends BaseController {
 			mapForm = new MapForm();
 		}
 		map.put(SxFormData, mapForm);
-		map.put(PxRowUC, rowUC);
+		map.put("rowUC", rowUC);
 
 		return BasePath + "edit";
 	}
 
 	@RequestMapping("/save")
 	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
-		UUID userUC = (UUID) mapForm.getProperties().get(PxUserUC);
-
-		String rowUC2 = (String) mapForm.getProperties().get("UNIQUE_CODE");
 		if (StringUtils.isBlank(rowUC)) {
 			bussService.addProduct(mapForm.getProperties(), null);
 		} else {

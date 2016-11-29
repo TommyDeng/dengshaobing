@@ -5,143 +5,26 @@
 <body class="shop-main-page-body">
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="category-sidebar">
-		<div class="a-select">
-			<img alt="" th:src="@{/img/eggshop/democategory/1.png}">
+		<div th:class="${categoryUC == null?'a-select':''}">
+			<a th:href="@{category(AT=${AT})}"><img alt="all"
+				th:src="@{~/upload_files/c1.png}"></a>
 		</div>
-		<div>
-			<img alt="" th:src="@{/img/eggshop/democategory/2.png}">
-		</div>
-		<div>
-			<img alt="" th:src="@{/img/eggshop/democategory/3.png}">
-		</div>
-		<div>
-			<img alt="" th:src="@{/img/eggshop/democategory/4.png}">
-		</div>
-		<div>
-			<img alt="" th:src="@{/img/eggshop/democategory/5.png}">
+		<div th:each="record : ${categoryList}"
+			th:class="${#strings.equals(record.UNIQUE_CODE, categoryUC)?'a-select':''}">
+			<a th:href="@{category(AT=${AT},categoryUC=${record.UNIQUE_CODE})}"><img
+				th:alt="${record.REMARK}" th:src="@{'~/'+${record.PATH}}"></a>
 		</div>
 	</div>
 	<div class="category-content">
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A c</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
-		</div>
-
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A c</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A c</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A capaas s21s</figcaption>
-			</figure>
-		</div>
-		<div class="col-xs-4">
-			<figure class="figure item-cube">
-				<img th:src="@{/img/test/itemmock.png}"
-					class="figure-img img-fluid rounded"
-					alt="A generic square placeholder image with rounded corners in a figure.">
-				<figcaption class="">A cap</figcaption>
-			</figure>
+		<div class="col-xs-4" th:each="record : ${productList}">
+			<a
+				th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previous=${previous},previous=${previous})}">
+				<figure class="figure item-cube">
+					<img th:src="@{'~/'+${record.PATH}}"
+						class="figure-img img-fluid rounded" th:alt="${record.BRIEF}">
+					<figcaption class="" th:text="${record.NAME}">Item</figcaption>
+				</figure>
+			</a>
 		</div>
 	</div>
 	<div th:insert="/eggshop/common/fragment :: shop-footer(2)"></div>

@@ -106,7 +106,7 @@ public class MyDishController extends BaseController {
 			mapForm = new MapForm();
 		}
 		map.put(SxFormData, mapForm);
-		map.put(PxRowUC, rowUC);
+		map.put("rowUC", rowUC);
 
 		return BasePath + "cookbook_edit";
 	}

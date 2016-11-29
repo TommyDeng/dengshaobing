@@ -110,4 +110,12 @@ public interface DataAccessService {
 	 * @return
 	 */
 	List<Map<String, Object>> queryMapList(String sqlName, Map<String, Object> paramMap);
+	
+	/**
+	 * 查询MapList
+	 * @param sqlName
+	 * @param paramMap
+	 * @return
+	 */
+	List<Map<String, Object>> queryMapList(String sqlName);
 }
