@@ -4,7 +4,9 @@
 </head>
 <script type="text/javascript" th:inline="javascript">
 	function changeItemQty(cartItemUC, itemPrice,countInput) {
-		$("#cart-table").load([[@{changeCartItemQty(AT=${AT})}]]);
+		var itemCount = $(countInput).val();
+		var url = 'changeCartItemQty?AT='+[[${AT}]]+'&cartItemUC='+cartItemUC+'&itemCount='+itemCount;
+		$("#cart-table").load(url);
 	}
 </script>
 <body class="shop-main-page-body">
@@ -21,23 +23,24 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="recode : ${cartList}">
+				<tr th:each="record : ${cartList}">
 					<td><label class="custom-control custom-checkbox"> <input
 							type="checkbox" class="custom-control-input"> <span
-							class="custom-control-indicator"></span>
+							class="custom-control-indicator"></span> <span
+							class="custom-control-description" th:text="${recordStat.count}"> 1</span>
 					</label></td>
 
-					<td><a th:text="${recode.NAME}"
-						th:href="@{itemdetail(productUC=${recode.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"></a>
+					<td><a th:text="${record.NAME}"
+						th:href="@{itemdetail(productUC=${record.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"></a>
 					</td>
 
-					<td th:text="${recode.PRICE}"></td>
+					<td th:text="${record.PRICE}"></td>
 
-					<td><input type="number" th:value="${recode.PRODUCT_COUNT}"
+					<td><input type="number" th:value="${record.PRODUCT_COUNT}"
 						style="width: 80px"
-						th:onchange="'changeItemQty(\''+${recode.UNIQUE_CODE}+'\',\''+${recode.PRICE}+'\',this);'"></input>
+						th:onchange="'changeItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'"></input>
 					</td>
-					<td th:text="${recode.SUM_AMOUNT}"></td>
+					<td th:text="${record.SUM_AMOUNT}"></td>
 				</tr>
 			</tbody>
 		</table>

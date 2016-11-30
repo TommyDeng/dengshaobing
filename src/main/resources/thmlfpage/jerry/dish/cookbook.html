@@ -37,18 +37,18 @@
 						</tr>
 					</thead>
 					<tbody th:remove="all-but-first">
-						<tr th:each="recode : ${tableMeta.dataList}">
-							<td><div th:switch="${recode[3]}">
+						<tr th:each="record : ${tableMeta.dataList}">
+							<td><div th:switch="${record[3]}">
 									<i th:case="'VEGE'" class="fa fa-leaf" aria-hidden="true"></i>
 									<i th:case="'MEAT'" class="fa fa-linux" aria-hidden="true"></i>
 								</div></td>
 
 							<td th:each="head : ${tableMeta.headList}"
-								th:text="${recode[__${head.index}__]}" th:if="${head.display}"></td>
+								th:text="${record[__${head.index}__]}" th:if="${head.display}"></td>
 
 							<!-- update operation -->
 							<td><a class="btn btn-default" role="button"
-								th:href="@{cookbook_edit(rowUC=${recode[1]},AT=${AT})}"><i
+								th:href="@{cookbook_edit(rowUC=${record[1]},AT=${AT})}"><i
 									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
 						</tr>
 					</tbody>

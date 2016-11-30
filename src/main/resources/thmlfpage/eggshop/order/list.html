@@ -17,10 +17,10 @@
 				</tr>
 			</thead>
 			<tbody th:remove="all-but-first">
-				<tr th:each="recode : ${tableMeta.dataList}">
+				<tr th:each="record : ${tableMeta.dataList}">
 
 					<th th:each="head : ${tableMeta.headList}"
-						th:text="${recode[__${head.index}__]}"></th>
+						th:text="${record[__${head.index}__]}"></th>
 				</tr>
 			</tbody>
 		</table>

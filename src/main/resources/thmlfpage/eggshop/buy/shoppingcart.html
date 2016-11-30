@@ -30,22 +30,22 @@
 				</tr>
 			</thead>
 			<tbody th:remove="all-but-first">
-				<tr th:each="recode : ${tableMeta.dataList}">
+				<tr th:each="record : ${tableMeta.dataList}">
 
 					<td th:each="head : ${tableMeta.headList}" th:if="${head.display}">
 						<div
 							th:if="${head.uriAttachable and !head.columnLabel.equals('数量')}">
-							<a th:text="${recode[__${head.index}__]}"
-								th:href="@{item(rowUC=${recode[2]},AT=${AT})}"></a>
+							<a th:text="${record[__${head.index}__]}"
+								th:href="@{item(rowUC=${record[2]},AT=${AT})}"></a>
 						</div>
 						<div
 							th:if="${!head.uriAttachable and !head.columnLabel.equals('数量')}">
-							<label th:text="${recode[__${head.index}__]}"></label>
+							<label th:text="${record[__${head.index}__]}"></label>
 						</div>
 						<div th:if="${head.columnLabel.equals('数量')}">
-							<input type="number" th:value="${recode[__${head.index}__]}"
+							<input type="number" th:value="${record[__${head.index}__]}"
 								style="width: 80px"
-								th:onchange="'changeItemQty(\''+${recode[1]}+'\',\''+${AT}+'\',this,\''+${recode[4]}+'\');'"></input>
+								th:onchange="'changeItemQty(\''+${record[1]}+'\',\''+${AT}+'\',this,\''+${record[4]}+'\');'"></input>
 						</div>
 					</td>
 				</tr>
