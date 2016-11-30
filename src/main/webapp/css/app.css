@@ -155,11 +155,7 @@
 .cart-preorder-footer {
 	bottom: 55px;
 	position: fixed;
-	width: 100%;
-}
-
-.cart-preorder-footer>div {
-	float: right;
+	right: 10%;
 }
 
 .preorder-payment-weixin {

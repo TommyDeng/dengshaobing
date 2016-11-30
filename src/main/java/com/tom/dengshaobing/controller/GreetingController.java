@@ -44,6 +44,9 @@ public class GreetingController extends BaseController {
 		return "index";
 	}
 
+	/*
+	 * 关于
+	 */
 	@RequestMapping("/aboutme")
 	public String aboutme(ModelMap map) throws Exception {
 
@@ -51,11 +54,21 @@ public class GreetingController extends BaseController {
 		return "aboutme";
 	}
 	
-	
+	/*
+	 * 版本简介
+	 */
 	@RequestMapping("/versiondetail")
 	public String versiondetail(ModelMap map) throws Exception {
 		// map.put("host", name);
 		return "versiondetail";
 	}
 	
+	/*
+	 * 测试
+	 */
+	@RequestMapping("/test")
+	public String test(ModelMap map) throws Exception {
+		// map.put("host", name);
+		return "test";
+	}
 }

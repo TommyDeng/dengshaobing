@@ -89,10 +89,10 @@ public class EggShopBuyController extends BaseController {
 	public String shoppingcart(ModelMap map, String AT) throws Exception {
 		map.put(PxAT, AT);
 
-		TableMeta tableMeta = bussService.listShoppingCart(AT);
-		tableMeta.title = "SHOPPING CART";
+//		TableMeta tableMeta = bussService.listShoppingCart(AT);
+//		tableMeta.title = "SHOPPING CART";
 
-		map.put(SxTableMeta, tableMeta);
+//		map.put(SxTableMeta, tableMeta);
 		return BasePath + "shoppingcart";
 	}
 

@@ -1,6 +1,7 @@
 package com.tom.dengshaobing.controller.eggshop.customer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,12 +19,15 @@ import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author TommyDeng <250575979@qq.com>
  * @version 创建时间：2016年9月26日 上午10:19:18
  *
  */
 
+@Slf4j
 @Controller
 @RequestMapping("/eggshop/customer")
 public class CustMainController extends BaseController {
@@ -95,10 +99,8 @@ public class CustMainController extends BaseController {
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
 		
-		
 		//添加按钮 
 		map.put("productUC", productUC);
-		
 		
 		//返回按钮
 		map.put("previousPage", previousPage);
@@ -120,16 +122,27 @@ public class CustMainController extends BaseController {
 			throws Exception {
 		pageInit(AT, openid, map);
 
-		TableMeta tableMeta = bussService.listShoppingCart(AT);
-		tableMeta.title = "SHOPPING CART";
+		List<Map<String, Object>> cartList = bussService.listShoppingCart(AT);
 
-		map.put(SxTableMeta, tableMeta);
+		map.put("cartList", cartList);
 		
 		
 		map.put("previousPage", "cart");
 		
 		return BasePath + "cart";
 	}
+	
+	
+	@RequestMapping("/changeCartItemQty")
+	public String changeCartItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
+		bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC),
+				Long.parseLong(itemCount), AT);
+		List<Map<String, Object>> cartList = bussService.listShoppingCart(AT);
+		
+		map.put("cartList", cartList);
+		return BasePath + "cart :: #cart-table";
+	}
+	
 
 	@RequestMapping("/preorder")
 	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)

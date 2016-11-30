@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+<title>Test</title>
+
+</head>
+
+<body>
+	<div class="form-group">
+		<label for="exampleInputFile">File input</label> <input type="file"
+			class="form-control-file" id="exampleInputFile"
+			aria-describedby="fileHelp" multiple="multiple"> <small
+			class="form-text text-muted">This is some placeholder.</small>
+	</div>
+
+	<label class="custom-file"> Browse <input type="file"
+		style="display: none;">
+	</label>
+
+	<label class="custom-file"> <input type="file" id="file"
+		class="custom-file-input"> <span class="custom-file-control">This
+			is some placeholder.</span>
+	</label>
+
+
+	<label class="custom-control custom-checkbox your-checkbox"> <input
+		type="checkbox" class="custom-control-input" checked="checked"> <span
+		class="custom-control-indicator"></span> <span
+		class="custom-control-description">a</span>
+	</label>
+</body>
+</html>

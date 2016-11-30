@@ -41,19 +41,6 @@ delete from ES_ORDER_ITEM where ORDER_UC = :ORDER_UC
 	]]>
 	</sql>
 
-	<sql name="BUSS010">
-	<![CDATA[
-SELECT S.UNIQUE_CODE AS UNIQUE_CODE$K$H,
-       P.UNIQUE_CODE AS UNIQUE_CODE$H,
-       P.NAME 名称$L,
-       P.PRICE 单价,
-       CONVERT(S.PRODUCT_COUNT, INT) 数量,
-       TRUNCATE(P.PRICE * S.PRODUCT_COUNT,2) 小计
-  FROM ES_SHOPPING_CART S, ES_PRODUCT P
- WHERE S.PRODUCT_UC = P.UNIQUE_CODE
-   AND S.USER_UC = :USER_UC
-	]]>
-	</sql>
 
 	<sql name="BUSS011">
 	<![CDATA[

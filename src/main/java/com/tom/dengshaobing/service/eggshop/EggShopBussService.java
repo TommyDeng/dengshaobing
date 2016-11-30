@@ -133,7 +133,7 @@ public interface EggShopBussService {
 	 * @param AT
 	 * @return
 	 */
-	TableMeta listShoppingCart(String AT);
+	List<Map<String, Object>> listShoppingCart(String AT);
 
 	/**
 	 * 变更cart项数量

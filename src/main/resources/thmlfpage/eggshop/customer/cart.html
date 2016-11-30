@@ -2,55 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
-<script type="text/javascript">
-	function changeItemQty(cartItemUC, AT, inputItem, itemPrice) {
-		var itemCount = $(inputItem).val();
-		$.post("changeItemQty", {
-			cartItemUC : cartItemUC,
-			AT : AT,
-			itemCount : itemCount
-		}, function(resultVar) {
-			var targetRefreshItem = $(inputItem).parent().parent().siblings()
-					.last().children().children();
-			targetRefreshItem.fadeToggle('fast');
-			targetRefreshItem.html(resultVar * itemPrice);
-			targetRefreshItem.fadeToggle('fast');
-		});
+<script type="text/javascript" th:inline="javascript">
+	function changeItemQty(cartItemUC, itemPrice,countInput) {
+		$("#cart-table").load([[@{changeCartItemQty(AT=${AT})}]]);
 	}
 </script>
 <body class="shop-main-page-body">
 	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
 	<div class="container">
-		<table class="table table-striped table-sm">
+		<table id="cart-table" class="table table-striped table-sm">
 			<thead>
 				<tr>
-					<th th:each="head : ${tableMeta.headList}"
-						th:text="${head.columnLabel}" th:if="${head.display}"></th>
+					<th>#</th>
+					<th>NAME</th>
+					<th>PRICE</th>
+					<th>COUNT</th>
+					<th>SUM</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="recode : ${tableMeta.dataList}">
+				<tr th:each="recode : ${cartList}">
+					<td><label class="custom-control custom-checkbox"> <input
+							type="checkbox" class="custom-control-input"> <span
+							class="custom-control-indicator"></span>
+					</label></td>
 
-					<td th:each="head : ${tableMeta.headList}" th:if="${head.display}">
-						<div
-							th:if="${head.uriAttachable and !head.columnLabel.equals('数量')}">
-							<a th:text="${recode[__${head.index}__]}"
-								th:href="@{itemdetail(productUC=${recode[2]},AT=${AT},previousPage=${previousPage})}"></a>
-						</div>
-						<div
-							th:if="${!head.uriAttachable and !head.columnLabel.equals('数量')}">
-							<label th:text="${recode[__${head.index}__]}"></label>
-						</div>
-						<div th:if="${head.columnLabel.equals('数量')}">
-							<input type="number" th:value="${recode[__${head.index}__]}"
-								style="width: 80px"
-								th:onchange="'changeItemQty(\''+${recode[1]}+'\',\''+${AT}+'\',this,\''+${recode[4]}+'\');'"></input>
-						</div>
+					<td><a th:text="${recode.NAME}"
+						th:href="@{itemdetail(productUC=${recode.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"></a>
 					</td>
+
+					<td th:text="${recode.PRICE}"></td>
+
+					<td><input type="number" th:value="${recode.PRODUCT_COUNT}"
+						style="width: 80px"
+						th:onchange="'changeItemQty(\''+${recode.UNIQUE_CODE}+'\',\''+${recode.PRICE}+'\',this);'"></input>
+					</td>
+					<td th:text="${recode.SUM_AMOUNT}"></td>
 				</tr>
 			</tbody>
 		</table>
-		<div th:insert="/eggshop/common/fragment :: cart-preorder-footer"></div>
+		<div class="container">
+			<div th:replace="/eggshop/common/fragment :: cart-preorder-footer"></div>
+		</div>
 	</div>
 
 	<div th:insert="/eggshop/common/fragment :: shop-footer(3)"></div>

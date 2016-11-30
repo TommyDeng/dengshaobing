@@ -146,12 +146,12 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public TableMeta listShoppingCart(String AT) {
+	public List<Map<String, Object>> listShoppingCart(String AT) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 
-		return dataAccessService.queryTableMeta("BUSS010", paramMap);
+		return dataAccessService.queryMapList("ES_BUSS010", paramMap);
 	}
 
 	@Override
@@ -180,9 +180,9 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap.put("UNIQUE_CODE", userUC);
 		return dataAccessService.queryForOneRowMap("BUSS014", paramMap);
 	}
-	
+
 	@Override
-	public void saveUserInfo(Map<String, Object> userInfo,String AT) throws Exception {
+	public void saveUserInfo(Map<String, Object> userInfo, String AT) throws Exception {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		userInfo.put("UNIQUE_CODE", userUC);
 		dataAccessService.updateSingle("SYS_USER", userInfo);
