@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop.customer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +10,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tom.dengshaobing.common.bo.sys.ListForm;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
@@ -47,6 +50,16 @@ public class CustMainController extends BaseController {
 
 	public void setMapForm(MapForm mapForm) {
 		this.mapForm = mapForm;
+	}
+
+	ListForm listForm = new ListForm();
+
+	public ListForm getListForm() {
+		return listForm;
+	}
+
+	public void setListForm(ListForm listForm) {
+		this.listForm = listForm;
 	}
 
 	@RequestMapping("/main")
@@ -98,22 +111,21 @@ public class CustMainController extends BaseController {
 
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
-		
-		//添加按钮 
+
+		// 添加按钮
 		map.put("productUC", productUC);
-		
-		//返回按钮
+
+		// 返回按钮
 		map.put("previousPage", previousPage);
 		map.put("previousCategory", previousCategory);
 
 		return BasePath + "itemdetail";
 	}
-	
+
 	@RequestMapping("/addItem")
 	@ResponseBody
 	public String addItem(ModelMap map, String productUC, Long productCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(productUC), productCount,
-				AT);
+		Long shoppingCartCount = bussService.addItemShoppingCart(UUID.fromString(productUC), productCount, AT);
 		return String.valueOf(shoppingCartCount);
 	}
 
@@ -122,31 +134,34 @@ public class CustMainController extends BaseController {
 			throws Exception {
 		pageInit(AT, openid, map);
 
-		List<Map<String, Object>> cartList = bussService.listShoppingCart(AT);
+		listForm.setDataList(bussService.listShoppingCart(AT));
 
-		map.put("cartList", cartList);
+		// 默认全部勾选
+		List<String> checkedList = new ArrayList<>();
+		for (Map<String, Object> record : listForm.getDataList()) {
+			checkedList.add(record.get("UNIQUE_CODE").toString());
+		}
+		listForm.setCheckedList(new ArrayList<>());
+		map.put("cartList", listForm);
 		
+		map.put("previousPage", "cart");
+
+		return BasePath + "cart";
+	}
+
+	@RequestMapping("/changeCartItemQty")
+	public String changeCartItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
+		bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC), Long.parseLong(itemCount), AT);
 		
 		map.put("previousPage", "cart");
 		
-		return BasePath + "cart";
+//		return BasePath + "cart :: #cart-block";
+		return itemCount;
 	}
-	
-	
-	@RequestMapping("/changeCartItemQty")
-	public String changeCartItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
-		bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC),
-				Long.parseLong(itemCount), AT);
-		List<Map<String, Object>> cartList = bussService.listShoppingCart(AT);
-		
-		map.put("cartList", cartList);
-		return BasePath + "cart :: #cart-table";
-	}
-	
 
 	@RequestMapping("/preorder")
-	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
-			throws Exception {
+	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			@ModelAttribute ListForm cartList) throws Exception {
 		pageInit(AT, openid, map);
 
 		return BasePath + "preorder";

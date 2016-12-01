@@ -61,15 +61,17 @@
 			<option>10</option>
 		</select> <a id="addItem-btn"><i class="fa fa-plus-square fa-2x fa-border"
 			aria-hidden="true"></i> </a><a id="cart-btn" th:href="@{cart(AT=${AT})}"><i
-			class="fa fa-shopping-cart fa-2x fa-border" aria-hidden="true"
-			><span id="cart-count-span" th:text="${cartInfo.CART_COUNT}"></span></i></a>
+			class="fa fa-shopping-cart fa-2x fa-border" aria-hidden="true"><span
+				id="cart-count-span" th:text="${cartInfo.CART_COUNT}"></span></i></a>
 	</div>
 
 	<div th:fragment="cart-preorder-footer" class=" cart-preorder-footer">
-			SUM:￥88.88<a class="btn btn-default" th:href="@{preorder(AT=${AT})}">
-				<i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
-			</a>
+		SUM:￥88.88 <button type="submit" class="btn btn-default"
+			th:formaction="@{preorder(AT=${AT})}" th:formmethod="post">
+			<i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
+		</button>
 	</div>
+	
 
 	<div th:fragment="backward-header(previousPage)"
 		class="navbar-fixed-top backward-header">
