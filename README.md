@@ -1,4 +1,4 @@
 # dengshaobing
 dengshaobing repository
 
-visit our website: [Markdown](http://www.dengshaobing.com/dengshaobing/)
+visit our website: [www.dengshaobing.com](http://www.dengshaobing.com/dengshaobing/)
