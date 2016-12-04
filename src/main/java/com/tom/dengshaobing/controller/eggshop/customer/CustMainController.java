@@ -6,18 +6,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.bo.sys.ListForm;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
-import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
@@ -80,7 +85,7 @@ public class CustMainController extends BaseController {
 			String selectCategory) throws Exception {
 		pageInit(AT, openid, map);
 
-		if (StringUtils.isBlank(selectCategory)) {
+		if (StringUtils.isEmpty(selectCategory)) {
 			selectCategory = null;
 		}
 
@@ -105,7 +110,7 @@ public class CustMainController extends BaseController {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
-		Map<String, Object> product = dataAccessService.queryForOneRowMap("ES_BUSS006", paramMap);
+		Map<String, Object> product = dataAccessService.queryForOneRow("ES_BUSS006", paramMap);
 
 		map.put("product", product);
 
@@ -134,16 +139,8 @@ public class CustMainController extends BaseController {
 			throws Exception {
 		pageInit(AT, openid, map);
 
-		listForm.setDataList(bussService.listShoppingCart(AT));
+		cartBlockDataLoad(map, AT);
 
-		// 默认全部勾选
-		List<String> checkedList = new ArrayList<>();
-		for (Map<String, Object> record : listForm.getDataList()) {
-			checkedList.add(record.get("UNIQUE_CODE").toString());
-		}
-		listForm.setCheckedList(new ArrayList<>());
-		map.put("cartList", listForm);
-		
 		map.put("previousPage", "cart");
 
 		return BasePath + "cart";
@@ -151,20 +148,106 @@ public class CustMainController extends BaseController {
 
 	@RequestMapping("/changeCartItemQty")
 	public String changeCartItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
-		bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC), Long.parseLong(itemCount), AT);
-		
-		map.put("previousPage", "cart");
-		
-//		return BasePath + "cart :: #cart-block";
-		return itemCount;
+		bussService.changeCartItemQty(UUID.fromString(cartItemUC), Long.parseLong(itemCount), AT);
+
+		cartBlockDataLoad(map, AT);
+
+		return BasePath + "cart :: #cart-block";
+	}
+
+	@RequestMapping("/deleteCartItem")
+	public String deleteCartItem(ModelMap map, String cartItemUC, String AT) throws Exception {
+		bussService.deleteCartItem(UUID.fromString(cartItemUC), AT);
+
+		cartBlockDataLoad(map, AT);
+
+		return BasePath + "cart :: #cart-block";
+	}
+
+	@RequestMapping("/selectCartItem")
+	public String selectCartItem(ModelMap map, String cartItemUC, String AT) throws Exception {
+		bussService.selectCartItem(UUID.fromString(cartItemUC), AT);
+
+		cartBlockDataLoad(map, AT);
+
+		return BasePath + "cart :: #cart-block";
+	}
+
+	@RequestMapping("/selectAllCartItem")
+	public String selectAllCartItem(ModelMap map, String AT, boolean selected) throws Exception {
+		bussService.selectAllCartItem(AT, selected);
+
+		cartBlockDataLoad(map, AT);
+
+		return BasePath + "cart :: #cart-block";
+	}
+
+	private void cartBlockDataLoad(ModelMap map, String AT) {
+		listForm.setDataList(bussService.listShoppingCart(AT));
+		// 全选状态
+		boolean cartSelectAllStatus = false;
+		// 总金额
+		Double cartTotalAmount = 0d;
+		// 选择check列表
+		List<Object> checkedList = new ArrayList<>();
+		for (Map<String, Object> record : listForm.getDataList()) {
+			if ((boolean) record.get("SELECTED")) {
+				checkedList.add(record.get("UNIQUE_CODE"));
+				cartTotalAmount += (Double) record.get("SUB_AMT");
+			} else {
+				// 只要有未选择的项目，则设置为可全选
+				cartSelectAllStatus = true;
+			}
+		}
+
+		listForm.setCheckedList(checkedList);
+
+		map.put("cartList", listForm);
+		map.put("cartSelectAllStatus", cartSelectAllStatus);
+		map.put("cartTotalAmount", cartTotalAmount);
+
+		// preorder按钮上的AT刷新
+		map.put(PxAT, AT);
+
 	}
 
 	@RequestMapping("/preorder")
-	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
-			@ModelAttribute ListForm cartList) throws Exception {
+	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
 		pageInit(AT, openid, map);
 
+		// address list
+		List<Map<String, Object>> addressList = bussService.getUserDeliveryAddressList(AT);
+		listForm.setDataList(addressList);
+		// 默认选中第一个
+		if (!CollectionUtils.isEmpty(addressList)) {
+			List<Object> checkedList = new ArrayList<>();
+			checkedList.add(addressList.get(0).get("UNIQUE_CODE"));
+			listForm.setCheckedList(checkedList);
+		}
+
+		// selected item list
+		List<Map<String, Object>> selectedItemList = bussService.getSelectedItemList(AT);
+
+		map.put("addressList", listForm);
+
+		map.put("selectedItemList", selectedItemList);
+
 		return BasePath + "preorder";
+	}
+
+	@RequestMapping("/submitorder")
+	public String submitorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			ListForm listForm) throws Exception {
+		pageInit(AT, openid, map);
+
+		UUID selectedAddressUC = UUID.fromString((String) listForm.getCheckedList().get(0));
+
+		String paymentType = Const.PAYMENT_TYPE.Weixin;
+
+		bussService.submitOrder(AT, selectedAddressUC, paymentType);
+
+		return "redirect:" + BasePath + "main";
 	}
 
 	@RequestMapping("/myprofile")
@@ -172,9 +255,88 @@ public class CustMainController extends BaseController {
 			throws Exception {
 		pageInit(AT, openid, map);
 
-		map.put("weixinUserInfo", bussService.getWeixinUserInfo(AT));
+		map.put("userInfo", bussService.getWeixinUserInfo(AT));
+		map.put("weixinUserInfo", bussService.getWeixinUserInfoDetail(AT));
 		map.put("contactInfo", bussService.getUserInfo(AT));
 		return BasePath + "myprofile";
 	}
 
+	@RequestMapping("/saveUserContactInfo")
+	@ResponseBody
+	public String saveUserContactInfo(ModelMap map, String mobile, String email, String AT) throws Exception {
+		Map<String, Object> userInfo = new HashMap<>();
+		userInfo.put("MOBILE", mobile);
+		userInfo.put("EMAIL", email);
+		bussService.saveUserInfo(userInfo, AT);
+		return "";
+	}
+
+	@RequestMapping("/myorder")
+	public String myorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			String orderStatus) throws Exception {
+		pageInit(AT, openid, map);
+
+		List<Map<String, Object>> orderList = bussService.getOrderList(AT, orderStatus);
+
+		map.put("orderList", orderList);
+
+		map.put("orderStatus", orderStatus);
+
+		map.put("previousPage", "myprofile");
+
+		return BasePath + "myorder";
+	}
+
+	@RequestMapping("/address")
+	public String address(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+			throws Exception {
+		pageInit(AT, openid, map);
+		List<Map<String, Object>> addressList = bussService.getUserDeliveryAddressList(AT);
+		map.put("addressList", addressList);
+
+		map.put("previousPage", "myprofile");
+
+		return BasePath + "address";
+	}
+
+	@RequestMapping("/addressEdit")
+	public String addressEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			String rowUC) throws Exception {
+		pageInit(AT, openid, map);
+
+		if (rowUC != null) {
+			Map<String, Object> address = dataAccessService.queryForOneRowAllColumn("ES_DELIVERY_ADDRESS",
+					UUID.fromString(rowUC));
+			mapForm.setProperties(address);
+		} else {
+			mapForm = new MapForm();
+		}
+
+		map.put(SxFormData, mapForm);
+		map.put("rowUC", rowUC);
+
+		map.put("previousPage", "address");
+
+		return BasePath + "addressEdit";
+	}
+
+	@RequestMapping("/addressSave")
+	public String addressSave(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT) throws Exception {
+
+		if (StringUtils.isEmpty(rowUC)) {
+			dataAccessService.insertSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
+		} else {
+			dataAccessService.updateSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
+		}
+		return "redirect:" + BasePath + "address";
+	}
+
+	@RequestMapping("/addressDelete")
+	public String addressDelete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT)
+			throws Exception {
+
+		dataAccessService.deleteRowById("ES_DELIVERY_ADDRESS", UUID.fromString(rowUC));
+
+		return "redirect:" + BasePath + "address";
+	}
 }

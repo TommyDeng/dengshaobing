@@ -66,12 +66,12 @@
 	</div>
 
 	<div th:fragment="cart-preorder-footer" class=" cart-preorder-footer">
-		SUM:￥88.88 <button type="submit" class="btn btn-default"
-			th:formaction="@{preorder(AT=${AT})}" th:formmethod="post">
-			<i class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
-		</button>
+		<b> SUM:￥<span th:text="${cartTotalAmount}"></span></b> <a
+			class="btn btn-default" th:href="@{preorder(AT=${AT})}"> <i
+			class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
+		</a>
 	</div>
-	
+
 
 	<div th:fragment="backward-header(previousPage)"
 		class="navbar-fixed-top backward-header">
@@ -81,6 +81,26 @@
 				class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></a>
 		</div>
 	</div>
+
+	<div th:fragment="preorder-footer"
+		class="navbar-fixed-bottom preorder-footer">
+		<button class="btn btn-info" th:formaction="@{submitorder(AT=${AT})}"
+			th:formmethod="post" role="button" style="float: right;">提交订单</button>
+		<a class="btn" role="button" style="float: right"
+			th:href="@{cart(AT=${AT})}">返回</a>
+	</div>
+
+	<div th:fragment="page-loading"
+		style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 90; background-color: transparent;">
+		<div
+			style="text-align: center; background-color: rgba(0, 0, 0, 0.5); color: #fff; position: fixed; top: 50%; left: 50%; margin-left: -70px; margin-top: -48px; width: 140px; border-radius: 6px; font-size: 14px; padding: 58px 0 10px 0;">
+			<p>
+				<i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+			</p>
+			<p>请求加载中...</p>
+		</div>
+	</div>
+
 
 	<!-- page header -->
 	<div th:fragment="header-user-shoppingcart">

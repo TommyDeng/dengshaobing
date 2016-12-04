@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
@@ -33,12 +32,23 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	CommonService commonService;
 
 	@Override
-	public TableMeta listOrder(String AT) {
+	public List<Map<String, Object>> getOrderList(String AT, String orderStatus) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
+		paramMap.put("STATUS", orderStatus);
+		List<Map<String, Object>> orderList = dataAccessService.queryMapList("ES_BUSS019", paramMap);
+		if (!CollectionUtils.isEmpty(orderList)) {
+			for (Map<String, Object> order : orderList) {
 
-		return dataAccessService.queryTableMeta("BUSS002", paramMap);
+				Map<String, Object> itemQueryParamMap = new HashMap<>();
+				itemQueryParamMap.put("ORDER_UC", order.get("UNIQUE_CODE"));
+				List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020",
+						itemQueryParamMap);
+				order.put("itemList", orderItemList);
+			}
+		}
+		return orderList;
 	}
 
 	@Override
@@ -69,7 +79,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	public Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
-		return dataAccessService.queryForOneRowMap("BUSS006", paramMap);
+		return dataAccessService.queryForOneRow("BUSS006", paramMap);
 		// return dataAccessService.queryRowMapById("ES_PRODUCT", productUC);
 	}
 
@@ -85,7 +95,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 	@Override
 	public Map<String, Object> queryOrder(UUID orderUC, String AT) throws Exception {
-		return dataAccessService.queryRowMapById("ES_ORDER", orderUC);
+		return dataAccessService.queryForOneRowAllColumn("ES_ORDER", orderUC);
 	}
 
 	@Override
@@ -155,7 +165,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String AT) throws Exception {
+	public Long changeCartItemQty(UUID cartUC, Long productCount, String AT) throws Exception {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", cartUC);
@@ -166,11 +176,33 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
+	public void deleteCartItem(UUID cartItemUC, String AT) throws Exception {
+
+		dataAccessService.deleteRowById("ES_SHOPPING_CART", cartItemUC);
+	}
+
+	@Override
+	public void selectCartItem(UUID cartItemUC, String AT) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", cartItemUC);
+		dataAccessService.update("ES_BUSS011", paramMap);
+	}
+
+	@Override
+	public void selectAllCartItem(String AT, boolean selected) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		paramMap.put("SELECTED", selected);
+		dataAccessService.update("ES_BUSS012", paramMap);
+	}
+
+	@Override
 	public Map<String, Object> getUserInfo(String AT) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", userUC);
-		return dataAccessService.queryForOneRowMap("BUSS013", paramMap);
+		return dataAccessService.queryForOneRow("BUSS013", paramMap);
 	}
 
 	@Override
@@ -178,7 +210,15 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", userUC);
-		return dataAccessService.queryForOneRowMap("BUSS014", paramMap);
+		return dataAccessService.queryForOneRow("BUSS015", paramMap);
+	}
+
+	@Override
+	public Map<String, Object> getWeixinUserInfoDetail(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", userUC);
+		return dataAccessService.queryForOneRow("BUSS014", paramMap);
 	}
 
 	@Override
@@ -186,5 +226,50 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		userInfo.put("UNIQUE_CODE", userUC);
 		dataAccessService.updateSingle("SYS_USER", userInfo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserDeliveryAddressList(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		return dataAccessService.queryMapList("ES_BUSS013", paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSelectedItemList(String AT) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		return dataAccessService.queryMapList("ES_BUSS014", paramMap);
+	}
+
+	@Override
+	public void submitOrder(String AT, UUID selectedAddressUC, String paymentType) {
+		UUID userUC = commonService.getUserUCByAppToken(AT);
+
+		UUID orderUC = UUID.randomUUID();
+
+		// order item
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		paramMap.put("ORDER_UC", orderUC);
+		dataAccessService.update("ES_BUSS015", paramMap);
+
+		// order
+		paramMap.put("STATUS", Const.ORDER_STATUS.WaitToPay);
+		paramMap.put("PAYMENT_TYPE", paymentType);
+		paramMap.put("ADDRESS_UC", selectedAddressUC);
+		dataAccessService.update("ES_BUSS016", paramMap);
+
+		// delivery address
+		paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", selectedAddressUC);
+		dataAccessService.update("ES_BUSS017", paramMap);
+
+		// remove from cart
+		paramMap = new HashMap<>();
+		paramMap.put("USER_UC", userUC);
+		dataAccessService.update("ES_BUSS018", paramMap);
 	}
 }

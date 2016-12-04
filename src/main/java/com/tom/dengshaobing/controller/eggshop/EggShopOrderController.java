@@ -50,9 +50,9 @@ public class EggShopOrderController extends BaseController {
 	public String list(@RequestParam(name = "openid", required = false) String openid, ModelMap map) throws Exception {
 		String AT = this.getAppToken(openid, "", commonService);
 
-		TableMeta tableMeta = bussService.listOrder(AT);
-		tableMeta.title = "Order";
-		map.put(SxTableMeta, tableMeta);
+//		TableMeta tableMeta = bussService.listOrder(AT);
+//		tableMeta.title = "Order";
+//		map.put(SxTableMeta, tableMeta);
 
 		return BasePath + "list";
 	}
@@ -77,7 +77,7 @@ public class EggShopOrderController extends BaseController {
 
 	@RequestMapping("/save")
 	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC) throws Exception {
-		if (StringUtils.isBlank(rowUC)) {
+		if (StringUtils.isEmpty(rowUC)) {
 			bussService.addProduct(mapForm.getProperties(), null);
 		} else {
 			// function disable

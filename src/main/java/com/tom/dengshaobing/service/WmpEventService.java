@@ -71,7 +71,7 @@ public abstract class WmpEventService {
 
 	private void uglyRobotForText(MessageXml messageIn, MessageXml messageOut) {
 		messageOut.MsgType = MessageType.text;
-		if (StringUtils.isBlank(messageIn.Content))
+		if (StringUtils.isEmpty(messageIn.Content))
 			return;
 
 		String inContent = messageIn.Content.toLowerCase();

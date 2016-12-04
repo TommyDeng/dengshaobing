@@ -2,7 +2,6 @@ package com.tom.dengshaobing.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 
@@ -40,7 +39,7 @@ public interface DataAccessService {
 	 * @param paramMap
 	 * @return
 	 */
-	Map<String, Object> queryForOneRowMap(String sqlName, Map<String, Object> paramMap);
+	Map<String, Object> queryForOneRow(String sqlName, Map<String, Object> paramMap);
 
 	
 	/**
@@ -51,7 +50,7 @@ public interface DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception;
+	Map<String, Object> queryForOneRowAllColumn(String tableName, Object pk) throws Exception;
 
 	
 	/**

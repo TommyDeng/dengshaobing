@@ -49,7 +49,7 @@ public class MyDishServiceImpl implements MyDishService {
 	public Map<String, Object> queryCookbook(UUID UC, String AT) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", UC);
-		return dataAccessService.queryForOneRowMap("JR_BUSS003", paramMap);
+		return dataAccessService.queryForOneRow("JR_BUSS003", paramMap);
 	}
 
 	@Override

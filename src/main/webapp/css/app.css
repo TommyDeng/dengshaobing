@@ -142,7 +142,7 @@
 	text-align: center;
 }
 
-.itemdetail-addcart-footer #cart-btn  {
+.itemdetail-addcart-footer #cart-btn {
 	float: left;
 }
 
@@ -156,6 +156,22 @@
 	bottom: 55px;
 	position: fixed;
 	right: 10%;
+}
+
+.cart-item-count-input {
+	width: 50px;
+}
+
+.cart-item-checkbox {
+	width: 20px;
+	height: 30px;
+}
+
+.preorder-page-body{
+	padding-bottom: 110px;
+}
+.preorder-footer{
+	background-color: white;
 }
 
 .preorder-payment-weixin {

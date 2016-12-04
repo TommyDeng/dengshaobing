@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+</head>
+<script type="text/javascript" th:inline="javascript">
+	
+</script>
+<body class="shop-main-page-body">
+	<div
+		th:replace="/eggshop/common/fragment :: backward-header(${previousPage})"></div>
+
+	<div style="text-align: center;">我的订单</div>
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="nav-item"><a
+			th:class="|nav-link ${orderStatus==null?'active':''}|"
+			th:href="@{${orderStatus==null?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
+		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='1'?'active':''}|"
+			th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>
+		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='2'?'active':''}|"
+			th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待发货</a></li>
+		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='3'?'active':''}|"
+			th:href="@{${orderStatus=='3'?'#':'myorder'}(AT=${AT},orderStatus=3)}">待收货</a></li>
+		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='4'?'active':''}|"
+			th:href="@{${orderStatus=='4'?'#':'myorder'}(AT=${AT},orderStatus=4)}">已完成</a></li>
+	</ul>
+	<div class="card" th:each="record : ${orderList}">
+		<div class="card-header">订单状态：[[${record.STATUS}]]
+			总金额：[[${record.TOTAL_AMT}]] 订单时间:[[${record.CREATE_TIME}]]</div>
+		<div class="card-block">
+			<table class="table table-sm">
+				<thead>
+					<tr>
+						<th>商品名称</th>
+						<th>数 量</th>
+						<th>金额小计</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${record.itemList}">
+						<td th:text=${item.PRODUCT_NAME}></td>
+						<td th:text=${item.PRODUCT_COUNT}></td>
+						<td th:text=${item.SUB_AMT}></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

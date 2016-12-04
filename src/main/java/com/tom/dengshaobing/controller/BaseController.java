@@ -1,20 +1,11 @@
 package com.tom.dengshaobing.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import com.tom.dengshaobing.service.CommonService;
-import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -44,7 +35,7 @@ public class BaseController {
 	 * @throws Exception
 	 */
 	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);

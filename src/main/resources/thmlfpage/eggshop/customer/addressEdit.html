@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+</head>
+<script type="text/javascript" th:inline="javascript">
+	
+</script>
+<body class="shop-main-page-body">
+	<div
+		th:replace="/eggshop/common/fragment :: backward-header(${previousPage})"></div>
+	<div style="text-align: center;">我的地址</div>
+	<a th:href="@{addressEdit(AT=${AT})}" style="text-align: center;">
+		<span class="card"> <i class="fa fa-plus-circle"
+			aria-hidden="true"></i>新增收货地址
+	</span>
+	</a>
+	<div class="card" th:each="record : ${addressList}">
+		<div class="card-block">
+			<p class="custom-control-description"
+				th:text="${record.DELIVERY_ADDRESS}"></p>
+			<p class="custom-control-description">
+				<span th:text="${record.RECEIVER_NAME}"></span> <span
+					th:text="${record.CONTACT}"></span>
+			</p>
+		</div>
+	</div>
+
+</body>
+</html>

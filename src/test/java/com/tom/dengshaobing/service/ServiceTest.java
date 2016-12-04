@@ -11,8 +11,8 @@ import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
-import com.tom.dengshaobing.config.TestConfig;
 import com.tom.dengshaobing.config.AppConfig;
+import com.tom.dengshaobing.config.TestConfig;
 import com.tom.dengshaobing.controller.WexinMessagePlatformController;
 import com.tom.utils.XMLParseUtils;
 

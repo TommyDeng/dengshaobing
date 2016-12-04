@@ -6,18 +6,6 @@ SELECT UNIQUE_CODE FROM SYS_USER where OPENID = :OPENID
 	]]>
 	</sql>
 
-	<sql name="BUSS002">
-	<![CDATA[
-select UNIQUE_CODE as UNIQUE_CODE$K$H,
-       SUMMARY 订单,
-       TOTAL_AMT 金额,
-       STATUS 状态,
-       to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间
-  from ES_ORDER
- where USER_UC = :USER_UC
-   order by CREATE_TIME desc
-	]]>
-	</sql>
 
 	<sql name="BUSS003">
 	<![CDATA[
@@ -67,6 +55,11 @@ SELECT * FROM SYS_USER WHERE UNIQUE_CODE = :UNIQUE_CODE
 	<sql name="BUSS014">
 	<![CDATA[
 SELECT t.NICKNAME 昵称,decode(t.SEX,'1','男','2','女','未知') 性别,t.COUNTRY||t.PROVINCE||t.CITY 位置   FROM SYS_USERINFO_WX t  WHERE UNIQUE_CODE = :UNIQUE_CODE
+	]]>
+	</sql>
+	<sql name="BUSS015">
+	<![CDATA[
+SELECT * FROM SYS_USERINFO_WX  WHERE UNIQUE_CODE = :UNIQUE_CODE
 	]]>
 	</sql>
 </sqls>

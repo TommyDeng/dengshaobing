@@ -63,7 +63,7 @@ public interface EggShopBussService {
 	 * @param userUC
 	 * @return
 	 */
-	TableMeta listOrder(String AT);
+	List<Map<String, Object>> getOrderList(String AT,String orderStatus);
 
 	/**
 	 * 查询order
@@ -144,7 +144,33 @@ public interface EggShopBussService {
 	 * @return
 	 * @throws Exception
 	 */
-	Long changeItemQtyShoppingCart(UUID cartUC, Long productCount, String AT) throws Exception;
+	Long changeCartItemQty(UUID cartUC, Long productCount, String AT) throws Exception;
+
+	/**
+	 * 删除cart项
+	 * 
+	 * @param cartItemUC
+	 * @param aT
+	 * @throws Exception
+	 */
+	void deleteCartItem(UUID cartItemUC, String AT) throws Exception;
+
+	/**
+	 * 选择/取消 cart项
+	 * 
+	 * @param cartItemUC
+	 * @param AT
+	 * @param selected
+	 */
+	void selectCartItem(UUID cartItemUC, String AT);
+
+	/**
+	 * 全部选择/取消 cart项
+	 * 
+	 * @param AT
+	 * @param selected
+	 */
+	void selectAllCartItem(String AT, boolean selected);
 
 	/**
 	 * 获取用户所有信息
@@ -153,21 +179,53 @@ public interface EggShopBussService {
 	 * @return
 	 */
 	Map<String, Object> getUserInfo(String AT);
-
+	/**
+	 * 获取用户所有信息
+	 * 
+	 * @param AT
+	 * @return
+	 */
+	Map<String, Object> getWeixinUserInfo(String AT);
 	/**
 	 * 获取用户微信信息
 	 * 
 	 * @param AT
 	 * @return
 	 */
-	Map<String, Object> getWeixinUserInfo(String AT);
+	Map<String, Object> getWeixinUserInfoDetail(String AT);
 
 	/**
 	 * 更新或保存用户信息
+	 * 
 	 * @param userInfo
 	 * @param AT
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	void saveUserInfo(Map<String, Object> userInfo, String AT) throws Exception;
+
+	/**
+	 * 获取用户配送地址列表
+	 * 
+	 * @param aT
+	 * @return
+	 */
+	List<Map<String, Object>> getUserDeliveryAddressList(String AT);
+
+	/**
+	 * 获取选中的购物车中商品项作为下单的配送列表
+	 * 
+	 * @param AT
+	 * @return
+	 */
+	List<Map<String, Object>> getSelectedItemList(String AT);
+
+	/**
+	 * 生成订单
+	 * 
+	 * @param AT
+	 * @param selectedAddressUC
+	 * @param paymentType
+	 */
+	void submitOrder(String AT, UUID selectedAddressUC, String paymentType);
 
 }

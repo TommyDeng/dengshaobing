@@ -1,6 +1,5 @@
 package com.tom.dengshaobing.common.bo.sys;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,14 +14,15 @@ public class ListForm {
 		this.dataList = dataList;
 	}
 
-	private List<String> checkedList;
+	private List<Object> checkedList;
 
-	public List<String> getCheckedList() {
+	public List<Object> getCheckedList() {
 		return checkedList;
 	}
 
-	public void setCheckedList(List<String> checkedList) {
+	public void setCheckedList(List<Object> checkedList) {
 		this.checkedList = checkedList;
 	}
+
 
 }

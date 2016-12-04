@@ -6,71 +6,55 @@
 <script type="text/javascript">
 	
 </script>
-<body>
+<body class="preorder">
 	<div class="container">
-		<div class="card">
-			<div class="card-header">收货信息</div>
-			<div class="card-block">
-				<div class="custom-controls-stacked">
-					<label class="custom-control custom-radio"> <input
-						id="radioStacked1" name="radio-stacked" type="radio"
-						class="custom-control-input"> <span
-						class="custom-control-indicator"></span> <span
-						class="custom-control-description">张三
-							广东省深圳市南山区科技园十路290号康佳研发大厦11F 18854524456</span>
-					</label> <label class="custom-control custom-radio"> <input
-						id="radioStacked2" name="radio-stacked" type="radio"
-						class="custom-control-input"> <span
-						class="custom-control-indicator"></span> <span
-						class="custom-control-description">李四
-							广东省深圳市南山区科技园十路290号康佳研发大厦14F 188481231</span>
-					</label>
+		<form role="form" th:object="${addressList}">
+			<div class="card">
+				<div class="card-header">收货信息</div>
+				<div class="card-block">
+					<div class="custom-controls-stacked" th:each="record : *{dataList}">
+						<label class="custom-control custom-radio"> <input
+							id="radioStacked2" name="radio-stacked" type="radio"
+							th:value="${record.UNIQUE_CODE}" class="custom-control-input"
+							th:field="*{checkedList}"> <span
+							class="custom-control-indicator"></span><span
+							class="custom-control-description">[[${record.RECEIVER_NAME}]]
+								[[${record.DELIVERY_ADDRESS}]] [[${record.CONTACT}]]</span>
+						</label>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="card">
-			<div class="card-header">支付方式</div>
-			<div class="card-block">
-				<p class="text-center">
-					<a href="" class="preorder-payment-weixin">微信支付</a>
-				</p>
+			<div class="card">
+				<div class="card-header">支付方式</div>
+				<div class="card-block">
+					<div class="preorder-payment-weixin">微信支付</div>
+				</div>
 			</div>
-		</div>
 
-		<div class="card">
-			<div class="card-header">送货清单</div>
-			<div class="card-block">
-				<table class="table table-sm">
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td colspan="2">Larry the Bird</td>
-							<td>@twitter</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="card">
+				<div class="card-header">送货清单</div>
+				<div class="card-block">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th>商品名称</th>
+								<th>数 量</th>
+								<th>金额小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="record : ${selectedItemList}">
+								<td th:text=${record.PRODUCT_NAME}></td>
+								<td th:text=${record.PRODUCT_COUNT}></td>
+								<td th:text=${record.SUB_AMT}></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-
-
-		<a class="btn btn-info" onclick="saveClicked()" id="btn_save"
-			role="button" style="float: right;" th:href="@{main(AT=${AT})}">提交订单</a>
-		<a class="btn" onclick="modifyClicked()" id="btn_modify" role="button"
-			style="float: right" th:href="@{cart(AT=${AT})}">返回</a>
-
+			<div th:insert="/eggshop/common/fragment :: preorder-footer"></div>
+		</form>
 	</div>
 </body>
 </html>

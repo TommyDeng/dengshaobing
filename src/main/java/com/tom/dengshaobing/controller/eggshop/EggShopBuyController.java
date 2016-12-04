@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
-import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
 
@@ -52,7 +51,7 @@ public class EggShopBuyController extends BaseController {
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 
@@ -99,7 +98,7 @@ public class EggShopBuyController extends BaseController {
 	@RequestMapping("/changeItemQty")
 	@ResponseBody
 	public String changeItemQty(ModelMap map, String cartItemUC, String itemCount, String AT) throws Exception {
-		Long shoppingCartCount = bussService.changeItemQtyShoppingCart(UUID.fromString(cartItemUC),
+		Long shoppingCartCount = bussService.changeCartItemQty(UUID.fromString(cartItemUC),
 				Long.parseLong(itemCount), AT);
 		return String.valueOf(shoppingCartCount);
 	}

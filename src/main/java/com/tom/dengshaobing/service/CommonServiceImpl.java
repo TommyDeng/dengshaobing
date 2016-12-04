@@ -1,7 +1,6 @@
 package com.tom.dengshaobing.service;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +88,7 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public Map<String, Object> getWXUserInfo(String AT) throws Exception {
 		UUID userUC = getUserUCByAppToken(AT);
-		return dataAccessService.queryRowMapById("SYS_USERINFO_WX", userUC);
+		return dataAccessService.queryForOneRowAllColumn("SYS_USERINFO_WX", userUC);
 	}
 
 	@Override

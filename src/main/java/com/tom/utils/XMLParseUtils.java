@@ -61,7 +61,7 @@ public class XMLParseUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T generateJavaBean(String xmlStr, Class<T> cls) throws Exception {
-		if (StringUtils.isBlank(xmlStr))
+		if (StringUtils.isEmpty(xmlStr))
 			return null;
 
 		JAXBContext jaxbContext = JAXBContext.newInstance(cls);
@@ -89,7 +89,7 @@ public class XMLParseUtils {
 	 * @throws Exception
 	 */
 	public static String formatXMLStr(String xmlStr) throws Exception {
-		if (StringUtils.isBlank(xmlStr))
+		if (StringUtils.isEmpty(xmlStr))
 			return null;
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");

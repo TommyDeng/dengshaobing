@@ -1,7 +1,5 @@
 package com.tom.dengshaobing.controller.jerry;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.tom.dengshaobing.common.bo.sys.MapForm;
-import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.controller.BaseController;
-import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.jerry.MyDishService;
 
 /**
@@ -51,7 +46,7 @@ public class MyDishController extends BaseController {
 	public String makeDiet(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
 
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);
@@ -67,7 +62,7 @@ public class MyDishController extends BaseController {
 	@RequestMapping("/changeRecommendedList")
 	public String changeRecommendedList(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String AT, String TYPE) throws Exception {
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);
@@ -84,7 +79,7 @@ public class MyDishController extends BaseController {
 	public String cookbook(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
 
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);
@@ -115,7 +110,7 @@ public class MyDishController extends BaseController {
 	public String save(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT) throws Exception {
 		map.put(PxAT, AT);
 
-		if (StringUtils.isBlank(rowUC)) {
+		if (StringUtils.isEmpty(rowUC)) {
 			myDishService.addCookbook(mapForm.getProperties(), AT);
 		} else {
 			myDishService.updateCookbook(mapForm.getProperties(), AT);
@@ -135,7 +130,7 @@ public class MyDishController extends BaseController {
 	public String dishesHistory(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
 
-		if (StringUtils.isBlank(AT)) {
+		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);

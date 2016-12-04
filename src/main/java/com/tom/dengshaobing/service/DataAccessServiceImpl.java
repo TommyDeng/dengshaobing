@@ -162,7 +162,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public Map<String, Object> queryForOneRowMap(String sqlName, Map<String, Object> paramMap) {
+	public Map<String, Object> queryForOneRow(String sqlName, Map<String, Object> paramMap) {
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
 		return namedParameterJdbcTemplate.queryForMap(SqlStatements.get(sqlName), paramMap);
 	}
@@ -398,7 +398,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 	}
 
 	@Override
-	public Map<String, Object> queryRowMapById(String tableName, Object pk) throws Exception {
+	public Map<String, Object> queryForOneRowAllColumn(String tableName, Object pk) throws Exception {
 		tableName = tableName.toUpperCase();
 		String sql = "select * from " + tableName + " where ";
 		List<Map<String, Object>> columnsDescList = getColumnsDescListByTableName(tableName);

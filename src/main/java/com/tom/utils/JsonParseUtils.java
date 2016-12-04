@@ -30,7 +30,7 @@ public class JsonParseUtils {
 
 	public static <T> T generateJavaBean(String jsonStr, Class<T> cls) throws Exception {
 		// Deserialization
-		if (StringUtils.isBlank(jsonStr))
+		if (StringUtils.isEmpty(jsonStr))
 			return null;
 
 		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
@@ -38,7 +38,7 @@ public class JsonParseUtils {
 	}
 
 	public static String getStringValueByFieldName(String jsonStr, String fieldName) throws Exception {
-		if (StringUtils.isBlank(jsonStr) || StringUtils.isBlank(fieldName))
+		if (StringUtils.isEmpty(jsonStr) || StringUtils.isEmpty(fieldName))
 			return null;
 
 		JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();
@@ -46,7 +46,7 @@ public class JsonParseUtils {
 	}
 
 	public static List<String> getListValueByFieldName(String jsonStr, String fieldName) throws Exception {
-		if (StringUtils.isBlank(jsonStr) || StringUtils.isBlank(fieldName))
+		if (StringUtils.isEmpty(jsonStr) || StringUtils.isEmpty(fieldName))
 			return null;
 
 		JsonObject jsonObject = new JsonParser().parse(jsonStr).getAsJsonObject();

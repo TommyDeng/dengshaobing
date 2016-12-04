@@ -18,8 +18,15 @@ public class Const {
 	};
 	
 	public static final class ORDER_STATUS {
-		public static final String Active = "1";
-		public static final String Disable = "2";
+		public static final String WaitToPay = "1";
+		public static final String WaitToSend = "2";
+		public static final String WaitToRecieve = "3";
+		public static final String Finished = "4";
+		public static final String Disable = "0";
 	};
 
+	public static final class PAYMENT_TYPE {
+		public static final String Weixin = "1";
+		public static final String Zhifubao = "2";
+	};
 }

@@ -16,7 +16,7 @@
 	function saveClicked() {
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
-		$.post("saveUserInfo", {
+		$.post("saveUserContactInfo", {
 			mobile : mobile,
 			email : email,
 			AT : /*[[${AT}]]*/
@@ -38,45 +38,45 @@
 
 	<div class="myprofile-userheading">
 		<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
-			class="img-fluid" alt="Generic placeholder thumbnail">
+			class="img-fluid" th:alt="${userInfo.NICKNAME}">
 		<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
 		<span class="text-muted">积分:5852</span>
 	</div>
 
 	<div class="container">
 		<div class="card">
-			<div class="card-header">
-				<h5 style="display: inline-block; line-height: 30px;"
-					class="panel-title">
-					<b>我的订单</b>
-				</h5>
-			</div>
+			<a th:href="@{myorder(AT=${AT})}"> <span class="card-header"
+				style="display: block;"> <span style="float: left;"> <b>我的订单</b>
+				</span> <span style="float: right;"> <b>></b>
+				</span>
+			</span>
+			</a>
 			<div class="card-block">
 				<div class="btn-group btn-group-sm" role="group"
 					aria-label="First group">
-					<button type="button" class="btn btn-outline-primary">全部订单</button>
-					<button type="button" class="btn btn-outline-warning">待发送</button>
-					<button type="button" class="btn btn-outline-info">待收货</button>
-					<button type="button" class="btn btn-outline-success">已完成</button>
+					<a class="btn btn-outline-warning"
+						th:href="@{myorder(AT=${AT},orderStatus=1)}">待付款</a> <a
+						class="btn btn-outline-warning"
+						th:href="@{myorder(AT=${AT},orderStatus=2)}">待发货</a> <a
+						class="btn btn-outline-info"
+						th:href="@{myorder(AT=${AT},orderStatus=3)}">待收货</a> <a
+						class="btn btn-outline-primary" th:href="@{myorder(AT=${AT})}">全部订单</a>
 				</div>
 			</div>
+		</div>
+		<div class="card">
+			<a th:href="@{address(AT=${AT})}"> <span class="card-header"
+				style="display: block;"> <span style="float: left;"> <b>地址管理</b>
+				</span> <span style="float: right;"> <b>></b>
+				</span>
+			</span>
+			</a>
 		</div>
 		<div class="card">
 			<div class="card-header">
 				<div style="display: inline; float: left;">
-					<b>地址管理</b>
-				</div>
-				<div style="display: inline; float: right;">
-					<b>></b>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<h5 style="display: inline-block; line-height: 30px;"
-					class="panel-title">
 					<b>联系方式</b>
-				</h5>
+				</div>
 				<a class="btn btn-info" onclick="modifyClicked()" id="btn_modify"
 					role="button" style="float: right">修改</a><a class="btn btn-info"
 					onclick="saveClicked()" id="btn_save" role="button"
@@ -106,10 +106,9 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h5 style="display: inline-block; line-height: 30px;"
-					class="panel-title">
+				<div style="display: inline; float: left;">
 					<b>个人信息</b>
-				</h5>
+				</div>
 			</div>
 			<div class="card-block">
 				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
