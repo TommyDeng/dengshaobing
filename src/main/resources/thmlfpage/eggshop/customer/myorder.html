@@ -14,13 +14,14 @@
 		<li role="presentation" class="nav-item"><a
 			th:class="|nav-link ${orderStatus==null?'active':''}|"
 			th:href="@{${orderStatus==null?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
-		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='1'?'active':''}|"
+		<li role="presentation" class="nav-item"><a
+			th:class="|nav-link ${orderStatus=='1'?'active':''}|"
 			th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>
-		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='2'?'active':''}|"
-			th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待发货</a></li>
-		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='3'?'active':''}|"
-			th:href="@{${orderStatus=='3'?'#':'myorder'}(AT=${AT},orderStatus=3)}">待收货</a></li>
-		<li role="presentation" class="nav-item"><a th:class="|nav-link ${orderStatus=='4'?'active':''}|"
+		<li role="presentation" class="nav-item"><a
+			th:class="|nav-link ${orderStatus=='2'?'active':''}|"
+			th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待收货</a></li>
+		<li role="presentation" class="nav-item"><a
+			th:class="|nav-link ${orderStatus=='3'?'active':''}|"
 			th:href="@{${orderStatus=='4'?'#':'myorder'}(AT=${AT},orderStatus=4)}">已完成</a></li>
 	</ul>
 	<div class="card" th:each="record : ${orderList}">

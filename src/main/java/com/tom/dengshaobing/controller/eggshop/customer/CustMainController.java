@@ -313,7 +313,6 @@ public class CustMainController extends BaseController {
 		}
 
 		map.put(SxFormData, mapForm);
-		map.put("rowUC", rowUC);
 
 		map.put("previousPage", "address");
 
@@ -321,9 +320,12 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/addressSave")
-	public String addressSave(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT) throws Exception {
-
+	public String addressSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+			String rowUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
+		pageInit(AT, openid, map);
 		if (StringUtils.isEmpty(rowUC)) {
+			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
+			mapForm.getProperties().put("USER_UC", commonService.getUserUCByAppToken(AT));
 			dataAccessService.insertSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
 		} else {
 			dataAccessService.updateSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
@@ -332,9 +334,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/addressDelete")
-	public String addressDelete(@ModelAttribute MapForm mapForm, ModelMap map, String rowUC, String AT)
-			throws Exception {
-
+	public String addressDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+			String rowUC, String AT) throws Exception {
+		pageInit(AT, openid, map);
 		dataAccessService.deleteRowById("ES_DELIVERY_ADDRESS", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "address";

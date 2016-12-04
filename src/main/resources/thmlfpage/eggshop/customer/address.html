@@ -9,21 +9,23 @@
 	<div
 		th:replace="/eggshop/common/fragment :: backward-header(${previousPage})"></div>
 	<div style="text-align: center;">我的地址</div>
-	<a th:href="@{addressEdit(AT=${AT})}" style="text-align: center;">
-		<span class="card"> <i class="fa fa-plus-circle"
-			aria-hidden="true"></i>新增收货地址
-	</span>
-	</a>
 	<div class="card" th:each="record : ${addressList}">
 		<div class="card-block">
 			<p class="custom-control-description"
 				th:text="${record.DELIVERY_ADDRESS}"></p>
 			<p class="custom-control-description">
 				<span th:text="${record.RECEIVER_NAME}"></span> <span
-					th:text="${record.CONTACT}"></span>
+					th:text="${record.CONTACT}"></span><a style="float: right;"
+					th:href="@{addressEdit(AT=${AT},rowUC=${record.UNIQUE_CODE})}">修改</a>
 			</p>
 		</div>
 	</div>
-
+	<a th:href="@{addressEdit(AT=${AT})}"> <span
+		style="text-align: center; display: block;">
+			<button class="btn btn-outline-success" style="text-align: center;">
+				<i class="fa fa-plus-circle" aria-hidden="true"></i>新增收货地址
+			</button>
+	</span>
+	</a>
 </body>
 </html>

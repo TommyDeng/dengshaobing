@@ -52,14 +52,11 @@
 			</span>
 			</a>
 			<div class="card-block">
-				<div class="btn-group btn-group-sm" role="group"
-					aria-label="First group">
+				<div class="btn-group" role="group" aria-label="First group">
 					<a class="btn btn-outline-warning"
 						th:href="@{myorder(AT=${AT},orderStatus=1)}">待付款</a> <a
-						class="btn btn-outline-warning"
-						th:href="@{myorder(AT=${AT},orderStatus=2)}">待发货</a> <a
 						class="btn btn-outline-info"
-						th:href="@{myorder(AT=${AT},orderStatus=3)}">待收货</a> <a
+						th:href="@{myorder(AT=${AT},orderStatus=2)}">待收货</a> <a
 						class="btn btn-outline-primary" th:href="@{myorder(AT=${AT})}">全部订单</a>
 				</div>
 			</div>
