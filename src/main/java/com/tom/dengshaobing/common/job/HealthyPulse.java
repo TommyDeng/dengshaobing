@@ -67,5 +67,28 @@ public class HealthyPulse {
 
 			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
 		}
+		
+		
+		count = dataAccessService.queryForOneObject("SYS004", null, Long.class);
+		if (count == 0l) {
+
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("UNIQUE_CODE", UUID.fromString("00000000-0000-0000-0000-000000000001"));
+			paramMap.put("OPENID", "1");
+			paramMap.put("NICKNAME", "Admin");
+			paramMap.put("SEX", "1");
+			paramMap.put("CITY", "衡阳");
+			paramMap.put("COUNTRY", "中国");
+			paramMap.put("PROVINCE", "湖南");
+			paramMap.put("LANGUAGE", "zh_CN");
+			paramMap.put("HEADIMGURL", "https://avatars3.githubusercontent.com/u/7498513?v=3&s=40");
+			paramMap.put("UNIONID", "1");
+			paramMap.put("GROUPID", "1");
+			paramMap.put("REMARK", "1");
+
+			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
+		}
+		
+		
 	}
 }
