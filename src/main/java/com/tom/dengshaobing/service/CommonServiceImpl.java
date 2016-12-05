@@ -96,19 +96,22 @@ public class CommonServiceImpl implements CommonService {
 		UUID storedUUID = UUID.randomUUID();
 		String extendsion = FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
 
-		String filePath = env.getProperty("Multimedia.BaseFolder") + storedUUID.toString()
+		// restore
+		String filePath = env.getProperty("MultimediaServer.Store.BaseFolder") + storedUUID.toString()
 				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
-
-//		File destinationFile = new File(servletContext.getRealPath(filePath));
-		
+		// File destinationFile = new
+		// File(servletContext.getRealPath(filePath));
 		File destinationFile = new File(filePath);
-
 		FileUtils.copyInputStreamToFile(thumbnailFile.getInputStream(), new File(filePath));
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UNIQUE_CODE", storedUUID);
 		paramMap.put("NAME", thumbnailFile.getOriginalFilename());
-		paramMap.put("PATH", filePath);
+
+		String retrievePath = env.getProperty("MultimediaServer.Retrieve.Prefix") + storedUUID.toString()
+				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
+
+		paramMap.put("PATH", retrievePath);// Retrieve
 		paramMap.put("FILE_EXTENSION", extendsion);
 		paramMap.put("FILE_SIZE", thumbnailFile.getSize());
 		paramMap.put("REMARK", thumbnailFile.getContentType() + ";" + destinationFile.getAbsolutePath());
@@ -116,5 +119,5 @@ public class CommonServiceImpl implements CommonService {
 		dataAccessService.insertSingle("SYS_FILE_STORE_MAPPING", paramMap);
 		return storedUUID;
 	}
-	
+
 }

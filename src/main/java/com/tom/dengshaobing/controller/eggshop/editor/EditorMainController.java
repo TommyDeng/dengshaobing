@@ -77,71 +77,54 @@ public class EditorMainController extends BaseController {
 		return BasePath + "categoryList";
 	}
 
-	@RequestMapping("/category/list")
-	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
-			throws Exception {
-		pageInit(AT, openid, map);
-		map.put("swiperList", dataAccessService.queryMapList("ES_BUSS001"));
-		map.put("hotList", dataAccessService.queryMapList("ES_BUSS002"));
-		map.put("recentList", dataAccessService.queryMapList("ES_BUSS003"));
-
-		map.put("previousPage", "main");
-
-		return BasePath + "main";
-	}
-
-	@RequestMapping("/address")
-	public String address(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
-			throws Exception {
-		pageInit(AT, openid, map);
-		List<Map<String, Object>> addressList = bussService.getUserDeliveryAddressList(AT);
-		map.put("addressList", addressList);
-
-		map.put("previousPage", "myprofile");
-
-		return BasePath + "address";
-	}
-
-	@RequestMapping("/addressEdit")
-	public String addressEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	@RequestMapping("/categoryEdit")
+	public String categoryEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
 			String rowUC) throws Exception {
 		pageInit(AT, openid, map);
 
 		if (rowUC != null) {
-			Map<String, Object> address = dataAccessService.queryForOneRowAllColumn("ES_DELIVERY_ADDRESS",
+			Map<String, Object> category = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_CATEGORY",
 					UUID.fromString(rowUC));
-			mapForm.setProperties(address);
+			mapForm.setProperties(category);
 		} else {
 			mapForm = new MapForm();
 		}
-
 		map.put(SxFormData, mapForm);
-
-		map.put("previousPage", "address");
-
-		return BasePath + "addressEdit";
+		map.put("rowUC", rowUC);
+		return BasePath + "categoryEdit";
 	}
 
-	@RequestMapping("/addressSave")
-	public String addressSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	@RequestMapping("/categorySave")
+	public String categorySave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
 		pageInit(AT, openid, map);
+
+		// 保存文件并返回UUID
+		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
+		if (!thumbnailFile.isEmpty()) {
+			UUID storeUUID = commonService.storeUploadFile(thumbnailFile);
+
+			// 写回UUID
+			mapForm.getProperties().put("THUMBNAIL", storeUUID);
+		} else {
+			mapForm.getProperties().remove("THUMBNAIL");
+		}
+
 		if (StringUtils.isEmpty(rowUC)) {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
-			mapForm.getProperties().put("USER_UC", commonService.getUserUCByAppToken(AT));
-			dataAccessService.insertSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
+			dataAccessService.insertSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
+			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		}
-		return "redirect:" + BasePath + "address";
+		return "redirect:" + BasePath + "categoryList";
 	}
 
-	@RequestMapping("/addressDelete")
-	public String addressDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	@RequestMapping("/categoryDelete")
+	public String categoryDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT) throws Exception {
 		pageInit(AT, openid, map);
-		dataAccessService.deleteRowById("ES_DELIVERY_ADDRESS", UUID.fromString(rowUC));
+		dataAccessService.deleteRowById("ES_PRODUCT_CATEGORY", UUID.fromString(rowUC));
 
-		return "redirect:" + BasePath + "address";
+		return "redirect:" + BasePath + "categoryList";
 	}
 }
