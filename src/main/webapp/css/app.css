@@ -188,5 +188,9 @@
 }
 
 .editor-oper-page-body {
-	padding-top: 80px;
+	padding-top: 100px;
+}
+
+.input-required {
+	border-color: #d9534f;
 }

@@ -2,18 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="base :: common_header(~{::title},~{::link})">
 </head>
+<script type="text/javascript">
+	function formValidation() {
+		var validateSuccess = true;
+		$("[required]").each(function(index, element) {
+			if ($(element).val().length == 0) {
+				$(element).addClass("input-required");
+				validateSuccess = false;
+			}
+		});
+		return validateSuccess;
+	}
+</script>
 <body>
 	<div class="container">
 		<form class="form-horizontal" role="form" th:object="${formData}"
 			enctype="multipart/form-data">
 			<div class="container">
-				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
+				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" class="has-success form-control-success"/>
 				<div class="form-group">
 					<label>名称</label> <input type="text" th:field="*{properties[NAME]}"
-						class="form-control" required="required" />
+						maxlength="2" class="form-control" required />
 				</div>
 				<div class="form-group">
-					<label>顺位</label> <input type="number"
+					<label>顺位</label> <input type="number" required maxlength="2"
 						th:field="*{properties[ORDER_NUM]}" class="form-control" />
 				</div>
 				<!-- 				<div class="form-group"> -->
@@ -41,8 +53,9 @@
 					<div class="pull-right" style="margin: 10px">
 						<button type="submit" class="btn btn-primary"
 							th:formaction="@{categorySave(rowUC=${rowUC},AT=${AT})}"
-							th:formmethod="post">Save</button>
-						<a class="btn btn-danger" role="button" th:if="${!#strings.isEmpty(rowUC)}"
+							onclick="return formValidation();" th:formmethod="post">Save</button>
+						<a class="btn btn-danger" role="button"
+							th:if="${!#strings.isEmpty(rowUC)}"
 							th:href="@{categoryDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
 					</div>
 				</div>
