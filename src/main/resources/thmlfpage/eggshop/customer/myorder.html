@@ -12,8 +12,8 @@
 	<div style="text-align: center;">我的订单</div>
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="nav-item"><a
-			th:class="|nav-link ${orderStatus==null?'active':''}|"
-			th:href="@{${orderStatus==null?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
+			th:class="|nav-link ${#strings.isEmpty(orderStatus)?'active':''}|"
+			th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
 		<li role="presentation" class="nav-item"><a
 			th:class="|nav-link ${orderStatus=='1'?'active':''}|"
 			th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>

@@ -167,10 +167,11 @@
 	height: 30px;
 }
 
-.preorder-page-body{
+.preorder-page-body {
 	padding-bottom: 110px;
 }
-.preorder-footer{
+
+.preorder-footer {
 	background-color: white;
 }
 
@@ -184,4 +185,8 @@
 	padding-left: 55px;
 	border: 1px solid #33c37f;
 	border-radius: .3rem;
+}
+
+.editor-oper-page-body {
+	padding-top: 80px;
 }

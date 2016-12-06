@@ -13,7 +13,7 @@
 						<tr>
 							<!-- add operation -->
 							<th><a class="btn btn-default"
-								th:href="@{categoryEdit(AT=${AT})}" role="button"><i
+								th:href="@{mainSwiperEdit(AT=${AT})}" role="button"><i
 									class="fa fa-plus fa-2x" aria-hidden="true"></i></a></th>
 							<th>名称</th>
 							<th>描述</th>
@@ -21,7 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="record :  ${categoryList}">
+						<tr th:each="record :  ${mainSwiperList}">
 							<td><img th:src="@{'~/'+${record.PATH}}"
 								style="height: 20%;"></img></td>
 							<td th:text="${record.NAME}" />
@@ -29,7 +29,7 @@
 
 							<!-- update operation -->
 							<td><a class="btn btn-default" role="button"
-								th:href="@{categoryEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
+								th:href="@{mainSwiperEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
 									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
 						</tr>
 					</tbody>

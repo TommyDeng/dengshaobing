@@ -46,7 +46,7 @@
 						<button type="submit" class="btn btn-primary"
 							th:formaction="@{save(rowUC=${rowUC},AT=${AT})}"
 							th:formmethod="post">Submit</button>
-						<a class="btn btn-danger" role="button" th:if="${rowUC}!=null"
+						<a class="btn btn-danger" role="button" th:if="${!#strings.isEmpty(rowUC)}"
 							th:href="@{delete(rowUC=*{properties[UNIQUE_CODE]},AT=${AT})}">Delete</a>
 					</div>
 				</div>

@@ -33,17 +33,16 @@
 				<div class="btn-toolbar" role="toolbar">
 					<div class="pull-left" style="margin: 10px">
 						<a class="btn btn-info" role="button"
-							th:href="@{categoryList(AT=${AT})}"><span
+							th:href="@{mainSwiperList(AT=${AT})}"><span
 							class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
 							<span>Back</span></a>
 					</div>
-
 					<div class="pull-right" style="margin: 10px">
 						<button type="submit" class="btn btn-primary"
-							th:formaction="@{categorySave(rowUC=${rowUC},AT=${AT})}"
+							th:formaction="@{mainSwiperSave(rowUC=${rowUC},AT=${AT})}"
 							th:formmethod="post">Save</button>
 						<a class="btn btn-danger" role="button" th:if="${!#strings.isEmpty(rowUC)}"
-							th:href="@{categoryDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
+							th:href="@{mainSwiperDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
 					</div>
 				</div>
 			</div>
