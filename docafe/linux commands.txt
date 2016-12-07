@@ -28,7 +28,7 @@ java -cp /opt/h2/bin/h2*.jar org.h2.tools.Shell -url jdbc:h2:tcp://localhost/~/t
 rm -rf /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing/*
 
 上传删除LIB的工程文件夹
-C:\Users\txdeng\git\dengshaobing\target\dengshaobing-0.0.1-SNAPSHOT\
+G:\git\dengshaobing\target\dengshaobing-0.0.1-SNAPSHOT
 /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing
 
 cp -r /opt/lib-backup/lib /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing/WEB-INF

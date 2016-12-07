@@ -5,6 +5,10 @@
 <script type="text/javascript" th:inline="javascript">
 
 	function changeCartItemQty(cartItemUC, itemPrice, countInput) {
+		
+		if(!formValidation()){
+			return;
+		}
 		var itemCount = $(countInput).val();
 		var url = [[@{changeCartItemQty}]];
 		$("#cart-block").load(url,
@@ -49,11 +53,11 @@
 						<th><input type="checkbox"
 							th:onclick="'selectAllCartItem(\''+${cartSelectAllStatus}+'\')'"
 							class="cart-item-checkbox" th:checked="!${cartSelectAllStatus}" /></th>
-						<th>NAME</th>
-						<th>PRICE</th>
-						<th>COUNT</th>
-						<th>SUM</th>
-						<th>DEL</th>
+						<th>名称</th>
+						<th>单价</th>
+						<th>数量</th>
+						<th>小计</th>
+						<th>删除</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,7 +72,7 @@
 
 						<td th:text="${record.PRICE}"></td>
 
-						<td><input type="number" th:value="${record.PRODUCT_COUNT}"
+						<td><input type="number" th:value="${record.PRODUCT_COUNT}" required="required"
 							class="cart-item-count-input"
 							th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'"></input>
 						</td>

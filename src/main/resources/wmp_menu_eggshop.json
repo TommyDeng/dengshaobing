@@ -19,7 +19,7 @@
 					"name": "我的账户",
 					"type": "view",
 					"key": "rselfmenu_2_1",
-					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Fdengshaobing%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/dengshaobing/eggshop/user/myprofile#wechat_redirect",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Fdengshaobing%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/dengshaobing/eggshop/customer/myprofile#wechat_redirect",
 					"sub_button": []
 				}
 			]
@@ -28,15 +28,10 @@
 			"name": "推广宣传",
 			"sub_button": [
 				{
-					"name": "产品展示",
+					"name": "产品维护",
 					"type": "view",
-					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Fdengshaobing%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/dengshaobing/eggshop/product/list#wechat_redirect",
+					"url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5b5b7696d6ec278&redirect_uri=http%3A%2F%2Fwww.dengshaobing.com%2Fdengshaobing%2Frestfull%2Fwmp%2Fauthorize&response_type=code&scope=snsapi_userinfo&state=http://www.dengshaobing.com/dengshaobing/eggshop/editor/categoryList#wechat_redirect",
 					"key": "rselfmenu_3_1"
-				},
-				{
-					"name": "分享给朋友",
-					"type": "location_select",
-					"key": "rselfmenu_3_2"
 				},
 				{
 					"name": "赞一下我们",

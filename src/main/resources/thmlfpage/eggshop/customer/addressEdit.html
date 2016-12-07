@@ -17,42 +17,45 @@
 				<div class="form-group">
 					<label for="inputName">收货人</label> <input type="text"
 						th:field="*{properties[RECEIVER_NAME]}" class="form-control"
-						placeholder="名字" />
+						placeholder="名字" required="required" />
 				</div>
 				<div class="form-group">
 					<label for="inputName">手机号码</label> <input type="text"
 						th:field="*{properties[CONTACT]}" class="form-control"
-						placeholder="手机号码" />
+						placeholder="手机号码" required="required" />
 				</div>
 				<div class="form-group">
 					<label for="inputName">省份</label> <input type="text"
 						th:field="*{properties[PROVINCE]}" class="form-control"
-						placeholder="" />
+						placeholder="" required="required" />
 				</div>
 				<div class="form-group">
 					<label for="inputName">市</label> <input type="text"
-						th:field="*{properties[CITY]}" class="form-control" placeholder="" />
+						th:field="*{properties[CITY]}" class="form-control" placeholder=""
+						required="required" />
 				</div>
 				<div class="form-group">
 					<label for="inputName">区/县</label> <input type="text"
 						th:field="*{properties[DISTRICT]}" class="form-control"
-						placeholder="" />
+						placeholder="" required="required" />
 				</div>
 				<div class="form-group">
 					<label for="inputName">详细地址</label>
 					<textarea th:field="*{properties[ADDRESS]}" class="form-control"
-						placeholder="" rows="3"></textarea>
+						placeholder="" rows="3" required="required"></textarea>
 				</div>
 				<div>
 					<button class="btn btn-info"
 						th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}"
-						th:formmethod="post" role="button" style="float: right;">保存</button>
+						th:formmethod="post" role="button" style="float: right;"
+						onclick="return formValidation();">保存</button>
+					<a class="btn btn-danger" role="button" style="float: right"
+						th:href="@{addressDelete(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}">删除</a>
 					<a class="btn" role="button" style="float: right"
 						th:href="@{address(AT=${AT})}">返回</a>
 				</div>
 			</form>
 		</div>
 	</div>
-
 </body>
 </html>

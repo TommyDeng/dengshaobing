@@ -66,8 +66,9 @@
 	</div>
 
 	<div th:fragment="cart-preorder-footer" class=" cart-preorder-footer">
-		<b> SUM:￥<span th:text="${cartTotalAmount}"></span></b> <a
-			class="btn btn-default" th:href="@{preorder(AT=${AT})}"> <i
+		<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a
+			th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default"
+			th:href="@{preorder(AT=${AT})}"> <i
 			class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
 		</a>
 	</div>
@@ -85,7 +86,8 @@
 	<div th:fragment="preorder-footer"
 		class="navbar-fixed-bottom preorder-footer">
 		<button class="btn btn-info" th:formaction="@{submitorder(AT=${AT})}"
-			th:formmethod="post" role="button" style="float: right;">提交订单</button>
+			th:formmethod="post" role="button" style="float: right;"
+			th:disabled="*{#lists.isEmpty(checkedList)?'disabled':''}">提交订单</button>
 		<a class="btn" role="button" style="float: right"
 			th:href="@{cart(AT=${AT})}">返回</a>
 	</div>
@@ -103,13 +105,18 @@
 
 	<div th:fragment="editor-oper-page-header">
 		<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
-			<!-- 		<a class="navbar-brand" href="#">Project name</a> -->
+			<a class="navbar-brand" th:href="@{/}"><i class="fa fa-home"
+				aria-hidden="true"></i></a>
 			<div id="navbar">
 				<nav class="nav navbar-nav float-xs-left">
-					<a class="nav-item nav-link" th:href="@{/eggshop/editor/categoryList(AT=${AT})}">Category</a> <a
-						class="nav-item nav-link" th:href="@{/eggshop/editor/productList(AT=${AT})}">Product</a><a
-						class="nav-item nav-link" th:href="@{/eggshop/editor/mainSwiperList(AT=${AT})}">Swiper</a><a
-						class="nav-item nav-link" th:href="@{/eggshop/oper/operOrderList(AT=${AT})}">OrderList</a>
+					<a class="nav-item nav-link"
+						th:href="@{/eggshop/editor/categoryList(AT=${AT})}">商品类别</a> <a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/editor/productList(AT=${AT})}">产品</a><a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/editor/mainSwiperList(AT=${AT})}">主页浮动窗</a><a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/oper/operOrderList(AT=${AT})}">所有订单</a>
 				</nav>
 			</div>
 		</nav>

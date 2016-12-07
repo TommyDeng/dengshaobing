@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="card">
-			<div class="card-header">Hot</div>
+			<div class="card-header">畅销产品</div>
 			<div class="card-block">
 				<table class="table table-sm">
 					<tbody>
@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="card">
-			<div class="card-header">Recent</div>
+			<div class="card-header">最新上架</div>
 			<div class="col-xs-4" th:each="record : ${recentList}">
 				<a
 					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">

@@ -14,6 +14,10 @@
 	}
 
 	function saveClicked() {
+		
+		if(!formValidation()){
+			return;
+		}
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
 		$.post("saveUserContactInfo", {
@@ -80,20 +84,23 @@
 					style="float: right; display: none">保存</a>
 			</div>
 			<div class="card-block" th:object="${contactInfo}">
-				<strong>手机号码</strong><br />
-				<div class="input-group">
-					<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
-					<input id="ipt_mobile" type="tel" class="form-control"
-						th:value="*{MOBILE}" style="display: none"></input>
-				</div>
+				<form>
+					<strong>手机号码</strong><br />
+					<div class="input-group" >
+						<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
+						<input id="ipt_mobile" type="tel" class="form-control"
+							th:value="*{MOBILE}" style="display: none" required="required"></input>
+					</div>
 
-				<strong>E-mail</strong><br />
-				<div class="input-group">
-					<p style="display: inline" th:text="*{EMAIL}" id="dsp_email"></p>
-					<input id="ipt_email" type="email" class="form-control"
-						th:value="*{EMAIL}" style="display: none"></input>
-				</div>
+					<strong>E-mail</strong><br />
+					<div class="input-group">
+						<p style="display: inline" th:text="*{EMAIL}" id="dsp_email"></p>
+						<input id="ipt_email" type="email" class="form-control"
+							th:value="*{EMAIL}" style="display: none" required="required"></input>
+					</div>
+				</form>
 			</div>
+
 		</div>
 		<!-- html comment -->
 		<!--/* This code will be removed at Thymeleaf parsing time! */-->
