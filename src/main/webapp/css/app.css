@@ -193,4 +193,8 @@
 
 .input-required {
 	border-color: #d9534f;
+	background-image: url(/dengshaobing/img/eggshop/warning.svg);
+	background-repeat: no-repeat;
+	background-position: center right .625rem;
+	background-size: 1.25rem 1.25rem;
 }
