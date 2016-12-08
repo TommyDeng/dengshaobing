@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: common_header(~{::title},~{::link})">
+</head>
+<body>
+	<div class="container">
+		<div class="alert alert-success" role="alert">
+			<strong>恭喜！</strong> 你已经成功提交订单.
+			<p>
+				返回<a th:href="@{main(AT=${AT})}" class="alert-link"> 主页 </a>或查看<a th:href="@{myorder(AT=${AT})}"
+					class="alert-link"> 我的订单 </a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

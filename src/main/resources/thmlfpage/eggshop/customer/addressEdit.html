@@ -46,13 +46,14 @@
 				</div>
 				<div>
 					<button class="btn btn-info"
-						th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}"
+						th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]},previousPage=${previousPage})}"
 						th:formmethod="post" role="button" style="float: right;"
 						onclick="return formValidation();">保存</button>
 					<a class="btn btn-danger" role="button" style="float: right"
+						th:if="*{!#strings.isEmpty(properties[UNIQUE_CODE])}"
 						th:href="@{addressDelete(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}">删除</a>
 					<a class="btn" role="button" style="float: right"
-						th:href="@{address(AT=${AT})}">返回</a>
+						th:href="@{${previousPage}(AT=${AT})}">返回</a>
 				</div>
 			</form>
 		</div>

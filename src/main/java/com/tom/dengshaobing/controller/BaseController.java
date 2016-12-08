@@ -34,11 +34,12 @@ public class BaseController {
 	 * @param map
 	 * @throws Exception
 	 */
-	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
+	public String pageInit(String AT, String openid, ModelMap map) throws Exception {
 		if (StringUtils.isEmpty(AT)) {
 			AT = this.getAppToken(openid, "", commonService);
 		}
 		map.put(PxAT, AT);
+		return AT;
 	}
 
 	public String getAppToken(String entranceId, String entranceType, CommonService commonService) throws Exception {

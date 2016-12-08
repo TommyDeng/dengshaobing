@@ -1,10 +1,11 @@
 package com.tom.dengshaobing.common.bo.sys;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ListForm {
-	private List<Map<String, Object>> dataList;
+	private List<Map<String, Object>> dataList = new ArrayList<>();
 
 	public List<Map<String, Object>> getDataList() {
 		return dataList;
@@ -14,7 +15,7 @@ public class ListForm {
 		this.dataList = dataList;
 	}
 
-	private List<Object> checkedList;
+	private List<Object> checkedList = new ArrayList<>();
 
 	public List<Object> getCheckedList() {
 		return checkedList;

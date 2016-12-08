@@ -27,21 +27,21 @@ public class ProjectConfigUtils {
 		return projectProperties.getProperty(key);
 	}
 
-	static {
-		String configFileRelativePath = "/system.properties";
-		InputStream inputStream = ProjectConfigUtils.class.getResourceAsStream(configFileRelativePath);
-		try {
-			projectProperties.load(inputStream);
-		} catch (Exception e) {
-			log.error("Properties load error! =>" + configFileRelativePath, e);
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					log.error("InputStream close error", e);
-				}
-			}
-		}
-	}
+//	static {
+//		String configFileRelativePath = "/system.properties";
+//		InputStream inputStream = ProjectConfigUtils.class.getResourceAsStream(configFileRelativePath);
+//		try {
+//			projectProperties.load(inputStream);
+//		} catch (Exception e) {
+//			log.error("Properties load error! =>" + configFileRelativePath, e);
+//		} finally {
+//			if (inputStream != null) {
+//				try {
+//					inputStream.close();
+//				} catch (IOException e) {
+//					log.error("InputStream close error", e);
+//				}
+//			}
+//		}
+//	}
 }

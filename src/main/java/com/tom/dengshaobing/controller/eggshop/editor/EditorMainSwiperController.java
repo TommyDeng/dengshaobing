@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop.editor;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,30 +41,11 @@ public class EditorMainSwiperController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	MapForm mapForm = new MapForm();
-
-	public MapForm getMapForm() {
-		return mapForm;
-	}
-
-	public void setMapForm(MapForm mapForm) {
-		this.mapForm = mapForm;
-	}
-
-	ListForm listForm = new ListForm();
-
-	public ListForm getListForm() {
-		return listForm;
-	}
-
-	public void setListForm(ListForm listForm) {
-		this.listForm = listForm;
-	}
 
 	@RequestMapping("/mainSwiperList")
 	public String mainSwiperList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
-		pageInit(AT, openid, map);
+		AT = pageInit(AT, openid, map);
 
 		map.put("mainSwiperList", dataAccessService.queryMapList("ES_BUSS021"));
 
@@ -73,15 +55,18 @@ public class EditorMainSwiperController extends BaseController {
 	@RequestMapping("/mainSwiperEdit")
 	public String mainSwiperEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
 			String rowUC) throws Exception {
-		pageInit(AT, openid, map);
-
+		AT = pageInit(AT, openid, map);
+		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
 			Map<String, Object> mainSwiper = dataAccessService.queryForOneRowAllColumn("ES_MAIN_SWIPER",
 					UUID.fromString(rowUC));
 			mapForm.setProperties(mainSwiper);
-		} else {
-			mapForm = new MapForm();
-		}
+		} 
+
+		Map<String, Object> parmMap = new HashMap<>();
+		parmMap.put("CATEGORY", null);
+		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", parmMap));
+		
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
 		return BasePath + "mainSwiperEdit";
@@ -90,7 +75,7 @@ public class EditorMainSwiperController extends BaseController {
 	@RequestMapping("/mainSwiperSave")
 	public String mainSwiperSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
-		pageInit(AT, openid, map);
+		AT = pageInit(AT, openid, map);
 
 		// 保存文件并返回UUID
 		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
@@ -105,9 +90,9 @@ public class EditorMainSwiperController extends BaseController {
 
 		if (StringUtils.isEmpty(rowUC)) {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
-			dataAccessService.insertSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
+			dataAccessService.insertSingle("ES_MAIN_SWIPER", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
+			dataAccessService.updateSingle("ES_MAIN_SWIPER", mapForm.getProperties());
 		}
 		return "redirect:" + BasePath + "mainSwiperList";
 	}
@@ -115,8 +100,8 @@ public class EditorMainSwiperController extends BaseController {
 	@RequestMapping("/mainSwiperDelete")
 	public String mainSwiperDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT) throws Exception {
-		pageInit(AT, openid, map);
-		dataAccessService.deleteRowById("ES_PRODUCT_CATEGORY", UUID.fromString(rowUC));
+		AT = pageInit(AT, openid, map);
+		dataAccessService.deleteRowById("ES_MAIN_SWIPER", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "mainSwiperList";
 	}

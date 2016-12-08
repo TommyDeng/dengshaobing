@@ -9,12 +9,15 @@
 			<div class="container">
 				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
 				<div class="form-group">
-					<label>名称</label> <input type="text" th:field="*{properties[NAME]}"
-						class="form-control" required="required" />
+					<label>锚点</label> <select class="form-control"
+						th:field="*{properties[PRODUCT_UC]}">
+						<option th:each="record : ${productList}" th:value="${record.UNIQUE_CODE}"
+							th:text="${record.NAME}"></option>
+					</select>
 				</div>
 				<div class="form-group">
 					<label>顺位</label> <input type="number"
-						th:field="*{properties[ORDER_NUM]}" class="form-control" />
+						th:field="*{properties[ORDER_NUM]}" class="form-control" required="required"/>
 				</div>
 				<!-- 				<div class="form-group"> -->
 				<!-- 					原有thumbnail -->
@@ -23,7 +26,7 @@
 				<!-- 				</div> -->
 				<div class="form-group">
 					<!-- 重新选择 -->
-					<input th:type="file" th:field="*{properties[THUMBNAIL]}" />
+					<input th:type="file" th:field="*{properties[THUMBNAIL]}" th:required="${#strings.isEmpty(rowUC)}"/>
 				</div>
 				<div class="form-group">
 					<label>描述</label>
@@ -40,8 +43,9 @@
 					<div class="pull-right" style="margin: 10px">
 						<button type="submit" class="btn btn-primary"
 							th:formaction="@{mainSwiperSave(rowUC=${rowUC},AT=${AT})}"
-							th:formmethod="post">Save</button>
-						<a class="btn btn-danger" role="button" th:if="${!#strings.isEmpty(rowUC)}"
+							th:formmethod="post" onclick="return formValidation();">Save</button>
+						<a class="btn btn-danger" role="button"
+							th:if="${!#strings.isEmpty(rowUC)}"
 							th:href="@{mainSwiperDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
 					</div>
 				</div>

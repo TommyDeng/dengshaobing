@@ -42,10 +42,11 @@ public class EggShopBuyController extends BaseController {
 
 	// 加载用户信息和count
 	@Override
-	public void pageInit(String AT, String openid, ModelMap map) throws Exception {
+	public String pageInit(String AT, String openid, ModelMap map) throws Exception {
 		super.pageInit(AT, openid, map);
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
+		return AT;
 	}
 
 	@RequestMapping("/main")

@@ -72,8 +72,8 @@
 
 						<td th:text="${record.PRICE}"></td>
 
-						<td><input type="number" th:value="${record.PRODUCT_COUNT}" required="required"
-							class="cart-item-count-input"
+						<td><input type="number" th:value="${record.PRODUCT_COUNT}"
+							required="required" class="cart-item-count-input"
 							th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'"></input>
 						</td>
 						<td th:text="${record.SUB_AMT}"></td>
@@ -83,8 +83,12 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="container">
-				<div th:replace="/eggshop/common/fragment :: cart-preorder-footer"></div>
+			<div class=" cart-preorder-footer">
+				<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a
+					th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default"
+					th:href="@{preorder(AT=${AT})}"> <i
+					class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
+				</a>
 			</div>
 		</form>
 	</div>
