@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: common_header(~{::title},~{::link})">
 </head>
 <script type="text/javascript">
 	
@@ -27,7 +27,8 @@
 				<!-- 				</div> -->
 				<div class="form-group">
 					<!-- 重新选择 -->
-					<input th:type="file" th:field="*{properties[THUMBNAIL]}" th:required="${#strings.isEmpty(rowUC)}"/>
+					<input th:type="file" th:field="*{properties[THUMBNAIL]}"
+						th:required="${#strings.isEmpty(rowUC)}" />
 				</div>
 				<div class="form-group">
 					<label>描述</label>
@@ -43,12 +44,12 @@
 					</div>
 
 					<div class="pull-right" style="margin: 10px">
-						<button type="submit" class="btn btn-primary"
-							th:formaction="@{categorySave(rowUC=${rowUC},AT=${AT})}"
-							onclick="return formValidation();" th:formmethod="post">Save</button>
 						<a class="btn btn-danger" role="button"
 							th:if="${!#strings.isEmpty(rowUC)}"
 							th:href="@{categoryDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
+						<button type="submit" class="btn btn-primary"
+							th:formaction="@{categorySave(rowUC=${rowUC},AT=${AT})}"
+							onclick="return formValidation();" th:formmethod="post">Save</button>
 					</div>
 				</div>
 			</div>

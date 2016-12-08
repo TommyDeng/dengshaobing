@@ -8,7 +8,7 @@ function formValidation() {
 
 	// 1.Safari等浏览器不支持html5的input标签required属性
 	$("form [required]").each(function(index, element) {
-		if ($(element).val().length == 0) {
+		if ($(element).val() == null || $(element).val().length == 0) {
 			$(element).addClass("input-required");
 			validateSuccess = false;
 		} else {

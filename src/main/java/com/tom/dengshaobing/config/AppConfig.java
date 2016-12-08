@@ -76,7 +76,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 	@Bean
 	SpringResourceTemplateResolver templateResolver() {
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage/");
+		templateResolver.setPrefix("/WEB-INF/classes/thmlfpage");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCacheable(false);

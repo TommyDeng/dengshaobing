@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/eggshop/editor")
-public class EditorMainSwiperController extends BaseController {
+public class EditorProductController extends BaseController {
 	public static final String BasePath = "/eggshop/editor/";
 
 	@Autowired
@@ -42,38 +42,40 @@ public class EditorMainSwiperController extends BaseController {
 	DataAccessService dataAccessService;
 
 
-	@RequestMapping("/mainSwiperList")
-	public String mainSwiperList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	@RequestMapping("/productList")
+	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {
 		AT = pageInit(AT, openid, map);
-
-		map.put("mainSwiperList", dataAccessService.queryMapList("ES_BUSS021"));
-
-		return BasePath + "mainSwiperList";
+		
+		map.put("productList", dataAccessService.queryMapList("ES_BUSS022", null));
+		
+		return BasePath + "productList";
 	}
 
-	@RequestMapping("/mainSwiperEdit")
-	public String mainSwiperEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	@RequestMapping("/productEdit")
+	public String productEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
 			String rowUC) throws Exception {
 		AT = pageInit(AT, openid, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
-			Map<String, Object> mainSwiper = dataAccessService.queryForOneRowAllColumn("ES_MAIN_SWIPER",
+			Map<String, Object> product = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT",
 					UUID.fromString(rowUC));
-			mapForm.setProperties(mainSwiper);
+			mapForm.setProperties(product);
 		} 
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("CATEGORY", null);
 		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", paramMap));
 		
+		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004", null));
+		
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
-		return BasePath + "mainSwiperEdit";
+		return BasePath + "productEdit";
 	}
 
-	@RequestMapping("/mainSwiperSave")
-	public String mainSwiperSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	@RequestMapping("/productSave")
+	public String productSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
 		AT = pageInit(AT, openid, map);
 
@@ -90,19 +92,19 @@ public class EditorMainSwiperController extends BaseController {
 
 		if (StringUtils.isEmpty(rowUC)) {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
-			dataAccessService.insertSingle("ES_MAIN_SWIPER", mapForm.getProperties());
+			dataAccessService.insertSingle("ES_PRODUCT", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_MAIN_SWIPER", mapForm.getProperties());
+			dataAccessService.updateSingle("ES_PRODUCT", mapForm.getProperties());
 		}
-		return "redirect:" + BasePath + "mainSwiperList";
+		return "redirect:" + BasePath + "productList";
 	}
 
-	@RequestMapping("/mainSwiperDelete")
-	public String mainSwiperDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	@RequestMapping("/productDelete")
+	public String productDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
 			String rowUC, String AT) throws Exception {
 		AT = pageInit(AT, openid, map);
-		dataAccessService.deleteRowById("ES_MAIN_SWIPER", UUID.fromString(rowUC));
+		dataAccessService.deleteRowById("ES_PRODUCT", UUID.fromString(rowUC));
 
-		return "redirect:" + BasePath + "mainSwiperList";
+		return "redirect:" + BasePath + "productList";
 	}
 }

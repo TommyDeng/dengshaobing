@@ -46,7 +46,7 @@ public class GreetingController extends BaseController {
 
 		map.put("host", name);
 		commonService.logVisit(name, deviceType);
-		return "index";
+		return "/index";
 	}
 
 	/*
@@ -56,7 +56,7 @@ public class GreetingController extends BaseController {
 	public String aboutme(ModelMap map) throws Exception {
 
 		// map.put("host", name);
-		return "aboutme";
+		return "/aboutme";
 	}
 	
 	/*
@@ -65,7 +65,7 @@ public class GreetingController extends BaseController {
 	@RequestMapping("/versiondetail")
 	public String versiondetail(ModelMap map) throws Exception {
 		// map.put("host", name);
-		return "versiondetail";
+		return "/versiondetail";
 	}
 	
 	/*
@@ -75,6 +75,6 @@ public class GreetingController extends BaseController {
 	@RequestMapping("/test")
 	public String test(ModelMap map) throws Exception {
 		// map.put("host", name);
-		return "test";
+		return "/test";
 	}
 }

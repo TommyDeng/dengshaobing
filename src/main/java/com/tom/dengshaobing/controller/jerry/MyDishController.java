@@ -115,7 +115,7 @@ public class MyDishController extends BaseController {
 		} else {
 			myDishService.updateCookbook(mapForm.getProperties(), AT);
 		}
-		return "redirect:cookbook";
+		return "redirect:" + BasePath + "cookbook";
 	}
 
 	@RequestMapping("/delete")
@@ -123,7 +123,7 @@ public class MyDishController extends BaseController {
 		map.put(PxAT, AT);
 
 		myDishService.deleteCookbook(UUID.fromString(rowUC), AT);
-		return "redirect:cookbook";
+		return "redirect:" + BasePath + "cookbook";
 	}
 
 	@RequestMapping("/dishes_history")
