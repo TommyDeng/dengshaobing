@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/base :: common_header(~{::title},~{::link})">
+</head>
+<body>
+	<div class="container">
+		<form class="form-horizontal" role="form" th:object="${formData}"
+			enctype="multipart/form-data">
+			<div class="container">
+				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
+				<div class="form-group">
+					<label>名称</label> <input type="text" th:field="*{properties[NAME]}"
+						class="form-control" required="required" />
+				</div>
+				<div class="form-group">
+					<label>价格</label> <input type="number" max="999" min="0"
+						th:field="*{properties[PRICE]}" class="form-control"
+						required="required" />
+				</div>
+				<div class="form-group">
+					<label>产品类别</label> <select class="form-control"
+						required="required" th:field="*{properties[CATEGORY]}">
+						<option th:each="record : ${categoryList}"
+							th:value="${record.UNIQUE_CODE}" th:text="${record.NAME}"></option>
+					</select>
+				</div>
+				<!-- 				<div class="form-group"> -->
+				<!-- 					原有thumbnail -->
+				<!-- 					<label>图标</label> <br /> <img th:src="@{'/'+*{properties[PATH]}}" -->
+				<!-- 						style="width: 150px; height: 150px" /> -->
+				<!-- 				</div> -->
+				<div class="form-group">
+					<label>缩略图</label> <input th:type="file"
+						th:field="*{properties[THUMBNAIL]}"
+						th:required="${#strings.isEmpty(rowUC)}" />
+				</div>
+				<div class="form-group">
+					<label>简述</label>
+					<textarea class="form-control" id="inputDescription" rows="5"
+						th:field="*{properties[BRIEF]}"></textarea>
+				</div>
+				<div class="form-group">
+					<label>产品详情(HTML格式)</label>
+					<textarea class="form-control" id="inputDescription" rows="5"
+						th:field="*{properties[DETAIL_DESCIPTION]}"></textarea>
+				</div>
+				<div class="btn-toolbar" role="toolbar">
+					<div class="pull-left" style="margin: 10px">
+						<a class="btn btn-info" role="button"
+							th:href="@{productList(AT=${AT})}"><span
+							class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+							<span>Back</span></a>
+					</div>
+					<div class="pull-right" style="margin: 10px">
+						<a class="btn btn-danger" role="button"
+							th:if="${!#strings.isEmpty(rowUC)}"
+							th:href="@{productDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
+						<button type="submit" class="btn btn-primary"
+							th:formaction="@{productSave(rowUC=${rowUC},AT=${AT})}"
+							th:formmethod="post" onclick="return formValidation();">Save</button>
+
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

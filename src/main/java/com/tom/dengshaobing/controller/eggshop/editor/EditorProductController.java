@@ -107,4 +107,27 @@ public class EditorProductController extends BaseController {
 
 		return "redirect:" + BasePath + "productList";
 	}
+	@RequestMapping("/productMediaEdit")
+	public String productMediaEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			String rowUC) throws Exception {
+		AT = pageInit(AT, openid, map);
+		MapForm mapForm = new MapForm();
+		if (rowUC != null) {
+			Map<String, Object> product = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT",
+					UUID.fromString(rowUC));
+			mapForm.setProperties(product);
+		} 
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("CATEGORY", null);
+		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", paramMap));
+		
+		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004", null));
+		
+		map.put(SxFormData, mapForm);
+		map.put("rowUC", rowUC);
+		return BasePath + "productEdit";
+	}
+
+
 }
