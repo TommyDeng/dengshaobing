@@ -80,13 +80,13 @@ public class WexinMessagePlatformController {
 			return null;
 
 		// POST请求均判定为消息处理
-		log.info("/restfull/wmp/access body =======================>");
-		log.info(XMLParseUtils.generateXmlString(message));
+//		log.info("/restfull/wmp/access body =======================>");
+//		log.info(XMLParseUtils.generateXmlString(message));
 
 		MessageXml returnMessage = wexinMessagePlatformService.dispatch(message);
 
-		log.info("/restfull/wmp/access return =======================>");
-		log.info(XMLParseUtils.generateXmlString(returnMessage));
+//		log.info("/restfull/wmp/access return =======================>");
+//		log.info(XMLParseUtils.generateXmlString(returnMessage));
 		return returnMessage;
 	}
 

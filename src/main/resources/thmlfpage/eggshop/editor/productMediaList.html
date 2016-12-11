@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/base :: common_header(~{::title},~{::link})">
+</head>
+<body>
+	<div class="container">
+		<a th:href="@{productList(AT=${AT})}" class="btn btn-primary">返回</a>
+		<div class="card-block">
+			<a th:href="@{productMediaEdit(AT=${AT},productUC=${productUC})}"
+				class="btn btn-primary">添加</a>
+		</div>
+		<div class="card" th:each="record : ${mediaList}">
+			<img class="card-img-top" th:src="@{'~/'+${record.PATH}}">
+			<div class="card-block">
+				<h4 class="card-title" th:text="${record.ORDER_NUM}"></h4>
+				<p class="card-text" th:text="${record.CREATE_TIME}"></p>
+				<a
+					th:href="@{productMediaEdit(AT=${AT},rowUC=${record.UNIQUE_CODE},productUC=${productUC})}"
+					class="btn btn-primary">修改</a><a
+					th:href="@{productMediaDelete(AT=${AT},rowUC=${record.UNIQUE_CODE},productUC=${productUC})}"
+					class="btn btn-primary">删除</a>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -38,17 +38,8 @@
 	<!-- Swiper -->
 	<div class="swiper-container itemdetail-swiper-container">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<img th:src="@{/img/test/itemmock.png}" alt="1 slide">
-			</div>
-			<div class="swiper-slide">
-				<img th:src="@{/img/test/itemmock.png}" alt="2 slide">
-			</div>
-			<div class="swiper-slide">
-				<img th:src="@{/img/test/itemmock.png}" alt="3 slide">
-			</div>
-			<div class="swiper-slide">
-				<img th:src="@{/img/test/itemmock.png}" alt="4 slide">
+			<div class="swiper-slide" th:each="record : ${productMediaList}">
+				<img th:src="@{'~/'+${record.PATH}}" th:alt="${record.ORDER_NUM}">
 			</div>
 		</div>
 		<!-- Add Pagination -->
@@ -57,16 +48,16 @@
 	<div class="card itemdetail-cotent">
 		<div class="card-header">
 			<h4 th:text="${product.NAME}">product.NAME</h4>
-			<kbd>RMB  <span th:text="${product.PRICE}">88.88</span></kbd>
+			<kbd>
+				RMB <span th:text="${product.PRICE}">88.88</span>
+			</kbd>
 		</div>
 		<div class="card-block">
 			<p th:text="${product.BRIEF}">product.BRIEF</p>
 			<p></p>
 		</div>
 	</div>
-	<div th:utext="${product.DETAIL_DESCIPTION}">
-		
-	</div>
+	<div th:utext="${product.DETAIL_DESCIPTION}"></div>
 	<div class="navbar-fixed-bottom itemdetail-addcart-footer">
 		<select id="product-count" class="">
 			<option>1</option>

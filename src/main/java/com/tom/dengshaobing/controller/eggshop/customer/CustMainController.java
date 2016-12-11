@@ -92,7 +92,10 @@ public class CustMainController extends BaseController {
 
 		Map<String, Object> cartInfo = bussService.getShoppingCartInfo(AT);
 		map.put("cartInfo", cartInfo);
-
+		
+		Map<String, Object> mediaParamMap = new HashMap<>();
+		mediaParamMap.put("PRODUCT_UC", productUC);
+		map.put("productMediaList", dataAccessService.queryMapList("ES_BUSS023", mediaParamMap));
 		// 添加按钮
 		map.put("productUC", productUC);
 
@@ -264,7 +267,7 @@ public class CustMainController extends BaseController {
 
 		return BasePath + "myorder";
 	}
-
+	
 	@RequestMapping("/address")
 	public String address(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
 			throws Exception {

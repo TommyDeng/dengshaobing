@@ -107,27 +107,72 @@ public class EditorProductController extends BaseController {
 
 		return "redirect:" + BasePath + "productList";
 	}
+	@RequestMapping("/productMediaList")
+	public String productMediaList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+			String productUC) throws Exception {
+		AT = pageInit(AT, openid, map);
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("PRODUCT_UC", productUC);
+		map.put("mediaList", dataAccessService.queryMapList("ES_BUSS023", paramMap));
+		
+		map.put("productUC", productUC);
+		
+		return BasePath + "productMediaList";
+	}
+
 	@RequestMapping("/productMediaEdit")
 	public String productMediaEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
-			String rowUC) throws Exception {
+			String rowUC,String productUC) throws Exception {
 		AT = pageInit(AT, openid, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
-			Map<String, Object> product = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT",
+			Map<String, Object> productMedia = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_MEDIA",
 					UUID.fromString(rowUC));
-			mapForm.setProperties(product);
+			mapForm.setProperties(productMedia);
 		} 
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("CATEGORY", null);
-		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", paramMap));
-		
-		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004", null));
-		
 		map.put(SxFormData, mapForm);
+		map.put("productUC", productUC);
 		map.put("rowUC", rowUC);
-		return BasePath + "productEdit";
+		return BasePath + "productMediaEdit";
+	}
+	
+	@RequestMapping("/productMediaSave")
+	public String productMediaSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+			String rowUC,String productUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
+		AT = pageInit(AT, openid, map);
+
+		// 保存文件并返回UUID
+		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
+		if (!thumbnailFile.isEmpty()) {
+			UUID storeUUID = commonService.storeUploadFile(thumbnailFile);
+
+			// 写回UUID
+			mapForm.getProperties().put("THUMBNAIL", storeUUID);
+		} else {
+			mapForm.getProperties().remove("THUMBNAIL");
+		}
+
+		if (StringUtils.isEmpty(rowUC)) {
+			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
+			mapForm.getProperties().put("PRODUCT_UC", productUC);
+			dataAccessService.insertSingle("ES_PRODUCT_MEDIA", mapForm.getProperties());
+		} else {
+			dataAccessService.updateSingle("ES_PRODUCT_MEDIA", mapForm.getProperties());
+		}
+		
+		map.put("productUC", productUC);
+		return "redirect:" + BasePath + "productMediaList";
 	}
 
+	@RequestMapping("/productMediaDelete")
+	public String productMediaDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+			String rowUC,String productUC, String AT) throws Exception {
+		AT = pageInit(AT, openid, map);
+		dataAccessService.deleteRowById("ES_PRODUCT_MEDIA", UUID.fromString(rowUC));
 
+		map.put("productUC", productUC);
+		return "redirect:" + BasePath + "productMediaList";
+	}
 }
