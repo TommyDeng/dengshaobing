@@ -26,7 +26,8 @@ public class HealthyPulse {
 	@Scheduled(fixedRate = 1200000)
 	public void printPulse() {
 		log.info("Server Pulse.");
-		log.info("CurrentAccessToken : " + wexinMessagePlatformService.getCurrentAccessToken().toString());
+		log.info("CurrentAccessToken : " + wexinMessagePlatformService.getCurrentAccessToken() == null ? ""
+				: wexinMessagePlatformService.getCurrentAccessToken().toString());
 	}
 
 	@Scheduled(fixedRate = 28800000)
@@ -67,8 +68,7 @@ public class HealthyPulse {
 
 			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
 		}
-		
-		
+
 		count = dataAccessService.queryForOneObject("SYS004", null, Long.class);
 		if (count == 0l) {
 
@@ -88,7 +88,6 @@ public class HealthyPulse {
 
 			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
 		}
-		
-		
+
 	}
 }

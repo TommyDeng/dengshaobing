@@ -97,7 +97,7 @@ public class CommonServiceImpl implements CommonService {
 		String extendsion = FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
 
 		// restore
-		String filePath = env.getProperty("MultimediaServer.Store.BaseFolder") + storedUUID.toString()
+		String filePath = env.getProperty("MultimediaServer.Store.BaseFolder")+env.getProperty("MultimediaServer.Retrieve.Prefix") + storedUUID.toString()
 				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
 		// File destinationFile = new
 		// File(servletContext.getRealPath(filePath));

@@ -1,95 +1,40 @@
-==============================
-Tomcat
-==============================
-./opt/apache-tomcat-9.0.0.M10/bin/startup.sh
-./opt/apache-tomcat-9.0.0.M10/bin/shutdown.sh
+=======安装JDK1.8=======
 
-tail -f /opt/apache-tomcat-9.0.0.M10/logs/catalina.out
-vi + /opt/apache-tomcat-9.0.0.M10/logs/catalina.out
+1、更新apt-get package信息
+sudo apt-get update
 
-==============================
-H2
-==============================
-开启关闭H2
-./opt/h2/bin/h2.sh -webAllowOthers
-java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers
+2、安装jdk
+sudo add-apt-repository ppa:webupd8team/java
+apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-installer
+
+如果第一步提示add-apt-repository不存在则运行以下命令：
+apt-get install software-properties-common
+
+java -version
+
+sudo apt-get install oracle-java8-set-default
+
+
+=======安装Tomcat9=======
+tar -zxf apache-tomcat-9.0.0.M15.tar.gz
+
+=======安装H2=======
 nohup java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers &
-java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -tcpShutdown tcp://localhost:9092
-
-命令行连接数据库
-java -cp /opt/h2/bin/h2*.jar org.h2.tools.Shell -url jdbc:h2:tcp://localhost/~/test -user sa -password sa -driver org.h2.Driver
-
-==============================
-发布步骤
-==============================
-./opt/apache-tomcat-9.0.0.M10/bin/shutdown.sh
-
-删除原项目
-rm -rf /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing/*
-
-上传删除LIB的工程文件夹
-G:\git\dengshaobing\target\dengshaobing-0.0.1-SNAPSHOT
-/opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing
-
-cp -r /opt/lib-backup/lib /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing/WEB-INF
-
-./opt/apache-tomcat-9.0.0.M10/bin/startup.sh
 
 
-==============================
-linux命令
-==============================
-查看系统信息
-uname -a
+=======PHP和Tomcat公用Apache=======
+a2enmod proxy
+a2enmod proxy_http
 
-复制文件夹
-cp -r /opt/lib-backup/lib /opt/apache-tomcat-9.0.0.M10/webapps/dengshaobing/WEB-INF
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html
+	
+	ProxyPass /dengshaobing/ http://localhost:8080/dengshaobing/
 
-查看进程
-ps aux | grep tomcat
+</VirtualHost>
 
-查看端口
-netstat -nlp | grep java
-
-修改权限
-chmod 777 /home/jdk.bin
-
-yum安装
-yum install nginx
-
-
-passwd修改密码
-passwd 
-
-==============================
-nginx相关
-==============================
-启动停止
-nginx
-nginx -s reload
-
-stop — fast shutdown
-quit — graceful shutdown
-reload — reloading the configuration file
-reopen — reopening the log files
-
-测试配置文件
-nginx -t
-
-查看日志
-tail -f /var/log/nginx/access.log
-
-==============================
-
-==============================
-
-
-
-
-
-
-
-==============================
-
-==============================
+restart apache2
+sudo service apache2 restart
 
