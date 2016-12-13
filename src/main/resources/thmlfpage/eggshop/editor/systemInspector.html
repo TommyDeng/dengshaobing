@@ -2,10 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/base :: common_header(~{::title},~{::link})">
 </head>
-<body>
+<body class="editor-oper-page-body">
+	<div th:replace="/eggshop/common/fragment :: editor-oper-page-header"></div>
 	<div class="container">
-	<kbd>property key</kbd><span class="text-muted" th:text="#{WeixinPlatform.AppID}"></span>
-	
+
+		<table class="table">
+			<thead class="thead-inverse">
+				<tr>
+					<th>Property Key</th>
+					<th>Property Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="property : ${propertyMap}">
+					<th scope="row" th:text="${property.key}">Key</th>
+					<td th:text="${property.value}">Value</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

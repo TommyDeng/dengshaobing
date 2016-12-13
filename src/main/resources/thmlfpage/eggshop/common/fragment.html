@@ -48,7 +48,7 @@
 	</div>
 
 
-
+	<!-- backward -->
 	<div th:fragment="backward-header(previousPage)"
 		class="navbar-fixed-top backward-header">
 		<div class="col-xs-3">
@@ -58,6 +58,7 @@
 		</div>
 	</div>
 
+	<!-- page-loading -->
 	<div th:fragment="page-loading"
 		style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 90; background-color: transparent;">
 		<div
@@ -69,6 +70,7 @@
 		</div>
 	</div>
 
+	<!-- Oper&Editor page header -->
 	<div th:fragment="editor-oper-page-header">
 		<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
 			<a class="navbar-brand" th:href="@{/}"><i class="fa fa-home"
@@ -82,7 +84,13 @@
 						class="nav-item nav-link"
 						th:href="@{/eggshop/editor/mainSwiperList(AT=${AT})}">主页浮动窗</a><a
 						class="nav-item nav-link"
-						th:href="@{/eggshop/operator/orderList(AT=${AT})}">所有订单</a>
+						th:href="@{/eggshop/operator/orderList(AT=${AT})}">所有订单</a> <a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/editor/systemInspector(AT=${AT})}">公众号菜单</a><a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/editor/systemInspector(AT=${AT})}">消息推送</a><a
+						class="nav-item nav-link"
+						th:href="@{/eggshop/editor/systemInspector(AT=${AT})}">系统信息</a>
 				</nav>
 			</div>
 		</nav>
