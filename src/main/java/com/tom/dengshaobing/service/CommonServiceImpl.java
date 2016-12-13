@@ -65,21 +65,30 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public String getAppTokenByEntranceId(String entranceId, String entranceType) throws Exception {
-		// 简单实现,使用USER_UC作为token
-		if (entranceId == null) {
-			return entranceId;
+	public String getAppToken(String visitId, String visitType) throws Exception {
+		// 简单实现,使用USER_UC作为AT
+		if (visitId == null) {
+			return visitId;
 		}
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("OPENID", entranceId);
-		UUID userUC = dataAccessService.queryForOneObject("BUSS001", paramMap, UUID.class);
+		paramMap.put("OPENID", visitId);
+		UUID userUC = dataAccessService.queryForOneObject("SYS006", paramMap, UUID.class);
+
+		// 暂不实现
+		// //微信登录
+		// if(VISIT_TYPE.Weixin.equals(visitType)){
+		// }
+		// //网页登陆
+		// else{
+		// }
 
 		return userUC == null ? null : userUC.toString();
 	}
 
 	@Override
 	public UUID getUserUCByAppToken(String AT) {
-		// 暂时使用USER_UC作为token,所以直接返回UUID类型即可
+		// 暂时使用USER_UC作为AT,所以直接返回UUID类型即可
 		if (AT == null)
 			return null;
 		return UUID.fromString(AT);
@@ -97,7 +106,8 @@ public class CommonServiceImpl implements CommonService {
 		String extendsion = FilenameUtils.getExtension(thumbnailFile.getOriginalFilename());
 
 		// restore
-		String filePath = env.getProperty("MultimediaServer.Store.BaseFolder")+env.getProperty("MultimediaServer.Retrieve.Prefix") + storedUUID.toString()
+		String filePath = env.getProperty("MultimediaServer.Store.BaseFolder")
+				+ env.getProperty("MultimediaServer.Retrieve.Prefix") + storedUUID.toString()
 				+ FilenameUtils.EXTENSION_SEPARATOR + extendsion;
 		// File destinationFile = new
 		// File(servletContext.getRealPath(filePath));

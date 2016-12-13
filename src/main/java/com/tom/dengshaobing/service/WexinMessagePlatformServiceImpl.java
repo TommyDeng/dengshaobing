@@ -284,7 +284,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("UNIQUE_CODE", userUC);
 		paramMap.put("OPENID", oauth2AccessToken.openid);
 		paramMap.put("STATUS", Const.USER_STATUS.Active);
-		paramMap.put("TYPE", Const.USER_TYPE.Weixin);
+		paramMap.put("TYPE", Const.VISIT_TYPE.Weixin);
 		dataAccessService.mergeSingle("SYS_USER", paramMap);
 
 		if (userInfo == null) {

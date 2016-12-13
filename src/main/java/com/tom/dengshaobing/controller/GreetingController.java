@@ -1,11 +1,5 @@
 package com.tom.dengshaobing.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.servlet.ServletContext;
-
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -14,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.dengshaobing.service.CommonService;
-import com.tom.utils.ProjectConfigUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,7 +48,6 @@ public class GreetingController extends BaseController {
 	@RequestMapping("/aboutme")
 	public String aboutme(ModelMap map) throws Exception {
 
-		// map.put("host", name);
 		return "/aboutme";
 	}
 	
@@ -64,14 +56,13 @@ public class GreetingController extends BaseController {
 	 */
 	@RequestMapping("/versiondetail")
 	public String versiondetail(ModelMap map) throws Exception {
-		// map.put("host", name);
+		
 		return "/versiondetail";
 	}
 	
 	/*
 	 * 测试
 	 */
-	
 	@RequestMapping("/test")
 	public String test(ModelMap map) throws Exception {
 		// map.put("host", name);

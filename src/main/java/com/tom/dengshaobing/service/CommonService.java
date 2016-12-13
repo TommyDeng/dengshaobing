@@ -44,11 +44,11 @@ public interface CommonService {
 	/**
 	 * 为实现restfull 登录或者微信登录以后分配给用户的唯一会话ID
 	 * 
-	 * @param entranceId
+	 * @param visitId
 	 * @return
 	 * @throws Exception
 	 */
-	String getAppTokenByEntranceId(String entranceId, String entranceType) throws Exception;
+	String getAppToken(String visitId, String visitType) throws Exception;
 
 	/**
 	 * 使用token获取用户uc

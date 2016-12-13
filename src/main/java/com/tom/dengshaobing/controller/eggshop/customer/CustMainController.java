@@ -44,9 +44,9 @@ public class CustMainController extends BaseController {
 	DataAccessService dataAccessService;
 
 	@RequestMapping("/main")
-	public String main(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String main(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		map.put("swiperList", dataAccessService.queryMapList("ES_BUSS001"));
 		map.put("hotList", dataAccessService.queryMapList("ES_BUSS002"));
 		map.put("recentList", dataAccessService.queryMapList("ES_BUSS003"));
@@ -57,9 +57,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/category")
-	public String category(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String category(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String selectCategory) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		if (StringUtils.isEmpty(selectCategory)) {
 			selectCategory = null;
@@ -80,9 +80,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/itemdetail")
-	public String itemdetail(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String itemdetail(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String productUC, String previousPage, String previousCategory) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
@@ -114,9 +114,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/cart")
-	public String cart(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String cart(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		cartBlockDataLoad(map, AT);
 
@@ -192,9 +192,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/preorder")
-	public String preorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String preorder(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		ListForm listForm = new ListForm();
 		// address list
@@ -218,9 +218,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/submitorder")
-	public String submitorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String submitorder(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			ListForm listForm) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		UUID selectedAddressUC = UUID.fromString((String) listForm.getCheckedList().get(0));
 
@@ -232,9 +232,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/myprofile")
-	public String myprofile(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String myprofile(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("userInfo", bussService.getWeixinUserInfo(AT));
 		map.put("weixinUserInfo", bussService.getWeixinUserInfoDetail(AT));
@@ -253,9 +253,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/myorder")
-	public String myorder(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String myorder(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String orderStatus) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		List<Map<String, Object>> orderList = bussService.getOrderList(AT, orderStatus);
 
@@ -269,9 +269,9 @@ public class CustMainController extends BaseController {
 	}
 	
 	@RequestMapping("/address")
-	public String address(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String address(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		List<Map<String, Object>> addressList = bussService.getUserDeliveryAddressList(AT);
 		map.put("addressList", addressList);
 
@@ -281,9 +281,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/addressEdit")
-	public String addressEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String addressEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String rowUC, String previousPage) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
@@ -300,9 +300,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/addressSave")
-	public String addressSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String addressSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm, String previousPage) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		if (StringUtils.isEmpty(rowUC)) {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
 			mapForm.getProperties().put("USER_UC", commonService.getUserUCByAppToken(AT));
@@ -314,9 +314,9 @@ public class CustMainController extends BaseController {
 	}
 
 	@RequestMapping("/addressDelete")
-	public String addressDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String addressDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		dataAccessService.deleteRowById("ES_DELIVERY_ADDRESS", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "address";

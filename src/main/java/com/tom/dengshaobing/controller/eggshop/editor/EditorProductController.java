@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.tom.dengshaobing.common.bo.sys.ListForm;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
@@ -43,9 +41,9 @@ public class EditorProductController extends BaseController {
 
 
 	@RequestMapping("/productList")
-	public String productList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String productList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		
 		map.put("productList", dataAccessService.queryMapList("ES_BUSS022", null));
 		
@@ -53,9 +51,9 @@ public class EditorProductController extends BaseController {
 	}
 
 	@RequestMapping("/productEdit")
-	public String productEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String productEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String rowUC) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
 			Map<String, Object> product = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT",
@@ -75,9 +73,9 @@ public class EditorProductController extends BaseController {
 	}
 
 	@RequestMapping("/productSave")
-	public String productSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String productSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
 		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
@@ -100,17 +98,17 @@ public class EditorProductController extends BaseController {
 	}
 
 	@RequestMapping("/productDelete")
-	public String productDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String productDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		dataAccessService.deleteRowById("ES_PRODUCT", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "productList";
 	}
 	@RequestMapping("/productMediaList")
-	public String productMediaList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String productMediaList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String productUC) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("PRODUCT_UC", productUC);
@@ -122,9 +120,9 @@ public class EditorProductController extends BaseController {
 	}
 
 	@RequestMapping("/productMediaEdit")
-	public String productMediaEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String productMediaEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String rowUC,String productUC) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
 			Map<String, Object> productMedia = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_MEDIA",
@@ -139,9 +137,9 @@ public class EditorProductController extends BaseController {
 	}
 	
 	@RequestMapping("/productMediaSave")
-	public String productMediaSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String productMediaSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC,String productUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
 		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
@@ -167,9 +165,9 @@ public class EditorProductController extends BaseController {
 	}
 
 	@RequestMapping("/productMediaDelete")
-	public String productMediaDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String productMediaDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC,String productUC, String AT) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		dataAccessService.deleteRowById("ES_PRODUCT_MEDIA", UUID.fromString(rowUC));
 
 		map.put("productUC", productUC);

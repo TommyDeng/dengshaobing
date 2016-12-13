@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tom.dengshaobing.common.Const.VISIT_TYPE;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2Scope;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
-import com.tom.utils.XMLParseUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -125,10 +125,11 @@ public class WexinMessagePlatformController {
 	private String contractRedirectUriByOauth2AccessToken(String baseUri, Oauth2AccessToken accessToken,
 			Oauth2UserInfo userInfo) throws Exception {
 		URIBuilder redirectURIBuilder = new URIBuilder(baseUri);
-		//
-		redirectURIBuilder.setParameter("openid", accessToken.openid);
+		//微信用户以openid为visitId标示
+		redirectURIBuilder.setParameter("visitId", accessToken.openid);
+		redirectURIBuilder.setParameter("visitType", VISIT_TYPE.Weixin);
+		
 		return redirectURIBuilder.build().toString();
-
 	}
 
 }

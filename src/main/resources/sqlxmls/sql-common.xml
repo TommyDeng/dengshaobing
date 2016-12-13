@@ -49,5 +49,9 @@ select count(1) from SYS_USERINFO_WX where UNIQUE_CODE = '00000000-0000-0000-000
 insert into log_http(method_name, uri, request, response, create_time) values (:method_name, :uri, :request, :response, :create_time)
 	]]>
 	</sql>
-				
+	<sql name="SYS006">
+	<![CDATA[
+SELECT UNIQUE_CODE FROM SYS_USER where OPENID = :OPENID 
+	]]>
+	</sql>
 </sqls>

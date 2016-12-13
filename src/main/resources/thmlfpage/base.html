@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="common_header(title,links)">
 
-<title th:replace="${title}?${title}:_">Dengshaobing Page</title>
+<title th:replace="${title}?${title}:_" th:text="#{Page.DefaultTitle}"></title>
 
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />

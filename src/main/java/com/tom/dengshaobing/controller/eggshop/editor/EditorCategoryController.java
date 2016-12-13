@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,30 +39,11 @@ public class EditorCategoryController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	MapForm mapForm = new MapForm();
-
-	public MapForm getMapForm() {
-		return mapForm;
-	}
-
-	public void setMapForm(MapForm mapForm) {
-		this.mapForm = mapForm;
-	}
-
-	ListForm listForm = new ListForm();
-
-	public ListForm getListForm() {
-		return listForm;
-	}
-
-	public void setListForm(ListForm listForm) {
-		this.listForm = listForm;
-	}
-
 	@RequestMapping("/categoryList")
-	public String categoryList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String categoryList(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004"));
 
@@ -71,26 +51,29 @@ public class EditorCategoryController extends BaseController {
 	}
 
 	@RequestMapping("/categoryEdit")
-	public String categoryEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
-			String rowUC) throws Exception {
-		pageInit(AT, openid, map);
+	public String categoryEdit(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT, String rowUC)
+			throws Exception {
+		AT = pageInit(AT, visitId, visitType, map);
 
+		MapForm mapForm = new MapForm();
+		
 		if (rowUC != null) {
 			Map<String, Object> category = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_CATEGORY",
 					UUID.fromString(rowUC));
 			mapForm.setProperties(category);
-		} else {
-			mapForm = new MapForm();
-		}
+		} 
+		
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
 		return BasePath + "categoryEdit";
 	}
 
 	@RequestMapping("/categorySave")
-	public String categorySave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
-			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
-		pageInit(AT, openid, map);
+	public String categorySave(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT,
+			@ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
+		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
 		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
@@ -113,9 +96,11 @@ public class EditorCategoryController extends BaseController {
 	}
 
 	@RequestMapping("/categoryDelete")
-	public String categoryDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
-			String rowUC, String AT) throws Exception {
-		pageInit(AT, openid, map);
+	public String categoryDelete(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT)
+			throws Exception {
+		AT = pageInit(AT, visitId, visitType, map);
+
 		dataAccessService.deleteRowById("ES_PRODUCT_CATEGORY", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "categoryList";

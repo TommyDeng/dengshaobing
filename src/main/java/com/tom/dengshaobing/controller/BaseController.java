@@ -30,33 +30,19 @@ public class BaseController {
 	/**
 	 * 初始化页面变量AT，并传递
 	 * 
-	 * @param openid
+	 * @param visitId
 	 * @param map
 	 * @throws Exception
 	 */
-	public String pageInit(String AT, String openid, ModelMap map) throws Exception {
+	public String pageInit(String AT, String visitId, String visitType, ModelMap map) throws Exception {
 		if (StringUtils.isEmpty(AT)) {
-			AT = this.getAppToken(openid, "", commonService);
+			AT = this.getAppToken(visitId, visitType, commonService);
 		}
 		map.put(PxAT, AT);
 		return AT;
 	}
 
-	public String getAppToken(String entranceId, String entranceType, CommonService commonService) throws Exception {
-		return commonService.getAppTokenByEntranceId(entranceId, entranceType);
-	}
-
-	/**
-	 * 入口处获得App Token
-	 * 
-	 * @param entranceId
-	 * @param entranceType
-	 * @param commonService
-	 * @return
-	 * @throws Exception
-	 */
-	public String getAppTokenByEntrance(String entranceId, String entranceType, CommonService commonService)
-			throws Exception {
-		return commonService.getAppTokenByEntranceId(entranceId, entranceType);
+	public String getAppToken(String visitId, String visitType, CommonService commonService) throws Exception {
+		return commonService.getAppToken(visitId, visitType);
 	}
 }

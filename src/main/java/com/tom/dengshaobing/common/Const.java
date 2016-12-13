@@ -7,7 +7,7 @@ package com.tom.dengshaobing.common;
  */
 
 public class Const {
-	public static final class USER_TYPE {
+	public static final class VISIT_TYPE {
 		public static final String Weixin = "1";//微信公众号
 		public static final String WebPage = "2";//web
 	};

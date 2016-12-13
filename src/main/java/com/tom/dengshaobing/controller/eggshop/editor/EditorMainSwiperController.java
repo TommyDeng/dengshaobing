@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.tom.dengshaobing.common.bo.sys.ListForm;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
@@ -43,9 +41,9 @@ public class EditorMainSwiperController extends BaseController {
 
 
 	@RequestMapping("/mainSwiperList")
-	public String mainSwiperList(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String mainSwiperList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("mainSwiperList", dataAccessService.queryMapList("ES_BUSS021"));
 
@@ -53,9 +51,9 @@ public class EditorMainSwiperController extends BaseController {
 	}
 
 	@RequestMapping("/mainSwiperEdit")
-	public String mainSwiperEdit(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT,
+	public String mainSwiperEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String rowUC) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
 			Map<String, Object> mainSwiper = dataAccessService.queryForOneRowAllColumn("ES_MAIN_SWIPER",
@@ -73,9 +71,9 @@ public class EditorMainSwiperController extends BaseController {
 	}
 
 	@RequestMapping("/mainSwiperSave")
-	public String mainSwiperSave(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String mainSwiperSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
 		CommonsMultipartFile thumbnailFile = (CommonsMultipartFile) mapForm.getProperties().get("THUMBNAIL");
@@ -98,9 +96,9 @@ public class EditorMainSwiperController extends BaseController {
 	}
 
 	@RequestMapping("/mainSwiperDelete")
-	public String mainSwiperDelete(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
+	public String mainSwiperDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
 			String rowUC, String AT) throws Exception {
-		AT = pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 		dataAccessService.deleteRowById("ES_MAIN_SWIPER", UUID.fromString(rowUC));
 
 		return "redirect:" + BasePath + "mainSwiperList";

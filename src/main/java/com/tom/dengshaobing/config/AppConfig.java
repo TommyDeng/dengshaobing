@@ -6,10 +6,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.messageresolver.SpringMessageResolver;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -85,6 +88,15 @@ public class AppConfig extends WebMvcConfigurationSupport {
 		return templateResolver;
 	}
 
+	@Bean
+	public MessageSource messageSource() {
+		final ResourceBundleMessageSource messageSource;
+		messageSource = new ResourceBundleMessageSource();
+		messageSource.setDefaultEncoding(DefaultSetting.CHARSET.name());
+		messageSource.setBasename("system");
+		return messageSource;
+	}
+
 	/**
 	 * thymeleaf templateEngine
 	 * 
@@ -94,6 +106,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 	SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.setMessageSource(messageSource());
 		return templateEngine;
 	}
 
@@ -108,7 +121,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		// thymeleafViewResolver.setCache(false);
 		thymeleafViewResolver.setCharacterEncoding(DefaultSetting.CHARSET.name());
-//		 thymeleafViewResolver.setOrder(1);
+		// thymeleafViewResolver.setOrder(1);
 		// thymeleafViewResolver.setViewNames(new String[] { "*.html", "*.xhtml"
 		// });
 		return thymeleafViewResolver;

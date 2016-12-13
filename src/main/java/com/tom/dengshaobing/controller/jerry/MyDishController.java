@@ -30,28 +30,13 @@ public class MyDishController extends BaseController {
 	@Autowired
 	MyDishService myDishService;
 
-	MapForm mapForm = new MapForm();
-
-	public MapForm getMapForm() {
-		return mapForm;
-	}
-
-	public void setMapForm(MapForm mapForm) {
-		this.mapForm = mapForm;
-	}
-
 	int recommendCount = 5;
 
 	@RequestMapping("/make_diet")
-	public String makeDiet(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String makeDiet(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
-
-		if (StringUtils.isEmpty(AT)) {
-			AT = this.getAppToken(openid, "", commonService);
-		}
-		map.put(PxAT, AT);
-
-		pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("meatTableMeta", myDishService.getRecommendedMeatList(recommendCount));
 		map.put("vegeTableMeta", myDishService.getRecommendedVegeList(recommendCount));
@@ -60,14 +45,10 @@ public class MyDishController extends BaseController {
 	}
 
 	@RequestMapping("/changeRecommendedList")
-	public String changeRecommendedList(@RequestParam(name = "openid", required = false) String openid, ModelMap map,
-			String AT, String TYPE) throws Exception {
-		if (StringUtils.isEmpty(AT)) {
-			AT = this.getAppToken(openid, "", commonService);
-		}
-		map.put(PxAT, AT);
-
-		pageInit(AT, openid, map);
+	public String changeRecommendedList(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT, String TYPE)
+			throws Exception {
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("meatTableMeta", myDishService.getRecommendedMeatList(recommendCount));
 		map.put("vegeTableMeta", myDishService.getRecommendedVegeList(recommendCount));
@@ -76,15 +57,11 @@ public class MyDishController extends BaseController {
 	}
 
 	@RequestMapping("/cookbook")
-	public String cookbook(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String cookbook(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 
-		if (StringUtils.isEmpty(AT)) {
-			AT = this.getAppToken(openid, "", commonService);
-		}
-		map.put(PxAT, AT);
-
-		pageInit(AT, openid, map);
+		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put(SxTableMeta, myDishService.listAllCookbook());
 		return BasePath + "cookbook";
@@ -95,11 +72,11 @@ public class MyDishController extends BaseController {
 			throws Exception {
 		map.put(PxAT, AT);
 
+		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
 			mapForm.setProperties(myDishService.queryCookbook(UUID.fromString(rowUC), AT));
-		} else {
-			mapForm = new MapForm();
-		}
+		} 
+
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
 
@@ -127,15 +104,12 @@ public class MyDishController extends BaseController {
 	}
 
 	@RequestMapping("/dishes_history")
-	public String dishesHistory(@RequestParam(name = "openid", required = false) String openid, ModelMap map, String AT)
+	public String dishesHistory(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 
-		if (StringUtils.isEmpty(AT)) {
-			AT = this.getAppToken(openid, "", commonService);
-		}
-		map.put(PxAT, AT);
+		AT = pageInit(AT, visitId, visitType, map);
 
-		pageInit(AT, openid, map);
 		myDishService.listAllCookbook(AT);
 		return BasePath + "dishes_history";
 	}
