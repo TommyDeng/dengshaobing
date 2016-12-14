@@ -4,9 +4,28 @@
 </head>
 <body class="editor-oper-page-body">
 	<div th:replace="/eggshop/common/fragment :: editor-oper-page-header"></div>
+
 	<div class="container">
-		
-		
+		<div class="alert alert-success alert-dismissible fade in"
+			role="alert" th:if="${!#strings.isEmpty(msg)}">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong th:text="${msg}">Holy guacamole!</strong>
+		</div>
+		<form class="form-horizontal" role="form" th:object="${formData}"
+			enctype="multipart/form-data">
+			<div class="container">
+				<div class="form-group">
+					<label>json格式菜单文件:</label> <input th:type="file"
+						th:field="*{properties[MENU_JSON_FILE]}" required="required"/>
+					<button type="submit" class="btn btn-primary"
+						th:formaction="@{wpMenuReload(AT=${AT})}"
+						onclick="return formValidation();" th:formmethod="post">Reload</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </body>
 </html>

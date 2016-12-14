@@ -39,8 +39,8 @@ public class EditorWpBrodcastController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	@RequestMapping("/wpMenu")
-	public String wpMenu(@RequestParam(name = "visitId", required = false) String visitId,
+	@RequestMapping("/wpBrodcast")
+	public String wpBrodcast(@RequestParam(name = "visitId", required = false) String visitId,
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
@@ -48,11 +48,11 @@ public class EditorWpBrodcastController extends BaseController {
 		MapForm mapForm = new MapForm();
 		map.put(SxFormData, mapForm);
 
-		return BasePath + "wpMenu";
+		return BasePath + "wpBrodcast";
 	}
 
-	@RequestMapping("/wpMenuReload")
-	public String wpMenuReload(@RequestParam(name = "visitId", required = false) String visitId,
+	@RequestMapping("/wpBrodcastReload")
+	public String wpBrodcastReload(@RequestParam(name = "visitId", required = false) String visitId,
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT,
 			@ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
@@ -74,7 +74,7 @@ public class EditorWpBrodcastController extends BaseController {
 		} else {
 			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		}
-		return "redirect:" + BasePath + "wpMenu";
+		return "redirect:" + BasePath + "wpBrodcast";
 	}
 
 }
