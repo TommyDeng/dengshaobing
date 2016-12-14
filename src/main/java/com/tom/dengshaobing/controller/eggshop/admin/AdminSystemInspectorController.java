@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.controller.eggshop.editor;
+package com.tom.dengshaobing.controller.eggshop.admin;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -28,9 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/eggshop/editor")
-public class EditorSystemInspectorController extends BaseController {
-	public static final String BasePath = "/eggshop/editor/";
+@RequestMapping("/eggshop/admin")
+public class AdminSystemInspectorController extends BaseController {
+	public static final String BasePath = "/eggshop/admin/";
 
 	@Autowired
 	private Environment env;

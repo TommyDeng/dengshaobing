@@ -39,7 +39,7 @@
 	<div class="swiper-container itemdetail-swiper-container">
 		<div class="swiper-wrapper">
 			<div class="swiper-slide" th:each="record : ${productMediaList}">
-				<img th:src="@{'~/'+${record.PATH}}" th:alt="${record.ORDER_NUM}">
+				<img th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}" th:alt="${record.ORDER_NUM}">
 			</div>
 		</div>
 		<!-- Add Pagination -->

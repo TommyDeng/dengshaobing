@@ -74,7 +74,7 @@ public class EditorProductController extends BaseController {
 
 	@RequestMapping("/productSave")
 	public String productSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
+			String rowUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
@@ -138,7 +138,7 @@ public class EditorProductController extends BaseController {
 	
 	@RequestMapping("/productMediaSave")
 	public String productMediaSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC,String productUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
+			String rowUC,String productUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID

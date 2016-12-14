@@ -180,7 +180,7 @@
 	line-height: 48px;
 	color: #33c37f;
 	font-size: 1.4rem;
-	background: url(/img/eggshop/wx.png) no-repeat;
+	background: url(/dengshaobing/img/eggshop/wx.png) no-repeat;
 	background-size: 3rem 3rem;
 	padding-left: 55px;
 	border: 1px solid #33c37f;
@@ -193,7 +193,7 @@
 
 .input-required {
 	border-color: #d9534f;
-	background-image: url(/img/eggshop/warning.svg);
+	background-image: url(/dengshaobing/img/eggshop/warning.svg);
 	background-repeat: no-repeat;
 	background-position: center right .625rem;
 	background-size: 1.25rem 1.25rem;

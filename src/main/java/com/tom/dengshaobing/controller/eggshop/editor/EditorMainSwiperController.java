@@ -72,7 +72,7 @@ public class EditorMainSwiperController extends BaseController {
 
 	@RequestMapping("/mainSwiperSave")
 	public String mainSwiperSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC, String AT, @ModelAttribute MapForm mapForm, BindingResult bindingResult) throws Exception {
+			String rowUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID

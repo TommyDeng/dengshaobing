@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/eggshop/editor")
-public class EditorCategoryController extends BaseController {
+public class EditorWpMenuController extends BaseController {
 	public static final String BasePath = "/eggshop/editor/";
 
 	@Autowired
@@ -39,38 +39,20 @@ public class EditorCategoryController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
-	@RequestMapping("/categoryList")
-	public String categoryList(@RequestParam(name = "visitId", required = false) String visitId,
+	@RequestMapping("/wpMenu")
+	public String wpMenu(@RequestParam(name = "visitId", required = false) String visitId,
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
-		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004"));
-
-		return BasePath + "categoryList";
-	}
-
-	@RequestMapping("/categoryEdit")
-	public String categoryEdit(@RequestParam(name = "visitId", required = false) String visitId,
-			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT, String rowUC)
-			throws Exception {
-		AT = pageInit(AT, visitId, visitType, map);
-
 		MapForm mapForm = new MapForm();
-		
-		if (rowUC != null) {
-			Map<String, Object> category = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_CATEGORY",
-					UUID.fromString(rowUC));
-			mapForm.setProperties(category);
-		} 
-		
 		map.put(SxFormData, mapForm);
-		map.put("rowUC", rowUC);
-		return BasePath + "categoryEdit";
+
+		return BasePath + "wpMenu";
 	}
 
-	@RequestMapping("/categorySave")
-	public String categorySave(@RequestParam(name = "visitId", required = false) String visitId,
+	@RequestMapping("/wpMenuReload")
+	public String wpMenuReload(@RequestParam(name = "visitId", required = false) String visitId,
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT,
 			@ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
@@ -92,17 +74,7 @@ public class EditorCategoryController extends BaseController {
 		} else {
 			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		}
-		return "redirect:" + BasePath + "categoryList";
+		return "redirect:" + BasePath + "wpMenu";
 	}
 
-	@RequestMapping("/categoryDelete")
-	public String categoryDelete(@RequestParam(name = "visitId", required = false) String visitId,
-			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT)
-			throws Exception {
-		AT = pageInit(AT, visitId, visitType, map);
-
-		dataAccessService.deleteRowById("ES_PRODUCT_CATEGORY", UUID.fromString(rowUC));
-
-		return "redirect:" + BasePath + "categoryList";
-	}
 }

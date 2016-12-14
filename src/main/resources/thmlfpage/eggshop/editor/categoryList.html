@@ -22,7 +22,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="record :  ${categoryList}">
-							<td><img th:src="@{'~/'+${record.PATH}}"
+							<td><img th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
 								style="height: 20%;"></img></td>
 							<td th:text="${record.NAME}" />
 							<td th:text="${record.REMARK}" />
