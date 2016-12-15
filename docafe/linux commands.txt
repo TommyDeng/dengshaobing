@@ -79,6 +79,16 @@ nginx -t
 查看日志
 tail -f /var/log/nginx/access.log
 
+文件权限添加删除，第一个7是owner权限，第二个7是本组权限，第三个7是其它组权限
+chmod +777 file
+
+文件用户变更
+chown -R user file
+
+文件用户组变更
+chgrp -R group file
+
+
 ==============================
 
 ==============================
