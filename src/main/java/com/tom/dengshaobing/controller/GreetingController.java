@@ -54,10 +54,10 @@ public class GreetingController extends BaseController {
 	/*
 	 * 版本简介
 	 */
-	@RequestMapping("/versiondetail")
-	public String versiondetail(ModelMap map) throws Exception {
+	@RequestMapping("/versionDetail")
+	public String versionDetail(ModelMap map) throws Exception {
 		
-		return "/versiondetail";
+		return "/versionDetail";
 	}
 	
 	/*
