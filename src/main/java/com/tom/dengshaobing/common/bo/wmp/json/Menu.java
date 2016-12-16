@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.common.bo.wmp.xml;
+package com.tom.dengshaobing.common.bo.wmp.json;
 
 import java.io.Serializable;
 import java.util.List;

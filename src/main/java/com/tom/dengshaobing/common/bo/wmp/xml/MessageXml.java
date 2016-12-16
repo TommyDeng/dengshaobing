@@ -5,8 +5,8 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
-import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
+import com.tom.dengshaobing.common.bo.wmp.type.EventType;
+import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
 
 import lombok.ToString;
 

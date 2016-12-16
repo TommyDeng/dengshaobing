@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.common.Const.VISIT_TYPE;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
-import com.tom.dengshaobing.common.bo.wmp.json.Oauth2Scope;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
+import com.tom.dengshaobing.common.bo.wmp.type.Oauth2Scope;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 
@@ -131,5 +131,5 @@ public class WexinMessagePlatformController {
 		
 		return redirectURIBuilder.build().toString();
 	}
-
+	
 }

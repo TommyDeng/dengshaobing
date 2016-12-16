@@ -6,9 +6,9 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.tom.dengshaobing.common.bo.wmp.type.EventType;
+import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
-import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
-import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 
 /**
  * 公众号业务处理服务器类

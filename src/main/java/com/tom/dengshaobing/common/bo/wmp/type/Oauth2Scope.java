@@ -1,4 +1,4 @@
-package com.tom.dengshaobing.common.bo.wmp.json;
+package com.tom.dengshaobing.common.bo.wmp.type;
 
 /**
  * @author TommyDeng <250575979@qq.com>

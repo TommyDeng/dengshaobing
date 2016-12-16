@@ -29,7 +29,7 @@ public class DateTimeUtils {
 	 * @param dateFormat
 	 * @return
 	 */
-	public static String getFormatStringByDate(String dateFormat) {
+	public static String getCurrentFormatString(String dateFormat) {
 		return getFormatStringByDate(Calendar.getInstance().getTime(), dateFormat);
 	}
 }

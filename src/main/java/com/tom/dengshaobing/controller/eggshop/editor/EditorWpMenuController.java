@@ -19,7 +19,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.tom.dengshaobing.common.DefaultSetting;
 import com.tom.dengshaobing.common.bo.sys.ListForm;
 import com.tom.dengshaobing.common.bo.sys.MapForm;
-import com.tom.dengshaobing.common.bo.wmp.xml.Menu;
+import com.tom.dengshaobing.common.bo.wmp.json.Menu;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;

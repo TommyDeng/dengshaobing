@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -219,14 +221,19 @@ public class CustMainController extends BaseController {
 
 	@RequestMapping("/submitorder")
 	public String submitorder(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
-			ListForm listForm) throws Exception {
+			ListForm listForm,HttpServletRequest request) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
+		String ipAddress = request.getHeader("X-Real-IP");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		
 		UUID selectedAddressUC = UUID.fromString((String) listForm.getCheckedList().get(0));
 
 		String paymentType = Const.PAYMENT_TYPE.Weixin;
-
-		bussService.submitOrder(AT, selectedAddressUC, paymentType);
+		
+		bussService.submitOrder(AT, selectedAddressUC, paymentType,ipAddress);
 
 		return BasePath + "successorder";
 	}

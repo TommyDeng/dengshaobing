@@ -2,9 +2,9 @@ package com.tom.dengshaobing.service.eggshop;
 
 import org.springframework.stereotype.Service;
 
+import com.tom.dengshaobing.common.bo.wmp.type.EventType;
+import com.tom.dengshaobing.common.bo.wmp.type.MessageType;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
-import com.tom.dengshaobing.common.bo.wmp.xml.type.EventType;
-import com.tom.dengshaobing.common.bo.wmp.xml.type.MessageType;
 import com.tom.dengshaobing.service.WmpEventService;
 import com.tom.utils.StoredConfigUtils;
 

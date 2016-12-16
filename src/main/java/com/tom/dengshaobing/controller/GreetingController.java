@@ -1,5 +1,7 @@
 package com.tom.dengshaobing.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,13 @@ public class GreetingController extends BaseController {
 
 	@RequestMapping("/")
 	public String index(ModelMap map,
-			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name, Device device)
-			throws Exception {
+			@RequestParam(name = "name", required = false, defaultValue = "anonymous") String name, Device device,
+			HttpServletRequest request) throws Exception {
+		String ipAddress = request.getHeader("X-Real-IP");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		System.out.println(ipAddress);
 		String deviceType = "unknown";
 		if (device.isNormal()) {
 			deviceType = "normal";
@@ -38,7 +45,7 @@ public class GreetingController extends BaseController {
 		}
 
 		map.put("host", name);
-		commonService.logVisit(name, deviceType);
+		commonService.logVisit(name, ipAddress + deviceType);
 		return "/index";
 	}
 
@@ -50,16 +57,16 @@ public class GreetingController extends BaseController {
 
 		return "/aboutme";
 	}
-	
+
 	/*
 	 * 版本简介
 	 */
 	@RequestMapping("/versionDetail")
 	public String versionDetail(ModelMap map) throws Exception {
-		
+
 		return "/versionDetail";
 	}
-	
+
 	/*
 	 * 测试
 	 */

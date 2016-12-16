@@ -1,5 +1,7 @@
 package com.tom.dengshaobing.common.bo.wmp.json;
 
+import com.tom.dengshaobing.common.bo.wmp.type.Oauth2Scope;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

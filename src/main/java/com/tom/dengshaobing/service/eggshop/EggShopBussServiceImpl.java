@@ -14,6 +14,7 @@ import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.bo.sys.TableMeta;
 import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.DataAccessService;
+import com.tom.dengshaobing.service.WexinPaymentService;
 
 /**
  * 
@@ -30,6 +31,9 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 	@Autowired
 	CommonService commonService;
+
+	@Autowired
+	WexinPaymentService wexinPaymentService;
 
 	@Override
 	public List<Map<String, Object>> getOrderList(String AT, String orderStatus) {
@@ -245,7 +249,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void submitOrder(String AT, UUID selectedAddressUC, String paymentType) {
+	public void submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 
 		UUID orderUC = UUID.randomUUID();
@@ -271,5 +275,14 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		dataAccessService.update("ES_BUSS018", paramMap);
+
+		// payment
+		try {
+			wexinPaymentService.applyOrder(orderUC,ipAddress,AT);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
