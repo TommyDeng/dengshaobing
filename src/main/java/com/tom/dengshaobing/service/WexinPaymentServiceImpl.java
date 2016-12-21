@@ -2,33 +2,21 @@ package com.tom.dengshaobing.service;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.tom.dengshaobing.common.Const;
 import com.tom.dengshaobing.common.DefaultSetting;
-import com.tom.dengshaobing.common.bo.wmp.json.AccessToken;
-import com.tom.dengshaobing.common.bo.wmp.json.Errorable;
-import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
-import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
-import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
-import com.tom.dengshaobing.common.bo.wmp.xml.weixinpayment.ApplyOrderRequestXml;
+import com.tom.dengshaobing.common.bo.wmp.xml.weixinpayment.UnifiedOrderRequestXml;
 import com.tom.utils.DateTimeUtils;
-import com.tom.utils.JsonParseUtils;
+import com.tom.utils.PaymentSignUtils;
 import com.tom.utils.XMLParseUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,10 +47,10 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 	HttpProcessSerice httpProcessSerice;
 
 	@Override
-	public void applyOrder(UUID orderUC, String ipAddress, String AT) throws Exception {
+	public void unifiedOrder(UUID orderUC, String ipAddress, String AT) throws Exception {
 		Map<String, Object> orderRow = dataAccessService.queryForOneRowAllColumn("ES_ORDER", orderUC);
 
-		ApplyOrderRequestXml request = new ApplyOrderRequestXml();
+		UnifiedOrderRequestXml request = new UnifiedOrderRequestXml();
 		Map<String, String> paramMap = new TreeMap<>();
 		// 公众账号ID
 		paramMap.put("appid", env.getProperty("WeixinPlatform.AppID"));
@@ -73,7 +61,7 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		// 随机字符串
 		paramMap.put("nonce_str", UUID.randomUUID().toString().replaceAll("-", ""));
 
-		// 签名类型
+		// 签名类型 默认使用MD5加密
 		paramMap.put("sign_type", "MD5");
 
 		// 商品描述 商家名称-销售商品类目
@@ -114,23 +102,23 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		// paramMap.put("goods_tag", "WXG");
 
 		// 通知地址
-		paramMap.put("notify_url", env.getProperty("WeixinPlatform.Payment.TestRoot")+"applyOrder");
+		paramMap.put("notify_url", env.getProperty("WeixinPlatform.Payment.TestRoot") + "unifiedOrder");
 
 		// 交易类型
 		paramMap.put("trade_type", "JSAPI");
 
 		// 商品ID product_id
 		// 指定支付方式 limit_pay
+
 		// 用户标识 openid
 		paramMap.put("openid", AT);
-		
-		// 签名 sign
-		paramMap.put("sign", "");?
 
-		
+		PaymentSignUtils.sign(request, env.getProperty("WeixinPlatform.Payment.Key"));
+
 		// URL地址：https://api.mch.weixin.qq.com/pay/unifiedorder
-		URI uri = new URIBuilder("https://api.mch.weixin.qq.com/pay/unifiedorder").setCharset(DefaultSetting.CHARSET).build();
-		httpProcessSerice.httpPost(uri, XMLParseUtils.generateXmlString(request));
+		URI uri = new URIBuilder("https://api.mch.weixin.qq.com/pay/unifiedorder").setCharset(DefaultSetting.CHARSET)
+				.build();
+		String result = httpProcessSerice.httpPost(uri, XMLParseUtils.generateXmlString(request));
 	}
 
 }

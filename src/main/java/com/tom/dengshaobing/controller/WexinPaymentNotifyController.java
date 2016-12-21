@@ -24,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class WexinPaymentNotifyController {
 
 	@ResponseBody
-	@RequestMapping(value = "/applyOrder", method = RequestMethod.POST)
-	public MessageXml applyOrder(@RequestParam(value = "signature", required = false) String signature,
+	@RequestMapping(value = "/unifiedOrder", method = RequestMethod.POST)
+	public MessageXml unifiedOrder(@RequestParam(value = "signature", required = false) String signature,
 			@RequestParam(value = "timestamp", required = false) String timestamp,
 			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody MessageXml message)
 			throws Exception {

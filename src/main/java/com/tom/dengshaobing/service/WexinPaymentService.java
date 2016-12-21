@@ -18,7 +18,6 @@ public interface WexinPaymentService {
 	 * @param AT
 	 * @throws Exception
 	 */
-	void applyOrder(UUID orderUC,String ipAddress, String AT) throws Exception;
+	void unifiedOrder(UUID orderUC, String ipAddress, String AT) throws Exception;
 
-	
 }

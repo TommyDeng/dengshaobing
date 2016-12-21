@@ -278,7 +278,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 		// payment
 		try {
-			wexinPaymentService.applyOrder(orderUC,ipAddress,AT);
+			wexinPaymentService.unifiedOrder(orderUC,ipAddress,AT);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
