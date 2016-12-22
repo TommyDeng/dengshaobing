@@ -267,9 +267,9 @@ public class CustMainController extends BaseController {
 		map.put("timeStamp", System.currentTimeMillis());
 		map.put("nonceStr", UUID.randomUUID().toString().replaceAll("-", ""));
 		
-		"package" : "prepay_id=u802345jgfjsdfgsdg888",
-		"signType" : "MD5", // 微信签名方式:
-		"paySign" : "70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
+//		"package" : "prepay_id=u802345jgfjsdfgsdg888",
+//		"signType" : "MD5", // 微信签名方式:
+//		"paySign" : "70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
 			
 			
 

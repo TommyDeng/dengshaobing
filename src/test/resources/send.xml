@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xml>
-	<ToUserName>gh_853375ce543c</ToUserName>
-	<FromUserName>o49hsxB_Rx71KVRAesfHaZ7WAy40</FromUserName>
-	<CreateTime>1474619659</CreateTime>
-	<MsgType>text</MsgType>
-	<Content>/:dig</Content>
-	<MsgId>6333443209855872887</MsgId>
+	<return_code><![CDATA[SUCCESS]]></return_code>
+	<return_msg><![CDATA[OK]]></return_msg>
+	<appid><![CDATA[wx185753479f65df87]]></appid>
+	<mch_id><![CDATA[1344417201]]></mch_id>
+	<device_info><![CDATA[WEB]]></device_info>
+	<nonce_str><![CDATA[cQ5RUAAOXIXg3Qdr]]></nonce_str>
+	<sign><![CDATA[A459D32C98EAC86CF3540E5B3B3D9270]]></sign>
+	<result_code><![CDATA[SUCCESS]]></result_code>
+	<prepay_id><![CDATA[wx201612222220282c27c0d9f60181955020]]></prepay_id>
+	<trade_type><![CDATA[JSAPI]]></trade_type>
 </xml>

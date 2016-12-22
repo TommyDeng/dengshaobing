@@ -91,7 +91,7 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 
 		// 标价金额 单位为分
 		BigDecimal totalAmt = (BigDecimal) orderRow.get("TOTAL_AMT");
-		String totalAmtCent = totalAmt.multiply(new BigDecimal(100)).toString();
+		String totalAmtCent = totalAmt.movePointRight(2).toString();
 		request.setTotal_fee(totalAmtCent);
 
 		// 终端IP
