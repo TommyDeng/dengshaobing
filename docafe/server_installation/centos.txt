@@ -4,4 +4,12 @@
 yum install jdk-8u101-linux-i586.rpm
 
 
+remote ip pass:
 
+
+        location / {
+	    proxy_pass http://localhost:8080/;
+	    proxy_set_header X-Real-IP $remote_addr;
+            root   D:/wnmp/nginx/html;
+            index  index.html index.htm index.php;
+        }

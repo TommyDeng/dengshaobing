@@ -2,13 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/base :: common_header(~{::title},~{::link})">
 </head>
+<script type="text/javascript" th:inline="javascript">
+	function onBridgeReady() {
+		WeixinJSBridge
+				.invoke(
+						'getBrandWCPayRequest',
+						{
+							"appId" : /*[[${appId}]]*/"wx2421b1c4370ec43b", // 公众号名称，由商户传入
+							"paySign" : /*[[${paySign}]]*/"70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
+						}, function(res) {
+							if (res.err_msg == "get_brand_wcpay_request:ok") {
+							} // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回 ok，但并不保证它绝对可靠。
+						});
+	}
+</script>
 <body>
 	<div class="container">
 		<div class="alert alert-success" role="alert">
 			<strong>恭喜！</strong> 你已经成功提交订单.
 			<p>
-				返回<a th:href="@{main(AT=${AT})}" class="alert-link"> 主页 </a>或查看<a th:href="@{myorder(AT=${AT})}"
-					class="alert-link"> 我的订单 </a>
+				返回<a th:href="@{main(AT=${AT})}" class="alert-link"> 主页 </a>或查看<a
+					th:href="@{myorder(AT=${AT})}" class="alert-link"> 我的订单 </a>
 			</p>
 		</div>
 	</div>

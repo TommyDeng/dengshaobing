@@ -17,6 +17,13 @@ public class Const {
 		public static final String Disable = "2";//禁用
 	};
 	
+	public static final class ORDER_PAY_STATUS {
+		public static final String WaitToPay = "1";//待付款
+		
+		public static final String Fail = "2";//失败
+		public static final String Success = "3";//成功
+	};
+	
 	public static final class ORDER_STATUS {
 		public static final String WaitToPay = "1";//待付款
 		public static final String WaitToRecieve = "2";//待收货

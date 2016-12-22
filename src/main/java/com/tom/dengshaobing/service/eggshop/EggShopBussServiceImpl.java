@@ -249,7 +249,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public void submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress) {
+	public UUID submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 
 		UUID orderUC = UUID.randomUUID();
@@ -262,6 +262,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 		// order
 		paramMap.put("STATUS", Const.ORDER_STATUS.WaitToPay);
+		paramMap.put("PAY_STATUS", Const.ORDER_PAY_STATUS.WaitToPay);
 		paramMap.put("PAYMENT_TYPE", paymentType);
 		paramMap.put("ADDRESS_UC", selectedAddressUC);
 		dataAccessService.update("ES_BUSS016", paramMap);
@@ -283,6 +284,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return orderUC;
 	}
 }

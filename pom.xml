@@ -27,7 +27,6 @@
 		<commons.lang3.version>3.4</commons.lang3.version>
 		<commons.io.version>2.5</commons.io.version>
 		<commons.fileupload.version>1.3.2</commons.fileupload.version>
-		<commons.beanutils.version>1.9.3</commons.beanutils.version>
 		
 		<junit.version>4.12</junit.version>
 		<lombok.version>1.16.10</lombok.version>
@@ -107,8 +106,7 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>${commons.beanutils.version}</version>
-		</dependency>
+			</dependency>
 		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

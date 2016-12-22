@@ -226,7 +226,8 @@ public interface EggShopBussService {
 	 * @param selectedAddressUC
 	 * @param paymentType
 	 * @param ipAddress 
+	 * @return 
 	 */
-	void submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress);
+	UUID submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress);
 
 }
