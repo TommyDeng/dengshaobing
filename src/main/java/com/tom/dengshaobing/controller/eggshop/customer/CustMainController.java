@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
@@ -47,6 +48,9 @@ public class CustMainController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
+	@Autowired
+	private Environment env;
+	
 	@RequestMapping("/main")
 	public String main(@RequestParam(name = "visitId", required = false) String visitId,
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
@@ -259,8 +263,15 @@ public class CustMainController extends BaseController {
 
 		JsonParseUtils.generateJsonString(resultMap);
 
-		map.put("appId", "appId");
-		map.put("paySign", "paySign");
+		map.put("appId", env.getProperty("WeixinPlatform.AppID"));
+		map.put("timeStamp", System.currentTimeMillis());
+		map.put("nonceStr", UUID.randomUUID().toString().replaceAll("-", ""));
+		
+		"package" : "prepay_id=u802345jgfjsdfgsdg888",
+		"signType" : "MD5", // 微信签名方式:
+		"paySign" : "70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
+			
+			
 
 		return BasePath + "successorder";
 	}
