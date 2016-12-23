@@ -59,6 +59,8 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		log.info("<param print end>");
 		Map<String, Object> orderRow = dataAccessService.queryForOneRowAllColumn("ES_ORDER", orderUC);
 
+		UUID paymentUC = UUID.randomUUID();
+
 		UnifiedOrderRequestXml request = new UnifiedOrderRequestXml();
 		// 公众账号ID
 		request.setAppid(env.getProperty("WeixinPlatform.AppID"));
@@ -110,7 +112,7 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		// request.goods_tag= "WXG";
 
 		// 通知地址
-		request.setNotify_url(env.getProperty("WeixinPlatform.Payment.TestRoot") + "unifiedOrderNotify");
+		request.setNotify_url(env.getProperty("WeixinPlatform.Payment.AuthRoot") + "customerPayOrderNotify");
 
 		// 交易类型
 		request.setTrade_type("JSAPI");
@@ -119,8 +121,9 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		// 指定支付方式 limit_pay
 
 		// 用户标识 openid
-		request.setOpenid(AT);
-		request.setOpenid("oeVM1wtULBRZor28aVC-nyMg3jys");
+		Map<String, Object> wxUserInfo = commonService.getWXUserInfo(AT);
+		String openId = (String) wxUserInfo.get("OPENID");
+		request.setOpenid(openId);
 
 		PaymentSignUtils.sign(request, env.getProperty("WeixinPlatform.Payment.Key"));
 
@@ -136,19 +139,31 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 
 		UnifiedOrderResponseXml response = XMLParseUtils.generateJavaBean(responseXml, UnifiedOrderResponseXml.class);
 
-		//返回结果保存
+		// 返回结果保存
+		Map<String, Object> payParamMap = new HashMap<>();
+		payParamMap.put("UNIQUE_CODE", paymentUC);
+
 		String payStatus = Const.ORDER_PAY_STATUS.WaitToPay;
 		String payMessage = null;
-		String prepayId = null;
 		if ("SUCCESS".equals(response.return_code)) {
 			log.info("invoke success");
 			if ("SUCCESS".equals(response.result_code)) {
 				log.info("payment success");
 				payStatus = Const.ORDER_PAY_STATUS.Success;
 				payMessage = "success";
-				prepayId = response.prepay_id;
+				payParamMap.put("NONCE_STR", response.nonce_str);
+				payParamMap.put("SIGN", response.sign);
+				payParamMap.put("PREPAY_ID", response.prepay_id);
+				payParamMap.put("CODE_URL", response.code_url);
+				payParamMap.put("DEVICE_INFO", response.device_info);
+				payParamMap.put("TRADE_TYPE", response.trade_type);
+
+				payParamMap.put("OUT_TRADE_NO", tradeNo);
+				payParamMap.put("TOTAL_FEE", totalAmtCent);
+				payParamMap.put("TIME_START", orderApplyCal);
+				payParamMap.put("TIME_EXPIRE", orderExpireCal);
+
 			} else {
-				//
 				payStatus = Const.ORDER_PAY_STATUS.Fail;
 				payMessage = response.err_code_des + "<" + response.err_code + ">";
 			}
@@ -159,12 +174,15 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		}
 		log.info("unifiedOrder end ====================>");
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", orderUC);
-		paramMap.put("PAY_STATUS", payStatus);
-		paramMap.put("PAY_MESSAGE", payMessage);
-		paramMap.put("PREPAY_ID", prepayId);
+		payParamMap.put("PAYSTATUS", payStatus);
+		payParamMap.put("PAYSTATUS_MSG", payMessage);
 
-		dataAccessService.update("ES_BUSS024", paramMap);
+		dataAccessService.insertSingle("ES_PAYMENT", payParamMap);
+
+		Map<String, Object> updateParamMap = new HashMap<>();
+		updateParamMap.put("UNIQUE_CODE", orderUC);
+		updateParamMap.put("PAYMENT_UC", paymentUC);
+
+		dataAccessService.update("ES_BUSS024", updateParamMap);
 	}
 }

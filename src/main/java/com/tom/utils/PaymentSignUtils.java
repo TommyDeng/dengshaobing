@@ -43,5 +43,30 @@ public class PaymentSignUtils {
 		//写入到sign字段
 		request.setSign(signResult);
 	}
+	
+	public static String sign(Map<String,String> map, String signkey) throws Exception {
+		// key排序
+		Object[] sortedKeys = map.keySet().toArray();
+		Arrays.sort(sortedKeys);
+
+		// 拼接参数字符串
+		StringBuilder strBuilder = new StringBuilder();
+		for (Object key : sortedKeys) {
+			String value = map.get(key);
+
+			// 签名需要排除空值
+			if (StringUtils.isBlank(value)) {
+				continue;
+			}
+			strBuilder.append(key).append("=").append(value).append("&");
+		}
+		strBuilder.append("key=").append(signkey);
+
+		// 生成签名 默认使用MD5加密
+		String signResult = DigestUtils.md5Hex(strBuilder.toString()).toUpperCase();
+
+		//写入到sign字段
+		return signResult;
+	}
 
 }
