@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.tom.dengshaobing.common.Const;
+import com.tom.dengshaobing.common.bo.wmp.xml.weixinpayment.NotifyRequestXml;
 import com.tom.dengshaobing.common.bo.wmp.xml.weixinpayment.NotifyResponseXml;
 import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.utils.PaymentSignUtils;
@@ -43,17 +44,25 @@ public class WexinPaymentController extends BaseController {
 	@RequestMapping(value = "/eggshop/payment_test/customerPayOrderNotify", method = RequestMethod.POST)
 	public String customerPayOrderNotify(@RequestParam(value = "signature", required = false) String signature,
 			@RequestParam(value = "timestamp", required = false) String timestamp,
-			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody String message)
+			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody NotifyRequestXml message)
 			throws Exception {
 
-		log.debug("******************** customerPayOrderNotify result notify recieved ********************");
-		log.debug(message);
-		log.debug("******************** customerPayOrderNotify result notify recieved ********************");
+		log.info("******************** customerPayOrderNotify result notify recieved ********************");
+		log.info(message.toString());
+		log.info("******************** customerPayOrderNotify result notify recieved ********************");
+
+		if ("SUCCESS".equals(message.return_code) || "SUCCESS".equals(message.result_code)) {
+			// 更新订单状态
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("OUT_TRADE_NO", message.out_trade_no);
+			paramMap.put("STATUS", Const.ORDER_STATUS.WaitToRecieve);
+			dataAccessService.update("ES_BUSS026", paramMap);
+		}
 
 		NotifyResponseXml response = new NotifyResponseXml();
 		response.return_code = "SUCCESS";
 		response.return_msg = "OK";
-		
+
 		return XMLParseUtils.generateXmlString(response);
 	}
 

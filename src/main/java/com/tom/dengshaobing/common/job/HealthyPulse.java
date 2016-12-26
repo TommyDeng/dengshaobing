@@ -23,7 +23,7 @@ public class HealthyPulse {
 	@Autowired
 	WexinMessagePlatformService wexinMessagePlatformService;
 
-	@Scheduled(fixedRate = 1200000)
+	@Scheduled(initialDelay = 10000, fixedRate = 1200000)
 	public void printPulse() {
 		log.info("Server Pulse.");
 		log.info("CurrentAccessToken : " + wexinMessagePlatformService.getCurrentAccessToken() == null ? ""

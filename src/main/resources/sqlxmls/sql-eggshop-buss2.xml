@@ -213,5 +213,13 @@ WHERE m.PRODUCT_UC = :PRODUCT_UC order by m.ORDER_NUM
 	select p.* from ES_ORDER o, ES_PAYMENT p where o.PAYMENT_UC = p.UNIQUE_CODE and o.UNIQUE_CODE = :UNIQUE_CODE
 	]]>
 	</sql>
+
+	<sql name="ES_BUSS026">
+	<![CDATA[
+	update ES_ORDER  set STATUS = :STATUS  where exists (select 1 from ES_PAYMENT p where PAYMENT_UC = p.UNIQUE_CODE and p.OUT_TRADE_NO = :OUT_TRADE_NO)
+	]]>
+	</sql>
+	
+	
 	
 </sqls>
