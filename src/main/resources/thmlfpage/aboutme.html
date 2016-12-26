@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 <title>About Me</title>
 </head>
 <body>
@@ -45,6 +45,6 @@
 			</div>
 		</div>
 	</div>
-	<div th:replace="/base :: copy-right"></div>
+	<div th:replace="/fragment :: copy-right"></div>
 </body>
 </html>

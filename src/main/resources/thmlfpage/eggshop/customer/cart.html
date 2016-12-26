@@ -1,98 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
 <script type="text/javascript" th:inline="javascript">
 
 	function changeCartItemQty(cartItemUC, itemPrice, countInput) {
-		
 		if(!formValidation()){
 			return;
 		}
+		
+		$("#page-loading").show();
+		
 		var itemCount = $(countInput).val();
 		var url = [[@{changeCartItemQty}]];
 		$("#cart-block").load(url,
 		{	cartItemUC : cartItemUC,
 			AT : [[${AT}]],
 			itemCount : itemCount
-		});
+		},function() {$("#page-loading").hide();});
 	}
 	
 	function deleteCartItem(cartItemUC){
+		$("#page-loading").show();
 		var url = 'deleteCartItem';
 		$("#cart-block").load(url,
 		{	cartItemUC : cartItemUC,
 			AT : [[${AT}]]
-		});
+		},function() {$("#page-loading").hide();});
 	}
 	
 	function selectCartItem(cartItemUC){
+		$("#page-loading").show();
 		var url = 'selectCartItem';
 		$("#cart-block").load(url,
 		{	cartItemUC : cartItemUC,
 			AT : [[${AT}]]
-		});
+		},function() {$("#page-loading").hide();});
 	}
 	
 	function selectAllCartItem(cartSelectAllStatus){
+		$("#page-loading").show();
 		var url = 'selectAllCartItem';
 		$("#cart-block").load(url,
 		{	selected : cartSelectAllStatus,
 			AT : [[${AT}]]
-		});
+		},function() {$("#page-loading").hide();});
 	}
 	
 </script>
-<body class="shop-main-page-body">
-	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
-	<div class="container">
-		<form role="form" th:object="${cartList}" id="cart-block">
-			<table class="table table-striped table-sm">
-				<thead>
-					<tr>
-						<th><input type="checkbox"
-							th:onclick="'selectAllCartItem(\''+${cartSelectAllStatus}+'\')'"
-							class="cart-item-checkbox" th:checked="!${cartSelectAllStatus}" /></th>
-						<th>名称</th>
-						<th>单价</th>
-						<th>数量</th>
-						<th>小计</th>
-						<th>删除</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="record : *{dataList}">
-						<td><input type="checkbox"
-							th:onclick="'selectCartItem(\''+${record.UNIQUE_CODE}+'\')'"
-							class="cart-item-checkbox" th:field="*{checkedList}"
-							th:value="${record.UNIQUE_CODE}" /></td>
-						<td><a th:text="${record.NAME}"
-							th:href="@{itemdetail(productUC=${record.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"></a>
-						</td>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="shop-main-page-body">
 
-						<td th:text="${record.PRICE}"></td>
+		<div th:insert="/fragment :: shop-header"></div>
+		<div class="container">
+			<form role="form" th:object="${cartList}" id="cart-block">
+				<table class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th><input type="checkbox"
+								th:onclick="'selectAllCartItem(\''+${cartSelectAllStatus}+'\')'"
+								class="cart-item-checkbox" th:checked="!${cartSelectAllStatus}" /></th>
+							<th>名称</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>小计</th>
+							<th>删除</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="record : *{dataList}">
+							<td><input type="checkbox"
+								th:onclick="'selectCartItem(\''+${record.UNIQUE_CODE}+'\')'"
+								class="cart-item-checkbox" th:field="*{checkedList}"
+								th:value="${record.UNIQUE_CODE}" /></td>
+							<td><a th:text="${record.NAME}"
+								th:href="@{itemdetail(productUC=${record.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"></a>
+							</td>
 
-						<td><input type="number" th:value="${record.PRODUCT_COUNT}"
-							required="required" class="cart-item-count-input"
-							th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'"></input>
-						</td>
-						<td th:text="${record.SUB_AMT}"></td>
-						<td><a
-							th:onclick="'deleteCartItem(\''+${record.UNIQUE_CODE}+'\');'"><i
-								class="fa fa-trash  fa-2x" aria-hidden="true"></i></a></td>
-					</tr>
-				</tbody>
-			</table>
-			<div class=" cart-preorder-footer">
-				<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a
-					th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default"
-					th:href="@{preorder(AT=${AT})}"> <i
-					class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
-				</a>
-			</div>
-		</form>
+							<td th:text="${record.PRICE}"></td>
+
+							<td><input type="number" th:value="${record.PRODUCT_COUNT}"
+								required="required" class="cart-item-count-input"
+								th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'"></input>
+							</td>
+							<td th:text="${record.SUB_AMT}"></td>
+							<td><a
+								th:onclick="'deleteCartItem(\''+${record.UNIQUE_CODE}+'\');'"><i
+									class="fa fa-trash  fa-2x" aria-hidden="true"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class=" cart-preorder-footer">
+					<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a
+						th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default"
+						th:href="@{preorder(AT=${AT})}"> <i
+						class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
+					</a>
+				</div>
+			</form>
+		</div>
+
+		<div th:insert="/fragment :: shop-footer(3)"></div>
 	</div>
-
-	<div th:insert="/eggshop/common/fragment :: shop-footer(3)"></div>
 </body>
 </html>

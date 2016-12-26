@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body class="editor-oper-page-body">
-	<div th:replace="/eggshop/common/fragment :: editor-oper-page-header"></div>
-	<div class="container">
-		<div class="row">
-			<h3>主页浮动窗</h3>
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<!-- add operation -->
-							<th><a class="btn btn-default"
-								th:href="@{mainSwiperEdit(AT=${AT})}" role="button"><i
-									class="fa fa-plus fa-2x" aria-hidden="true"></i></a></th>
-							<th>名称</th>
-							<th>描述</th>
-							<th>修改</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="record :  ${mainSwiperList}">
-							<td><img th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
-								style="height: 20%;"></img></td>
-							<td th:text="${record.NAME}" />
-							<td th:text="${record.REMARK}" />
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="editor-oper-page-body">
+		<div th:replace="/fragment :: editor-oper-page-header"></div>
+		<div class="container">
+			<div class="row">
+				<h3>主页浮动窗</h3>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<!-- add operation -->
+								<th><a class="btn btn-default"
+									th:href="@{mainSwiperEdit(AT=${AT})}" role="button"><i
+										class="fa fa-plus fa-2x" aria-hidden="true"></i></a></th>
+								<th>名称</th>
+								<th>描述</th>
+								<th>修改</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="record :  ${mainSwiperList}">
+								<td><img
+									th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+									style="height: 20%;"></img></td>
+								<td th:text="${record.NAME}" />
+								<td th:text="${record.REMARK}" />
 
-							<!-- update operation -->
-							<td><a class="btn btn-default" role="button"
-								th:href="@{mainSwiperEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
-									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
-						</tr>
-					</tbody>
-				</table>
+								<!-- update operation -->
+								<td><a class="btn btn-default" role="button"
+									th:href="@{mainSwiperEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
+										class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

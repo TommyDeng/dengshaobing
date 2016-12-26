@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
 <body>
 	<div class="container">
-		<div id="accordion" role="tablist" aria-multiselectable="true">
-			<div class="card">
-				<div class="card-header" role="tab" id="headingv0.1alpha">
-					<h5 class="mb-0">
-						<a data-toggle="collapse" data-parent="#accordion"
-							href="#v0.1alpha" aria-expanded="true"
-							aria-controls="collapseOne">v0.1alpha</a>
-					</h5>
-				</div>
-				<div id="v0.1alpha" class="collapse in" role="tabpanel"
-					aria-labelledby="headingv0.1alpha">
-					<div class="card-block">初始版本上线2016-12-05</div>
-				</div>
-			</div>
-		</div>
+		<ul class="list-group">
+			<li class="list-group-item"><span class="float-xs-right"><i
+					class="fa fa-check-square" aria-hidden="true"></i></span> <kbd>v0.2alpha</kbd>
+				微信支付功能开发完成2016-12-26</li>
+			<li class="list-group-item"><kbd>v0.1alpha</kbd>
+				初始版本上线2016-12-05</li>
+		</ul>
 	</div>
+	<div th:replace="/fragment :: copy-right"></div>
 </body>
 </html>

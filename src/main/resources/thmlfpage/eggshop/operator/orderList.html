@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body class="editor-oper-page-body">
-	<div th:replace="/eggshop/common/fragment :: editor-oper-page-header"></div>
-	<div class="container">
-		<div class="row">
-			<h3>客户订单</h3>
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<!-- add operation -->
-							<th>序号</th>
-							<th>收件人</th>
-							<th>收件地址</th>
-							<th>联系电话</th>
-							<th>订单金额</th>
-							<th>状态</th>
-							<th>创建时间</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="record : ${orderList}">
-							<td th:text="${recordStat.count}" />
-							<td th:text="${record.RECEIVER_NAME}" />
-							<td th:text="${record.DELIVERY_ADDRESS}" />
-							<td th:text="${record.CONTACT}" />
-							<td th:text="${record.TOTAL_AMT}" />
-							<td th:text="${record.STATUS}" />
-							<td th:text="${record.CREATE_TIME}" />
-						</tr>
-					</tbody>
-				</table>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="editor-oper-page-body">
+		>
+		<div th:replace="/fragment :: editor-oper-page-header"></div>
+		<div class="container">
+			<div class="row">
+				<h3>客户订单</h3>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<!-- add operation -->
+								<th>序号</th>
+								<th>收件人</th>
+								<th>收件地址</th>
+								<th>联系电话</th>
+								<th>订单金额</th>
+								<th>状态</th>
+								<th>创建时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="record : ${orderList}">
+								<td th:text="${recordStat.count}" />
+								<td th:text="${record.RECEIVER_NAME}" />
+								<td th:text="${record.DELIVERY_ADDRESS}" />
+								<td th:text="${record.CONTACT}" />
+								<td th:text="${record.TOTAL_AMT}" />
+								<td th:text="${record.STATUS}" />
+								<td th:text="${record.CREATE_TIME}" />
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

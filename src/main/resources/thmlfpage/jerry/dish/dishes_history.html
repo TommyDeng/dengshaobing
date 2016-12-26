@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px;">
-	<div class="container">
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{make_diet(AT=${AT})}">Main</a></li>
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
-			<li role="presentation" class="nav-item"><a
-				class="nav-link active">History</a></li>
-		</ul>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" style="padding-bottom: 70px;">
+		<div class="container">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{make_diet(AT=${AT})}">Main</a></li>
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
+				<li role="presentation" class="nav-item"><a
+					class="nav-link active">History</a></li>
+			</ul>
 
-		<div class="panel panel-default" style="margin-top: 20px;">
-			<div class="panel-heading">
-				<div class="btn-group">这些天吃了什么</div>
+			<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-heading">
+					<div class="btn-group">这些天吃了什么</div>
+				</div>
+				<div class="panel-body">暂时想不起来，努力回忆中。。。</div>
 			</div>
-			<div class="panel-body">暂时想不起来，努力回忆中。。。</div>
 		</div>
-	</div>
 
-	<div th:replace="/base :: copy-right"></div>
+		<div th:replace="/fragment :: copy-right"></div>
+	</div>
 </body>
 </html>

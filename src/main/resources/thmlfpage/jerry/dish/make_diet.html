@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px;">
-	<div class="container">
-		<ul class="nav nav-tabs">
-			<li role="presentation" class="nav-item"><a
-				class="nav-link active" href="#">Main</a></li>
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{dishes_history(AT=${AT})}">History</a></li>
-		</ul>
-		<div class="panel-heading">
-			<div class="btn-group" style="margin-top: 20px;">
-				<a th:href="@{changeRecommendedList(AT=${AT},TYPE='MEAT')}"
-					class="btn btn-primary" style="float: right;"> <i
-					class="fa fa-refresh fa-spin" aria-hidden="true"></i>Reset
-				</a>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" style="padding-bottom: 70px;">
+		<div class="container">
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="nav-item"><a
+					class="nav-link active" href="#">Main</a></li>
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{cookbook(AT=${AT})}">CookBook</a></li>
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{dishes_history(AT=${AT})}">History</a></li>
+			</ul>
+			<div class="panel-heading">
+				<div class="btn-group" style="margin-top: 20px;">
+					<a th:href="@{changeRecommendedList(AT=${AT},TYPE='MEAT')}"
+						class="btn btn-primary" style="float: right;"> <i
+						class="fa fa-refresh fa-spin" aria-hidden="true"></i>Reset
+					</a>
+				</div>
 			</div>
-		</div>
-		<div class="row" style="margin-top: 20px;">
-			<div class="col-xs-6">
-				<div class="panel panel-default ">
-					<div class="panel-heading">Meat</div>
-					<div class="panel-body">
-						<table class="table table-striped table-condensed">
-							<tbody th:remove="all-but-first">
-								<tr th:each="record : ${meatTableMeta.dataList}">
-									<td th:each="head : ${meatTableMeta.headList}"
-										th:text="${record[__${head.index}__]}" th:if="${head.display}"></td>
-								</tr>
-							</tbody>
-						</table>
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-xs-6">
+					<div class="panel panel-default ">
+						<div class="panel-heading">Meat</div>
+						<div class="panel-body">
+							<table class="table table-striped table-condensed">
+								<tbody th:remove="all-but-first">
+									<tr th:each="record : ${meatTableMeta.dataList}">
+										<td th:each="head : ${meatTableMeta.headList}"
+											th:text="${record[__${head.index}__]}"
+											th:if="${head.display}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Vege</div>
+						<div class="panel-body">
+							<table class="table table-striped table-condensed">
+								<tbody th:remove="all-but-first">
+									<tr th:each="record : ${vegeTableMeta.dataList}">
+										<td th:each="head : ${vegeTableMeta.headList}"
+											th:text="${record[__${head.index}__]}"
+											th:if="${head.display}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-xs-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">Vege</div>
-					<div class="panel-body">
-						<table class="table table-striped table-condensed">
-							<tbody th:remove="all-but-first">
-								<tr th:each="record : ${vegeTableMeta.dataList}">
-									<td th:each="head : ${vegeTableMeta.headList}"
-										th:text="${record[__${head.index}__]}" th:if="${head.display}"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
 		</div>
 
+		<div th:replace="/fragment :: copy-right"></div>
 	</div>
-
-	<div th:replace="/base :: copy-right"></div>
 </body>
 </html>

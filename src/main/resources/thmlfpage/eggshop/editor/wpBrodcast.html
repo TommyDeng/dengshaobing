@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body class="editor-oper-page-body">
-	<div th:replace="/eggshop/common/fragment :: editor-oper-page-header"></div>
-	<div class="container">
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="editor-oper-page-body">
+		<div th:replace="/fragment :: editor-oper-page-header"></div>
+		<div class="container">
 
-		<div class="alert alert-success" role="alert">
-			<h4 class="alert-heading">
-				<i class="fa fa-connectdevelop" aria-hidden="true"></i>功能即将推出。。。
-			</h4>
+			<div class="alert alert-success" role="alert">
+				<h4 class="alert-heading">
+					<i class="fa fa-connectdevelop" aria-hidden="true"></i> 请直接使用公众平台:
+					<a
+						href="https://mp.weixin.qq.com/cgi-bin/masssendpage?t=mass/send&token=995651094&lang=zh_CN">群发功能</a>
+				</h4>
+			</div>
 		</div>
 	</div>
 </body>

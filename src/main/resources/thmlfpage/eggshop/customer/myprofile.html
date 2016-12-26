@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
 <script type="text/javascript" th:inline="javascript">
 	function modifyClicked() {
@@ -14,17 +14,19 @@
 	}
 
 	function saveClicked() {
-		
-		if(!formValidation()){
+		if (!formValidation()) {
 			return;
 		}
+		$("#page-loading").show();
+		
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
 		$.post("saveUserContactInfo", {
 			mobile : mobile,
 			email : email,
-			AT : /*[[${AT}]]*/ "1"
+			AT : /*[[${AT}]]*/"1"
 		}, function(resultVar) {
+			$("#page-loading").hide();
 		});
 
 		$("#btn_modify").show();
@@ -37,93 +39,97 @@
 		$("#ipt_email").hide();
 	}
 </script>
-<body class="shop-main-page-body">
-	<div th:insert="/eggshop/common/fragment :: shop-header"></div>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="shop-main-page-body">
+		<div th:insert="/fragment :: shop-header"></div>
 
-	<div class="myprofile-userheading">
-		<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
-			class="img-fluid" th:alt="${userInfo.NICKNAME}">
-		<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
-		<span class="text-muted">积分:5852</span>
-	</div>
+		<div class="myprofile-userheading">
+			<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
+				class="img-fluid" th:alt="${userInfo.NICKNAME}">
+			<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
+			<span class="text-muted">积分:5852</span>
+		</div>
 
-	<div class="container">
-		<div class="card">
-			<a th:href="@{myorder(AT=${AT})}"> <span class="card-header"
-				style="display: block;"> <span style="float: left;"> <b>我的订单</b>
-				</span> <span style="float: right;"> <b>></b>
+		<div class="container">
+			<div class="card">
+				<a th:href="@{myorder(AT=${AT})}"> <span class="card-header"
+					style="display: block;"> <span style="float: left;">
+							<b>我的订单</b>
+					</span> <span style="float: right;"> <b>></b>
+					</span>
 				</span>
-			</span>
-			</a>
-			<div class="card-block">
-				<div class="btn-group" role="group" aria-label="First group">
-					<a class="btn btn-outline-warning"
-						th:href="@{myorder(AT=${AT},orderStatus=1)}">待付款</a> <a
-						class="btn btn-outline-info"
-						th:href="@{myorder(AT=${AT},orderStatus=2)}">待收货</a> <a
-						class="btn btn-outline-primary" th:href="@{myorder(AT=${AT})}">全部订单</a>
+				</a>
+				<div class="card-block">
+					<div class="btn-group" role="group" aria-label="First group">
+						<a class="btn btn-outline-warning"
+							th:href="@{myorder(AT=${AT},orderStatus=1)}">待付款</a> <a
+							class="btn btn-outline-info"
+							th:href="@{myorder(AT=${AT},orderStatus=2)}">待收货</a> <a
+							class="btn btn-outline-primary" th:href="@{myorder(AT=${AT})}">全部订单</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="card">
-			<a th:href="@{address(AT=${AT})}"> <span class="card-header"
-				style="display: block;"> <span style="float: left;"> <b>地址管理</b>
-				</span> <span style="float: right;"> <b>></b>
+			<div class="card">
+				<a th:href="@{address(AT=${AT})}"> <span class="card-header"
+					style="display: block;"> <span style="float: left;">
+							<b>地址管理</b>
+					</span> <span style="float: right;"> <b>></b>
+					</span>
 				</span>
-			</span>
-			</a>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<div style="display: inline; float: left;">
-					<b>联系方式</b>
-				</div>
-				<a class="btn btn-info" onclick="modifyClicked()" id="btn_modify"
-					role="button" style="float: right">修改</a><a class="btn btn-info"
-					onclick="saveClicked()" id="btn_save" role="button"
-					style="float: right; display: none">保存</a>
+				</a>
 			</div>
-			<div class="card-block" th:object="${contactInfo}">
-				<form>
-					<strong>手机号码</strong><br />
-					<div class="input-group" >
-						<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
-						<input id="ipt_mobile" type="tel" class="form-control"
-							th:value="*{MOBILE}" style="display: none" required="required"></input>
+			<div class="card">
+				<div class="card-header">
+					<div style="display: inline; float: left;">
+						<b>联系方式</b>
 					</div>
+					<a class="btn btn-info" onclick="modifyClicked()" id="btn_modify"
+						role="button" style="float: right">修改</a><a class="btn btn-info"
+						onclick="saveClicked()" id="btn_save" role="button"
+						style="float: right; display: none">保存</a>
+				</div>
+				<div class="card-block" th:object="${contactInfo}">
+					<form>
+						<strong>手机号码</strong><br />
+						<div class="input-group">
+							<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
+							<input id="ipt_mobile" type="tel" class="form-control"
+								th:value="*{MOBILE}" style="display: none" required="required"></input>
+						</div>
 
-					<strong>E-mail</strong><br />
-					<div class="input-group">
-						<p style="display: inline" th:text="*{EMAIL}" id="dsp_email"></p>
-						<input id="ipt_email" type="email" class="form-control"
-							th:value="*{EMAIL}" style="display: none" required="required"></input>
-					</div>
-				</form>
+						<strong>E-mail</strong><br />
+						<div class="input-group">
+							<p style="display: inline" th:text="*{EMAIL}" id="dsp_email"></p>
+							<input id="ipt_email" type="email" class="form-control"
+								th:value="*{EMAIL}" style="display: none" required="required"></input>
+						</div>
+					</form>
+				</div>
+
 			</div>
+			<!-- html comment -->
+			<!--/* This code will be removed at Thymeleaf parsing time! */-->
+			<!--/*-->
+			<div>you can see me only before Thymeleaf processes me!</div>
+			<!--*/-->
 
-		</div>
-		<!-- html comment -->
-		<!--/* This code will be removed at Thymeleaf parsing time! */-->
-		<!--/*-->
-		<div>you can see me only before Thymeleaf processes me!</div>
-		<!--*/-->
-
-		<div class="card">
-			<div class="card-header">
-				<div style="display: inline; float: left;">
-					<b>个人信息</b>
+			<div class="card">
+				<div class="card-header">
+					<div style="display: inline; float: left;">
+						<b>个人信息</b>
+					</div>
+				</div>
+				<div class="card-block">
+					<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
+					<p>
+						<b th:text="${entry.key + ':'}">昵称</b> <span
+							th:text="${entry.value}"></span>
+					</p>
+					<!--/*/ </th:block> /*/-->
 				</div>
 			</div>
-			<div class="card-block">
-				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
-				<p>
-					<b th:text="${entry.key + ':'}">昵称</b> <span
-						th:text="${entry.value}"></span>
-				</p>
-				<!--/*/ </th:block> /*/-->
-			</div>
 		</div>
+		<div th:insert="/fragment :: shop-footer(4)"></div>
 	</div>
-	<div th:insert="/eggshop/common/fragment :: shop-footer(4)"></div>
 </body>
 </html>

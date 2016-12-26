@@ -4,6 +4,7 @@
  * @returns
  */
 function formValidation() {
+
 	var validateSuccess = true;
 
 	// 1.Safari等浏览器不支持html5的input标签required属性

@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 <title>Index</title>
 </head>
-<body>
-	<p class="version-tag">
-		<a th:href="@{/versionDetail}">v0.1alpha</a>
-	</p>
-	<div class="container">
-		<h1>Welcome!</h1>
-		<br /> <br /> <br />
-		<p>Thank you for using DengShaobing!</p>
-		<p>
-			<i class="fa fa-clock-o" aria-hidden="true"></i> <b
-				th:text="${#calendars.format(#calendars.createNow())}"></b> . <br />
-			<em> <i class="fa fa-child" aria-hidden="true"></i>Shaobing is <script
-					type="text/javascript">
-				var now = new Date();
-				var birth = new Date("2016/04/07");
-				document.write(Math.floor((now - birth) / 86400000))
-			</script> days old. Wish you happy today <i class="fa fa-smile-o"
-				aria-hidden="true"></i>
-			</em>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content">
+		<p class="version-tag">
+			<a th:href="@{/versionDetail}">v0.2alpha</a>
 		</p>
-		<p>
-			<a class="btn btn-primary btn-lg"
-				href="eggshop/customer/main?visitId=1" role="button">Egg Shop</a> <a
-				class="btn btn-primary btn-lg" href="jerry/dish/make_diet?visitId=1"
-				role="button">Shao Bing</a>
-		</p>
-
-
-	</div>
-	<footer class="bs-docs-footer">
 		<div class="container">
-			<ul class="bs-docs-footer-links">
-				<li><a href="eggshop/editor/categoryList?visitId=1">Oper&Editor</a></li>
-				<li><a href="https://github.com/TommyDeng/dengshaobing">GitHub</a></li>
-				<li><a href="aboutme/">About</a></li>
-			</ul>
-		</div>
-	</footer>
-	<div th:replace="/base :: copy-right"></div>
+			<h1>Welcome!</h1>
+			<br /> <br /> <br />
+			<p>Thank you for using DengShaobing!</p>
+			<p>
+				<i class="fa fa-clock-o" aria-hidden="true"></i> <b
+					th:text="${#calendars.format(#calendars.createNow())}"></b> . <br />
+				<em> <i class="fa fa-child" aria-hidden="true"></i>Shaobing is
+					<script type="text/javascript">
+						var now = new Date();
+						var birth = new Date("2016/04/07");
+						document.write(Math.floor((now - birth) / 86400000))
+					</script> days old. Wish you happy today <i class="fa fa-smile-o"
+					aria-hidden="true"></i>
+				</em>
+			</p>
+			<p>
+				<a class="btn btn-primary btn-lg"
+					href="eggshop/customer/main?visitId=1" role="button">Egg Shop</a> <a
+					class="btn btn-primary btn-lg"
+					href="jerry/dish/make_diet?visitId=1" role="button">Shao Bing</a>
+			</p>
 
+		</div>
+		<footer class="bs-docs-footer">
+			<div class="container">
+				<ul class="bs-docs-footer-links">
+					<li><a href="eggshop/editor/categoryList?visitId=1">Oper&Editor</a></li>
+					<li><a href="https://github.com/TommyDeng/dengshaobing">GitHub</a></li>
+					<li><a href="aboutme/">About</a></li>
+				</ul>
+			</div>
+		</footer>
+		<div th:replace="/fragment :: copy-right"></div>
+	</div>
 </body>
 </html>

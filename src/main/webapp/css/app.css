@@ -198,3 +198,29 @@
 	background-position: center right .625rem;
 	background-size: 1.25rem 1.25rem;
 }
+
+#page-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 90;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: none;
+}
+
+#page-loading>div {
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -70px;
+	margin-top: -48px;
+	width: 140px;
+	border-radius: 6px;
+	font-size: 14px;
+	padding: 58px 0 10px 0;
+}

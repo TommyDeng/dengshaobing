@@ -58,18 +58,6 @@
 		</div>
 	</div>
 
-	<!-- page-loading -->
-	<div th:fragment="page-loading"
-		style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 90; background-color: transparent;">
-		<div
-			style="text-align: center; background-color: rgba(0, 0, 0, 0.5); color: #fff; position: fixed; top: 50%; left: 50%; margin-left: -70px; margin-top: -48px; width: 140px; border-radius: 6px; font-size: 14px; padding: 58px 0 10px 0;">
-			<p>
-				<i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
-			</p>
-			<p>请求加载中...</p>
-		</div>
-	</div>
-
 	<!-- Oper&Editor page header -->
 	<div th:fragment="editor-oper-page-header">
 		<nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
@@ -96,5 +84,11 @@
 		</nav>
 	</div>
 
+	<!--  -->
+	<div th:fragment="copy-right"
+		style="text-align: right; position: fixed; bottom: 0;">
+		<a role="button" th:href="@{/}">&copy; 2016 Dengshaobing. All
+			rights reserved.</a>
+	</div>
 </body>
 </html>

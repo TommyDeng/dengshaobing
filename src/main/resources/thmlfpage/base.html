@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common_header(title,links)">
+<head th:fragment="html_head(title,links)">
 
 <title th:replace="${title}?${title}:_" th:text="#{Page.DefaultTitle}"></title>
 
@@ -29,13 +29,18 @@
 <th:block th:replace="${links}?${links}:_" />
 
 </head>
-<body>
-	<!--  -->
-	<div th:fragment="copy-right"
-		style="text-align: right; position: fixed; bottom: 0;">
-		<a role="button" th:href="@{/}">&copy; 2016 Dengshaobing. All
-			rights reserved.</a>
+<body th:fragment="html_body(content)">
+
+	<!-- page-loading -->
+	<div id="page-loading">
+		<div>
+			<p>
+				<i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+			</p>
+			<p>请求加载中...</p>
+		</div>
 	</div>
+	<th:block th:replace="${content}?${content}:_" />
 
 </body>
 </html>

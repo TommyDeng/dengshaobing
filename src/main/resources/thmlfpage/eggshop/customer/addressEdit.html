@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
 <script type="text/javascript" th:inline="javascript">
 	
 </script>
-<body>
-	<div
-		th:replace="/eggshop/common/fragment :: backward-header(${previousPage})"></div>
-	<div style="text-align: center;">我的地址</div>
-	<div class="card">
-		<div class="card-block">
-			<form class="form-horizontal" role="form" th:object="${formData}">
-				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" /> <input
-					type="hidden" th:field="*{properties[USER_UC]}" />
-				<div class="form-group">
-					<label for="inputName">收货人</label> <input type="text"
-						th:field="*{properties[RECEIVER_NAME]}" class="form-control"
-						placeholder="名字" required="required" />
-				</div>
-				<div class="form-group">
-					<label for="inputName">手机号码</label> <input type="text"
-						th:field="*{properties[CONTACT]}" class="form-control"
-						placeholder="手机号码" required="required" />
-				</div>
-				<div class="form-group">
-					<label for="inputName">省份</label> <input type="text"
-						th:field="*{properties[PROVINCE]}" class="form-control"
-						placeholder="" required="required" />
-				</div>
-				<div class="form-group">
-					<label for="inputName">市</label> <input type="text"
-						th:field="*{properties[CITY]}" class="form-control" placeholder=""
-						required="required" />
-				</div>
-				<div class="form-group">
-					<label for="inputName">区/县</label> <input type="text"
-						th:field="*{properties[DISTRICT]}" class="form-control"
-						placeholder="" required="required" />
-				</div>
-				<div class="form-group">
-					<label for="inputName">详细地址</label>
-					<textarea th:field="*{properties[ADDRESS]}" class="form-control"
-						placeholder="" rows="3" required="required"></textarea>
-				</div>
-				<div>
-					<button class="btn btn-info"
-						th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]},previousPage=${previousPage})}"
-						th:formmethod="post" role="button" style="float: right;"
-						onclick="return formValidation();">保存</button>
-					<a class="btn btn-danger" role="button" style="float: right"
-						th:if="*{!#strings.isEmpty(properties[UNIQUE_CODE])}"
-						th:href="@{addressDelete(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}">删除</a>
-					<a class="btn" role="button" style="float: right"
-						th:href="@{${previousPage}(AT=${AT})}">返回</a>
-				</div>
-			</form>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content">
+		<div
+			th:replace="/fragment :: backward-header(${previousPage})"></div>
+		<div style="text-align: center;">我的地址</div>
+		<div class="card">
+			<div class="card-block">
+				<form class="form-horizontal" role="form" th:object="${formData}">
+					<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" /> <input
+						type="hidden" th:field="*{properties[USER_UC]}" />
+					<div class="form-group">
+						<label for="inputName">收货人</label> <input type="text"
+							th:field="*{properties[RECEIVER_NAME]}" class="form-control"
+							placeholder="名字" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputName">手机号码</label> <input type="text"
+							th:field="*{properties[CONTACT]}" class="form-control"
+							placeholder="手机号码" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputName">省份</label> <input type="text"
+							th:field="*{properties[PROVINCE]}" class="form-control"
+							placeholder="" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputName">市</label> <input type="text"
+							th:field="*{properties[CITY]}" class="form-control"
+							placeholder="" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputName">区/县</label> <input type="text"
+							th:field="*{properties[DISTRICT]}" class="form-control"
+							placeholder="" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputName">详细地址</label>
+						<textarea th:field="*{properties[ADDRESS]}" class="form-control"
+							placeholder="" rows="3" required="required"></textarea>
+					</div>
+					<div>
+						<button class="btn btn-info"
+							th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]},previousPage=${previousPage})}"
+							th:formmethod="post" role="button" style="float: right;"
+							onclick="return formValidation();">保存</button>
+						<a class="btn btn-danger" role="button" style="float: right"
+							th:if="*{!#strings.isEmpty(properties[UNIQUE_CODE])}"
+							th:href="@{addressDelete(AT=${AT},rowUC=*{properties[UNIQUE_CODE]})}">删除</a>
+						<a class="btn" role="button" style="float: right"
+							th:href="@{${previousPage}(AT=${AT})}">返回</a>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

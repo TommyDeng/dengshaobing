@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body>
-	<input id="AT" type="hidden" th:value="${AT}" />
-	<div class="container">
-		<form class="form-horizontal" role="form" th:object="${formData}"
-			enctype="multipart/form-data">
-			<div class="container">
-				<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
-				<div class="form-group">
-					<label for="inputName">Name</label> <input type="text"
-						required="required" th:field="*{properties[NAME]}"
-						class="form-control" id="inputName" placeholder="Product Name" />
-				</div>
-				<div class="form-group">
-					<label for="inputPrice">Food Type</label> <select
-						id="inputFoodType" class="form-control"
-						th:field="*{properties[TYPE]}">
-						<option value="MEAT">MEAT</option>
-						<option value="VEGE">VEGE</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="inputPrice">Healthy Rating</label> <input
-						required="required" th:type="number"
-						th:field="*{properties[HEALTHY_RATING]}" class="form-control"
-						id="inputPrice" placeholder="0" />
-				</div>
-				<div class="form-group">
-					<label for="inputBrief">Brief Introduction</label>
-					<textarea class="form-control" id="inputBrief" rows="5"
-						th:field="*{properties[BRIEF]}"
-						placeholder="Brief Introduction..."></textarea>
-				</div>
-				<div class="btn-toolbar" role="toolbar">
-					<div class="pull-left" style="margin: 10px">
-						<a class="btn btn-default" role="button"
-							th:href="@{cookbook(AT=${AT})}"><span
-							class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-							<span>Back</span></a>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content">
+		<input id="AT" type="hidden" th:value="${AT}" />
+		<div class="container">
+			<form class="form-horizontal" role="form" th:object="${formData}"
+				enctype="multipart/form-data">
+				<div class="container">
+					<input type="hidden" th:field="*{properties[UNIQUE_CODE]}" />
+					<div class="form-group">
+						<label for="inputName">Name</label> <input type="text"
+							required="required" th:field="*{properties[NAME]}"
+							class="form-control" id="inputName" placeholder="Product Name" />
 					</div>
+					<div class="form-group">
+						<label for="inputPrice">Food Type</label> <select
+							id="inputFoodType" class="form-control"
+							th:field="*{properties[TYPE]}">
+							<option value="MEAT">MEAT</option>
+							<option value="VEGE">VEGE</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputPrice">Healthy Rating</label> <input
+							required="required" th:type="number"
+							th:field="*{properties[HEALTHY_RATING]}" class="form-control"
+							id="inputPrice" placeholder="0" />
+					</div>
+					<div class="form-group">
+						<label for="inputBrief">Brief Introduction</label>
+						<textarea class="form-control" id="inputBrief" rows="5"
+							th:field="*{properties[BRIEF]}"
+							placeholder="Brief Introduction..."></textarea>
+					</div>
+					<div class="btn-toolbar" role="toolbar">
+						<div class="pull-left" style="margin: 10px">
+							<a class="btn btn-default" role="button"
+								th:href="@{cookbook(AT=${AT})}"><span
+								class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+								<span>Back</span></a>
+						</div>
 
-					<div class="pull-right" style="margin: 10px">
-						<button type="submit" class="btn btn-primary"
-							th:formaction="@{save(rowUC=${rowUC},AT=${AT})}"
-							th:formmethod="post">Submit</button>
-						<a class="btn btn-danger" role="button" th:if="${!#strings.isEmpty(rowUC)}"
-							th:href="@{delete(rowUC=*{properties[UNIQUE_CODE]},AT=${AT})}">Delete</a>
+						<div class="pull-right" style="margin: 10px">
+							<button type="submit" class="btn btn-primary"
+								th:formaction="@{save(rowUC=${rowUC},AT=${AT})}"
+								th:formmethod="post">Submit</button>
+							<a class="btn btn-danger" role="button"
+								th:if="${!#strings.isEmpty(rowUC)}"
+								th:href="@{delete(rowUC=*{properties[UNIQUE_CODE]},AT=${AT})}">Delete</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

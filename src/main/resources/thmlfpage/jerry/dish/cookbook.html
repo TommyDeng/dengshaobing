@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: common_header(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
-<body style="padding-bottom: 70px;">
-	<div class="container">
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{make_diet(AT=${AT})}">Main</a></li>
-			<li role="presentation" class="nav-item"><a
-				class="nav-link active">CookBook</a></li>
-			<li role="presentation" class="nav-item"><a class="nav-link"
-				th:href="@{dishes_history(AT=${AT})}">History</a></li>
-		</ul>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" style="padding-bottom: 70px;">
+		<div class="container">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{make_diet(AT=${AT})}">Main</a></li>
+				<li role="presentation" class="nav-item"><a
+					class="nav-link active">CookBook</a></li>
+				<li role="presentation" class="nav-item"><a class="nav-link"
+					th:href="@{dishes_history(AT=${AT})}">History</a></li>
+			</ul>
 
-		<div class="panel panel-default" style="margin-top: 20px;">
-			<div class="panel-heading">
-				<div class="btn-group">
-					<a class="btn btn-primary" role="button"
-						th:href="@{cookbook_edit(AT=${AT})}"> <span
-						class="glyphicon glyphicon-plus"></span> Add
-					</a>
+			<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-heading">
+					<div class="btn-group">
+						<a class="btn btn-primary" role="button"
+							th:href="@{cookbook_edit(AT=${AT})}"> <span
+							class="glyphicon glyphicon-plus"></span> Add
+						</a>
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<!-- add operation -->
+								<th>#</th>
+
+								<th th:each="head : ${tableMeta.headList}"
+									th:text="${head.columnLabel}" th:if="${head.display}"></th>
+								<th><span class="glyphicon glyphicon-cog"
+									aria-hidden="true"></span></th>
+							</tr>
+						</thead>
+						<tbody th:remove="all-but-first">
+							<tr th:each="record : ${tableMeta.dataList}">
+								<td><div th:switch="${record[3]}">
+										<i th:case="'VEGE'" class="fa fa-leaf" aria-hidden="true"></i>
+										<i th:case="'MEAT'" class="fa fa-linux" aria-hidden="true"></i>
+									</div></td>
+
+								<td th:each="head : ${tableMeta.headList}"
+									th:text="${record[__${head.index}__]}" th:if="${head.display}"></td>
+
+								<!-- update operation -->
+								<td><a class="btn btn-default" role="button"
+									th:href="@{cookbook_edit(rowUC=${record[1]},AT=${AT})}"><i
+										class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<div class="panel-body">
-
-				<table class="table table-sm">
-					<thead>
-						<tr>
-							<!-- add operation -->
-							<th>#</th>
-
-							<th th:each="head : ${tableMeta.headList}"
-								th:text="${head.columnLabel}" th:if="${head.display}"></th>
-							<th><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-							</th>
-						</tr>
-					</thead>
-					<tbody th:remove="all-but-first">
-						<tr th:each="record : ${tableMeta.dataList}">
-							<td><div th:switch="${record[3]}">
-									<i th:case="'VEGE'" class="fa fa-leaf" aria-hidden="true"></i>
-									<i th:case="'MEAT'" class="fa fa-linux" aria-hidden="true"></i>
-								</div></td>
-
-							<td th:each="head : ${tableMeta.headList}"
-								th:text="${record[__${head.index}__]}" th:if="${head.display}"></td>
-
-							<!-- update operation -->
-							<td><a class="btn btn-default" role="button"
-								th:href="@{cookbook_edit(rowUC=${record[1]},AT=${AT})}"><i
-									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
-	</div>
 
-	<div th:replace="/base :: copy-right"></div>
+		<div th:replace="/fragment :: copy-right"></div>
+	</div>
 </body>
 </html>
