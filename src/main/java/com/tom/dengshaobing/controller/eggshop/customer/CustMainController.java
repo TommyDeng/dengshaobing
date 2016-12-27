@@ -131,8 +131,6 @@ public class CustMainController extends BaseController {
 
 		cartBlockDataLoad(map, AT);
 
-		map.put("previousPage", "cart");
-		
 		return BasePath + "cart";
 	}
 
@@ -141,7 +139,7 @@ public class CustMainController extends BaseController {
 		bussService.changeCartItemQty(UUID.fromString(cartItemUC), Long.parseLong(itemCount), AT);
 
 		cartBlockDataLoad(map, AT);
-		
+
 		return BasePath + "cart :: #cart-block";
 	}
 
@@ -150,7 +148,7 @@ public class CustMainController extends BaseController {
 		bussService.deleteCartItem(UUID.fromString(cartItemUC), AT);
 
 		cartBlockDataLoad(map, AT);
-		
+
 		return BasePath + "cart :: #cart-block";
 	}
 
@@ -159,7 +157,7 @@ public class CustMainController extends BaseController {
 		bussService.selectCartItem(UUID.fromString(cartItemUC), AT);
 
 		cartBlockDataLoad(map, AT);
-		
+
 		return BasePath + "cart :: #cart-block";
 	}
 
@@ -168,11 +166,12 @@ public class CustMainController extends BaseController {
 		bussService.selectAllCartItem(AT, selected);
 
 		cartBlockDataLoad(map, AT);
-		
+
 		return BasePath + "cart :: #cart-block";
 	}
 
 	private void cartBlockDataLoad(ModelMap map, String AT) throws InterruptedException {
+
 		ListForm listForm = new ListForm();
 		listForm.setDataList(bussService.listShoppingCart(AT));
 		// 全选状态
@@ -199,7 +198,7 @@ public class CustMainController extends BaseController {
 
 		// preorder按钮上的AT刷新
 		map.put(PxAT, AT);
-		
+		map.put("previousPage", "cart");
 		Thread.sleep(1000);
 
 	}

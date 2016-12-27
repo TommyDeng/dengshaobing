@@ -27,8 +27,8 @@
 }
 
 .shop-main-page-body {
-/* 	padding-top: 28px; */
-/* 	padding-bottom: 50px; */
+	padding-top: 28px;
+	padding-bottom: 50px;
 }
 
 .shop-main-page-body .container {
@@ -41,8 +41,7 @@
 }
 
 .shop-header {
-	background-color: rgba(0, 0, 0, 0); 
-	height: 44px;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 .shop-footer {

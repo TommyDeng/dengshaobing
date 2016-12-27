@@ -41,7 +41,7 @@
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
-		<div th:insert="/fragment :: shop-header"></div>
+		<div th:replace="/fragment :: shop-header"></div>
 
 		<div class="myprofile-userheading">
 			<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		<div th:insert="/fragment :: shop-footer(4)"></div>
+		<div th:replace="/fragment :: shop-footer(4)"></div>
 	</div>
 </body>
 </html>

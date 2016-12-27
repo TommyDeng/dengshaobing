@@ -9,14 +9,14 @@
 			pagination : '.swiper-pagination',
 			paginationClickable : true,
 			loop : true,
-			// 			autoplay : 2500,
+			autoplay : 2500,
 			autoplayDisableOnInteraction : false
 		});
 	});
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
-		<div th:insert="/fragment :: shop-header"></div>
+		<div th:replace="/fragment :: shop-header"></div>
 		<div class="container">
 
 			<!-- Swiper -->
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 		</div>
-		<div th:insert="/fragment :: shop-footer(1)"></div>
+		<div th:replace="/fragment :: shop-footer(1)"></div>
 	</div>
 </body>
 </html>

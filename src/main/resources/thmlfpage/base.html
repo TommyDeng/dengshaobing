@@ -28,7 +28,20 @@
 <!--/* Per-page placeholder for additional links */-->
 <th:block th:replace="${links}?${links}:_" />
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("a").on('click', function() {
+			$("#page-loading").show();
+		});
+
+		$("a").on('click', function() {
+			$("#page-loading").show();
+		});
+	});
+</script>
+
 </head>
+
 <body th:fragment="html_body(content)">
 
 	<!-- page-loading -->

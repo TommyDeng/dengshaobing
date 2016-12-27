@@ -51,7 +51,7 @@
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
 
-		<div th:insert="/fragment :: shop-header"></div>
+		<div th:replace="/fragment :: shop-header"></div>
 		<div class="container">
 			<form role="form" th:object="${cartList}" id="cart-block">
 				<table class="table table-striped table-sm">
@@ -100,7 +100,7 @@
 			</form>
 		</div>
 
-		<div th:insert="/fragment :: shop-footer(3)"></div>
+		<div th:replace="/fragment :: shop-footer(3)"></div>
 	</div>
 </body>
 </html>

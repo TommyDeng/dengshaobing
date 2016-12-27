@@ -4,7 +4,7 @@
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
-		<div th:insert="/fragment :: shop-header"></div>
+		<div th:replace="/fragment :: shop-header"></div>
 		<div class="category-sidebar">
 			<div th:class="${selectCategory == null?'a-select':''}">
 				<a th:href="@{category(AT=${AT})}"><img alt="all"
@@ -31,7 +31,7 @@
 				</a>
 			</div>
 		</div>
-		<div th:insert="/fragment :: shop-footer(2)"></div>
+		<div th:replace="/fragment :: shop-footer(2)"></div>
 	</div>
 </body>
 </html>

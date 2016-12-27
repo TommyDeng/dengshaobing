@@ -6,28 +6,28 @@
 		class="navbar-fixed-bottom shop-footer">
 		<div th:class="${active==1?'shop-footer-div-select':''}">
 			<div>
-				<a th:href="@{${active==1?'#':'main'}(AT=${AT})}"><i
+				<a th:href="@{main(AT=${AT})}"><i
 					th:class="|fa fa-home fa-3x ${active==1?'a-select':''}|"
 					aria-hidden="true"></i></a>
 			</div>
 		</div>
 		<div th:class="${active==2?'shop-footer-div-select':''}">
 			<div>
-				<a th:href="@{${active==2?'#':'category'}(AT=${AT})}"><i
+				<a th:href="@{category(AT=${AT})}"><i
 					th:class="|fa fa-list fa-3x ${active==2?'a-select':''}|"
 					aria-hidden="true"></i></a>
 			</div>
 		</div>
 		<div th:class="${active==3?'shop-footer-div-select':''}">
 			<div>
-				<a th:href="@{${active==3?'#':'cart'}(AT=${AT})}"><i
+				<a th:href="@{cart(AT=${AT})}"><i
 					th:class="|fa fa-shopping-cart fa-3x ${active==3?'a-select':''}|"
 					aria-hidden="true"></i> </a>
 			</div>
 		</div>
 		<div th:class="${active==4?'shop-footer-div-select':''}">
 			<div>
-				<a th:href="@{${active==4?'#':'myprofile'}(AT=${AT})}"><i
+				<a th:href="@{myprofile(AT=${AT})}"><i
 					th:class="|fa fa-user-circle-o fa-3x ${active==4?'a-select':''}|"
 					aria-hidden="true"></i></a>
 			</div>
@@ -37,13 +37,13 @@
 	<!-- shop-header -->
 	<div th:fragment="shop-header" class="navbar-fixed-top shop-header">
 		<div class="col-xs-9">
-			<a><i class="fa fa-pagelines fa-lg" aria-hidden="true">乐果农场</i></a>
+			<i class="fa fa-pagelines fa-lg" aria-hidden="true">乐果农场</i>
 		</div>
 		<!-- 		<div class="col-xs-3"></div> -->
 		<!-- 		<div class="col-xs-3"></div> -->
 		<div class="col-xs-3">
-			<a href="#"><i class="fa fa-commenting fa-1x" aria-hidden="true"></i><span
-				class="badge"></span></a>
+			<i class="fa fa-commenting fa-1x" aria-hidden="true"></i><span
+				class="badge"></span>
 		</div>
 	</div>
 
