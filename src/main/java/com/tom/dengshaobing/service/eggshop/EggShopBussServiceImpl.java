@@ -56,60 +56,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public TableMeta listAllProduct() {
-		return dataAccessService.queryTableMeta("BUSS004", null);
-	}
-
-	@Override
-	public void addProduct(Map<String, Object> properties, String AT) throws Exception {
-		if (properties == null)
-			return;
-		UUID userUC = commonService.getUserUCByAppToken(AT);
-
-		String productUC = UUID.randomUUID().toString();
-		Map<String, Object> insertParamMap = new HashMap<>();
-		insertParamMap.put("UNIQUE_CODE", productUC);
-		insertParamMap.put("NAME", properties.get("NAME"));
-		insertParamMap.put("PRICE", properties.get("PRICE"));
-		insertParamMap.put("BRIEF", properties.get("BRIEF"));
-		insertParamMap.put("THUMBNAIL", properties.get("THUMBNAIL"));
-		insertParamMap.put("DETAIL_DESCIPTION", properties.get("DETAIL_DESCIPTION"));
-		insertParamMap.put("CREATOR", String.valueOf(userUC));
-		dataAccessService.insertSingle("ES_PRODUCT", insertParamMap);
-
-	}
-
-	@Override
-	public Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", productUC);
-		return dataAccessService.queryForOneRow("BUSS006", paramMap);
-		// return dataAccessService.queryRowMapById("ES_PRODUCT", productUC);
-	}
-
-	@Override
-	public void updateProduct(Map<String, Object> properties, String AT) throws Exception {
-		dataAccessService.updateSingle("ES_PRODUCT", properties);
-	}
-
-	@Override
-	public void deleteProduct(UUID productUC, String AT) throws Exception {
-		dataAccessService.deleteRowById("ES_PRODUCT", productUC);
-	}
-
-	@Override
-	public Map<String, Object> queryOrder(UUID orderUC, String AT) throws Exception {
-		return dataAccessService.queryForOneRowAllColumn("ES_ORDER", orderUC);
-	}
-
-	@Override
-	public TableMeta queryOrderItem(UUID orderUC, String AT) {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("ORDER_UC", orderUC);
-		return dataAccessService.queryTableMeta("BUSS003", paramMap);
-	}
-
-	@Override
 	public void discardOrder(UUID orderUC, String AT) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
@@ -123,11 +69,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
 		dataAccessService.update("BUSS005", paramMap);
-	}
-
-	@Override
-	public List<Map<String, Object>> listAllProductForMain() {
-		return dataAccessService.queryMapList("BUSS012", null);
 	}
 
 	@Override
@@ -278,7 +219,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 		// payment
 		try {
-			wexinPaymentService.unifiedOrder(orderUC,ipAddress,AT);
+			wexinPaymentService.unifiedOrder(orderUC, ipAddress, AT);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

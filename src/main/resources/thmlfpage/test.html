@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/base :: html_head(~{::title},~{::link})">
+<style type="text/css">
+.product {
+	background-color: fuchsia;
+}
+
+@media screen and (max-width: 40.5em) {
+	.product {
+		background-color: green;
+	}
+}
+</style>
 </head>
 <body>
-	<div class="container">
-		<span class="text-muted" th:text="#{WeixinPlatform.AppID}">积分:5852</span>
+	<div class="product">
+		<span class="text-muted">积分:5852</span>
 	</div>
 </body>
 </html>
