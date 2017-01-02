@@ -10,16 +10,17 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<!-- <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" /> -->
 <link rel="stylesheet"
 	th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
 <link rel="stylesheet" th:href="@{/swiper-3.4.0/css/swiper.min.css}" />
+
 <link rel="stylesheet" th:href="@{/css/app.css}" />
 
 
 <script th:src="@{/js/jquery-3.1.0.min.js}"></script>
-<script th:src="@{/js/tether.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- <script th:src="@{/js/tether.min.js}"></script> -->
+<!-- <script th:src="@{/js/bootstrap.min.js}"></script> -->
 <script th:src="@{/swiper-3.4.0/js/swiper.min.js}"></script>
 <script th:src="@{/js/app-common.js}"></script>
 <script th:src="@{/js/app-buss.js}"></script>
@@ -30,11 +31,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("a").on('click', function() {
+		$("a[data-mask!=false]").on('click', function() {
 			$("#page-loading").show();
 		});
 
-		$("a").on('click', function() {
+		$("button[data-mask!=false]").on('submit', function() {
 			$("#page-loading").show();
 		});
 	});

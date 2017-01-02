@@ -17,7 +17,7 @@ SELECT p.UNIQUE_CODE ,p.NAME ,m.PATH ,count(1) SALECOUNT FROM ES_PRODUCT p left 
 left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE 
 group by p.UNIQUE_CODE 
 order by salecount desc
-LIMIT 5
+LIMIT 6
 	]]>
 	</sql>
 
@@ -26,7 +26,7 @@ LIMIT 5
 SELECT p.UNIQUE_CODE ,p.NAME ,p.BRIEF , m.PATH FROM ES_PRODUCT p 
 left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE 
 order by p.CREATE_TIME desc
-LIMIT 15
+LIMIT 9
 	]]>
 	</sql>
 
