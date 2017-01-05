@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sqls>
 
-	<sql name="BUSS003">
-	<![CDATA[
-select p.name as 产品名称, oi.PRODUCT_COUNT as 数量, oi.TOTAL_AMT as 金额
-  from ES_ORDER_ITEM oi
-  left join ES_PRODUCT p
-    on oi.PRODUCT_UC = p.UNIQUE_CODE
- where oi.ORDER_UC = :ORDER_UC
-	]]>
-	</sql>
-
-	<sql name="BUSS004">
-	<![CDATA[
-SELECT UNIQUE_CODE as UNIQUE_CODE$K$H, NAME as 名称,PRICE as 单价, to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') 创建时间  FROM ES_PRODUCT 
-	]]>
-	</sql>
-
 	<sql name="BUSS005">
 	<![CDATA[
 delete from ES_ORDER_ITEM where ORDER_UC = :ORDER_UC 
 	]]>
 	</sql>
-
 
 	<sql name="BUSS011">
 	<![CDATA[
@@ -30,14 +13,6 @@ SELECT U.UNIQUE_CODE
   FROM SYS_USER U, SYS_USERINFO_WX W
  WHERE U.UNIQUE_CODE = W.UNIQUE_CODE
    AND W.OPENID = :OPENID
-	]]>
-	</sql>
-	<sql name="BUSS012">
-	<![CDATA[
-SELECT p.*, f.PATH THUMBNAIL_PATH
-  FROM ES_PRODUCT p
-  left join SYS_FILE_STORE_MAPPING f
-    on p.THUMBNAIL = f.UNIQUE_CODE
 	]]>
 	</sql>
 

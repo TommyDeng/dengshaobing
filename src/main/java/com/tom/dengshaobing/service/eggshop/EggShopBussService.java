@@ -15,74 +15,12 @@ import com.tom.dengshaobing.common.bo.sys.TableMeta;
 public interface EggShopBussService {
 
 	/**
-	 * 查询所有产品列表
-	 * 
-	 * @return
-	 */
-	TableMeta listAllProduct();
-
-	/**
-	 * 新增产品
-	 * 
-	 * @param properties
-	 * @param userUC
-	 * @throws Exception
-	 */
-	void addProduct(Map<String, Object> properties, String AT) throws Exception;
-
-	/**
-	 * 查询产品
-	 * 
-	 * @param productUC
-	 * @param userUC
-	 * @throws Exception
-	 */
-	Map<String, Object> queryProduct(UUID productUC, String AT) throws Exception;
-
-	/**
-	 * 更新产品
-	 * 
-	 * @param properties
-	 * @param userUC
-	 * @throws Exception
-	 */
-	void updateProduct(Map<String, Object> properties, String AT) throws Exception;
-
-	/**
-	 * 删除产品
-	 * 
-	 * @param productUC
-	 * @param userUC
-	 * @throws Exception
-	 */
-	void deleteProduct(UUID productUC, String AT) throws Exception;
-
-	/**
 	 * 查询用户订单
 	 * 
 	 * @param userUC
 	 * @return
 	 */
-	List<Map<String, Object>> getOrderList(String AT,String orderStatus);
-
-	/**
-	 * 查询order
-	 * 
-	 * @param orderUC
-	 * @param userUC
-	 * @return
-	 * @throws Exception
-	 */
-	Map<String, Object> queryOrder(UUID orderUC, String AT) throws Exception;
-
-	/**
-	 * 查询order子项
-	 * 
-	 * @param orderUC
-	 * @param userUC
-	 * @return
-	 */
-	TableMeta queryOrderItem(UUID orderUC, String AT);
+	List<Map<String, Object>> getOrderList(String AT, String orderStatus);
 
 	/**
 	 * 废弃order
@@ -101,13 +39,6 @@ public interface EggShopBussService {
 	 * @throws Exception
 	 */
 	void deleteOrder(UUID orderUC, String AT) throws Exception;
-
-	/**
-	 * 获取所有产品(main页面展示)
-	 * 
-	 * @return
-	 */
-	List<Map<String, Object>> listAllProductForMain();
 
 	/**
 	 * 获取cart信息
@@ -179,6 +110,7 @@ public interface EggShopBussService {
 	 * @return
 	 */
 	Map<String, Object> getUserInfo(String AT);
+
 	/**
 	 * 获取用户所有信息
 	 * 
@@ -186,6 +118,7 @@ public interface EggShopBussService {
 	 * @return
 	 */
 	Map<String, Object> getWeixinUserInfo(String AT);
+
 	/**
 	 * 获取用户微信信息
 	 * 
@@ -225,8 +158,8 @@ public interface EggShopBussService {
 	 * @param AT
 	 * @param selectedAddressUC
 	 * @param paymentType
-	 * @param ipAddress 
-	 * @return 
+	 * @param ipAddress
+	 * @return
 	 */
 	UUID submitOrder(String AT, UUID selectedAddressUC, String paymentType, String ipAddress);
 

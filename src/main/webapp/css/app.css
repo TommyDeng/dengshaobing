@@ -483,3 +483,38 @@ body {
 	font-size: 14px;
 	padding: 58px 0 10px 0;
 }
+
+.lics {
+	position: relative;
+	color: #e4393c;
+	background: #fff;
+	padding: 0 5px;
+	height: 45px;
+	line-height: 45px;
+	margin: 0;
+	vertical-align: baseline;
+}
+
+.lic {
+	position: relative;
+	padding: 0 5px;
+	height: 45px;
+	line-height: 45px;
+	margin: 0;
+	vertical-align: baseline;
+}
+
+.lics:before, .lic:before {
+	content: '';
+	height: 0px;
+	display: block;
+	border-bottom: 1px solid #ddd;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.lic span, .lics span {
+	display: block;
+}
