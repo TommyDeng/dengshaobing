@@ -50,7 +50,6 @@ body {
 	margin: 0 auto;
 	min-width: 320px;
 	max-width: 540px;
-	/* 	background: #fff; */
 	font-size: 14px;
 	font-family: -apple-system, Helvetica, sans-serif;
 	line-height: 1.5;
@@ -247,37 +246,27 @@ body {
 
 /* category */
 .category-sidebar {
-	overflow: hidden;
-	position: absolute;
-	left: 0px;
-	width: 80px;
+	width: 25%;
 	background-color: rgb(243, 243, 243);
-	min-height: 100px;
-	height: 689px;
+	float: left;
+	overflow: auto;
 }
 
 .category-sidebar ul {
-	list-style: none;
-	transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
-	transition-duration: 0ms;
-	transform: translate(0px, 0px) translateZ(0px);
 	position: relative;
 	font-size: 12px;
-	width: 80px;
 	color: #666;
 	text-align: center;
 	background-color: #f0f0f5;
+	list-style: none;
 	margin: 0;
-	padding-top: 0px;
-	padding-right: 0px;
-	padding-bottom: 50px;
-	padding-left: 0px;
+	padding: 0;
 	vertical-align: baseline;
+	height: 100vh;
 }
 
 .category-sidebar li {
 	position: relative;
-	padding: 0 5px;
 	height: 45px;
 	line-height: 45px;
 }
@@ -293,31 +282,37 @@ body {
 	bottom: 0;
 }
 
-.category-sidebar .a-select {
-	position: relative;
+.category-sidebar li.category-selected span {
 	color: #e4393c;
 	background: #fff;
 }
 
+.category-sidebar li a {
+	text-decoration: none;
+}
+
+.category-sidebar li a span {
+	display: block;
+}
+
 .category-content {
-	overflow: hidden;
-	position: absolute;
-	top: 45px;
-	left: 80px;
-	height: 689px;
-	max-width: 565px;
-	transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
-	transition-duration: 0ms;
-	transform: translate(0px, 0px) translateZ(0px);
+	left: 25%;
+	background: #fff;
+	width: 75%;
+	float: left;
+	height: 100vh;
+	overflow: auto;
 }
 
 .category-content dl {
 	background-color: #fff;
 	padding: 0 10px 10px 10px;
+	margin: 0;
+	vertical-align: baseline;
+	height: 100vh;
 }
 
 .category-content dt {
-	padding: 0;
 	margin: 15px 0;
 	font-size: 12px;
 	line-height: 1;
@@ -325,6 +320,8 @@ body {
 }
 
 .category-content dd {
+	padding-right: 4px;
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 	vertical-align: baseline;
@@ -333,51 +330,41 @@ body {
 .category-content dd a {
 	position: relative;
 	float: left;
-	width: 33.33%;
+	width: 32.42%;
 	padding-top: 33.3295%;
 	margin: 0 2px 2px 0;
 	font-size: 12px;
 	text-align: center;
-	background-color: #f8f8f8;
 }
 
-.category-content .cover {
+.category-content dd a .cover {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 }
 
-.category-content .tit {
-	font-size: 12px;
-	line-height: 25px;
-	height: 25px;
-	padding: 0 5px;
-	background: #fff;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.category-content dd a span {
+	display: block;
 }
 
-.category-content p {
-	font-size: 12px;
-	line-height: 25px;
-	height: 25px;
-	padding: 0 5px;
-	background: #fff;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.category-content img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
+.category-content dd a img {
 	width: 100%;
+	/* 	width: 6.25rem; */
+	height: 4.2rem;
 	border: 0 none;
 	vertical-align: top;
+}
+
+.category-content dd a .tit {
+	font-size: 12px;
+	line-height: 25px;
+	height: 25px;
+	padding: 0 5px;
+	background: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .myprofile-userheading {
@@ -482,39 +469,4 @@ body {
 	border-radius: 6px;
 	font-size: 14px;
 	padding: 58px 0 10px 0;
-}
-
-.lics {
-	position: relative;
-	color: #e4393c;
-	background: #fff;
-	padding: 0 5px;
-	height: 45px;
-	line-height: 45px;
-	margin: 0;
-	vertical-align: baseline;
-}
-
-.lic {
-	position: relative;
-	padding: 0 5px;
-	height: 45px;
-	line-height: 45px;
-	margin: 0;
-	vertical-align: baseline;
-}
-
-.lics:before, .lic:before {
-	content: '';
-	height: 0px;
-	display: block;
-	border-bottom: 1px solid #ddd;
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.lic span, .lics span {
-	display: block;
 }

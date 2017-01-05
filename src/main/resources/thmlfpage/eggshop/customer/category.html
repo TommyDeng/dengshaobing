@@ -8,61 +8,30 @@
 
 		<div class="category-sidebar">
 			<ul>
-				<li th:class="${selectCategory == null?'a-select':''}"><a
+				<li th:class="${selectCategory == null?'category-selected':''}"><a
 					th:href="@{category(AT=${AT})}"><span>全部产品 </span></a></li>
 
+
 				<li th:each="record : ${categoryList}"
-					th:class="${#strings.equals(selectCategory,record.UNIQUE_CODE)?'a-select':''}"><a
+					th:class="${#strings.equals(selectCategory,record.UNIQUE_CODE)?'category-selected':''}"><a
 					th:href="@{category(AT=${AT},selectCategory=${record.UNIQUE_CODE})}"><span
 						th:text="${record.NAME}">产品类别</span></a></li>
 			</ul>
 		</div>
 		<div class="category-content">
 			<dl>
-				<dt id="areaT_1098_39984" cattest="737:738:749"
-					data-torankdid="737.738">热门搜索</dt>
-				<dd id="areaC_1098_39984">
-					<a
-						target="//wqsou.jd.com/search/searchn?key=%E7%A9%BA%E6%B0%94%E5%87%80%E5%8C%96%E5%99%A8&amp;as=0&amp;PTAG=37113.909.1&amp;projectId=236"
-						data-pattern="1"
-						datatest="//wqsou.jd.com/search/searchn?key=%E7%A9%BA%E6%B0%94%E5%87%80%E5%8C%96%E5%99%A8&amp;as=0&amp;PTAG=37113.909.1&amp;projectId=236"
-						data-actid="" data-reportspec="1" data-kw="0" data-kwp="1">
-						<div class="cover">
-							<img
-								src="//img20.360buyimg.com/focus/jfs/t3874/185/681256710/8998/101bf3c2/585b6d5eN429aa8dd.jpg.webp"
-								alt="" tmpcatid="737:738:749" />
-						</div>
-						<p class="tit">空气净化器</p>
-					</a> <a
-						target="//wqsou.jd.com/search/searchn?key=%E7%BE%BD%E7%BB%92%E6%9C%8D&amp;as=0&amp;PTAG=37113.909.2&amp;projectId=236"
-						data-pattern="1"
-						datatest="//wqsou.jd.com/search/searchn?key=%E7%BE%BD%E7%BB%92%E6%9C%8D&amp;as=0&amp;PTAG=37113.909.2&amp;projectId=236"
-						data-actid="" data-reportspec="1" data-kw="0" data-kwp="2">
-						<div class="cover">
-							<img
-								src="//img12.360buyimg.com/focus/jfs/t3061/100/4802235869/48967/f3bb0786/5853cb37N4b045ee2.png.webp"
-								alt=""
-								tmpcatid="1315:1343:3982|1315:1342:3982|1318:2628:12126|1318:12102:12104|1319:11842:11226" />
-						</div>
-						<p class="tit">羽绒服</p>
+				<dt>产品列表</dt>
+				<dd>
+					<a th:each="record : ${productList}"
+						th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage},previousCategory=${selectCategory})}">
+
+						<span class="cover"> <img
+							th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+							th:alt="${record.BRIEF}" />
+					</span> <span class="tit" th:text="${record.NAME}">空气净化器</span>
 					</a>
 				</dd>
 			</dl>
-
-
-
-
-			<!-- 			<div class="category-content-item" th:each="record : ${productList}"> -->
-			<!-- 				<a class="product-group-item"  -->
-			<!-- 					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage},previousCategory=${selectCategory})}"> -->
-			<!-- 					<dl> -->
-			<!-- 						<dt th:text="${record.NAME}">产品A</dt> -->
-			<!-- 						<dd th:text="${record.BRIEF}">产品A简述</dd> -->
-			<!-- 					</dl> <img -->
-			<!-- 					th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}" -->
-			<!-- 					th:alt="${record.BRIEF}"> -->
-			<!-- 				</a> -->
-
 		</div>
 		<div th:replace="/fragment :: shop-footer(2)"></div>
 	</div>
