@@ -90,12 +90,28 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class=" cart-preorder-footer">
-					<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a
-						th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default"
-						th:href="@{preorder(AT=${AT})}"> <i
-						class="fa fa-credit-card fa-2x" aria-hidden="true"></i>
-					</a>
+				<!-- 				<div class=" cart-preorder-footer"> -->
+				<!-- 					<b> 总计:￥<span th:text="${cartTotalAmount}"></span></b> <a -->
+				<!-- 						th:if="*{not #lists.isEmpty(checkedList)}" class="btn btn-default" -->
+				<!-- 						th:href="@{preorder(AT=${AT})}"> <i -->
+				<!-- 						class="fa fa-credit-card fa-2x" aria-hidden="true"></i> -->
+				<!-- 					</a> -->
+				<!-- 				</div> -->
+
+				<div class="layout_footer">
+					<div class="normal">
+						<label class="all_check" checked="true"> <input
+							type="checkbox" class="all_check check_box" checked="true">
+							<br> <span> 全选 </span>
+						</label>
+						<div class="checkout_info">
+							<span> <span class="price"> ¥202.55 </span> <br> <em>
+									商品(不含运费) </em>
+							</span>
+						</div>
+						<a onclick="javascript:createOrder();" data-tpa="GOTO_CHECKOUT"
+							class="btn_checkout"> 结算(8) </a>
+					</div>
 				</div>
 			</form>
 		</div>

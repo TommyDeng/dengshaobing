@@ -199,8 +199,6 @@ public class CustMainController extends BaseController {
 		// preorder按钮上的AT刷新
 		map.put(PxAT, AT);
 		map.put("previousPage", "cart");
-		Thread.sleep(1000);
-
 	}
 
 	@RequestMapping("/preorder")

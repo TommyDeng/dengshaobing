@@ -36,7 +36,7 @@
 
 		<!-- section latest -->
 		<section class="product-section">
-			<div class="product-section-title">最新上架</div>
+			<div class="product-section-title"><i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 最新上架</div>
 
 			<div class="product-section-group">
 				<a class="product-section-group-item"
@@ -54,7 +54,7 @@
 
 		<!-- section hot -->
 		<section class="product-section">
-			<div class="product-section-title">畅销产品</div>
+			<div class="product-section-title"><i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 畅销产品</div>
 			<div class="product-section-group">
 				<a class="product-section-group-item" th:each="record : ${hotList}"
 					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">

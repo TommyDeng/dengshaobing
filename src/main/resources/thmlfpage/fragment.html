@@ -2,60 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 	<!-- shop-footer -->
-	<div th:fragment="shop-footer(active)"
-		class="shop-footer">
-		<a th:class="${active==1?'a-select':''}"  th:href="@{main(AT=${AT})}"><span class="line"><i
-							class="fa fa-home fa-2x"
-							aria-hidden="true"></i></span> <span
-			class="text">主页</span></a>
-			
-					<a th:class="${active==2?'a-select':''}"  th:href="@{category(AT=${AT})}"><span class="line"><i
-							class="fa fa-list fa-2x"
-							aria-hidden="true"></i></span> <span
-			class="text">分类</span></a>
-					<a th:class="${active==3?'a-select':''}"  th:href="@{cart(AT=${AT})}"><span class="line"><i
-							class="fa fa-shopping-cart fa-2x"
-							aria-hidden="true"></i></span> <span
-			class="text">购物车</span></a>
-			
-					<a th:class="${active==4?'a-select':''}"  th:href="@{myprofile(AT=${AT})}"><span class="line"><i
-							class="fa fa-user-circle-o fa-2x"
-							aria-hidden="true"></i></span> <span
+	<div th:fragment="shop-footer(active)" class="shop-footer">
+		<a th:class="${active==1?'a-select':''}" th:href="@{main(AT=${AT})}"><span
+			class="line"><i class="fa fa-home fa-2x" aria-hidden="true"></i></span>
+			<span class="text">主页</span></a> <a th:class="${active==2?'a-select':''}"
+			th:href="@{category(AT=${AT})}"><span class="line"><i
+				class="fa fa-list fa-2x" aria-hidden="true"></i></span> <span class="text">分类</span></a>
+		<a th:class="${active==3?'a-select':''}" th:href="@{cart(AT=${AT})}"><span
+			class="line"><i class="fa fa-shopping-cart fa-2x"
+				aria-hidden="true"></i></span> <span class="text">购物车</span></a> <a
+			th:class="${active==4?'a-select':''}"
+			th:href="@{myprofile(AT=${AT})}"><span class="line"><i
+				class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></span> <span
 			class="text">个人中心</span></a>
-<!-- 				<div th:class="${active==2?'a-select':''}"> -->
-<!-- 					<div> -->
-<!-- 						<a th:href="@{category(AT=${AT})}"><i -->
-<!-- 							th:class="|fa fa-list fa-3x ${active==2?'a-select':''}|" -->
-<!-- 							aria-hidden="true"></i></a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div th:class="${active==3?'a-select':''}"> -->
-<!-- 					<div> -->
-<!-- 						<a th:href="@{cart(AT=${AT})}"><i -->
-<!-- 							th:class="|fa fa-shopping-cart fa-3x ${active==3?'a-select':''}|" -->
-<!-- 							aria-hidden="true"></i> </a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div th:class="${active==4?'a-select':''}"> -->
-<!-- 					<div> -->
-<!-- 						<a th:href="@{myprofile(AT=${AT})}"><i -->
-<!-- 							th:class="|fa fa-user-circle-o fa-3x ${active==4?'a-select':''}|" -->
-<!-- 							aria-hidden="true"></i></a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
+		<!-- 				<div th:class="${active==2?'a-select':''}"> -->
+		<!-- 					<div> -->
+		<!-- 						<a th:href="@{category(AT=${AT})}"><i -->
+		<!-- 							th:class="|fa fa-list fa-3x ${active==2?'a-select':''}|" -->
+		<!-- 							aria-hidden="true"></i></a> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div th:class="${active==3?'a-select':''}"> -->
+		<!-- 					<div> -->
+		<!-- 						<a th:href="@{cart(AT=${AT})}"><i -->
+		<!-- 							th:class="|fa fa-shopping-cart fa-3x ${active==3?'a-select':''}|" -->
+		<!-- 							aria-hidden="true"></i> </a> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div th:class="${active==4?'a-select':''}"> -->
+		<!-- 					<div> -->
+		<!-- 						<a th:href="@{myprofile(AT=${AT})}"><i -->
+		<!-- 							th:class="|fa fa-user-circle-o fa-3x ${active==4?'a-select':''}|" -->
+		<!-- 							aria-hidden="true"></i></a> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+
 		<!-- 1 -->
-<!-- 		<a class="a-select"><span class="line"><i ></i></span> <span -->
-<!-- 			class="text">京东</span></a> -->
-<!-- 		<!-- 			2 --> -->
-<!-- 		<a><span class="line"><i ></i></span> <span -->
-<!-- 			class="text">京东</span></a> -->
-<!-- 		<!-- 				3 --> -->
-<!-- 		<a><span class="line"><i ></i></span> <span -->
-<!-- 			class="text">京东</span></a> -->
-<!-- 		<!-- 4 --> -->
-<!-- 		<a><span class="line"><i ></i></span> <span -->
-<!-- 			class="text">京东</span></a> -->
+		<!-- 		<a class="a-select"><span class="line"><i ></i></span> <span -->
+		<!-- 			class="text">京东</span></a> -->
+		<!-- 		<!-- 			2 -->
+		-->
+		<!-- 		<a><span class="line"><i ></i></span> <span -->
+		<!-- 			class="text">京东</span></a> -->
+		<!-- 		<!-- 				3 -->
+		-->
+		<!-- 		<a><span class="line"><i ></i></span> <span -->
+		<!-- 			class="text">京东</span></a> -->
+		<!-- 		<!-- 4 -->
+		-->
+		<!-- 		<a><span class="line"><i ></i></span> <span -->
+		<!-- 			class="text">京东</span></a> -->
 	</div>
 
 	<!-- shop-header -->
@@ -75,11 +71,9 @@
 	<!-- backward -->
 	<div th:fragment="backward-header(previousPage)"
 		class="navbar-fixed-top backward-header">
-		<div class="col-xs-3">
-			<a
-				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
-				class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></a>
-		</div>
+		<a
+			th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
+			class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i></a>
 	</div>
 
 	<!-- Oper&Editor page header -->
