@@ -196,6 +196,13 @@ public class CustMainController extends BaseController {
 		map.put("cartSelectAllStatus", cartSelectAllStatus);
 		map.put("cartTotalAmount", cartTotalAmount);
 
+		List<String> itemListForSelect = new ArrayList<>();
+		for (int i = 1; i < 100; i++) {
+			itemListForSelect.add(String.valueOf(i));
+		}
+
+		map.put("itemListForSelect", itemListForSelect);
+
 		// preorder按钮上的AT刷新
 		map.put(PxAT, AT);
 		map.put("previousPage", "cart");
