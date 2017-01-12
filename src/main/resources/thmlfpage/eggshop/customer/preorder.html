@@ -4,71 +4,77 @@
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
-		<div class="container">
-			<form role="form" th:object="${addressList}">
-				<div class="card">
-					<div class="card-header">收货信息</div>
-					<div class="card-block">
-						<div class="custom-controls-stacked"
-							th:each="record : *{dataList}">
-							<label class="custom-control custom-radio"> <input
-								id="radioStacked2" name="radio-stacked" type="radio"
-								th:value="${record.UNIQUE_CODE}" class="custom-control-input"
-								th:field="*{checkedList}"> <span
-								class="custom-control-indicator"></span><span
-								class="custom-control-description">[[${record.RECEIVER_NAME}]]
-									[[${record.DELIVERY_ADDRESS}]] [[${record.CONTACT}]]</span>
-							</label>
-						</div>
-					</div>
-					<div class="card-block">
-						<a th:href="@{addressEdit(AT=${AT},previousPage='preorder')}"
-							class="btn btn-outline-success"> <span
-							style="text-align: center; display: block;"> <i
-								class="fa fa-plus-circle" aria-hidden="true"></i>新增收货地址
-						</span>
-						</a>
+		<form role="form" th:object="${addressList}">
+			<div class="card">
+				<div class="card-header">收货信息</div>
+				<div class="card-block">
+					<div class="custom-controls-stacked" th:each="record : *{dataList}">
+						<label class="custom-control custom-radio"> <input
+							id="radioStacked2" name="radio-stacked" type="radio"
+							th:value="${record.UNIQUE_CODE}" class="custom-control-input"
+							th:field="*{checkedList}"> <span
+							class="custom-control-indicator"></span><span
+							class="custom-control-description">[[${record.RECEIVER_NAME}]]
+								[[${record.DELIVERY_ADDRESS}]] [[${record.CONTACT}]]</span>
+						</label>
 					</div>
 				</div>
+				<div class="card-block">
+					<a th:href="@{addressEdit(AT=${AT},previousPage='preorder')}"
+						class="btn btn-outline-success"> <span
+						style="text-align: center; display: block;"> <i
+							class="fa fa-plus-circle" aria-hidden="true"></i>新增收货地址
+					</span>
+					</a>
+				</div>
+			</div>
 
-				<div class="card">
-					<div class="card-header">支付方式</div>
-					<div class="card-block">
-						<div class="preorder-payment-weixin">微信支付</div>
-					</div>
+			<div class="card">
+				<div class="card-header">支付方式</div>
+				<div class="card-block">
+					<div class="preorder-payment-weixin">微信支付</div>
 				</div>
+			</div>
 
-				<div class="card">
-					<div class="card-header">送货清单</div>
-					<div class="card-block">
-						<table class="table table-sm">
-							<thead>
-								<tr>
-									<th>产品名称</th>
-									<th>数 量</th>
-									<th>金额小计</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="record : ${selectedItemList}">
-									<td th:text=${record.PRODUCT_NAME}></td>
-									<td th:text=${record.PRODUCT_COUNT}></td>
-									<td th:text=${record.SUB_AMT}></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+			<div class="card">
+				<div class="card-header">送货清单</div>
+				<div class="card-block">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th>产品名称</th>
+								<th>数 量</th>
+								<th>金额小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="record : ${selectedItemList}">
+								<td th:text=${record.PRODUCT_NAME}></td>
+								<td th:text=${record.PRODUCT_COUNT}></td>
+								<td th:text=${record.SUB_AMT}></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<div class="navbar-fixed-bottom preorder-footer">
-					<button class="btn btn-info"
-						th:formaction="@{submitorder(AT=${AT})}" th:formmethod="post"
-						role="button" style="float: right;"
-						th:disabled="*{#lists.isEmpty(checkedList)}">提交订单</button>
-					<a class="btn" role="button" style="float: right"
-						th:href="@{cart(AT=${AT})}">返回</a>
+			</div>
+			<div class="navbar-fixed-bottom preorder-footer">
+				<button class="btn btn-info"
+					th:formaction="@{submitorder(AT=${AT})}" th:formmethod="post"
+					role="button" style="float: right;"
+					th:disabled="*{#lists.isEmpty(checkedList)}">提交订单</button>
+				<a class="btn" role="button" style="float: right"
+					th:href="@{cart(AT=${AT})}">返回</a>
+			</div>
+
+			<div class="preorder-submit-box" data-tpa="SUBMIT_ORDER"
+				data-trackersend="1">
+				<div class="order_totol_cost">
+					<span class="totol_cost">合计：<span class="cost"><span
+							class="small">￥</span> 1915 </span></span>
 				</div>
-			</form>
-		</div>
+				<a href="javascript:;" class="submit">提交订单</a>
+			</div>
+		</form>
 	</div>
 </body>
 </html>
