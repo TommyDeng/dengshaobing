@@ -3,22 +3,7 @@
 <head th:replace="/base :: html_head(~{::title},~{::link})">
 </head>
 <script type="text/javascript" th:inline="javascript">
-	function modifyClicked() {
-		$("#btn_modify").hide();
-		$("#dsp_mobile").hide();
-		$("#dsp_email").hide();
-
-		$("#btn_save").show();
-		$("#ipt_mobile").show();
-		$("#ipt_email").show();
-	}
-
-	function saveClicked() {
-		if (!formValidation()) {
-			return;
-		}
-		$("#page-loading").show();
-
+	function postSample() {
 		var mobile = $("#ipt_mobile").val();
 		var email = $("#ipt_email").val();
 		$.post("saveUserContactInfo", {
@@ -26,35 +11,26 @@
 			email : email,
 			AT : /*[[${AT}]]*/"1"
 		}, function(resultVar) {
-			$("#page-loading").hide();
+			//$("#page-loading").hide();
 		});
-
-		$("#btn_modify").show();
-
-		$("#dsp_mobile").html(mobile).show();
-		$("#dsp_email").html(email).show();
-
-		$("#btn_save").hide();
-		$("#ipt_mobile").hide();
-		$("#ipt_email").hide();
 	}
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
 		<div th:replace="/fragment :: shop-header"></div>
 
-		<div class="myprofile-userheading">
-			<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
-				class="img-fluid" th:alt="${userInfo.NICKNAME}">
+		<div class="myprofile-user">
+			<div class="user-heading"><img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
+				 th:alt="${userInfo.NICKNAME}" /></div>
 			<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
-			<span class="text-muted">积分:5852</span>
+			<span class="text-muted">积分:0</span>
 		</div>
 
 		<div class="gap"></div>
 		<div class="myprofile-myorder">
 			<div class="myprofile-myorder-all">
-				<a th:href="@{myorder(AT=${AT})}"> <span class="left"> <span><img
-							th:src="@{~/dengshaobing/img/eggshop/myorder.png}" /></span> <span>我的订单</span>
+				<a th:href="@{myorder(AT=${AT})}"> <span class="left"> <span><i
+							class="fa fa-calendar-check-o" aria-hidden="true"></i></span> <span>我的订单</span>
 				</span> <span class="right"> <span>全部订单</span> <span
 						class="myprofile-arrow"></span>
 				</span>
@@ -64,19 +40,24 @@
 				<a th:href="@{myorder(AT=${AT},orderStatus=1)}">
 					<div>
 						<span class="icon"><img
-							th:src="@{~/dengshaobing/img/eggshop/wait2pay.png}" /> <span>1</span>
-						</span> <span class="desc">待付款</span>
+							th:src="@{~/dengshaobing/img/eggshop/wait2pay.png}" /> <span
+							th:if="${!#strings.isEmpty(orderCountInfo['1'])}"
+							th:text="${orderCountInfo['1']}">1</span> </span> <span class="desc">待付款</span>
 					</div>
 				</a> <a th:href="@{myorder(AT=${AT},orderStatus=2)}">
 					<div>
 						<span class="icon"> <img
-							th:src="@{~/dengshaobing/img/eggshop/wait2recv.png}" /> <span>2</span>
+							th:src="@{~/dengshaobing/img/eggshop/wait2recv.png}" /> <span
+							th:if="${!#strings.isEmpty(orderCountInfo['2'])}"
+							th:text="${orderCountInfo['2']}">2</span>
 						</span> <span class="desc">待收货</span>
 					</div>
 				</a> <a>
 					<div>
 						<span class="icon"> <img
-							th:src="@{~/dengshaobing/img/eggshop/wait2return.png}" /> <span>1</span>
+							th:src="@{~/dengshaobing/img/eggshop/wait2return.png}" /> <span
+							th:if="${!#strings.isEmpty(orderCountInfo['3'])}"
+							th:text="${orderCountInfo['3']}">1</span>
 						</span> <span class="desc">返修/退换</span>
 					</div>
 				</a>
@@ -84,64 +65,24 @@
 		</div>
 		<div class="gap"></div>
 
-		<div class="card">
-			<a th:href="@{address(AT=${AT})}"> <span class="card-header"
-				style="display: block;"> <span style="float: left;"> <b>地址管理</b>
-				</span> <span style="float: right;"> <b>></b>
+		<div class="myprofile-myorder">
+			<div class="myprofile-myorder-all">
+				<a th:href="@{address(AT=${AT})}"> <span class="left"> <span><i
+							class="fa fa-address-book" aria-hidden="true"></i></span> <span>我的收货地址</span>
+				</span> <span class="right"> <span>地址管理</span> <span
+						class="myprofile-arrow"></span>
 				</span>
-			</span>
-			</a>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<div style="display: inline; float: left;">
-					<b>联系方式</b>
-				</div>
-				<a class="btn btn-info" onclick="modifyClicked()" id="btn_modify"
-					role="button" style="float: right">修改</a><a class="btn btn-info"
-					onclick="saveClicked()" id="btn_save" role="button"
-					style="float: right; display: none">保存</a>
+				</a>
 			</div>
-			<div class="card-block" th:object="${contactInfo}">
-				<form>
-					<strong>手机号码</strong><br />
-					<div class="input-group">
-						<p style="display: inline" th:text="*{MOBILE}" id="dsp_mobile"></p>
-						<input id="ipt_mobile" type="tel" class="form-control"
-							th:value="*{MOBILE}" style="display: none" required="required"></input>
-					</div>
-
-					<strong>E-mail</strong><br />
-					<div class="input-group">
-						<p style="display: inline" th:text="*{EMAIL}" id="dsp_email"></p>
-						<input id="ipt_email" type="email" class="form-control"
-							th:value="*{EMAIL}" style="display: none" required="required"></input>
-					</div>
-				</form>
-			</div>
-
 		</div>
+
+		<div class="gap"></div>
 		<!-- html comment -->
 		<!--/* This code will be removed at Thymeleaf parsing time! */-->
 		<!--/*-->
 		<div>you can see me only before Thymeleaf processes me!</div>
 		<!--*/-->
 
-		<div class="card">
-			<div class="card-header">
-				<div style="display: inline; float: left;">
-					<b>个人信息</b>
-				</div>
-			</div>
-			<div class="card-block">
-				<!--/*/ <th:block th:each="entry : ${weixinUserInfo}"> /*/-->
-				<p>
-					<b th:text="${entry.key + ':'}">昵称</b> <span
-						th:text="${entry.value}"></span>
-				</p>
-				<!--/*/ </th:block> /*/-->
-			</div>
-		</div>
 		<div th:replace="/fragment :: shop-footer(4)"></div>
 	</div>
 </body>

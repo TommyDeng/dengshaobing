@@ -143,14 +143,6 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Map<String, Object> getUserInfo(String AT) {
-		UUID userUC = commonService.getUserUCByAppToken(AT);
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", userUC);
-		return dataAccessService.queryForOneRow("BUSS013", paramMap);
-	}
-
-	@Override
 	public Map<String, Object> getWeixinUserInfo(String AT) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
@@ -159,18 +151,21 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	}
 
 	@Override
-	public Map<String, Object> getWeixinUserInfoDetail(String AT) {
+	public Map<String, Object> getOrderCountInfo(String AT) {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", userUC);
-		return dataAccessService.queryForOneRow("BUSS014", paramMap);
-	}
+		paramMap.put("USER_UC", userUC);
 
-	@Override
-	public void saveUserInfo(Map<String, Object> userInfo, String AT) throws Exception {
-		UUID userUC = commonService.getUserUCByAppToken(AT);
-		userInfo.put("UNIQUE_CODE", userUC);
-		dataAccessService.updateSingle("SYS_USER", userInfo);
+		List<Map<String, Object>> result = dataAccessService.queryMapList("ES_BUSS027", paramMap);
+
+		Map<String, Object> returnMap = new HashMap<>();
+		// H2不支持行转列，做一遍循环转Map
+		if (result != null && result.size() > 0) {
+			for (Map<String, Object> row : result) {
+				returnMap.put((String) row.get("ORDER_STATUS"), row.get("ORDER_COUNT"));
+			}
+		}
+		return returnMap;
 	}
 
 	@Override

@@ -30,12 +30,13 @@
 <th:block th:replace="${links}?${links}:_" />
 
 <script type="text/javascript">
+<!--/* mask page when <a><botton> data-page-mask set true */-->
 	$(document).ready(function() {
-		$("a[data-mask!=false]").on('click', function() {
+		$("a[data-page-mask=true]").on('click', function() {
 			$("#page-loading").show();
 		});
 
-		$("button[data-mask!=false]").on('submit', function() {
+		$("button[data-page-mask=true]").on('submit', function() {
 			$("#page-loading").show();
 		});
 	});

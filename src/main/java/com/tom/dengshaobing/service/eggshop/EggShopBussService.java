@@ -103,21 +103,6 @@ public interface EggShopBussService {
 	 */
 	void selectAllCartItem(String AT, boolean selected);
 
-	/**
-	 * 获取用户所有信息
-	 * 
-	 * @param AT
-	 * @return
-	 */
-	Map<String, Object> getUserInfo(String AT);
-
-	/**
-	 * 获取用户所有信息
-	 * 
-	 * @param AT
-	 * @return
-	 */
-	Map<String, Object> getWeixinUserInfo(String AT);
 
 	/**
 	 * 获取用户微信信息
@@ -125,17 +110,15 @@ public interface EggShopBussService {
 	 * @param AT
 	 * @return
 	 */
-	Map<String, Object> getWeixinUserInfoDetail(String AT);
+	Map<String, Object> getWeixinUserInfo(String AT);
 
 	/**
-	 * 更新或保存用户信息
-	 * 
-	 * @param userInfo
+	 * 查询用户订单数量
 	 * @param AT
-	 * @throws Exception
+	 * @return
 	 */
-	void saveUserInfo(Map<String, Object> userInfo, String AT) throws Exception;
-
+	Map<String, Object> getOrderCountInfo(String AT);
+	
 	/**
 	 * 获取用户配送地址列表
 	 * 

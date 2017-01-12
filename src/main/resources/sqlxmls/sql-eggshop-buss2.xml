@@ -206,22 +206,29 @@ WHERE m.PRODUCT_UC = :PRODUCT_UC order by m.ORDER_NUM
 	
 	<sql name="ES_BUSS024">
 	<![CDATA[
-	update ES_ORDER set PAYMENT_UC = :PAYMENT_UC where UNIQUE_CODE = :UNIQUE_CODE
+update ES_ORDER set PAYMENT_UC = :PAYMENT_UC where UNIQUE_CODE = :UNIQUE_CODE
 	]]>
 	</sql>
 	
 	<sql name="ES_BUSS025">
 	<![CDATA[
-	select p.* from ES_ORDER o, ES_PAYMENT p where o.PAYMENT_UC = p.UNIQUE_CODE and o.UNIQUE_CODE = :UNIQUE_CODE
+select p.* from ES_ORDER o, ES_PAYMENT p where o.PAYMENT_UC = p.UNIQUE_CODE and o.UNIQUE_CODE = :UNIQUE_CODE
 	]]>
 	</sql>
 
 	<sql name="ES_BUSS026">
 	<![CDATA[
-	update ES_ORDER  set STATUS = :STATUS  where exists (select 1 from ES_PAYMENT p where PAYMENT_UC = p.UNIQUE_CODE and p.OUT_TRADE_NO = :OUT_TRADE_NO)
+update ES_ORDER  set STATUS = :STATUS  where exists (select 1 from ES_PAYMENT p where PAYMENT_UC = p.UNIQUE_CODE and p.OUT_TRADE_NO = :OUT_TRADE_NO)
 	]]>
 	</sql>
 	
-	
+	<sql name="ES_BUSS027">
+	<![CDATA[
+select o.STATUS ORDER_STATUS, CONVERT(count(1),VARCHAR) as ORDER_COUNT
+  from ES_ORDER o
+ where o.USER_UC = :USER_UC
+ group by o.STATUS
+	]]>
+	</sql>
 	
 </sqls>

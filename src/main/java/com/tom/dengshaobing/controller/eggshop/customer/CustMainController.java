@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,8 +25,6 @@ import com.tom.dengshaobing.common.bo.sys.MapForm;
 import com.tom.dengshaobing.controller.BaseController;
 import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.dengshaobing.service.eggshop.EggShopBussService;
-import com.tom.utils.JsonParseUtils;
-import com.tom.utils.PaymentSignUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +41,7 @@ public class CustMainController extends BaseController {
 	public static final String BasePath = "/eggshop/customer/";
 	@Autowired
 	private Environment env;
+
 	@Autowired
 	EggShopBussService bussService;
 
@@ -264,19 +262,10 @@ public class CustMainController extends BaseController {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		map.put("userInfo", bussService.getWeixinUserInfo(AT));
-		map.put("weixinUserInfo", bussService.getWeixinUserInfoDetail(AT));
-		map.put("contactInfo", bussService.getUserInfo(AT));
-		return BasePath + "myprofile";
-	}
 
-	@RequestMapping("/saveUserContactInfo")
-	@ResponseBody
-	public String saveUserContactInfo(ModelMap map, String mobile, String email, String AT) throws Exception {
-		Map<String, Object> userInfo = new HashMap<>();
-		userInfo.put("MOBILE", mobile);
-		userInfo.put("EMAIL", email);
-		bussService.saveUserInfo(userInfo, AT);
-		return "";
+		map.put("orderCountInfo", bussService.getOrderCountInfo(AT));
+
+		return BasePath + "myprofile";
 	}
 
 	@RequestMapping("/myorder")

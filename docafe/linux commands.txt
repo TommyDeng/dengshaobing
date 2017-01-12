@@ -36,6 +36,15 @@ cp -r /opt/lib-backup/lib /opt/apache-tomcat-9.0.0.M15/webapps/dengshaobing/WEB-
 
 ./opt/apache-tomcat-9.0.0.M15/bin/startup.sh
 
+==============================
+简易war包发布步骤
+==============================
+./opt/apache-tomcat-9.0.0.M15/bin/shutdown.sh
+rm -rf /opt/apache-tomcat-9.0.0.M15/webapps/dengshaobing
+
+G:\git\dengshaobing\target\ --> /opt/apache-tomcat-9.0.0.M15/webapps/
+
+./opt/apache-tomcat-9.0.0.M15/bin/startup.sh
 
 ==============================
 linux命令
@@ -61,6 +70,9 @@ yum install nginx
 
 passwd修改密码
 passwd 
+
+查找文件
+find / -name Help.java
 
 ==============================
 nginx相关
@@ -88,7 +100,6 @@ chown -R user file
 
 文件用户组变更
 chgrp -R group file
-
 
 ==============================
 
