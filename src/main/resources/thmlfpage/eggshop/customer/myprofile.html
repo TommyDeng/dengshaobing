@@ -20,57 +20,59 @@
 		<div th:replace="/fragment :: shop-header"></div>
 
 		<div class="myprofile-user">
-			<div class="user-heading"><img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
-				 th:alt="${userInfo.NICKNAME}" /></div>
+			<div class="user-heading">
+				<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
+					th:alt="${userInfo.NICKNAME}" />
+			</div>
 			<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
 			<span class="text-muted">积分:0</span>
 		</div>
 
 		<div class="gap"></div>
-		<div class="myprofile-myorder">
-			<div class="myprofile-myorder-all">
-				<a th:href="@{myorder(AT=${AT})}"> <span class="left"> <span><i
-							class="fa fa-calendar-check-o" aria-hidden="true"></i></span> <span>我的订单</span>
-				</span> <span class="right"> <span>全部订单</span> <span
-						class="myprofile-arrow"></span>
+		<div class="info-section">
+			<div class="info-section-title">
+				<a th:href="@{myorder(AT=${AT})}"> <span class="left"> <i
+						class="fa fa-calendar-check-o" aria-hidden="true"></i>我的订单
+				</span> <span class="right">全部订单<span class="info-section-arrow"></span>
 				</span>
 				</a>
 			</div>
-			<div class="myprofile-myorder-division">
-				<a th:href="@{myorder(AT=${AT},orderStatus=1)}">
-					<div>
-						<span class="icon"><img
-							th:src="@{~/dengshaobing/img/eggshop/wait2pay.png}" /> <span
-							th:if="${!#strings.isEmpty(orderCountInfo['1'])}"
-							th:text="${orderCountInfo['1']}">1</span> </span> <span class="desc">待付款</span>
-					</div>
-				</a> <a th:href="@{myorder(AT=${AT},orderStatus=2)}">
-					<div>
-						<span class="icon"> <img
-							th:src="@{~/dengshaobing/img/eggshop/wait2recv.png}" /> <span
-							th:if="${!#strings.isEmpty(orderCountInfo['2'])}"
-							th:text="${orderCountInfo['2']}">2</span>
-						</span> <span class="desc">待收货</span>
-					</div>
-				</a> <a>
-					<div>
-						<span class="icon"> <img
-							th:src="@{~/dengshaobing/img/eggshop/wait2return.png}" /> <span
-							th:if="${!#strings.isEmpty(orderCountInfo['3'])}"
-							th:text="${orderCountInfo['3']}">1</span>
-						</span> <span class="desc">返修/退换</span>
-					</div>
-				</a>
+			<div class="info-section-content">
+				<div class="myprofile-myorder-division">
+					<a th:href="@{myorder(AT=${AT},orderStatus=1)}">
+						<div>
+							<span class="icon"><img
+								th:src="@{~/dengshaobing/img/eggshop/wait2pay.png}" /> <span
+								th:if="${!#strings.isEmpty(orderCountInfo['1'])}"
+								th:text="${orderCountInfo['1']}">1</span> </span> <span class="desc">待付款</span>
+						</div>
+					</a> <a th:href="@{myorder(AT=${AT},orderStatus=2)}">
+						<div>
+							<span class="icon"> <img
+								th:src="@{~/dengshaobing/img/eggshop/wait2recv.png}" /> <span
+								th:if="${!#strings.isEmpty(orderCountInfo['2'])}"
+								th:text="${orderCountInfo['2']}">2</span>
+							</span> <span class="desc">待收货</span>
+						</div>
+					</a> <a>
+						<div>
+							<span class="icon"> <img
+								th:src="@{~/dengshaobing/img/eggshop/wait2return.png}" /> <span
+								th:if="${!#strings.isEmpty(orderCountInfo['3'])}"
+								th:text="${orderCountInfo['3']}">1</span>
+							</span> <span class="desc">返修/退换</span>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="gap"></div>
 
-		<div class="myprofile-myorder">
-			<div class="myprofile-myorder-all">
-				<a th:href="@{address(AT=${AT})}"> <span class="left"> <span><i
-							class="fa fa-address-book" aria-hidden="true"></i></span> <span>我的收货地址</span>
-				</span> <span class="right"> <span>地址管理</span> <span
-						class="myprofile-arrow"></span>
+		<div class="info-section">
+			<div class="info-section-title">
+				<a th:href="@{address(AT=${AT})}"> <span class="left"><i
+						class="fa fa-address-book" aria-hidden="true"></i>我的收货地址 </span> <span
+					class="right">地址管理<span class="info-section-arrow"></span>
 				</span>
 				</a>
 			</div>
