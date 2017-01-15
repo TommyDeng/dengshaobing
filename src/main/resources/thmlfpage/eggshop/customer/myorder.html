@@ -6,47 +6,57 @@
 	
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-		<div
-			th:replace="/fragment :: backward-header(${previousPage})"></div>
+	<div id="body-content">
+		<!-- 		<div th:replace="/fragment :: backward-header(${previousPage})"></div> -->
 
-		<div style="text-align: center;">我的订单</div>
-		<ul class="nav nav-tabs">
-			<li role="presentation" class="nav-item"><a
-				th:class="|nav-link ${#strings.isEmpty(orderStatus)?'active':''}|"
-				th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
-			<li role="presentation" class="nav-item"><a
-				th:class="|nav-link ${orderStatus=='1'?'active':''}|"
-				th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>
-			<li role="presentation" class="nav-item"><a
-				th:class="|nav-link ${orderStatus=='2'?'active':''}|"
-				th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待收货</a></li>
-			<li role="presentation" class="nav-item"><a
-				th:class="|nav-link ${orderStatus=='3'?'active':''}|"
-				th:href="@{${orderStatus=='4'?'#':'myorder'}(AT=${AT},orderStatus=4)}">已完成</a></li>
-		</ul>
-		<div class="card" th:each="record : ${orderList}">
-			<div class="card-header">订单状态：[[${record.STATUS}]]
-				总金额：[[${record.TOTAL_AMT}]] 订单时间:[[${record.CREATE_TIME}]]</div>
-			<div class="card-block">
-				<table class="table table-sm">
-					<thead>
-						<tr>
-							<th>产品名称</th>
-							<th>数 量</th>
-							<th>金额小计</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="item : ${record.itemList}">
-							<td th:text=${item.PRODUCT_NAME}></td>
-							<td th:text=${item.PRODUCT_COUNT}></td>
-							<td th:text=${item.SUB_AMT}></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="sub-page-title">
+			<a
+				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
+				class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a>我的订单
+		</div>
+		<div class="myorder-nav-tabs">
+			<ul>
+				<li th:class="${#strings.isEmpty(orderStatus)?'active':''}"><a
+					th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
+				<li th:class="${orderStatus=='1'?'active':''}"><a
+					th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>
+				<li th:class="${orderStatus=='2'?'active':''}"><a
+					th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待收货</a></li>
+				<li th:class="${orderStatus=='10'?'active':''}"><a
+					th:href="@{${orderStatus=='10'?'#':'myorder'}(AT=${AT},orderStatus=10)}">已完成</a></li>
+			</ul>
+		</div>
+
+
+		<div class="myorder-list">
+			<div class="myorder-list-item" th:each="record : ${orderList}">
+				<p class="order-info">
+					<em th:text="${record.CREATE_TIME}">2017-01-14</em> <span
+						class="amount" th:text="${'￥' + record.TOTAL_AMT}">￥178.3</span>
+				</p>
+
+				<div class="order-operation">
+					<div class="status" th:text="${record.STATUS_DESC}">已发货</div>
+					<div class="tools">
+						<a th:if="${record.STATUS == '1'}"
+							th:href="@{/eggshop/payment_test/customerPayOrder(AT=${AT},orderUC=${record.UNIQUE_CODE})}">支付订单</a>
+					</div>
+
+				</div>
+				<div class="card-block">
+					<table class="preorder-product-table">
+						<tbody>
+							<tr th:each="item : ${record.itemList}">
+								<td th:text=${item.PRODUCT_NAME}></td>
+								<td th:text=${item.PRODUCT_COUNT}></td>
+								<td th:text=${item.SUB_AMT}></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
+
 	</div>
 </body>
 </html>

@@ -17,12 +17,32 @@
 				</div>
 
 				<div class="info-section-content">
-					<div th:each="record : *{dataList}">
-						<label class="custom-control custom-radio"> <input
-							type="radio" th:value="${record.UNIQUE_CODE}"
-							th:field="*{checkedList}"> <span>[[${record.RECEIVER_NAME}]]
-								[[${record.DELIVERY_ADDRESS}]] [[${record.CONTACT}]]</span>
-						</label>
+					<div class="radio-toolbar">
+						<div class="radio-toolbar-item" th:each="record : *{dataList}">
+							<input type="radio" th:value="${record.UNIQUE_CODE}"
+								th:id="${'radio'+recordStat.index}" th:field="*{checkedList}" />
+							<label th:for="${'radio'+recordStat.index}"><b
+								class="item-selected"></b> <span
+								th:text="${record.RECEIVER_NAME +' '+ record.CONTACT +' '+ record.DELIVERY_ADDRESS}"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="gap"></div>
+
+			<div class="info-section">
+				<div class="info-section-title">
+					<span class="left"><i class="fa fa-credit-card"
+						aria-hidden="true"></i>支付方式 </span>
+				</div>
+				<div class="info-section-content">
+					<div class="radio-toolbar">
+						<div class="radio-toolbar-item">
+							<input type="radio" checked="checked" /> <label><b
+								class="item-selected"></b> <img
+								th:src="@{/img/eggshop/payment_weixin.jpg}"></img> </label>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -34,33 +54,22 @@
 					</span>
 				</div>
 				<div class="info-section-content">
-					<table class="table table-sm">
+					<table class="preorder-product-table">
 						<thead>
 							<tr>
-								<th>产品名称</th>
+								<th>产品</th>
 								<th>数 量</th>
-								<th>金额小计</th>
+								<th>小计</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="record : ${selectedItemList}">
-								<td th:text=${record.PRODUCT_NAME}></td>
-								<td th:text=${record.PRODUCT_COUNT}></td>
-								<td th:text=${record.SUB_AMT}></td>
+								<td th:text="${record.PRODUCT_NAME}"></td>
+								<td th:text="${record.PRODUCT_COUNT}"></td>
+								<td th:text="${record.SUB_AMT}"></td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-			</div>
-			<div class="gap"></div>
-
-			<div class="info-section">
-				<div class="info-section-title">
-					<span class="left"><i class="fa fa-credit-card"
-						aria-hidden="true"></i>支付方式 </span>
-				</div>
-				<div class="info-section-content">
-					<div class="preorder-payment-weixin">微信支付</div>
 				</div>
 			</div>
 			<div class="gap"></div>
@@ -75,12 +84,19 @@
 			<!-- 			</div> -->
 
 			<div class="preorder-submit-box">
+				<a class="backward" th:href="@{cart(AT=${AT})}"><i
+					class="fa fa-reply" aria-hidden="true"> 返回</i></a>
 				<div class="order-total">
-					合计：<span class="cost">￥ 1915 </span>
+					合计：<span class="cost"
+						th:text="${'￥ '+#aggregates.sum(selectedItemList.![SUB_AMT])}">￥
+						1915 </span>
 				</div>
-				<a class="submit" th:formaction="@{submitorder(AT=${AT})}"
-					th:formmethod="post" th:disabled="*{#lists.isEmpty(checkedList)}">提交订单</a>
-				<a th:href="@{cart(AT=${AT})}">返回</a>
+				<button
+					th:class="*{#lists.isEmpty(checkedList)?'submit-not-active':'submit'}"
+					th:formaction="@{submitorder(AT=${AT})}" th:formmethod="post">
+					<i class="fa fa-check-square-o" aria-hidden="true"> 提交订单</i>
+				</button>
+
 			</div>
 		</form>
 	</div>

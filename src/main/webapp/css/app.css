@@ -46,12 +46,16 @@
 	}
 }
 
+* {
+	font-family: Arial, 'Microsoft YaHei';
+}
+
 body {
 	margin: 0 auto;
 	min-width: 320px;
 	max-width: 540px;
 	font-size: 14px;
-	font-family: -apple-system, Helvetica, sans-serif;
+	/* 	font-family: -apple-system, Helvetica, sans-serif; */
 	line-height: 1.5;
 	/* 	color: #666; */
 	-webkit-text-size-adjust: 100% !important;
@@ -217,7 +221,6 @@ a {
 	width: 6.25rem;
 	height: 7rem;
 	color: #eb0000;
-	text-decoration: none;
 	float: left;
 	display: block;
 	position: relative;
@@ -310,10 +313,6 @@ a {
 .category-sidebar li.category-selected span {
 	color: #e4393c;
 	background: #fff;
-}
-
-.category-sidebar li a {
-	text-decoration: none;
 }
 
 .category-sidebar li a span {
@@ -562,14 +561,8 @@ a {
 }
 
 .cart-product-list input {
-	position: relative;
 	width: 20px;
 	height: 20px;
-	border: 1px solid #e6e6e6;
-	border-radius: 2px;
-	background-color: #fff;
-	border-color: #bdbdbd;
-	display: inline-block;
 }
 
 .cart-product-list .product-content {
@@ -580,8 +573,8 @@ a {
 
 .cart-product-list .product-content .product-pic {
 	position: relative;
-	width: 65px;
-	height: 65px;
+	width: 60px;
+	height: 60px;
 	margin-right: 10px;
 	font-size: 0;
 	line-height: 0;
@@ -590,7 +583,7 @@ a {
 .cart-product-list .product-content .product-pic img {
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 100%;
 	position: absolute;
 	max-height: 65px;
 }
@@ -643,11 +636,7 @@ a {
 
 .cart-product-list .product-content .product-option i {
 	display: block;
-	width: 22px;
-	height: 22px;
 	margin-top: 20px;
-	text-align: center;
-	font-size: 1.8rem;
 	color: #757575;
 }
 
@@ -675,15 +664,8 @@ a {
 }
 
 .cart-preorder-footer .all-check input {
-	display: inline-block;
-	position: relative;
 	width: 20px;
 	height: 20px;
-	border: 1px solid #e6e6e6;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	background-color: #fff;
-	border-color: #bdbdbd;
 }
 
 .cart-preorder-footer .preorder-info {
@@ -716,25 +698,30 @@ a {
 	background-color: gainsboro;
 }
 
-.cart-item-count-input {
-	width: 50px;
+.preorder-address-line {
+	line-height: 30px;
 }
 
-.cart-item-checkbox {
-	width: 20px;
-	height: 30px;
+.preorder-product-table {
+	background: #fff;
+	border-collapse: collapse;
+	text-align: center;
+	width: 100%;
 }
 
-.preorder-payment-weixin {
-	display: inline-block;
-	line-height: 48px;
-	color: #33c37f;
-	font-size: 1.4rem;
-	background: url(/dengshaobing/img/eggshop/wx.png) no-repeat;
-	background-size: 3rem 3rem;
-	padding-left: 55px;
-	border: 1px solid #33c37f;
-	border-radius: .3rem;
+.preorder-product-table th {
+	font-size: 14px;
+	font-weight: normal;
+	/* 	color: #039; */
+	/* 	border-bottom: 2px solid #6678b1; */
+	border-bottom: 2px solid #e4393c;
+	font-weight: bold;
+}
+
+.preorder-product-table td {
+	/* 	color: #669; */
+	padding: 9px 8px 0;
+	border-bottom: 1px solid #ccc;
 }
 
 .preorder-submit-box {
@@ -757,6 +744,21 @@ a {
 
 .preorder-submit-box .order-total .cost {
 	color: #ff3c3c;
+	font-weight: bold;
+}
+
+.preorder-submit-box .backward {
+	margin-right: 10px;
+	margin-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #ccc;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	width: 85px;
+	text-align: center;
+	border-width: 0;
 }
 
 .preorder-submit-box .submit {
@@ -770,6 +772,23 @@ a {
 	display: inline-block;
 	width: 85px;
 	text-align: center;
+	border-width: 0;
+}
+
+.preorder-submit-box .submit-not-active {
+	margin-right: 10px;
+	margin-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	width: 85px;
+	text-align: center;
+	pointer-events: none;
+	cursor: default;
+	background-color: gainsboro;
+	border-width: 0;
 }
 
 .myprofile-user {
@@ -798,46 +817,6 @@ a {
 
 .myprofile-user .text-muted {
 	color: #c7cacd;
-}
-
-/* info-section */
-.info-section {
-	
-}
-
-.info-section-title {
-	height: 44px;
-	line-height: 44px;
-	background: #fff;
-	padding: 0 10px;
-	border-bottom: 1px solid #e3e5e9;
-}
-
-.info-section-title span.left {
-	float: left;
-}
-
-.info-section-title span i {
-	padding-right: 10px;
-}
-
-.info-section-title span.right {
-	float: right;
-}
-
-.info-section-content {
-	
-}
-
-.info-section-arrow {
-	float: right;
-	width: 10px;
-	height: 10px;
-	border-top: 2px solid #757575;
-	border-right: 2px solid #757575;
-	transform: rotate(45deg);
-	margin-right: 10px;
-	margin-top: 15px;
 }
 
 .myprofile-myorder-division {
@@ -895,6 +874,202 @@ a {
 	margin-bottom: 4px;
 }
 
+.myorder-nav-tabs {
+	
+}
+
+.myorder-nav-tabs ul {
+	border-bottom: 1px solid #e7e7e7;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.myorder-nav-tabs li {
+	flex: 1;
+	height: 1.9rem;
+	vertical-align: middle;
+	line-height: 1.9rem;
+}
+
+.myorder-nav-tabs li a {
+	color: #000000;
+}
+
+.myorder-nav-tabs li.active {
+	border-bottom: .04rem solid #d53127;
+	box-sizing: border-box;
+	color: #d53127;
+}
+
+.myorder-nav-tabs li.active a {
+	box-sizing: border-box;
+	color: #d53127;
+}
+
+.myorder-list {
+	padding: 0 10px;
+}
+
+.myorder-list-item {
+	margin-top: 10px;
+	border: 1px solid #e5e5e5;
+	border-radius: 6px;
+}
+
+.myorder-list-item .order-info {
+	height: 33px;
+	line-height: 33px;
+	padding-left: 8px;
+	font-size: 12px;
+	position: relative;
+	margin: 0;
+}
+
+.myorder-list-item .order-info .amount {
+	position: absolute;
+	right: 10px;
+}
+
+.myorder-list-item .order-operation {
+	height: 43px;
+	padding: 0 8px;
+	/* 	display: flex; */
+	font-size: 12px;
+	border-bottom: 1px solid #d53127;
+}
+
+.myorder-list-item .order-operation .status {
+	float: left;
+	margin-right: 10px;
+	color: #01ab79;
+}
+
+.myorder-list-item .order-operation .tools {
+	float: right;
+}
+
+.myorder-list-item .order-operation .tools a {
+	display: inline-block;
+	height: 26px;
+	padding: 0 5px;
+	border-radius: 2px;
+	border: 1px solid #fe5955;
+	color: #fe5955;
+	line-height: 26px;
+	text-align: center;
+}
+
+.myaddress-add {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.myaddress-list article {
+	margin-top: 10px;
+	padding: 5px;
+	border: 1px solid #BBB;
+	background-color: #fff;
+	border-radius: 6px;
+	word-break: break-all;
+}
+
+.myaddress-list article:after {
+	display: block;
+	content: ".";
+	height: 0;
+	visibility: hidden;
+	clear: both;
+	font-size: 0;
+	line-height: 0;
+}
+
+.myaddress-list article>a {
+	float: right;
+	margin-top: 5px;
+	padding-right: 10px;
+	color: #06c;
+}
+
+.address-edit-content {
+	padding: 0 10px;
+}
+
+.address-edit-content ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.address-edit-content ul li {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin: 10px 0;
+}
+
+.address-edit-content ul li input {
+	height: 14px;
+	line-height: 14px;
+	padding: 9px 0 9px 10px;
+	-webkit-appearance: none;
+	border: 1px solid #e5e5e5;
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	border-radius: 0;
+}
+
+.address-edit-content ul li textarea {
+	line-height: 14px;
+	padding: 9px 0 9px 10px;
+	-webkit-appearance: none;
+	border: 1px solid #e5e5e5;
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	border-radius: 0;
+}
+
+.address-edit-content ul li select {
+	-webkit-appearance: none;
+	border-radius: 0;
+	border: 1px solid #e5e5e5;
+	height: 34px;
+	line-height: 34px;
+	padding: 0 23px 0 10px;
+	color: #333;
+	background-repeat: no-repeat;
+	background-image: url(/dengshaobing/img/eggshop/select-dropdown.png);
+	background-position: center right;
+	background-size: 23px 7px;
+	display: block;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+}
+
+.address-edit-content .save {
+	display: block;
+	-webkit-appearance: none;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	margin: 0 26px;
+	background: #fe5955;
+	color: #fff;
+	border: 0;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 3px;
+	text-align: center;
+}
+
 .editor-oper-page-body {
 	padding-top: 100px;
 }
@@ -931,4 +1106,89 @@ a {
 	border-radius: 6px;
 	font-size: 14px;
 	padding: 58px 0 10px 0;
+}
+
+.sub-page-title {
+	display: block;
+	height: 2rem;
+	line-height: 2rem;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+.sub-page-title i {
+	padding: .55em;
+	float: left;
+	color: #d53127;
+}
+
+/* info-section */
+.info-section {
+	
+}
+
+.info-section-title {
+	height: 44px;
+	line-height: 44px;
+	background: #fff;
+	padding: 0 10px;
+	border-bottom: 1px solid #e3e5e9;
+}
+
+.info-section-title span.left {
+	float: left;
+}
+
+.info-section-title span i {
+	padding-right: 10px;
+}
+
+.info-section-title span.right {
+	float: right;
+}
+
+.info-section-content {
+	padding: 10px;
+}
+
+.info-section-arrow {
+	float: right;
+	width: 10px;
+	height: 10px;
+	border-top: 2px solid #757575;
+	border-right: 2px solid #757575;
+	transform: rotate(45deg);
+	margin-right: 10px;
+	margin-top: 15px;
+}
+
+/* radio-toolbar */
+.radio-toolbar .radio-toolbar-item {
+	position: relative;
+}
+
+.radio-toolbar input[type="radio"] {
+	display: none;
+}
+
+.radio-toolbar label {
+	display: flex;
+	padding: 4px 11px;
+}
+
+.radio-toolbar input[type="radio"]:checked+label {
+	border: 2px solid #e4393c;
+}
+
+.radio-toolbar input[type="radio"]:checked+label .item-selected {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
+	background: url(/dengshaobing/img/eggshop/selected-icon.png) no-repeat
 }

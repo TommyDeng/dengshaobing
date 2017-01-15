@@ -52,60 +52,58 @@
 	<div id="body-content" class="shop-main-page-body">
 
 		<div th:replace="/fragment :: shop-header"></div>
-		<div class="container">
-			<form role="form" th:object="${cartList}" id="cart-block">
+		<form role="form" th:object="${cartList}" id="cart-block">
 
-				<div class="cart-product-list" th:each="record : *{dataList}">
-					<input type="checkbox"
-						th:onclick="'selectCartItem(\''+${record.UNIQUE_CODE}+'\')'"
-						th:field="*{checkedList}" th:value="${record.UNIQUE_CODE}" />
-					<div class="product-content">
-						<div class="product-pic">
-							<a
-								th:href="@{itemdetail(productUC=${record.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"><img
-								src="//d6.yihaodianimg.com/N06/M00/37/78/CgQIzVRgmF2ACMUiAAPIympTkVE55201_130x130.jpg"
-								th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}" /></a>
-						</div>
-						<div class="product-desc">
-							<span class="product-name" th:text="${record.NAME}"> 有友
-								泡凤爪 山椒味 428g/袋</span>
-							<!-- <p class="product-brief" th:text="${record.PRICE}"></p> -->
-							<p class="product-price">
-								<span> ¥ <span th:text="${record.SUB_AMT}">74.4</span>
-								</span>
-							</p>
-						</div>
-						<div class="product-option">
-							<select
-								th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'">
-								<option th:each=" option : ${itemListForSelect}"
-									th:value="${option}"
-									th:selected="${#strings.equals(record.PRODUCT_COUNT,option)}"
-									th:text="${option}">1</option>
-							</select> <a th:onclick="'deleteCartItem(\''+${record.UNIQUE_CODE}+'\');'"><i
-								class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
-						</div>
+			<div class="cart-product-list" th:each="record : *{dataList}">
+				<input type="checkbox"
+					th:onclick="'selectCartItem(\''+${record.UNIQUE_CODE}+'\')'"
+					th:field="*{checkedList}" th:value="${record.UNIQUE_CODE}" />
+				<div class="product-content">
+					<div class="product-pic">
+						<a
+							th:href="@{itemdetail(productUC=${record.PRODUCT_UC},AT=${AT},previousPage=${previousPage})}"><img
+							src="//d6.yihaodianimg.com/N06/M00/37/78/CgQIzVRgmF2ACMUiAAPIympTkVE55201_130x130.jpg"
+							th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}" /></a>
+					</div>
+					<div class="product-desc">
+						<span class="product-name" th:text="${record.NAME}"> 有友 泡凤爪
+							山椒味 428g/袋</span>
+						<!-- <p class="product-brief" th:text="${record.PRICE}"></p> -->
+						<p class="product-price">
+							<span> ¥ <span th:text="${record.SUB_AMT}">74.4</span>
+							</span>
+						</p>
+					</div>
+					<div class="product-option">
+						<select
+							th:onchange="'changeCartItemQty(\''+${record.UNIQUE_CODE}+'\',\''+${record.PRICE}+'\',this);'">
+							<option th:each=" option : ${itemListForSelect}"
+								th:value="${option}"
+								th:selected="${#strings.equals(record.PRODUCT_COUNT,option)}"
+								th:text="${option}">1</option>
+						</select> <a th:onclick="'deleteCartItem(\''+${record.UNIQUE_CODE}+'\');'"><i
+							class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
 					</div>
 				</div>
+			</div>
 
-				<div class="cart-preorder-footer">
-					<label class="all-check"> <input type="checkbox"
-						th:onclick="'selectAllCartItem(\''+${cartSelectAllStatus}+'\')'"
-						th:checked="!${cartSelectAllStatus}"> <br> <span>
-							全选 </span>
-					</label>
-					<div class="preorder-info">
-						<span> <span class="price"> ¥ <span
-								th:text="${cartTotalAmount}">202.55</span></span> <br> <em>
-								商品(不含运费) </em>
-						</span>
-					</div>
-					<a th:href="@{preorder(AT=${AT})}"
-						th:class="*{#lists.isEmpty(checkedList)?'not-active':''}"><i
-						class="fa fa-credit-card fa-lg" aria-hidden="true"></i> 结算 </a>
+			<div class="cart-preorder-footer">
+				<label class="all-check"> <input type="checkbox"
+					th:onclick="'selectAllCartItem(\''+${cartSelectAllStatus}+'\')'"
+					th:checked="!${cartSelectAllStatus}"> <br> <span>
+						全选 </span>
+				</label>
+				<div class="preorder-info">
+					<span> <span class="price"> ¥ <span
+							th:text="${cartTotalAmount}">202.55</span></span> <br> <em>
+							商品(不含运费) </em>
+					</span>
 				</div>
-			</form>
-		</div>
+				<a th:href="@{preorder(AT=${AT})}"
+					th:class="*{#lists.isEmpty(checkedList)?'not-active':''}"><i
+					class="fa fa-credit-card fa-lg" aria-hidden="true"></i> 结算 </a>
+			</div>
+		</form>
 
 		<div th:replace="/fragment :: shop-footer(3)"></div>
 	</div>

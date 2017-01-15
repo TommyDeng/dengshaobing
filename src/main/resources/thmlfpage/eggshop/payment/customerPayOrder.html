@@ -5,6 +5,8 @@
 
 <script type="text/javascript" th:inline="javascript">
 	function onBridgeReady() {
+		$("#page-loading").show();
+
 		WeixinJSBridge
 				.invoke(
 						'getBrandWCPayRequest',
@@ -16,14 +18,17 @@
 							"signType" : /*[[${prepayInfo[signType]}]]*/"MD5", // 微信签名方式:
 							"paySign" : /*[[${prepayInfo[paySign]}]]*/"70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
 						}, function(res) {
+							$("#page-loading").hide();
 							if (res.err_msg == "get_brand_wcpay_request:ok") {
 								$("#successTip").show();
 							} // 使用以上方式判断前端返回,微信团队郑重提示:res.err_msg将在用户支付成功后返回 ok，但并不保证它绝对可靠。
 							else {
-								$("#successTip").html(res.err_msg);
+								$("#failureTip").show();
+								$("#failureReason").html(res.err_msg);
 							}
 						});
 	}
+
 	if (typeof WeixinJSBridge == "undefined") {
 		if (document.addEventListener) {
 			document.addEventListener('WeixinJSBridgeReady', onBridgeReady,
@@ -33,22 +38,30 @@
 			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
 		}
 	} else {
+		$("#notSupportTip").hide();
 		onBridgeReady();
 	}
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
-		<div class="container">
-			<div class="alert alert-success" role="alert" id="successTip"
-				style="display: none">
-				<strong>恭喜！</strong> 你已经成功提交订单.
-				<p>
-					返回<a th:href="@{/eggshop/customer/main(AT=${AT})}"
-						class="alert-link"> 主页 </a>或查看<a
-						th:href="@{/eggshop/customer/myorder(AT=${AT})}"
-						class="alert-link"> 我的订单 </a>
-				</p>
-			</div>
+		<div id="notSupportTip">
+			<strong>请使用手机微信端支付！谢谢.</strong>
+		</div>
+
+		<div id="successTip" style="display: none">
+			<strong>恭喜！</strong> 你的订单已经支付成功.我们会尽快为您派送产品,请注意查收 .
+			<p>
+				请返回<a th:href="@{/eggshop/customer/main(AT=${AT})}"> 主页 </a>继续购物,或查看<a
+					th:href="@{/eggshop/customer/myorder(AT=${AT})}"> 我的订单 .</a>
+			</p>
+		</div>
+
+		<div id="failureTip" style="display: none">
+			<strong>抱歉！</strong> 你的订单未支付成功. 失败原因如下：<span id="failureReason"></span>
+			<p>
+				请返回<a th:href="@{/eggshop/customer/main(AT=${AT})}"> 主页 </a>继续购物,或查看<a
+					th:href="@{/eggshop/customer/myorder(AT=${AT})}"> 我的订单 .</a>
+			</p>
 		</div>
 	</div>
 </body>

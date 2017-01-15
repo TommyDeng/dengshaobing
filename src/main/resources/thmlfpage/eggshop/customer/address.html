@@ -4,28 +4,34 @@
 </head>
 
 <body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-		<div
-			th:replace="/fragment :: backward-header(${previousPage})"></div>
-		<div style="text-align: center;">我的地址</div>
-		<div class="card" th:each="record : ${addressList}">
-			<div class="card-block">
-				<p class="custom-control-description"
-					th:text="${record.DELIVERY_ADDRESS}"></p>
-				<p class="custom-control-description">
-					<span th:text="${record.RECEIVER_NAME}"></span> <span
-						th:text="${record.CONTACT}"></span><a style="float: right;"
-						th:href="@{addressEdit(AT=${AT},rowUC=${record.UNIQUE_CODE})}">修改</a>
-				</p>
-			</div>
+	<div id="body-content">
+		<!-- 		<div -->
+		<!-- 			th:replace="/fragment :: backward-header(${previousPage})"></div> -->
+
+		<div class="sub-page-title">
+			<a
+				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
+				class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a>我的地址
 		</div>
-		<a th:href="@{addressEdit(AT=${AT},previousPage='address')}"> <span
-			style="text-align: center; display: block;">
-				<button class="btn btn-outline-success" style="text-align: center;">
-					<i class="fa fa-plus-circle" aria-hidden="true"></i>新增收货地址
-				</button>
-		</span>
-		</a>
+
+		<div class="myaddress-add">
+			<a th:href="@{addressEdit(AT=${AT},previousPage='address')}"><i
+				class="fa fa-plus-circle" aria-hidden="true"></i>新增收货地址 </a>
+		</div>
+
+		<div class="myaddress-list">
+			<article th:each="record : ${addressList}">
+				<p>
+					<span th:text="${record.RECEIVER_NAME}"></span>&nbsp;&nbsp;<span
+						th:text="${record.CONTACT}"></span>
+				</p>
+				<p th:text="${record.DELIVERY_ADDRESS}"></p>
+				<a
+					th:href="@{addressEdit(AT=${AT},rowUC=${record.UNIQUE_CODE},previousPage='address')}">修改</a><a
+					th:href="@{addressDelete(AT=${AT},rowUC=${record.UNIQUE_CODE})}">删除</a>
+			</article>
+
+		</div>
 	</div>
 </body>
 </html>

@@ -162,6 +162,7 @@ select UNIQUE_CODE,
        TOTAL_AMT,
        RECEIVER_NAME,
        STATUS,
+       DECODE(STATUS,'1','代付款','2','待收货','3','退回','10','已完成','0','作废','未知') AS STATUS_DESC,
        RECEIVER_NAME ,PROVINCE ||CITY ||DISTRICT ||ADDRESS as DELIVERY_ADDRESS ,CONTACT,
        to_char(CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') as CREATE_TIME
   from ES_ORDER

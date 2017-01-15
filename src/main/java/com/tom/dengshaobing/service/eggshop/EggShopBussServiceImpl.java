@@ -45,6 +45,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		if (!CollectionUtils.isEmpty(orderList)) {
 			for (Map<String, Object> order : orderList) {
 
+				//订单明细项
 				Map<String, Object> itemQueryParamMap = new HashMap<>();
 				itemQueryParamMap.put("ORDER_UC", order.get("UNIQUE_CODE"));
 				List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020",
