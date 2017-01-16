@@ -1,72 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link})">
-</head>
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
+<script th:src="@{/js/address-partition.js}"></script>
 
 <script type="text/javascript" th:inline="javascript">
+	function loadProvince(province) {
+		//province 编辑地址时的定位
+		var optionsHtml = "";
+		$.each(Province, function(index, element) {
+			optionsHtml += "<option value=" + index;
+
+			if (index == province) {
+				optionsHtml += " selected='selected' ";
+			}
+			
+			optionsHtml += " >" + element + "</option>";
+		});
+		$("#province-select").html(optionsHtml);
+
+	}
+
+	function loadCity(province) {
+		if (!province) {
+			//默认
+			province = $("#province-select").val();
+		}
+
+		var optionsHtml = "";
+		$.each(City[province],
+				function(index, element) {
+					optionsHtml += "<option value='"+index+"'>" + element
+							+ "</option>";
+				});
+		$("#city-select").html(optionsHtml);
+
+	}
+
+	function loadCountry(city) {
+		$.each(Province, function(index, element) {
+			$("#province-select").append(
+					"<option value='"+index+"'>" + element + "</option>");
+		});
+	}
+
 	$(document).ready(function() {
-		$(".itemdetail-detail-description img").width("100%")
-		
+		loadProvince(2);
+		loadCity();
 	});
 </script>
+</head>
+
+
 
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
 
-		<div class="itemdetail-detail-description">
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2lAsqXShlpuFjSspkXXa1ApXa_!!2360464792.jpg ">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i4/2360464792/TB27eQqXSBjpuFjy1XdXXaooVXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i4/2360464792/TB2BOorXMFkpuFjSspnXXb4qFXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i1/2360464792/TB2XnQpXNdkpuFjy0FbXXaNnpXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2.6MrXHXlpuFjy1zbXXb_qpXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2oXmwX90mpuFjSZPiXXbssVXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i4/2360464792/TB2SYStXZtnpuFjSZFKXXalFFXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2IpytX.lnpuFjSZFjXXXTaVXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2doMrXR0kpuFjSsppXXcGTXXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB27KuvXYBmpuFjSZFAXXaQ0pXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i4/2360464792/TB2nNauX5pnpuFjSZFkXXc4ZpXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i4/2360464792/TB21rmvXYlmpuFjSZFlXXbdQXXa_!!2360464792.jpg">
-			</p>
-			<p>
-				<img
-					src="https://img.alicdn.com/imgextra/i3/2360464792/TB2AMn_XKJ8puFjy1XbXXagqVXa_!!2360464792.jpg">
-			</p>
-		</div>
+		<select id="province-select" onchange="loadCity(this.value)">
+			<option selected="selected">
+		</select> <select id="city-select" onchange="changeprovince(this.value)">
+		</select> <select id="country-select" onchange="changeprovince(this.value)">
+		</select>
 	</div>
 </body>
 </html>

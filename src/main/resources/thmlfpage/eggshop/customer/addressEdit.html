@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link})">
-</head>
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
+
 <script type="text/javascript" th:inline="javascript">
 	
 </script>
+
+</head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
 		<!-- 		<div -->
@@ -22,9 +24,9 @@
 					type="hidden" th:field="*{properties[USER_UC]}" />
 				<ul>
 					<li><input type="text" th:field="*{properties[RECEIVER_NAME]}"
-						placeholder="收货人姓名" maxlength="20"></li>
+						placeholder="收货人姓名" maxlength="20" required="required"></li>
 					<li><input type="tel" th:field="*{properties[CONTACT]}"
-						placeholder="手机/电话"></li>
+						placeholder="手机/电话" maxlength="30" required="required"></li>
 					<li><select th:field="*{properties[PROVINCE]}"
 						onchange="changeprovince(this.value)">
 							<option value="1">上海</option>
@@ -61,7 +63,7 @@
 							<option value="32260">萝岗区</option>
 					</select></li>
 					<li><textarea rows="3" th:field="*{properties[ADDRESS]}"
-							placeholder="详细地址" maxlength="150"></textarea></li>
+							placeholder="详细地址" maxlength="150" required="required"></textarea></li>
 					<li><button class="save"
 							th:formaction="@{addressSave(AT=${AT},rowUC=*{properties[UNIQUE_CODE]},previousPage=${previousPage})}"
 							th:formmethod="post" onclick="return formValidation();">保存</button></li>

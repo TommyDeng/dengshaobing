@@ -1,0 +1,10 @@
+京东:
+省份
+https://easybuy.jd.com/address/getProvinces.action
+城市
+https://easybuy.jd.com/address/getCitys.action?provinceId=18
+区
+https://easybuy.jd.com/address/getCountys.action?cityId=1501
+乡镇
+https://easybuy.jd.com/address/getTowns.action?countyId=29450
+

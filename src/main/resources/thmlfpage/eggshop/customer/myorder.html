@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link})">
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
 </head>
-<script type="text/javascript" th:inline="javascript">
-	
-</script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
 		<!-- 		<div th:replace="/fragment :: backward-header(${previousPage})"></div> -->

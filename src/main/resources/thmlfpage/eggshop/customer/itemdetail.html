@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link})">
-</head>
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
 <script type="text/javascript" th:inline="javascript">
 	$(document).ready(function() {
 		//initialize swiper when document ready  
@@ -50,6 +49,7 @@
 	});
 	
 </script>
+</head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
 		<div th:replace="/fragment :: backward-header(${previousPage})"></div>

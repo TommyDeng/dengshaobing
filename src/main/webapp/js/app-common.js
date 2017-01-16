@@ -62,3 +62,14 @@ function LocalStorage_removeItem(key) {
 function LocalStorage_clear() {
 	localStorage.clear();
 }
+
+// mask page when <a><botton> data-page-mask set true
+$(document).ready(function() {
+	$("a[data-page-mask=true]").on('click', function() {
+		$("#page-loading").show();
+	});
+
+	$("button[data-page-mask=true]").on('submit', function() {
+		$("#page-loading").show();
+	});
+});

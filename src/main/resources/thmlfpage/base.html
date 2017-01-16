@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="html_head(title,links)">
+<head th:fragment="html_head(title,links,script)">
 
 <title th:replace="${title}?${title}:_" th:text="#{Page.DefaultTitle}"></title>
 
@@ -29,18 +29,7 @@
 <!--/* Per-page placeholder for additional links */-->
 <th:block th:replace="${links}?${links}:_" />
 
-<script type="text/javascript">
-<!--/* mask page when <a><botton> data-page-mask set true */-->
-	$(document).ready(function() {
-		$("a[data-page-mask=true]").on('click', function() {
-			$("#page-loading").show();
-		});
-
-		$("button[data-page-mask=true]").on('submit', function() {
-			$("#page-loading").show();
-		});
-	});
-</script>
+<th:block th:replace="${script}?${script}:_" />
 
 </head>
 

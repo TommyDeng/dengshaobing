@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link})">
-</head>
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
 <script type="text/javascript" th:inline="javascript">
-
 	function changeCartItemQty(cartItemUC, itemPrice, countInput) {
 		if(!formValidation()){
 			return;
@@ -46,8 +44,9 @@
 			AT : [[${AT}]]
 		},function() {$("#page-loading").hide();});
 	}
-	
 </script>
+</head>
+
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="shop-main-page-body">
 
