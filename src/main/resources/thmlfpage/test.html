@@ -4,12 +4,18 @@
 <script th:src="@{/js/address-partition.js}"></script>
 
 <script type="text/javascript" th:inline="javascript">
-	$(document).ready(function() {
-		printProvinceSQL();
-		printCitySQL();
-		printCountrySQL();
-		printTownSQL();
-	});
+	$(document).ready(
+			function() {
+				// 		printProvinceSQL();
+				// 		printCitySQL();
+				// 		printCountrySQL();
+				// 		printTownSQL();
+
+				$.get("http://easybuy.jd.com/address/getProvinces.action",
+						function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+			});
 </script>
 </head>
 
