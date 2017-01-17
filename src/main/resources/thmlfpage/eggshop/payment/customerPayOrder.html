@@ -3,6 +3,7 @@
 <head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
 <script type="text/javascript" th:inline="javascript">
 	function onBridgeReady() {
+
 		$("#page-loading").show();
 
 		WeixinJSBridge
@@ -36,31 +37,26 @@
 			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
 		}
 	} else {
-		$("#notSupportTip").hide();
 		onBridgeReady();
 	}
 </script>
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
-		<div id="notSupportTip">
-			<strong>请使用手机微信端支付！谢谢.</strong>
-		</div>
-
+		<div class="sub-page-title">支付结果</div>
 		<div id="successTip" style="display: none">
 			<strong>恭喜！</strong> 你的订单已经支付成功.我们会尽快为您派送产品,请注意查收 .
-			<p>
-				请返回<a th:href="@{/eggshop/customer/main(AT=${AT})}"> 主页 </a>继续购物,或查看<a
-					th:href="@{/eggshop/customer/myorder(AT=${AT})}"> 我的订单 .</a>
-			</p>
 		</div>
 
 		<div id="failureTip" style="display: none">
 			<strong>抱歉！</strong> 你的订单未支付成功. 失败原因如下：<span id="failureReason"></span>
-			<p>
-				请返回<a th:href="@{/eggshop/customer/main(AT=${AT})}"> 主页 </a>继续购物,或查看<a
-					th:href="@{/eggshop/customer/myorder(AT=${AT})}"> 我的订单 .</a>
-			</p>
+		</div>
+
+		<div>
+			请<a th:href="@{/eggshop/customer/main(AT=${AT})}"
+				class="payment-result-link"> 返回主页 </a>继续购物,或查看<a
+				th:href="@{/eggshop/customer/myorder(AT=${AT})}"
+				class="payment-result-link"> 我的订单 </a>.
 		</div>
 	</div>
 </body>
