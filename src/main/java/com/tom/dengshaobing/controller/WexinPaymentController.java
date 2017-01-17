@@ -41,7 +41,7 @@ public class WexinPaymentController extends BaseController {
 	DataAccessService dataAccessService;
 
 	@ResponseBody
-	@RequestMapping(value = "/eggshop/payment_test/customerPayOrderNotify", method = RequestMethod.POST)
+	@RequestMapping(value = "/eggshop/payment/customerPayOrderNotify", method = RequestMethod.POST)
 	public String customerPayOrderNotify(@RequestParam(value = "signature", required = false) String signature,
 			@RequestParam(value = "timestamp", required = false) String timestamp,
 			@RequestParam(value = "nonce", required = false) String nonce, @RequestBody NotifyRequestXml message)
@@ -66,7 +66,7 @@ public class WexinPaymentController extends BaseController {
 		return XMLParseUtils.generateXmlString(response);
 	}
 
-	@RequestMapping("/eggshop/payment_test/customerPayOrder")
+	@RequestMapping("/eggshop/payment/customerPayOrder")
 	public String customerPayOrder(ModelMap map, String AT, String orderUC) throws Exception {
 
 		map.put(PxAT, AT);

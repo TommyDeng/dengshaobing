@@ -252,7 +252,7 @@ public class CustMainController extends BaseController {
 
 		map.put("orderUC", orderUC.toString());
 
-		return "redirect:/eggshop/payment_test/customerPayOrder";
+		return "redirect:/eggshop/payment/customerPayOrder";
 	}
 
 	@RequestMapping("/myprofile")

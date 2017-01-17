@@ -4,48 +4,11 @@
 <script th:src="@{/js/address-partition.js}"></script>
 
 <script type="text/javascript" th:inline="javascript">
-	function loadProvince(province) {
-		//province 编辑地址时的定位
-		var optionsHtml = "";
-		$.each(Province, function(index, element) {
-			optionsHtml += "<option value=" + index;
-
-			if (index == province) {
-				optionsHtml += " selected='selected' ";
-			}
-			
-			optionsHtml += " >" + element + "</option>";
-		});
-		$("#province-select").html(optionsHtml);
-
-	}
-
-	function loadCity(province) {
-		if (!province) {
-			//默认
-			province = $("#province-select").val();
-		}
-
-		var optionsHtml = "";
-		$.each(City[province],
-				function(index, element) {
-					optionsHtml += "<option value='"+index+"'>" + element
-							+ "</option>";
-				});
-		$("#city-select").html(optionsHtml);
-
-	}
-
-	function loadCountry(city) {
-		$.each(Province, function(index, element) {
-			$("#province-select").append(
-					"<option value='"+index+"'>" + element + "</option>");
-		});
-	}
-
 	$(document).ready(function() {
-		loadProvince(2);
-		loadCity();
+		printProvinceSQL();
+		printCitySQL();
+		printCountrySQL();
+		printTownSQL();
 	});
 </script>
 </head>
@@ -53,13 +16,6 @@
 
 
 <body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-
-		<select id="province-select" onchange="loadCity(this.value)">
-			<option selected="selected">
-		</select> <select id="city-select" onchange="changeprovince(this.value)">
-		</select> <select id="country-select" onchange="changeprovince(this.value)">
-		</select>
-	</div>
+	<div id="body-content" class="shop-main-page-body"></div>
 </body>
 </html>

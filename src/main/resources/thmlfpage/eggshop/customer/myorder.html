@@ -36,7 +36,7 @@
 					<div class="status" th:text="${record.STATUS_DESC}">已发货</div>
 					<div class="tools">
 						<a th:if="${record.STATUS == '1'}"
-							th:href="@{/eggshop/payment_test/customerPayOrder(AT=${AT},orderUC=${record.UNIQUE_CODE})}">支付订单</a>
+							th:href="@{/eggshop/payment/customerPayOrder(AT=${AT},orderUC=${record.UNIQUE_CODE})}">支付订单</a>
 					</div>
 
 				</div>

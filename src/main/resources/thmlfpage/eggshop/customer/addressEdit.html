@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
-
+<script th:src="@{/js/address-partition.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-	
-</script>
+	$(document).ready(function() {
+		loadProvince([[${formData.properties[PROVINCE]}]]);
+		loadCity([[${formData.properties[CITY]}]]);
+		loadCountry([[${formData.properties[COUNTRY]}]]);
+		loadTown([[${formData.properties[TOWN]}]]);
 
+		$("#province-select").on('change', function() {
+			changeProvince(this.value);
+		});
+
+		$("#city-select").on('change', function() {
+			changeCity(this.value);
+		});
+
+		$("#country-select").on('change', function() {
+			changeCountry(this.value);
+		});
+		
+	});
+</script>
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
 		<!-- 		<div -->
 		<!-- 			th:replace="/fragment :: backward-header(${previousPage})"></div> -->
-
 		<div class="sub-page-title">
 			<a
 				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
@@ -28,39 +44,12 @@
 					<li><input type="tel" th:field="*{properties[CONTACT]}"
 						placeholder="手机/电话" maxlength="30" required="required"></li>
 					<li><select th:field="*{properties[PROVINCE]}"
-						onchange="changeprovince(this.value)">
-							<option value="1">上海</option>
-							<option value="2">北京</option>
-							<option value="17">河南</option>
-							<option value="18">湖北</option>
-							<option value="19">湖南</option>
-							<option value="20" selected="selected">广东</option>
-							<option value="30">宁夏</option>
-							<option value="32">山西</option>
-					</select> <select th:field="*{properties[CITY]}"
-						onchange="changecity(this.value)">
-							<option value="237">广州市</option>
-							<option value="238">深圳市</option>
-							<option value="239">珠海市</option>
-							<option value="253">东莞市</option>
-							<option value="254">中山市</option>
-							<option value="255">潮州市</option>
-							<option value="256">揭阳市</option>
-							<option value="257">云浮市</option>
+						id="province-select">
+					</select> <select th:field="*{properties[CITY]}" id="city-select">
 					</select></li>
-					<li><select th:field="*{properties[DISTRICT]}">
-							<option value="2288">增城市</option>
-							<option value="31200">番禺区</option>
-							<option value="31202">越秀区</option>
-							<option value="31203">南沙区</option>
-							<option value="31204">天河区</option>
-							<option value="31205">从化区</option>
-							<option value="31206">荔湾区</option>
-							<option value="31210">白云区</option>
-							<option value="31211">海珠区</option>
-							<option value="31213">黄埔区</option>
-							<option value="31214">花都区</option>
-							<option value="32260">萝岗区</option>
+					<li><select th:field="*{properties[COUNTRY]}"
+						id="country-select">
+					</select><select th:field="*{properties[TOWN]}" id="town-select">
 					</select></li>
 					<li><textarea rows="3" th:field="*{properties[ADDRESS]}"
 							placeholder="详细地址" maxlength="150" required="required"></textarea></li>
