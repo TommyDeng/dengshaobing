@@ -265,3 +265,5 @@ function printTownSQL() {
 					});
 	console.info(sql);
 }
+
+
