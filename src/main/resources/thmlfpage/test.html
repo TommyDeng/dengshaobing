@@ -11,9 +11,18 @@
 	// 		printTownSQL();
 	// 	});
 
-	function printHello() {
-		console.info('hello!');
-	}
+	$(document).ready(
+			function() {
+				// 		printProvinceSQL();
+				// 		printCitySQL();
+				// 		printCountrySQL();
+				// 		printTownSQL();
+
+				$.get("http://easybuy.jd.com/address/getProvinces.action",
+						function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+			});
 </script>
 </head>
 
