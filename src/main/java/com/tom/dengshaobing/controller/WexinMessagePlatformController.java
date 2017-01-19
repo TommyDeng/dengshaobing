@@ -14,6 +14,7 @@ import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.type.Oauth2Scope;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
+import com.tom.dengshaobing.service.CommonService;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,8 @@ public class WexinMessagePlatformController {
 
 	@Autowired
 	WexinMessagePlatformService wexinMessagePlatformService;
+	@Autowired
+	protected CommonService commonService;
 
 	/**
 	 * 接收微信平台发送的服务器验证绑定请求,验证sha1 返回echostr参数
@@ -80,13 +83,13 @@ public class WexinMessagePlatformController {
 			return null;
 
 		// POST请求均判定为消息处理
-//		log.info("/restfull/wmp/access body =======================>");
-//		log.info(XMLParseUtils.generateXmlString(message));
+		// log.info("/restfull/wmp/access body =======================>");
+		// log.info(XMLParseUtils.generateXmlString(message));
 
 		MessageXml returnMessage = wexinMessagePlatformService.dispatch(message);
 
-//		log.info("/restfull/wmp/access return =======================>");
-//		log.info(XMLParseUtils.generateXmlString(returnMessage));
+		// log.info("/restfull/wmp/access return =======================>");
+		// log.info(XMLParseUtils.generateXmlString(returnMessage));
 		return returnMessage;
 	}
 
@@ -108,14 +111,16 @@ public class WexinMessagePlatformController {
 
 		Oauth2AccessToken oauth2AccessToken = wexinMessagePlatformService.getOauth2AccessToken(code);
 
+		commonService.logVisit(oauth2AccessToken.openid, "weixin");
+
 		Oauth2UserInfo userInfo = null;
 		// 当scope为snsapi_userinfo，需要继续拉取用户信息
 		if (Oauth2Scope.snsapi_userinfo.equals(oauth2AccessToken.scope)) {
 			userInfo = wexinMessagePlatformService.getOauth2UserInfo(oauth2AccessToken);
 		}
-		
-		//保存
-		wexinMessagePlatformService.storeOauth2UserInfo(oauth2AccessToken,userInfo);
+
+		// 保存
+		wexinMessagePlatformService.storeOauth2UserInfo(oauth2AccessToken, userInfo);
 		String redirectUri = contractRedirectUriByOauth2AccessToken(state, oauth2AccessToken, userInfo);
 		log.info("/restfull/wmp/access wexinAuthorize redirect =======================>" + redirectUri);
 		// redirect只能get,无法post
@@ -125,11 +130,11 @@ public class WexinMessagePlatformController {
 	private String contractRedirectUriByOauth2AccessToken(String baseUri, Oauth2AccessToken accessToken,
 			Oauth2UserInfo userInfo) throws Exception {
 		URIBuilder redirectURIBuilder = new URIBuilder(baseUri);
-		//微信用户以openid为visitId标示
+		// 微信用户以openid为visitId标示
 		redirectURIBuilder.setParameter("visitId", accessToken.openid);
 		redirectURIBuilder.setParameter("visitType", VISIT_TYPE.Weixin);
-		
+
 		return redirectURIBuilder.build().toString();
 	}
-	
+
 }

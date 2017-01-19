@@ -8,9 +8,12 @@
 
 		<div class="sub-page-title">
 			<a
-				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
-				class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a>我的订单
+				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><span
+				class="return"> <i class="fa fa-chevron-left fa-lg"
+					aria-hidden="true"></i> 返回
+			</span></a><span class="desc">我的订单</span>
 		</div>
+
 		<div class="myorder-nav-tabs">
 			<ul>
 				<li th:class="${#strings.isEmpty(orderStatus)?'active':''}"><a

@@ -12,7 +12,7 @@ https://easybuy.jd.com/address/getTowns.action?countyId=29450
 Enable Jquery when Run script in Chrome Snippets:
 ====================================================================
 var jq = document.createElement('script');
-jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";
+jq.src = "https://code.jquery.com/jquery-3.1.1.min.js";
 document.getElementsByTagName('head')[0].appendChild(jq);
 // ... give time for script to load, then type (or see below for non wait option)
 ====================================================================
@@ -46,10 +46,14 @@ $.ajax({
 function processProvinceData(dataProvince) {
     Province += JSON.stringify(dataProvince) + ';';
     City += '{';
+    Country += '{';
+    Town += '{';
     $.each(dataProvince, function(index, element) {
         processCityData(index)
     });
     City += '};';
+    Country += '};';
+    Town += '};';
 }
 function processCityData(parentIndex) {
     $.ajax({
@@ -58,11 +62,9 @@ function processCityData(parentIndex) {
         async: false,
         success: function(data) {
             City += parentIndex + ':' + JSON.stringify(data) + ',';
-            Country += '{';
             $.each(data, function(index, element) {
                 processCountryData(index)
             });
-            Country += '};';
         }
     });
 }
@@ -73,11 +75,9 @@ function processCountryData(parentIndex) {
         async: false,
         success: function(data) {
             Country += parentIndex + ':' + JSON.stringify(data) + ',';
-            Town += '{';
-            $.each(data, function(index, element) {
-                processTownData(index)
-            });
-            Town += '};';
+//             $.each(data, function(index, element) {
+//                 processTownData(index)
+//             });
         }
     });
 }
@@ -91,4 +91,5 @@ function processTownData(parentIndex) {
         }
     });
 }
+
 ====================================================================
