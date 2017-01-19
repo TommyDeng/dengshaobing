@@ -15,6 +15,80 @@ var jq = document.createElement('script');
 jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";
 document.getElementsByTagName('head')[0].appendChild(jq);
 // ... give time for script to load, then type (or see below for non wait option)
-jQuery.noConflict();
 ====================================================================
 
+chrome addons : Allow-Control-Allow-Origin: *
+or :  --disable-web-security
+
+Fetch address json and print scripts:(https-->http)
+====================================================================
+var urlProvince = 'http://easybuy.jd.com/address/getProvinces.action';
+var urlCity = 'http://easybuy.jd.com/address/getCitys.action?provinceId=';
+var urlCountry = 'http://easybuy.jd.com/address/getCountys.action?cityId=';
+var urlTown = 'http://easybuy.jd.com/address/getTowns.action?countyId=';
+var Province = 'var Province = ';
+var City = 'var City = ';
+var Country = 'var Country = ';
+var Town = 'var Town = ';
+$.ajax({
+    url: urlProvince,
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+        processProvinceData(data);
+        console.info(Province);
+        console.info(City);
+        console.info(Country);
+        console.info(Town);
+    }
+});
+//省份
+function processProvinceData(dataProvince) {
+    Province += JSON.stringify(dataProvince) + ';';
+    City += '{';
+    $.each(dataProvince, function(index, element) {
+        processCityData(index)
+    });
+    City += '};';
+}
+function processCityData(parentIndex) {
+    $.ajax({
+        url: urlCity + parentIndex,
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            City += parentIndex + ':' + JSON.stringify(data) + ',';
+            Country += '{';
+            $.each(data, function(index, element) {
+                processCountryData(index)
+            });
+            Country += '};';
+        }
+    });
+}
+function processCountryData(parentIndex) {
+    $.ajax({
+        url: urlCountry + parentIndex,
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            Country += parentIndex + ':' + JSON.stringify(data) + ',';
+            Town += '{';
+            $.each(data, function(index, element) {
+                processTownData(index)
+            });
+            Town += '};';
+        }
+    });
+}
+function processTownData(parentIndex) {
+    $.ajax({
+        url: urlTown + parentIndex,
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            Town += parentIndex + ':' + JSON.stringify(data) + ',';
+        }
+    });
+}
+====================================================================

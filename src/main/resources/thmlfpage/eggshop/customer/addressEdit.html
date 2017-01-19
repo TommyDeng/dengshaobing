@@ -6,20 +6,20 @@
 	$(document).ready(function() {
 		loadProvince([[${formData.properties[PROVINCE]}]]);
 		loadCity([[${formData.properties[CITY]}]]);
-		loadCountry([[${formData.properties[COUNTRY]}]]);
-		loadTown([[${formData.properties[TOWN]}]]);
+// 		loadCountry([[${formData.properties[COUNTRY]}]]);
+// 		loadTown([[${formData.properties[TOWN]}]]);
 
 		$("#province-select").on('change', function() {
 			changeProvince(this.value);
 		});
 
-		$("#city-select").on('change', function() {
-			changeCity(this.value);
-		});
+// 		$("#city-select").on('change', function() {
+// 			changeCity(this.value);
+// 		});
 
-		$("#country-select").on('change', function() {
-			changeCountry(this.value);
-		});
+// 		$("#country-select").on('change', function() {
+// 			changeCountry(this.value);
+// 		});
 		
 	});
 </script>
@@ -29,9 +29,12 @@
 		<!-- 		<div -->
 		<!-- 			th:replace="/fragment :: backward-header(${previousPage})"></div> -->
 		<div class="sub-page-title">
-			<a
-				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
-				class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a>收货地址
+			<ul>
+				<li><a
+					th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><i
+						class="fa fa-chevron-left fa-lg" aria-hidden="true"></i></a></li>
+				<li>收货地址</li>
+			</ul>
 		</div>
 
 		<div class="address-edit-content">
@@ -47,10 +50,10 @@
 						id="province-select">
 					</select> <select th:field="*{properties[CITY]}" id="city-select">
 					</select></li>
-					<li><select th:field="*{properties[COUNTRY]}"
-						id="country-select">
-					</select><select th:field="*{properties[TOWN]}" id="town-select">
-					</select></li>
+					<!-- 					<li><select th:field="*{properties[COUNTRY]}" -->
+					<!-- 						id="country-select"> -->
+					<!-- 					</select><select th:field="*{properties[TOWN]}" id="town-select"> -->
+					<!-- 					</select></li> -->
 					<li><textarea rows="3" th:field="*{properties[ADDRESS]}"
 							placeholder="详细地址" maxlength="150" required="required"></textarea></li>
 					<li><button class="save"

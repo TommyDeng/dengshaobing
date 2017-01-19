@@ -1081,7 +1081,7 @@ a {
 	border-radius: 4px;
 	color: #fff;
 	display: inline-block;
-/* 	width: 85px; */
+	/* 	width: 85px; */
 	text-align: center;
 	border-width: 0;
 }
@@ -1125,18 +1125,25 @@ a {
 }
 
 .sub-page-title {
-	display: block;
-	height: 2rem;
-	line-height: 2rem;
 	vertical-align: middle;
-	text-align: center;
-	font-weight: bold;
 	border-bottom: 1px solid #e7e7e7;
 }
 
+.sub-page-title ul {
+	list-style: none;
+	height: 48px;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+}
+
+.sub-page-title a {
+	
+}
+
 .sub-page-title i {
-	padding: .55em;
-	float: left;
+	width: 48px;
+	height: 48px;
 	color: #d53127;
 }
 
