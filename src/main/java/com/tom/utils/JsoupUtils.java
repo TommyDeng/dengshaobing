@@ -1,5 +1,7 @@
 package com.tom.utils;
 
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,5 +25,12 @@ public class JsoupUtils {
 		for (Element answerer : answerers) {
 			System.out.println("Answerer: " + answerer.text());
 		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		String url = "http://www.qichacha.com/firm_26450058f404cebde94f536a2b4b26e6.shtml";
+		Document document = Jsoup.connect(url).get();
+		String targetTxt = document.select("div.data_div_login").text();
+		System.out.println("获取结果:\n" + targetTxt);
 	}
 }
