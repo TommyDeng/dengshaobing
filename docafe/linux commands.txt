@@ -13,7 +13,10 @@ H2
 开启关闭H2
 ./opt/h2/bin/h2.sh -webAllowOthers
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers
+
+--持续开启
 nohup java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers &
+--关闭
 java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -tcpShutdown tcp://localhost:9092
 
 命令行连接数据库
