@@ -24,17 +24,19 @@ nohup java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers &
 
 
 =======PHP和Tomcat公用Apache=======
-a2enmod proxy
-a2enmod proxy_http
+#a2enmod proxy				--启用代理模块
+#a2enmod proxy_http			--启用http代理模块
+
+#vi /etc/apache2/apache2.conf  --修改配置文件
 
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
 	
 	ProxyPass /dengshaobing/ http://localhost:8080/dengshaobing/
+	ProxyPass /dengshaobing/ http://localhost:8080/dengshaobing/
 
 </VirtualHost>
 
-restart apache2
-sudo service apache2 restart
+#sudo service apache2 restart 		--重启 apache2 服务
 
