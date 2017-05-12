@@ -40,3 +40,18 @@ nohup java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server -webAllowOthers &
 
 #sudo service apache2 restart 		--重启 apache2 服务
 
+=======postgresql 9.4=======
+安装命令：
+apt-get install postgresql-9.4
+
+如果出现异常
+touch /etc/apt/sources.list.d/pgdg.list
+文件内容:
+deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+  sudo apt-key add -
+sudo apt-get update
+
+
+

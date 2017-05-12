@@ -55,6 +55,18 @@ linux命令
 查看系统信息
 uname -a
 
+查看cpu
+cat /proc/cpuinfo
+
+查看内存
+free -m
+
+查看硬盘分区
+fdisk -l
+
+查看挂载目录
+df -h
+
 复制文件夹
 cp -r /opt/lib-backup/lib /opt/apache-tomcat-9.0.0.M15/webapps/dengshaobing/WEB-INF
 

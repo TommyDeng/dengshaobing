@@ -6066,7 +6066,7 @@ function printProvinceSQL() {
 			.each(
 					Province,
 					function(index, element) {
-						sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESC )";
+						sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESCRIPTION )";
 						sql += "values('PROVINCE','" + index
 								+ "',null,null,null,'" + index + "','"
 								+ element + "');";
@@ -6086,7 +6086,7 @@ function printCitySQL() {
 										City[indexProvince],
 										function(index, element) {
 
-											sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESC )";
+											sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESCRIPTION )";
 											sql += "values('CITY','"
 													+ indexProvince + "','"
 													+ index + "',null,null,'"
@@ -6115,7 +6115,7 @@ function printCountrySQL() {
 															function(index,
 																	element) {
 
-																sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESC )";
+																sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESCRIPTION )";
 																sql += "values('COUNTRY','"
 																		+ indexProvince
 																		+ "','"
@@ -6156,7 +6156,7 @@ function printTownSQL() {
 																				function(
 																						index,
 																						element) {
-																					sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESC )";
+																					sql += "insert into DD_ADDRESS_PARTITION (ADD_TYPE ,PROVINCE_CODE ,CITY_CODE ,COUNTRY_CODE ,TOWN_CODE ,CODE ,DESCRIPTION )";
 																					sql += "values('TOWN','"
 																							+ indexProvince
 																							+ "','"
