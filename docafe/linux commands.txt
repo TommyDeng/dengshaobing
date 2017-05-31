@@ -89,6 +89,14 @@ passwd
 查找文件
 find / -name Help.java
 
+解压
+tar -zxvf text.tar.gz -C /home/app/target/
+
+查看Java路径，再查看链接地址
+whereis java
+ls -l
+
+
 ==============================
 nginx相关
 ==============================
