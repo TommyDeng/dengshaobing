@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop.editor;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -72,7 +73,9 @@ public class EditorWpBrodcastController extends BaseController {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
 			dataAccessService.insertSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties(), whereParam);
 		}
 		return "redirect:" + BasePath + "wpBrodcast";
 	}

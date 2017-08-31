@@ -34,7 +34,7 @@ public class HealthyPulse {
 	public void selfClean() throws Exception {
 		log.info("App Self Clean.");
 		// insert admin user
-		long count = dataAccessService.queryForOneObject("SYS003", null, Long.class);
+		long count = dataAccessService.queryForObject("SYS003", null, Long.class);
 		if (count == 0l) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("UNIQUE_CODE", UUID.fromString("00000000-0000-0000-0000-000000000001"));
@@ -49,7 +49,7 @@ public class HealthyPulse {
 			dataAccessService.insertSingle("SYS_USER", paramMap);
 		}
 
-		count = dataAccessService.queryForOneObject("SYS004", null, Long.class);
+		count = dataAccessService.queryForObject("SYS004", null, Long.class);
 		if (count == 0l) {
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -69,7 +69,7 @@ public class HealthyPulse {
 			dataAccessService.insertSingle("SYS_USERINFO_WX", paramMap);
 		}
 
-		count = dataAccessService.queryForOneObject("SYS004", null, Long.class);
+		count = dataAccessService.queryForObject("SYS004", null, Long.class);
 		if (count == 0l) {
 
 			Map<String, Object> paramMap = new HashMap<String, Object>();

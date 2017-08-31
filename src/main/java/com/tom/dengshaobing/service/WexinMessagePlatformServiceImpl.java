@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -274,7 +276,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		Map<String, Object> queryParamMap = new HashMap<>();
 		queryParamMap.put("OPENID", oauth2AccessToken.openid);
 
-		UUID userUC = dataAccessService.queryForOneObject("BUSS011", queryParamMap, UUID.class);
+		UUID userUC = dataAccessService.queryForObject("BUSS011", queryParamMap, UUID.class);
 
 		if (userUC == null) {
 			userUC = UUID.randomUUID();
@@ -285,7 +287,11 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("OPENID", oauth2AccessToken.openid);
 		paramMap.put("STATUS", Const.USER_STATUS.Active);
 		paramMap.put("TYPE", Const.VISIT_TYPE.Weixin);
-		dataAccessService.mergeSingle("SYS_USER", paramMap);
+
+		Set<String> conflictColumns = new TreeSet<>();
+		conflictColumns.add("UNIQUE_CODE");
+
+		dataAccessService.upsertSingle("SYS_USER", paramMap, conflictColumns);
 
 		if (userInfo == null) {
 			return;
@@ -303,7 +309,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("GROUPID", userInfo.groupid);
 		paramMap.put("REMARK", userInfo.remark);
 
-		dataAccessService.mergeSingle("SYS_USERINFO_WX", paramMap);
+		dataAccessService.upsertSingle("SYS_USERINFO_WX", paramMap, conflictColumns);
 	}
 
 }

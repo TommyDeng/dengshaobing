@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop.editor;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -57,13 +58,15 @@ public class EditorCategoryController extends BaseController {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		MapForm mapForm = new MapForm();
-		
+
 		if (rowUC != null) {
-			Map<String, Object> category = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_CATEGORY",
-					UUID.fromString(rowUC));
+			Map<String, Object> param = new HashMap<>();
+			param.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+			Map<String, Object> category = dataAccessService.queryForMapAllColumn("ES_PRODUCT_CATEGORY", param);
 			mapForm.setProperties(category);
-		} 
-		
+		}
+
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
 		return BasePath + "categoryEdit";
@@ -90,7 +93,9 @@ public class EditorCategoryController extends BaseController {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
 			dataAccessService.insertSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties());
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+			dataAccessService.updateSingle("ES_PRODUCT_CATEGORY", mapForm.getProperties(), whereParam);
 		}
 		return "redirect:" + BasePath + "categoryList";
 	}
@@ -100,8 +105,9 @@ public class EditorCategoryController extends BaseController {
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-
-		dataAccessService.deleteRowById("ES_PRODUCT_CATEGORY", UUID.fromString(rowUC));
+		Map<String, Object> whereParam = new HashMap<>();
+		whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+		dataAccessService.deleteSingle("ES_PRODUCT_CATEGORY", whereParam);
 
 		return "redirect:" + BasePath + "categoryList";
 	}

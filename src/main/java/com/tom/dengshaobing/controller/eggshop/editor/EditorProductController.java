@@ -39,42 +39,46 @@ public class EditorProductController extends BaseController {
 	@Autowired
 	DataAccessService dataAccessService;
 
-
 	@RequestMapping("/productList")
-	public String productList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
+	public String productList(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-		
+
 		map.put("productList", dataAccessService.queryMapList("ES_BUSS022", null));
-		
+
 		return BasePath + "productList";
 	}
 
 	@RequestMapping("/productEdit")
-	public String productEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
-			String rowUC) throws Exception {
+	public String productEdit(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT, String rowUC)
+			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
-			Map<String, Object> product = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT",
-					UUID.fromString(rowUC));
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+			Map<String, Object> product = dataAccessService.queryForMapAllColumn("ES_PRODUCT", whereParam);
 			mapForm.setProperties(product);
-		} 
+		}
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("CATEGORY", null);
 		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", paramMap));
-		
+
 		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004", null));
-		
+
 		map.put(SxFormData, mapForm);
 		map.put("rowUC", rowUC);
 		return BasePath + "productEdit";
 	}
 
 	@RequestMapping("/productSave")
-	public String productSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
+	public String productSave(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT,
+			@ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
@@ -92,53 +96,65 @@ public class EditorProductController extends BaseController {
 			mapForm.getProperties().put("UNIQUE_CODE", UUID.randomUUID());
 			dataAccessService.insertSingle("ES_PRODUCT", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_PRODUCT", mapForm.getProperties());
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+			dataAccessService.updateSingle("ES_PRODUCT", mapForm.getProperties(), whereParam);
 		}
 		return "redirect:" + BasePath + "productList";
 	}
 
 	@RequestMapping("/productDelete")
-	public String productDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC, String AT) throws Exception {
+	public String productDelete(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT)
+			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-		dataAccessService.deleteRowById("ES_PRODUCT", UUID.fromString(rowUC));
+		Map<String, Object> whereParam = new HashMap<>();
+		whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+		dataAccessService.deleteSingle("ES_PRODUCT", whereParam);
 
 		return "redirect:" + BasePath + "productList";
 	}
+
 	@RequestMapping("/productMediaList")
-	public String productMediaList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
+	public String productMediaList(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
 			String productUC) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("PRODUCT_UC", productUC);
 		map.put("mediaList", dataAccessService.queryMapList("ES_BUSS023", paramMap));
-		
+
 		map.put("productUC", productUC);
-		
+
 		return BasePath + "productMediaList";
 	}
 
 	@RequestMapping("/productMediaEdit")
-	public String productMediaEdit(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT,
-			String rowUC,String productUC) throws Exception {
+	public String productMediaEdit(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT, String rowUC,
+			String productUC) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
-			Map<String, Object> productMedia = dataAccessService.queryForOneRowAllColumn("ES_PRODUCT_MEDIA",
-					UUID.fromString(rowUC));
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+			Map<String, Object> productMedia = dataAccessService.queryForMapAllColumn("ES_PRODUCT_MEDIA", whereParam);
 			mapForm.setProperties(productMedia);
-		} 
+		}
 
 		map.put(SxFormData, mapForm);
 		map.put("productUC", productUC);
 		map.put("rowUC", rowUC);
 		return BasePath + "productMediaEdit";
 	}
-	
+
 	@RequestMapping("/productMediaSave")
-	public String productMediaSave(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC,String productUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
+	public String productMediaSave(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC,
+			String productUC, String AT, @ModelAttribute MapForm mapForm) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
 
 		// 保存文件并返回UUID
@@ -157,18 +173,23 @@ public class EditorProductController extends BaseController {
 			mapForm.getProperties().put("PRODUCT_UC", productUC);
 			dataAccessService.insertSingle("ES_PRODUCT_MEDIA", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_PRODUCT_MEDIA", mapForm.getProperties());
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+			dataAccessService.updateSingle("ES_PRODUCT_MEDIA", mapForm.getProperties(), whereParam);
 		}
-		
+
 		map.put("productUC", productUC);
 		return "redirect:" + BasePath + "productMediaList";
 	}
 
 	@RequestMapping("/productMediaDelete")
-	public String productMediaDelete(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map,
-			String rowUC,String productUC, String AT) throws Exception {
+	public String productMediaDelete(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC,
+			String productUC, String AT) throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-		dataAccessService.deleteRowById("ES_PRODUCT_MEDIA", UUID.fromString(rowUC));
+		Map<String, Object> whereParam = new HashMap<>();
+		whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+		dataAccessService.deleteSingle("ES_PRODUCT_MEDIA", whereParam);
 
 		map.put("productUC", productUC);
 		return "redirect:" + BasePath + "productMediaList";

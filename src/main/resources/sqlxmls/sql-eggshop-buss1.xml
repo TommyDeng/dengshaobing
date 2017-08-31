@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sqls>
 
-	<sql name="BUSS005">
-	<![CDATA[
-delete from ES_ORDER_ITEM where ORDER_UC = :ORDER_UC 
-	]]>
-	</sql>
 
 	<sql name="BUSS011">
 	<![CDATA[
@@ -15,10 +10,5 @@ SELECT U.UNIQUE_CODE
    AND W.OPENID = :OPENID
 	]]>
 	</sql>
-
-	<sql name="BUSS015">
-	<![CDATA[
-SELECT * FROM SYS_USERINFO_WX  WHERE UNIQUE_CODE = :UNIQUE_CODE
-	]]>
-	</sql>
+	
 </sqls>

@@ -27,13 +27,13 @@ public class JsoupUtils {
 		}
 	}
 	
-	public static void main(String[] args) throws IOException {
-//		String url = "http://www.henzan.com/live?from=plugin_toolbar";
-		
-		String url = "https://www.amazon.cn/dp/B01MR5B9G2/";
-		Document document = Jsoup.connect(url).get();
-		String targetTxt = document.html();
-		
-		System.out.println("获取结果:\n" + targetTxt);
-	}
+//	public static void main(String[] args) throws IOException {
+////		String url = "http://www.henzan.com/live?from=plugin_toolbar";
+//		
+//		String url = "https://www.amazon.cn/dp/B01MR5B9G2/";
+//		Document document = Jsoup.connect(url).get();
+//		String targetTxt = document.html();
+//		
+//		System.out.println("获取结果:\n" + targetTxt);
+//	}
 }

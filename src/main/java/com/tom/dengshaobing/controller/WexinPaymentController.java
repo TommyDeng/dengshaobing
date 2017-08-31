@@ -73,7 +73,7 @@ public class WexinPaymentController extends BaseController {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", UUID.fromString(orderUC));
-		Map<String, Object> resultMap = dataAccessService.queryForOneRow("ES_BUSS025", paramMap);
+		Map<String, Object> resultMap = dataAccessService.queryForMap("ES_BUSS025", paramMap);
 
 		// JSAPI
 		Map<String, String> prepayInfo = new HashMap<>();

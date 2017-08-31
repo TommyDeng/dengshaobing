@@ -57,7 +57,11 @@ public class WexinPaymentServiceImpl implements WexinPaymentService {
 		log.info("ipAddress:" + ipAddress);
 		log.info("AT:" + AT);
 		log.info("<param print end>");
-		Map<String, Object> orderRow = dataAccessService.queryForOneRowAllColumn("ES_ORDER", orderUC);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("UNIQUE_CODE", orderUC);
+		
+		Map<String, Object> orderRow = dataAccessService.queryForMapAllColumn("ES_ORDER", paramMap);
 
 		UUID paymentUC = UUID.randomUUID();
 

@@ -26,30 +26,34 @@ public class MyDishServiceImpl implements MyDishService {
 
 	@Override
 	public TableMeta listAllCookbook() {
-		return dataAccessService.queryTableMeta("JR_BUSS002", null);
+		// return dataAccessService.queryTableMeta("JR_BUSS002", null);
+		return null;
 	}
 
 	@Override
 	public TableMeta getRecommendedMeatList(int recommendCount) {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("TYPE", "MEAT");
-		paramMap.put("count", recommendCount);
-		return dataAccessService.queryTableMeta("JR_BUSS001", paramMap);
+		// Map<String, Object> paramMap = new HashMap<>();
+		// paramMap.put("TYPE", "MEAT");
+		// paramMap.put("count", recommendCount);
+		// return dataAccessService.queryTableMeta("JR_BUSS001", paramMap);
+		return null;
 	}
 
 	@Override
 	public TableMeta getRecommendedVegeList(int recommendCount) {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("TYPE", "VEGE");
-		paramMap.put("count", recommendCount);
-		return dataAccessService.queryTableMeta("JR_BUSS001", paramMap);
+		// Map<String, Object> paramMap = new HashMap<>();
+		// paramMap.put("TYPE", "VEGE");
+		// paramMap.put("count", recommendCount);
+		// return dataAccessService.queryTableMeta("JR_BUSS001", paramMap);
+		return null;
 	}
 
 	@Override
 	public Map<String, Object> queryCookbook(UUID UC, String AT) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", UC);
-		return dataAccessService.queryForOneRow("JR_BUSS003", paramMap);
+		// Map<String, Object> paramMap = new HashMap<>();
+		// paramMap.put("UNIQUE_CODE", UC);
+		// return dataAccessService.queryForOneRow("JR_BUSS003", paramMap);
+		return null;
 	}
 
 	@Override
@@ -63,16 +67,16 @@ public class MyDishServiceImpl implements MyDishService {
 
 	@Override
 	public void deleteCookbook(UUID UC, String AT) throws Exception {
-		dataAccessService.deleteRowById("JR_COOKBOOK", UC);
+		// dataAccessService.deleteRowById("JR_COOKBOOK", UC);
 	}
 
 	@Override
 	public void updateCookbook(Map<String, Object> properties, String AT) throws Exception {
-		dataAccessService.updateSingle("JR_COOKBOOK", properties);
+		// dataAccessService.updateSingle("JR_COOKBOOK", properties);
 	}
 
 	@Override
 	public void listAllCookbook(String AT) {
-		dataAccessService.queryTableMeta("JR_BUSS002", null);
+		// dataAccessService.queryTableMeta("JR_BUSS002", null);
 	}
 }

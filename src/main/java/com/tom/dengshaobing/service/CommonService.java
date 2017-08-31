@@ -25,12 +25,6 @@ public interface CommonService {
 	 */
 	void logVisit(String name, String deviceType) throws Exception;
 
-	/**
-	 * 查询所有用户登陆日志
-	 * 
-	 * @return
-	 */
-	TableMeta listVisit();
 
 	/**
 	 * 记录错误Errorable消息

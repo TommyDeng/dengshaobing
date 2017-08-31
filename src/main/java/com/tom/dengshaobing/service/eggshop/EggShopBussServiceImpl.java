@@ -45,7 +45,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		if (!CollectionUtils.isEmpty(orderList)) {
 			for (Map<String, Object> order : orderList) {
 
-				//订单明细项
+				// 订单明细项
 				Map<String, Object> itemQueryParamMap = new HashMap<>();
 				itemQueryParamMap.put("ORDER_UC", order.get("UNIQUE_CODE"));
 				List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020",
@@ -58,18 +58,21 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 
 	@Override
 	public void discardOrder(UUID orderUC, String AT) throws Exception {
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("ORDER_UC", orderUC);
-		paramMap.put("STATUS", Const.ORDER_STATUS.Disable);
-		dataAccessService.updateSingle("ES_ORDER", paramMap);
+		Map<String, Object> setParamMap = new HashMap<>();
+		Map<String, Object> whereParamMap = new HashMap<>();
+		whereParamMap.put("ORDER_UC", orderUC);
+		setParamMap.put("STATUS", Const.ORDER_STATUS.Disable);
+		dataAccessService.updateSingle("ES_ORDER", setParamMap, whereParamMap);
 	}
 
 	@Override
 	public void deleteOrder(UUID orderUC, String AT) throws Exception {
-		dataAccessService.deleteRowById("ES_ORDER", orderUC);
+		Map<String, Object> whereParamMap = new HashMap<>();
+		whereParamMap.put("UNIQUE_CODE", orderUC);
+		dataAccessService.deleteSingle("ES_ORDER", whereParamMap);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ORDER_UC", orderUC);
-		dataAccessService.update("BUSS005", paramMap);
+		dataAccessService.update("ES_BUSS028", paramMap);
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		// 仅查询数量
-		BigDecimal cartItemCount = dataAccessService.queryForOneObject("ES_BUSS009", paramMap, BigDecimal.class);
+		BigDecimal cartItemCount = dataAccessService.queryForObject("ES_BUSS009", paramMap, BigDecimal.class);
 		paramMap.put("CART_COUNT", cartItemCount.longValue());
 		return paramMap;
 	}
@@ -90,7 +93,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		paramMap.put("PRODUCT_UC", productUC);
-		BigDecimal count = dataAccessService.queryForOneObject("ES_BUSS007", paramMap, BigDecimal.class);
+		BigDecimal count = dataAccessService.queryForObject("ES_BUSS007", paramMap, BigDecimal.class);
 
 		paramMap.put("UNIQUE_CODE", UUID.randomUUID());
 		paramMap.put("PRODUCT_COUNT",
@@ -113,18 +116,20 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 	@Override
 	public Long changeCartItemQty(UUID cartUC, Long productCount, String AT) throws Exception {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("UNIQUE_CODE", cartUC);
-		paramMap.put("PRODUCT_COUNT", new BigDecimal(productCount));
-		paramMap.put("CREATOR", userUC);
-		dataAccessService.updateSingle("ES_SHOPPING_CART", paramMap);
+		Map<String, Object> setParamMap = new HashMap<>();
+		Map<String, Object> whereParamMap = new HashMap<>();
+		whereParamMap.put("UNIQUE_CODE", cartUC);
+		setParamMap.put("PRODUCT_COUNT", new BigDecimal(productCount));
+		setParamMap.put("CREATOR", userUC);
+		dataAccessService.updateSingle("ES_SHOPPING_CART", setParamMap, whereParamMap);
 		return productCount;
 	}
 
 	@Override
 	public void deleteCartItem(UUID cartItemUC, String AT) throws Exception {
-
-		dataAccessService.deleteRowById("ES_SHOPPING_CART", cartItemUC);
+		Map<String, Object> whereParamMap = new HashMap<>();
+		whereParamMap.put("UNIQUE_CODE", cartItemUC);
+		dataAccessService.deleteSingle("ES_SHOPPING_CART", whereParamMap);
 	}
 
 	@Override
@@ -148,7 +153,7 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		UUID userUC = commonService.getUserUCByAppToken(AT);
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", userUC);
-		return dataAccessService.queryForOneRow("BUSS015", paramMap);
+		return dataAccessService.queryForMapAllColumn("SYS_USERINFO_WX", paramMap);
 	}
 
 	@Override

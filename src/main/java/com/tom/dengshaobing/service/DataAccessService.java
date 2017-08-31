@@ -2,8 +2,7 @@ package com.tom.dengshaobing.service;
 
 import java.util.List;
 import java.util.Map;
-
-import com.tom.dengshaobing.common.bo.sys.TableMeta;
+import java.util.Set;
 
 /**
  * @author TommyDeng <250575979@qq.com>
@@ -14,15 +13,6 @@ import com.tom.dengshaobing.common.bo.sys.TableMeta;
 public interface DataAccessService {
 
 	/**
-	 * sql 返回 TableMeta
-	 * 
-	 * @param sqlName
-	 * @param paramMap
-	 * @return
-	 */
-	TableMeta queryTableMeta(String sqlName, Map<String, Object> paramMap);
-
-	/**
 	 * 执行sql后返回第一行第一列
 	 * 
 	 * @param sql
@@ -30,29 +20,26 @@ public interface DataAccessService {
 	 * @param cls
 	 * @return
 	 */
-	<T> T queryForOneObject(String sqlName, Map<String, Object> paramMap, Class<T> cls);
+	<T> T queryForObject(String sqlName, Map<String, Object> paramMap, Class<T> cls);
 
 	/**
 	 * 执行sql后返回第一行Map
 	 * 
 	 * @param sql
+	 * @param whereParamMap
+	 * @return
+	 */
+	Map<String, Object> queryForMap(String sqlName, Map<String, Object> whereParamMap);
+
+	/**
+	 * 执行sql后返回指定table中的第一行Map，包含所有列
+	 * 
+	 * @param tableName
 	 * @param paramMap
 	 * @return
 	 */
-	Map<String, Object> queryForOneRow(String sqlName, Map<String, Object> paramMap);
+	Map<String, Object> queryForMapAllColumn(String tableName, Map<String, Object> paramMap);
 
-	
-	/**
-	 * 根据pk查询单条记录,返回所有字段
-	 * 
-	 * @param tableName
-	 * @param pk
-	 * @return
-	 * @throws Exception
-	 */
-	Map<String, Object> queryForOneRowAllColumn(String tableName, Object pk) throws Exception;
-
-	
 	/**
 	 * 单条插入，paramMap中无对应项则赋值为null
 	 * 
@@ -61,7 +48,7 @@ public interface DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	int insertSingle(String tableName, Map<String, Object> paramMap) throws Exception;
+	int insertSingle(String tableName, Map<String, Object> paramMap);
 
 	/**
 	 * 单条修改，只更新paramMap中对应项,必须包含PK
@@ -71,27 +58,17 @@ public interface DataAccessService {
 	 * @return
 	 * @throws Exception
 	 */
-	int updateSingle(String tableName, Map<String, Object> paramMap) throws Exception;
+	int updateSingle(String tableName, Map<String, Object> setParamMap, Map<String, Object> whereParamMap);
 
 	/**
-	 * 有记录是修改，无记录时插入，只更新paramMap中对应项,必须包含PK
+	 * 删除记录，只更新paramMap中对应项,必须包含PK
 	 * 
 	 * @param tableName
 	 * @param paramMap
 	 * @return
 	 * @throws Exception
 	 */
-	int mergeSingle(String tableName, Map<String, Object> paramMap) throws Exception;
-
-	/**
-	 * 根据pk删除单条记录
-	 * 
-	 * @param tableName
-	 * @param pk
-	 * @return
-	 * @throws Exception
-	 */
-	int deleteRowById(String tableName, Object pk) throws Exception;
+	int deleteSingle(String tableName, Map<String, Object> whereParamMap);
 
 	/**
 	 * 执行sql
@@ -104,17 +81,28 @@ public interface DataAccessService {
 
 	/**
 	 * 查询MapList
+	 * 
 	 * @param sqlName
 	 * @param paramMap
 	 * @return
 	 */
 	List<Map<String, Object>> queryMapList(String sqlName, Map<String, Object> paramMap);
-	
+
 	/**
 	 * 查询MapList
+	 * 
 	 * @param sqlName
 	 * @param paramMap
 	 * @return
 	 */
 	List<Map<String, Object>> queryMapList(String sqlName);
+
+	/**
+	 * 合并记录
+	 * @param tableName
+	 * @param setParamMap
+	 * @param conflictColumns
+	 * @return 
+	 */
+	int upsertSingle(String tableName, Map<String, Object> setParamMap, Set<String> conflictColumns);
 }

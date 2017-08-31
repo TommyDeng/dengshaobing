@@ -51,11 +51,6 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public TableMeta listVisit() {
-		return dataAccessService.queryTableMeta(SqlStatements.get("002"), new HashMap<>());
-	}
-
-	@Override
 	public void logErrorable(String uri, Errorable error) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("uri".toUpperCase(), uri);
@@ -73,7 +68,7 @@ public class CommonServiceImpl implements CommonService {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("OPENID", visitId);
-		UUID userUC = dataAccessService.queryForOneObject("SYS006", paramMap, UUID.class);
+		UUID userUC = dataAccessService.queryForObject("SYS006", paramMap, UUID.class);
 
 		// 暂不实现
 		// //微信登录
@@ -97,7 +92,9 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public Map<String, Object> getWXUserInfo(String AT) throws Exception {
 		UUID userUC = getUserUCByAppToken(AT);
-		return dataAccessService.queryForOneRowAllColumn("SYS_USERINFO_WX", userUC);
+		Map<String, Object> param = new HashMap<>();
+		param.put("UNIQUE_CODE", userUC);
+		return dataAccessService.queryForMapAllColumn("SYS_USERINFO_WX", param);
 	}
 
 	@Override

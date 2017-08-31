@@ -94,7 +94,7 @@ public class CustMainController extends BaseController {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("UNIQUE_CODE", productUC);
-		Map<String, Object> product = dataAccessService.queryForOneRow("ES_BUSS006", paramMap);
+		Map<String, Object> product = dataAccessService.queryForMap("ES_BUSS006", paramMap);
 
 		map.put("product", product);
 
@@ -306,8 +306,10 @@ public class CustMainController extends BaseController {
 
 		MapForm mapForm = new MapForm();
 		if (rowUC != null) {
-			Map<String, Object> address = dataAccessService.queryForOneRowAllColumn("ES_DELIVERY_ADDRESS",
-					UUID.fromString(rowUC));
+			Map<String, Object> param = new HashMap<>();
+			param.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+			Map<String, Object> address = dataAccessService.queryForMapAllColumn("ES_DELIVERY_ADDRESS", param);
 			mapForm.setProperties(address);
 		}
 
@@ -328,7 +330,10 @@ public class CustMainController extends BaseController {
 			mapForm.getProperties().put("USER_UC", commonService.getUserUCByAppToken(AT));
 			dataAccessService.insertSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
 		} else {
-			dataAccessService.updateSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties());
+			Map<String, Object> whereParam = new HashMap<>();
+			whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+
+			dataAccessService.updateSingle("ES_DELIVERY_ADDRESS", mapForm.getProperties(), whereParam);
 		}
 		return "redirect:" + BasePath + (StringUtils.isBlank(previousPage) ? "address" : previousPage);
 	}
@@ -338,7 +343,9 @@ public class CustMainController extends BaseController {
 			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String rowUC, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-		dataAccessService.deleteRowById("ES_DELIVERY_ADDRESS", UUID.fromString(rowUC));
+		Map<String, Object> whereParam = new HashMap<>();
+		whereParam.put("UNIQUE_CODE", UUID.fromString(rowUC));
+		dataAccessService.deleteSingle("ES_DELIVERY_ADDRESS", whereParam);
 
 		return "redirect:" + BasePath + "address";
 	}
