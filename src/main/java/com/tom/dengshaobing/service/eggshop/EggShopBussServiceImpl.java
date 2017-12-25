@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,12 +95,21 @@ public class EggShopBussServiceImpl implements EggShopBussService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", userUC);
 		paramMap.put("PRODUCT_UC", productUC);
-		BigDecimal count = dataAccessService.queryForObject("ES_BUSS007", paramMap, BigDecimal.class);
+		Map<String, Object> cartRow = dataAccessService.queryForMap("ES_BUSS007", paramMap);
 
-		paramMap.put("UNIQUE_CODE", UUID.randomUUID());
-		paramMap.put("PRODUCT_COUNT",
-				count == null ? new BigDecimal(productCount) : count.add(new BigDecimal(productCount)));
-		dataAccessService.update("ES_BUSS008", paramMap);
+		if (cartRow == null) {
+			paramMap.put("UNIQUE_CODE", UUID.randomUUID());
+			paramMap.put("PRODUCT_COUNT", new BigDecimal(productCount));
+		} else {
+			paramMap.put("UNIQUE_CODE", cartRow.get("UNIQUE_CODE"));
+			paramMap.put("PRODUCT_COUNT",
+					((BigDecimal) cartRow.get("PRODUCT_COUNT")).add(new BigDecimal(productCount)));
+		}
+
+		Set<String> conflictColumns = new TreeSet<>();
+		conflictColumns.add("UNIQUE_CODE");
+		dataAccessService.upsertSingle("ES_SHOPPING_CART", paramMap, conflictColumns);
+
 		// 重新查询数量
 		Map<String, Object> cartInfoMap = getShoppingCartInfo(AT);
 		return (Long) cartInfoMap.get("CART_COUNT");

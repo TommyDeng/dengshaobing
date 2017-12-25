@@ -296,6 +296,7 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		if (userInfo == null) {
 			return;
 		}
+		paramMap.clear();
 		paramMap.put("UNIQUE_CODE", userUC);
 		paramMap.put("OPENID", userInfo.openid);
 		paramMap.put("NICKNAME", userInfo.nickname);
@@ -308,7 +309,6 @@ public class WexinMessagePlatformServiceImpl implements WexinMessagePlatformServ
 		paramMap.put("UNIONID", userInfo.unionid);
 		paramMap.put("GROUPID", userInfo.groupid);
 		paramMap.put("REMARK", userInfo.remark);
-
 		dataAccessService.upsertSingle("SYS_USERINFO_WX", paramMap, conflictColumns);
 	}
 

@@ -1,5 +1,6 @@
 package com.tom.dengshaobing.controller.eggshop.customer;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,13 +176,13 @@ public class CustMainController extends BaseController {
 		// 全选状态
 		boolean cartSelectAllStatus = false;
 		// 总金额
-		Double cartTotalAmount = 0d;
+		BigDecimal cartTotalAmount = new BigDecimal(0);
 		// 选择check列表
 		List<Object> checkedList = new ArrayList<>();
 		for (Map<String, Object> record : listForm.getDataList()) {
 			if ((boolean) record.get("SELECTED")) {
 				checkedList.add(record.get("UNIQUE_CODE"));
-				cartTotalAmount += (Double) record.get("SUB_AMT");
+				cartTotalAmount.add((BigDecimal) record.get("SUB_AMT"));
 			} else {
 				// 只要有未选择的项目，则设置为可全选
 				cartSelectAllStatus = true;

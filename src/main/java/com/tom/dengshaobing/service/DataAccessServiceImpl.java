@@ -1,11 +1,15 @@
 package com.tom.dengshaobing.service;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +31,32 @@ public class DataAccessServiceImpl implements DataAccessService {
 	@Override
 	public <T> T queryForObject(String sqlName, Map<String, Object> paramMap, Class<T> cls) {
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
-		return namedParameterJdbcTemplate.queryForObject(SqlStatements.get(sqlName), paramMap, cls);
+		// return
+		// namedParameterJdbcTemplate.queryForObject(SqlStatements.get(sqlName),
+		// paramMap, cls);
+		return namedParameterJdbcTemplate.query(SqlStatements.get(sqlName), paramMap, new ResultSetExtractor<T>() {
+			@Override
+			public T extractData(ResultSet rs) throws SQLException, DataAccessException {
+				return rs.next() ? rs.getObject(1, cls) : null;
+			}
+		});
 	}
 
 	@Override
 	public Map<String, Object> queryForMap(String sqlName, Map<String, Object> paramMap) {
 		paramMap = SqlUtils.revertKeyUpcase(paramMap);
-		return namedParameterJdbcTemplate.queryForMap(SqlStatements.get(sqlName), paramMap);
+		List<Map<String, Object>> result = namedParameterJdbcTemplate.queryForList(SqlStatements.get(sqlName),
+				paramMap);
+		return result == null || result.size() == 0 ? null : result.get(0);
 	}
 
 	@Override
 	public Map<String, Object> queryForMapAllColumn(String tableName, Map<String, Object> whereParamMap) {
 		tableName = tableName.toUpperCase();
 		whereParamMap = SqlUtils.revertKeyUpcase(whereParamMap);
-		return namedParameterJdbcTemplate.queryForMap(getSelectSqlByTableNameAndParamMap(tableName, whereParamMap),
-				whereParamMap);
+		List<Map<String, Object>> result = namedParameterJdbcTemplate
+				.queryForList(getSelectSqlByTableNameAndParamMap(tableName, whereParamMap), whereParamMap);
+		return result == null || result.size() == 0 ? null : result.get(0);
 	}
 
 	@Override
