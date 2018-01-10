@@ -1,11 +1,14 @@
 package com.tom.dengshaobing.controller.eggshop.operator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,16 +37,33 @@ public class OperatorOrderController extends BaseController {
 	DataAccessService dataAccessService;
 
 	@RequestMapping("/orderList")
-	public String orderList(@RequestParam(name = "visitId", required = false) String visitId,@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
+	public String orderList(@RequestParam(name = "visitId", required = false) String visitId,
+			@RequestParam(name = "visitType", required = false) String visitType, ModelMap map, String AT)
 			throws Exception {
 		AT = pageInit(AT, visitId, visitType, map);
-		
+
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("USER_UC", null);
 		paramMap.put("STATUS", null);
-		map.put("orderList", dataAccessService.queryMapList("ES_BUSS019", paramMap));
+
+		List<Map<String, Object>> orderList = dataAccessService.queryMapList("ES_BUSS019", paramMap);
+
+		map.put("orderList", orderList);
 
 		return BasePath + "orderList";
 	}
+	
+	@RequestMapping("/orderItemDetail")
+	public String orderItemDetail(String orderUC, ModelMap map, String AT)
+			throws Exception {
+		// 订单明细项
+		Map<String, Object> itemQueryParamMap = new HashMap<>();
+		itemQueryParamMap.put("ORDER_UC", orderUC);
+		List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020",
+				itemQueryParamMap);
+		map.put("itemList", orderItemList);
 
+		return BasePath + "orderList :: #detailsModalDataTable";
+	}
+	
 }

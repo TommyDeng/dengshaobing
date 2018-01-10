@@ -47,9 +47,9 @@
 					<table class="preorder-product-table">
 						<tbody>
 							<tr th:each="item : ${record.itemList}">
-								<td th:text=${item.PRODUCT_NAME}></td>
-								<td th:text=${item.PRODUCT_COUNT}></td>
-								<td th:text=${item.SUB_AMT}></td>
+								<td th:text="${item.PRODUCT_NAME}"></td>
+								<td th:text="${item.PRODUCT_COUNT}"></td>
+								<td th:text="${#numbers.formatDecimal(item.SUB_AMT, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
 							</tr>
 						</tbody>
 					</table>

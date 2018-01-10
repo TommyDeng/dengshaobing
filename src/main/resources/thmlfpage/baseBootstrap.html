@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="html_head(title,links,script)">
+
+<title th:replace="${title}?${title}:_" th:text="#{Page.DefaultTitle}"></title>
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/swiper-3.4.0/css/swiper.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/app.css}" />
+
+
+<script th:src="@{/js/jquery-3.1.0.min.js}"></script>
+<script th:src="@{/js/tether.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/swiper-3.4.0/js/swiper.min.js}"></script>
+<script th:src="@{/js/app-common.js}"></script>
+<script th:src="@{/js/app-buss.js}"></script>
+
+
+<!--/* Per-page placeholder for additional links */-->
+<th:block th:replace="${links}?${links}:_" />
+
+<th:block th:replace="${script}?${script}:_" />
+
+</head>
+
+<body th:fragment="html_body(content)">
+
+	<!-- page-loading -->
+	<div id="page-loading">
+		<div>
+			<p>
+				<i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+			</p>
+			<p>请求加载中...</p>
+		</div>
+	</div>
+	<th:block th:replace="${content}?${content}:_" />
+
+</body>
+</html>

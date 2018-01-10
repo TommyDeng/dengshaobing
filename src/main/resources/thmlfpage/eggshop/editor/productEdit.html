@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
+<head th:replace="/baseBootstrap :: html_head(~{::title},~{::link},~{::script})">
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
@@ -51,15 +51,15 @@
 							<a class="btn btn-info" role="button"
 								th:href="@{productList(AT=${AT})}"><span
 								class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-								<span>Back</span></a>
+								<span>返回</span></a>
 						</div>
 						<div class="pull-right" style="margin: 10px">
 							<a class="btn btn-danger" role="button"
 								th:if="${!#strings.isEmpty(rowUC)}"
-								th:href="@{productDelete(rowUC=${rowUC},AT=${AT})}">Delete</a>
+								th:href="@{productDelete(rowUC=${rowUC},AT=${AT})}">删除</a>
 							<button type="submit" class="btn btn-primary"
 								th:formaction="@{productSave(rowUC=${rowUC},AT=${AT})}"
-								th:formmethod="post" onclick="return formValidation();">Save</button>
+								th:formmethod="post" onclick="return formValidation();">保存</button>
 
 						</div>
 					</div>

@@ -66,7 +66,7 @@
 							<tr th:each="record : ${selectedItemList}">
 								<td th:text="${record.PRODUCT_NAME}"></td>
 								<td th:text="${record.PRODUCT_COUNT}"></td>
-								<td th:text="${record.SUB_AMT}"></td>
+								<td th:text="${#numbers.formatDecimal(record.SUB_AMT, 0, 'DEFAULT', 2, 'DEFAULT')}"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -88,7 +88,7 @@
 					class="fa fa-reply" aria-hidden="true"> 返回</i></a>
 				<div class="order-total">
 					合计：<span class="cost"
-						th:text="${'￥ '+#aggregates.sum(selectedItemList.![SUB_AMT])}">￥
+						th:text="${'￥ '+#numbers.formatDecimal(#aggregates.sum(selectedItemList.![SUB_AMT]), 0, 'DEFAULT', 2, 'DEFAULT')}">￥
 						1915 </span>
 				</div>
 				<button

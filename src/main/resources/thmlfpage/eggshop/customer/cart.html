@@ -69,7 +69,8 @@
 							山椒味 428g/袋</span>
 						<!-- <p class="product-brief" th:text="${record.PRICE}"></p> -->
 						<p class="product-price">
-							<span> ¥ <span th:text="${record.SUB_AMT}">74.4</span>
+							<span> ¥ <span
+								th:text="${#numbers.formatDecimal(record.SUB_AMT, 0, 'DEFAULT', 2, 'DEFAULT')}">74.4</span>
 							</span>
 						</p>
 					</div>
@@ -94,8 +95,8 @@
 				</label>
 				<div class="preorder-info">
 					<span> <span class="price"> ¥ <span
-							th:text="${cartTotalAmount}">202.55</span></span> <br> <em>
-							商品(不含运费) </em>
+							th:text="${#numbers.formatDecimal(cartTotalAmount, 0, 'DEFAULT', 2, 'DEFAULT')}">10000000.9653</span></span>
+						<br> <em> 商品(不含运费) </em>
 					</span>
 				</div>
 				<a th:href="@{preorder(AT=${AT})}"

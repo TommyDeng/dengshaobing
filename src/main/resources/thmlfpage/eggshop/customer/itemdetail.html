@@ -68,7 +68,7 @@
 		<div class="itemdetail-brief">
 			<h4 th:text="${product.NAME}">product.NAME</h4>
 			<div class="itemdetail-brief-price">
-				<em>¥ <span th:text="${product.PRICE}">88.88</span>
+				<em>¥ <span th:text="${#numbers.formatDecimal(product.PRICE, 0, 'DEFAULT', 2, 'DEFAULT')}">88.88</span>
 				</em>
 			</div>
 			<div class="itemdetail-brief-content">

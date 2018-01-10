@@ -173,6 +173,7 @@ select T.UNIQUE_CODE,
        T.RECEIVER_NAME ,
        COALESCE(PROVINCE.DESCRIPTION,'') || COALESCE(CITY.DESCRIPTION,'')  || COALESCE(COUNTRY.DESCRIPTION,'') || COALESCE(TOWN.DESCRIPTION,'') || T.ADDRESS as DELIVERY_ADDRESS,
        T.CONTACT,
+       to_char(T.PAY_SUCC_TIME, 'yyyy-MM-dd hh:mm:ss') as PAY_SUCC_TIME,
        to_char(T.CREATE_TIME, 'yyyy-MM-dd hh:mm:ss') as CREATE_TIME
   from ES_ORDER T
   LEFT JOIN DD_ADDRESS_PARTITION PROVINCE ON PROVINCE.ADD_TYPE = 'PROVINCE' AND PROVINCE.CODE = T.PROVINCE 
@@ -232,7 +233,7 @@ select p.* from ES_ORDER o, ES_PAYMENT p where o.PAYMENT_UC = p.UNIQUE_CODE and 
 
 	<sql name="ES_BUSS026">
 	<![CDATA[
-update ES_ORDER  set STATUS = :STATUS  where exists (select 1 from ES_PAYMENT p where PAYMENT_UC = p.UNIQUE_CODE and p.OUT_TRADE_NO = :OUT_TRADE_NO)
+update ES_ORDER  set STATUS = :STATUS, PAY_SUCC_TIME = now()  where exists (select 1 from ES_PAYMENT p where PAYMENT_UC = p.UNIQUE_CODE and p.OUT_TRADE_NO = :OUT_TRADE_NO)
 	]]>
 	</sql>
 	

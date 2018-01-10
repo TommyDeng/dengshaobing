@@ -182,7 +182,7 @@ public class CustMainController extends BaseController {
 		for (Map<String, Object> record : listForm.getDataList()) {
 			if ((boolean) record.get("SELECTED")) {
 				checkedList.add(record.get("UNIQUE_CODE"));
-				cartTotalAmount.add((BigDecimal) record.get("SUB_AMT"));
+				cartTotalAmount = cartTotalAmount.add((BigDecimal) record.get("SUB_AMT"));
 			} else {
 				// 只要有未选择的项目，则设置为可全选
 				cartSelectAllStatus = true;
