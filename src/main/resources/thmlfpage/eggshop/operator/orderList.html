@@ -47,7 +47,7 @@ function orderItemDetail(orderUC){
 							<td th:text="${record.STATUS_DESC}" />
 							<td th:text="${record.PAY_SUCC_TIME}" />
 							<td th:text="${record.CREATE_TIME}" />
-							<td><a href="#"
+							<td><a
 								th:onclick="'orderItemDetail(\''+${record.UNIQUE_CODE}+'\');'">
 									<i class="fa fa-list fa-2x" aria-hidden="true"></i>
 							</a></td>
