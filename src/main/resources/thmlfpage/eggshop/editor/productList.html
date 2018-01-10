@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/baseBootstrap :: html_head(~{::title},~{::link},~{::script})">
+<head
+	th:replace="/baseBootstrap :: html_head(~{::title},~{::link},~{::script})">
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="editor-oper-page-body">
@@ -8,40 +9,38 @@
 		<div class="container">
 			<div class="row">
 				<h3>产品</h3>
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<!-- add operation -->
-								<th><a class="btn btn-default"
-									th:href="@{productEdit(AT=${AT})}" role="button"><i
-										class="fa fa-plus fa-2x" aria-hidden="true"></i></a></th>
-								<th>名称</th>
-								<th>价格</th>
-								<th>类别</th>
-								<th>创建时间</th>
-								<th>修改/顶部图片</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="record :  ${productList}">
-								<td th:text="${recordStat.count}" />
-								<td th:text="${record.NAME}" />
-								<td th:text="${record.PRICE}" />
-								<td th:text="${record.CATEGORY_NAME}" />
-								<td th:text="${record.CREATE_TIME}" />
+				<table class="table">
+					<thead>
+						<tr>
+							<!-- add operation -->
+							<th><a class="btn btn-default"
+								th:href="@{productEdit(AT=${AT})}" role="button"><i
+									class="fa fa-plus" aria-hidden="true"></i></a></th>
+							<th>名称</th>
+							<th>价格</th>
+							<th>类别</th>
+							<th>创建时间</th>
+							<th>修改/顶部图片</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="record :  ${productList}">
+							<td th:text="${recordStat.count}" />
+							<td th:text="${record.NAME}" />
+							<td th:text="${record.PRICE}" />
+							<td th:text="${record.CATEGORY_NAME}" />
+							<td
+								th:text="${#dates.format(record.CREATE_TIME,'yyyy/MM/dd HH:mm:ss')}" />
 
-								<!-- update operation -->
-								<td><a class="btn btn-default" role="button"
-									th:href="@{productEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
-										class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a> <a
-									class="btn btn-default" role="button"
-									th:href="@{productMediaList(productUC=${record.UNIQUE_CODE},AT=${AT})}"><i
-										class="fa fa-picture-o fa-2x" aria-hidden="true"></i> </a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+							<!-- update operation -->
+							<td><a
+								th:href="@{productEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
+									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a> <a
+								th:href="@{productMediaList(productUC=${record.UNIQUE_CODE},AT=${AT})}"><i
+									class="fa fa-picture-o fa-2x" aria-hidden="true"></i> </a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
