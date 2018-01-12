@@ -52,18 +52,23 @@ public class OperatorOrderController extends BaseController {
 
 		return BasePath + "orderList";
 	}
-	
+
 	@RequestMapping("/orderItemDetail")
-	public String orderItemDetail(String orderUC, ModelMap map, String AT)
-			throws Exception {
+	public String orderItemDetail(String orderUC, String itemUserName, String itemUserContact, String itemUserAddress,
+			String orderTotalAmt, ModelMap map, String AT) throws Exception {
 		// 订单明细项
 		Map<String, Object> itemQueryParamMap = new HashMap<>();
 		itemQueryParamMap.put("ORDER_UC", orderUC);
-		List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020",
-				itemQueryParamMap);
-		map.put("itemList", orderItemList);
+		List<Map<String, Object>> orderItemList = dataAccessService.queryMapList("ES_BUSS020", itemQueryParamMap);
 
-		return BasePath + "orderList :: #detailsModalDataTable";
+		// 明细页面显示
+		map.put("itemList", orderItemList);
+		map.put("itemUserName", itemUserName);
+		map.put("itemUserContact", itemUserContact);
+		map.put("itemUserAddress", itemUserAddress);
+		map.put("orderTotalAmt", orderTotalAmt);
+
+		return BasePath + "orderList :: #detailsModalDataDiv";
 	}
-	
+
 }

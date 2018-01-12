@@ -4,17 +4,29 @@
 	th:replace="/baseBootstrap :: html_head(~{::title},~{::link},~{::script})">
 </head>
 <script type="text/javascript" th:inline="javascript">
-function orderItemDetail(orderUC){
+
+function orderItemDetail(orderUC,itemUserName,itemUserContact,itemUserAddress,orderTotalAmt){
 	$("#page-loading").show();
 	
 	var url = 'orderItemDetail';
-	$("#detailsModalDataTable").load(url,
-	{	orderUC : orderUC,
+	$("#detailsModalDataDiv").load(url,
+	{	
+		orderUC : orderUC,
+		itemUserName : itemUserName,
+		itemUserContact : itemUserContact,
+		itemUserAddress : itemUserAddress,
+		orderTotalAmt : orderTotalAmt,
 		AT : [[${AT}]]
 	},
 	function() {$("#page-loading").hide();$('#detailsModal').modal();});
 	
 }
+
+//enable popover
+$(function () {
+	  $('[data-toggle="popover"]').popover();
+	});
+	
 </script>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content" class="editor-oper-page-body">
@@ -28,7 +40,6 @@ function orderItemDetail(orderUC){
 							<!-- add operation -->
 							<th>序号</th>
 							<th>收件人</th>
-							<th>收件地址</th>
 							<th>联系电话</th>
 							<th>订单金额</th>
 							<th>状态</th>
@@ -41,14 +52,14 @@ function orderItemDetail(orderUC){
 						<tr th:each="record : ${orderList}">
 							<td th:text="${recordStat.count}" />
 							<td th:text="${record.RECEIVER_NAME}" />
-							<td th:text="${record.DELIVERY_ADDRESS}" />
+							<!-- 							<td th:text="${record.DELIVERY_ADDRESS}" /> -->
 							<td th:text="${record.CONTACT}" />
 							<td th:text="${record.TOTAL_AMT}" />
 							<td th:text="${record.STATUS_DESC}" />
 							<td th:text="${record.PAY_SUCC_TIME}" />
 							<td th:text="${record.CREATE_TIME}" />
 							<td><a
-								th:onclick="'orderItemDetail(\''+${record.UNIQUE_CODE}+'\');'">
+								th:onclick="'orderItemDetail(\''+${record.UNIQUE_CODE}+'\',\''+${record.RECEIVER_NAME}+'\',\''+${record.CONTACT}+'\',\''+${record.DELIVERY_ADDRESS}+'\',\''+${record.TOTAL_AMT}+'\');'">
 									<i class="fa fa-list fa-2x" aria-hidden="true"></i>
 							</a></td>
 						</tr>
@@ -60,7 +71,7 @@ function orderItemDetail(orderUC){
 			<!-- details modal -->
 			<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document" id="detailsModalDataDiv">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
@@ -68,33 +79,36 @@ function orderItemDetail(orderUC){
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<!-- 						<div class="modal-body"> -->
-						<table class="table" id="detailsModalDataTable">
-							<thead class="thead-dark">
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">名称</th>
-									<th scope="col">数量</th>
-									<th scope="col">金额</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="item : ${itemList}">
-									<td th:text="${itemStat.count}"></td>
-									<td th:text="${item.PRODUCT_NAME}"></td>
-									<td th:text="${item.PRODUCT_COUNT}"></td>
-									<td
-										th:text="${#numbers.formatDecimal(item.SUB_AMT,0,'DEFAULT', 2, 'DEFAULT')}"></td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- 						</div> -->
-						<!-- 						<div class="modal-footer"> -->
-						<!-- 							<button type="button" class="btn btn-secondary" -->
-						<!-- 								data-dismiss="modal">Close</button> -->
-						<!-- 							<button type="button" class="btn btn-primary">Save -->
-						<!-- 								changes</button> -->
-						<!-- 						</div> -->
+						<div class="modal-body">
+							<p class="font-weight-bold" th:text="${itemUserName}">Bold
+								text.</p>
+							<p class="font-weight-bold" th:text="${itemUserContact}">Bold
+								text.</p>
+							<p class="font-weight-bold" th:text="${itemUserAddress}">Bold
+								text.</p>
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">名称</th>
+										<th scope="col">数量</th>
+										<th scope="col">金额</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${itemList}">
+										<td th:text="${itemStat.count}"></td>
+										<td th:text="${item.PRODUCT_NAME}"></td>
+										<td th:text="${item.PRODUCT_COUNT}"></td>
+										<td
+											th:text="${#numbers.formatDecimal(item.SUB_AMT,0,'DEFAULT', 2, 'DEFAULT')}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<b>总额: <span th:text="' ￥ ' + ${orderTotalAmt}">35.23</span></b>
+						</div>
 					</div>
 				</div>
 			</div>
