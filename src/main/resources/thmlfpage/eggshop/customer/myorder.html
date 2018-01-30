@@ -19,9 +19,9 @@
 				<li th:class="${#strings.isEmpty(orderStatus)?'active':''}"><a
 					th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
 				<li th:class="${orderStatus=='1'?'active':''}"><a
-					th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">代付款</a></li>
+					th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">待付款</a></li>
 				<li th:class="${orderStatus=='2'?'active':''}"><a
-					th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待收货</a></li>
+					th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待发货</a></li>
 				<li th:class="${orderStatus=='10'?'active':''}"><a
 					th:href="@{${orderStatus=='10'?'#':'myorder'}(AT=${AT},orderStatus=10)}">已完成</a></li>
 			</ul>
@@ -36,7 +36,7 @@
 				</p>
 
 				<div class="order-operation">
-					<div class="status" th:text="${record.STATUS_DESC}">已发货</div>
+					<div class="status" th:text="${record.STATUS_DESC}">订单状态</div>
 					<div class="tools">
 						<a th:if="${record.STATUS == '1'}"
 							th:href="@{/eggshop/payment/customerPayOrder(AT=${AT},orderUC=${record.UNIQUE_CODE})}">支付订单</a>

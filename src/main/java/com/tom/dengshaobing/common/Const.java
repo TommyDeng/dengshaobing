@@ -26,8 +26,9 @@ public class Const {
 
 	public static final class ORDER_STATUS {
 		public static final String WaitToPay = "1";// 待付款
-		public static final String WaitToRecieve = "2";// 待收货
-		public static final String Return = "3";// 退回
+		public static final String WaitToSend = "2";// 待发货(付款成功，等待卖家发货)
+		public static final String WaitToRecieve = "3";// 待收货(卖家已发货，等待收货)
+		public static final String Return = "5";// 退回
 		public static final String Finished = "10";// 已完成
 		public static final String Disable = "0";// 作废
 	};

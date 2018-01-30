@@ -163,9 +163,9 @@ select T.UNIQUE_CODE,
        T.TOTAL_AMT,
        T.RECEIVER_NAME,
        T.STATUS,
-       CASE WHEN T.STATUS = '1' THEN '代付款'
+       CASE WHEN T.STATUS = '1' THEN '待付款'
        		WHEN T.STATUS = '2' THEN '待收货'
-       		WHEN T.STATUS = '3' THEN '退回'
+       		WHEN T.STATUS = '5' THEN '退回'
        		WHEN T.STATUS = '10' THEN '已完成'
        		WHEN T.STATUS = '0' THEN '作废'
        		ELSE '未知'

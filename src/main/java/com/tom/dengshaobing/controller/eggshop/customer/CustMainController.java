@@ -255,6 +255,7 @@ public class CustMainController extends BaseController {
 
 		return "redirect:/eggshop/payment/customerPayOrder";
 	}
+	
 
 	@RequestMapping("/myprofile")
 	public String myprofile(@RequestParam(name = "visitId", required = false) String visitId,

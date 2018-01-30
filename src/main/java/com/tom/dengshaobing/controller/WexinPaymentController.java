@@ -55,7 +55,7 @@ public class WexinPaymentController extends BaseController {
 			// 更新订单状态
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("OUT_TRADE_NO", message.out_trade_no);
-			paramMap.put("STATUS", Const.ORDER_STATUS.WaitToRecieve);
+			paramMap.put("STATUS", Const.ORDER_STATUS.WaitToSend);
 			dataAccessService.update("ES_BUSS026", paramMap);
 		}
 
