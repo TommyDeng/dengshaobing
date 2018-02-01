@@ -230,6 +230,12 @@ public class DataAccessServiceImpl implements DataAccessService {
 
 	}
 
+	@Override
+	public List<Map<String, Object>> queryMapListBySql(String sql, Map<String, Object> paramMap) {
+		paramMap = SqlUtils.revertKeyUpcase(paramMap);
+		return namedParameterJdbcTemplate.queryForList(sql, paramMap);
+	}
+	
 	/**
 	 * 根据表名生成paramMap中存在的字段upsert语句
 	 * 

@@ -105,4 +105,12 @@ public interface DataAccessService {
 	 * @return 
 	 */
 	int upsertSingle(String tableName, Map<String, Object> setParamMap, Set<String> conflictColumns);
+
+	/**
+	 * 通过原装sql查询
+	 * @param sql
+	 * @param paramMap
+	 * @return
+	 */
+	List<Map<String, Object>> queryMapListBySql(String sql, Map<String, Object> paramMap);
 }

@@ -15,7 +15,9 @@ import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.type.Oauth2Scope;
 import com.tom.dengshaobing.common.bo.wmp.xml.MessageXml;
 import com.tom.dengshaobing.service.CommonService;
+import com.tom.dengshaobing.service.DataAccessService;
 import com.tom.dengshaobing.service.WexinMessagePlatformService;
+import com.tom.utils.JsonParseUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +37,9 @@ public class WexinMessagePlatformController {
 	WexinMessagePlatformService wexinMessagePlatformService;
 	@Autowired
 	protected CommonService commonService;
+
+	@Autowired
+	DataAccessService dataAccessService;
 
 	/**
 	 * 接收微信平台发送的服务器验证绑定请求,验证sha1 返回echostr参数
@@ -59,7 +64,29 @@ public class WexinMessagePlatformController {
 		log.info(echostr);
 		// GET请求均判定为服务器绑定认证
 		return echostr;
+	}
 
+	/**
+	 * 接收微信平台发送的服务器验证绑定请求,验证sha1 返回echostr参数
+	 * 
+	 * @param methodId
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/restfull/mock", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	public String mock(@RequestParam(name = "method", required = false) String method) throws Exception {
+
+		// 验证
+		log.info("/restfull/mock accessing =======================>" + method);
+		if ("PRODUCT_LIST".equals(method)) {
+			return JsonParseUtils.generateJsonString(dataAccessService.queryMapListBySql(
+					"SELECT p.NAME ,p.PRICE, 'http://www.autoboy.com.cn/'||m.PATH THUMBNAIL FROM ES_PRODUCT p left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE",
+					null));
+
+		}
+
+		return JsonParseUtils.generateJsonString("");
 	}
 
 	/**

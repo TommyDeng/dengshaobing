@@ -15,7 +15,7 @@ import junit.framework.TestSuite;
  *
  */
 
-// @Ignore
+ @Ignore
 public class TempTest extends TestSuite {
 
 	@Test
