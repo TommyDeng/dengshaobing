@@ -1,5 +1,8 @@
 package com.tom.dengshaobing.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.dengshaobing.common.Const.VISIT_TYPE;
+import com.tom.dengshaobing.common.bo.sys.RestHttpReply;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2AccessToken;
 import com.tom.dengshaobing.common.bo.wmp.json.Oauth2UserInfo;
 import com.tom.dengshaobing.common.bo.wmp.type.Oauth2Scope;
@@ -79,14 +83,22 @@ public class WexinMessagePlatformController {
 
 		// 验证
 		log.info("/restfull/mock accessing =======================>" + method);
-		if ("PRODUCT_LIST".equals(method)) {
-			return JsonParseUtils.generateJsonString(dataAccessService.queryMapListBySql(
-					"SELECT p.NAME ,p.PRICE, 'http://www.autoboy.com.cn/'||m.PATH THUMBNAIL FROM ES_PRODUCT p left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE",
-					null));
 
+		RestHttpReply reply = new RestHttpReply();
+		if ("PRODUCT_LIST".equals(method)) {
+
+			List<Map<String, Object>> data = dataAccessService.queryMapListBySql(
+					"SELECT p.NAME ,p.PRICE, 'http://www.autoboy.com.cn/'||m.PATH THUMBNAIL FROM ES_PRODUCT p left join SYS_FILE_STORE_MAPPING m on p.THUMBNAIL =m.UNIQUE_CODE",
+					null);
+			reply.code = RestHttpReply.CODE_SUCC;
+			reply.desc = "success.";
+			reply.data = data;
+		} else {
+			reply.code = RestHttpReply.CODE_FAIL;
+			reply.desc = "method not supported.";
 		}
 
-		return JsonParseUtils.generateJsonString("");
+		return JsonParseUtils.generateJsonString(reply);
 	}
 
 	/**

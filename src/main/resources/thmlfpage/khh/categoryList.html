@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+	th:replace="/baseBootstrap :: html_head(~{::title},~{::link},~{::script})">
+</head>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="editor-oper-page-body">
+		<div th:replace="/fragment :: editor-oper-page-header"></div>
+		<div class="container">
+			<div class="row">
+				<h3>产品类别</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<!-- add operation -->
+							<th><a class="btn btn-default"
+								th:href="@{categoryEdit(AT=${AT})}" role="button"><i
+									class="fa fa-plus fa-2x" aria-hidden="true"></i></a></th>
+							<th>名称</th>
+							<th>描述</th>
+							<th>修改</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="record :  ${categoryList}">
+							<td><img
+								th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+								style="height: 20%;"></img></td>
+							<td th:text="${record.NAME}" />
+							<td th:text="${record.REMARK}" />
+
+							<!-- update operation -->
+							<td><a
+								th:href="@{categoryEdit(rowUC=${record.UNIQUE_CODE},AT=${AT})}"><i
+									class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> </a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
