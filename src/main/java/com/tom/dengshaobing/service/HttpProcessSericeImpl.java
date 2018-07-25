@@ -58,7 +58,6 @@ public class HttpProcessSericeImpl implements HttpProcessSerice {
 	}
 
 	@Override
-	@SuppressWarnings(value = { "under implementing" })
 	public Serializable httpPost(URI uri, Serializable ser) throws Exception {
 		Content content = Request.Post(uri).body(new SerializableEntity(ser)).execute().returnContent();
 		return content.asString(DefaultSetting.CHARSET);
