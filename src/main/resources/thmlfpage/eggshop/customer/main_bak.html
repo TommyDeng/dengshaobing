@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
+</head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//initialize swiper when document ready  
+		var swiper = new Swiper('.swiper-container', {
+			pagination : '.swiper-pagination',
+			paginationClickable : true,
+			loop : true,
+			autoplay : 2000,
+			autoplayDisableOnInteraction : false
+		});
+	});
+</script>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="shop-main-page-body">
+		<div th:replace="/fragment :: shop-header"></div>
+
+		<!-- Swiper -->
+		<div class="swiper-container main-swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" th:each="swiper : ${swiperList}">
+					<a
+						th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previousPage=${previousPage})}">
+						<img
+						th:src="@{#{MultimediaServer.Retrieve.Server}+${swiper.PATH}}"
+						th:alt="${swiperStat.count}">
+					</a>
+				</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<!-- section latest -->
+		<section class="product-section">
+			<div class="product-section-title">
+				<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 最新上架
+			</div>
+
+			<div class="product-section-group">
+				<a class="product-section-group-item"
+					th:each="record : ${recentList}"
+					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
+					<dl>
+						<dt th:text="${record.NAME}">产品A</dt>
+						<dd th:text="${record.BRIEF}">产品A简述</dd>
+					</dl> <img
+					th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+					th:alt="${record.BRIEF}">
+				</a>
+			</div>
+		</section>
+
+		<!-- section hot -->
+		<section class="product-section">
+			<div class="product-section-title">
+				<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 畅销产品
+			</div>
+			<div class="product-section-group">
+				<a class="product-section-group-item" th:each="record : ${hotList}"
+					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
+					<dl>
+						<dt th:text="${record.NAME}">产品A</dt>
+						<dd th:text="${record.SALECOUNT}">2</dd>
+					</dl> <img
+					th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}">
+				</a>
+			</div>
+		</section>
+		<div th:replace="/fragment :: shop-footer(1)"></div>
+	</div>
+</body>
+</html>

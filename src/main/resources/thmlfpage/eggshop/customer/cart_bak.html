@@ -104,26 +104,8 @@
 					class="fa fa-credit-card fa-lg" aria-hidden="true"></i> 结算 </a>
 			</div>
 		</form>
-<!--底部菜单栏-->
-		<div class="footer"></div>
-		<div class="nav-bottom">
-			<ul>
-				<li><a th:href="@{main(AT=${AT})}" href="index.html"><span
-						class="icon icon-home"></span>
-						<p>首页</p></a></li>
-				<li><a th:href="@{category(AT=${AT})}"
-					href="sort.html"><span class="icon icon-sort"></span><i
-						class="sort"></i>
-						<p>分类</p></a></li>
-				<li class="focus"><a th:href="@{cart(AT=${AT})}" href="cart.html"><span
-						class="icon icon-cart"></span><i class="cart"></i>
-						<p>购物车</p></a></li>
-				<li><a th:href="@{myprofile(AT=${AT})}" href="mine.html"><span
-						class="icon icon-mine"></span><i class="mine"></i>
-						<p>我的</p></a></li>
-			</ul>
-		</div>
-		<!-- <div th:replace="/fragment :: shop-footer(3)"></div> -->
+
+		<div th:replace="/fragment :: shop-footer(3)"></div>
 	</div>
 </body>
 </html>

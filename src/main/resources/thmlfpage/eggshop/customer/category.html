@@ -2,38 +2,95 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
 </head>
-<body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-		<div th:replace="/fragment :: shop-header"></div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//initialize swiper when document ready  
+		var swiper = new Swiper('.swiper-container', {
+			pagination : '.swiper-pagination',
+			paginationClickable : true,
+			loop : true,
+			autoplay : 2000,
+			autoplayDisableOnInteraction : false
+		});
+	});
+</script>
 
-		<div class="category-sidebar">
+<body class="bg-fff" th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content">
+		<div class="nav-sort">
+			<div class="sort-list">
+				<ul>
+					<li th:class="${selectCategory == null?'active':''}" class="active">全部产品</li>
+
+					<li th:each="record : ${categoryList}"
+						th:class="${#strings.equals(selectCategory,record.UNIQUE_CODE)?'active':''}"><a
+						th:href="@{category(AT=${AT},selectCategory=${record.UNIQUE_CODE})}"><span
+							th:text="${record.NAME}">产品类别</span></a></li>
+
+					<!-- <li>青草灰鹅</li>
+				<li>乐果农业</li>
+				<li>自制美味</li> -->
+				</ul>
+			</div>
+		</div>
+		<div class="rig-items">
+
+			<div class="banner">
+				<!-- Swiper -->
+				<div class="swiper-container main-swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="swiper : ${swiperList}">
+						<a
+							th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previousPage=${previousPage})}">
+							<img
+							th:src="@{#{MultimediaServer.Retrieve.Server}+${swiper.PATH}}"
+							th:alt="${swiperStat.count}">
+						</a>
+					</div>
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+			</div>
+			</div>
+			<div class="item-list">
+				<ul>
+					<li th:each="record : ${productList}"><a 
+						th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage},previousCategory=${selectCategory})}">
+							<div class="item-img">
+								<img src="images/items/03.jpg"
+									th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+									th:alt="${record.BRIEF}">
+							</div>
+							<div class="item-name"
+								th:text="${record.NAME +'  '+ record.BRIEF}">荆门大米10斤丝苗米籼米长粒细米优质南方大米新米煲仔饭米</div>
+							<div class="item-price">
+								<div style="display: inline;"
+									th:text="${'¥' + #numbers.formatDecimal(record.PRICE, 0, 'DEFAULT', 2, 'DEFAULT')}">¥
+									36.90</div>
+							</div>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--底部菜单栏-->
+		<div class="footer"></div>
+		<div class="nav-bottom">
 			<ul>
-				<li th:class="${selectCategory == null?'category-selected':''}"><a
-					th:href="@{category(AT=${AT})}"><span>全部产品 </span></a></li>
-
-
-				<li th:each="record : ${categoryList}"
-					th:class="${#strings.equals(selectCategory,record.UNIQUE_CODE)?'category-selected':''}"><a
-					th:href="@{category(AT=${AT},selectCategory=${record.UNIQUE_CODE})}"><span
-						th:text="${record.NAME}">产品类别</span></a></li>
+				<li><a th:href="@{main(AT=${AT})}" href="index.html"><span
+						class="icon icon-home"></span>
+						<p>首页</p></a></li>
+				<li class="focus"><a th:href="@{category(AT=${AT})}"
+					href="sort.html"><span class="icon icon-sort"></span><i
+						class="sort"></i>
+						<p>分类</p></a></li>
+				<li><a th:href="@{cart(AT=${AT})}" href="cart.html"><span
+						class="icon icon-cart"></span><i class="cart"></i>
+						<p>购物车</p></a></li>
+				<li><a th:href="@{myprofile(AT=${AT})}" href="mine.html"><span
+						class="icon icon-mine"></span><i class="mine"></i>
+						<p>我的</p></a></li>
 			</ul>
 		</div>
-		<div class="category-content">
-			<dl>
-				<dt>产品列表</dt>
-				<dd>
-					<a th:each="record : ${productList}"
-						th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage},previousCategory=${selectCategory})}">
-
-						<span class="cover"> <img
-							th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
-							th:alt="${record.BRIEF}" />
-					</span> <span class="tit" th:text="${record.NAME}">空气净化器</span>
-					</a>
-				</dd>
-			</dl>
-		</div>
-		<div th:replace="/fragment :: shop-footer(2)"></div>
 	</div>
 </body>
 </html>

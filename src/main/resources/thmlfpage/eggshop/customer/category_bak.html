@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/base :: html_head(~{::title},~{::link},~{::script})">
+</head>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content" class="shop-main-page-body">
+		<div th:replace="/fragment :: shop-header"></div>
+
+		<div class="category-sidebar">
+			<ul>
+				<li th:class="${selectCategory == null?'category-selected':''}"><a
+					th:href="@{category(AT=${AT})}"><span>全部产品 </span></a></li>
+
+
+				<li th:each="record : ${categoryList}"
+					th:class="${#strings.equals(selectCategory,record.UNIQUE_CODE)?'category-selected':''}"><a
+					th:href="@{category(AT=${AT},selectCategory=${record.UNIQUE_CODE})}"><span
+						th:text="${record.NAME}">产品类别</span></a></li>
+			</ul>
+		</div>
+		<div class="category-content">
+			<dl>
+				<dt>产品列表</dt>
+				<dd>
+					<a th:each="record : ${productList}"
+						th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage},previousCategory=${selectCategory})}">
+
+						<span class="cover"> <img
+							th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+							th:alt="${record.BRIEF}" />
+					</span> <span class="tit" th:text="${record.NAME}">空气净化器</span>
+					</a>
+				</dd>
+			</dl>
+		</div>
+		<div th:replace="/fragment :: shop-footer(2)"></div>
+	</div>
+</body>
+</html>

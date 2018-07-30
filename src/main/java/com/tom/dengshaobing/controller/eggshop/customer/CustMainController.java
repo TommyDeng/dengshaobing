@@ -74,13 +74,15 @@ public class CustMainController extends BaseController {
 		}
 
 		map.put("categoryList", dataAccessService.queryMapList("ES_BUSS004"));
-
+		map.put("swiperList", dataAccessService.queryMapList("ES_BUSS001"));
+		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("CATEGORY", selectCategory);
 		map.put("productList", dataAccessService.queryMapList("ES_BUSS005", paramMap));
 
 		// selected category
 		map.put("selectCategory", selectCategory);
+		
 
 		// to detail page param
 		map.put("previousPage", "category");

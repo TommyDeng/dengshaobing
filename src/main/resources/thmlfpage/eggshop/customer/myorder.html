@@ -4,31 +4,29 @@
 </head>
 <body th:replace="/base :: html_body(~{::#body-content})">
 	<div id="body-content">
-		<!-- 		<div th:replace="/fragment :: backward-header(${previousPage})"></div> -->
+		<header>
+			<div class=" clearfix">
+				<a
+					th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"
+					href="#" class="return"><span class="icon-arrow-right"></span></a>
+				<span class="title">我的订单</span>
+			</div>
+			<div class="pay-tab clearfix">
+				<ul>
+					<li th:class="${#strings.isEmpty(orderStatus)?'active':''}"
+						class="active"><a
+						th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部</a></li>
+					<li th:class="${orderStatus=='1'?'active':''}"><a
+						th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">待付款</a></li>
+					<li th:class="${orderStatus=='2'?'active':''}"><a
+						th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待发货</a></li>
+					<li th:class="${orderStatus=='10'?'active':''}"><a
+						th:href="@{${orderStatus=='10'?'#':'myorder'}(AT=${AT},orderStatus=10)}">已完成</a></li>
+				</ul>
+			</div>
+		</header>
 
-		<div class="sub-page-title">
-			<a
-				th:href="@{${previousPage}(AT=${AT},selectCategory=${previousCategory})}"><span
-				class="return"> <i class="fa fa-chevron-left fa-lg"
-					aria-hidden="true"></i> 返回
-			</span></a><span class="desc">我的订单</span>
-		</div>
-
-		<div class="myorder-nav-tabs">
-			<ul>
-				<li th:class="${#strings.isEmpty(orderStatus)?'active':''}"><a
-					th:href="@{${#strings.isEmpty(orderStatus)?'#':'myorder'}(AT=${AT})}">全部订单</a></li>
-				<li th:class="${orderStatus=='1'?'active':''}"><a
-					th:href="@{${orderStatus=='1'?'#':'myorder'}(AT=${AT},orderStatus=1)}">待付款</a></li>
-				<li th:class="${orderStatus=='2'?'active':''}"><a
-					th:href="@{${orderStatus=='2'?'#':'myorder'}(AT=${AT},orderStatus=2)}">待发货</a></li>
-				<li th:class="${orderStatus=='10'?'active':''}"><a
-					th:href="@{${orderStatus=='10'?'#':'myorder'}(AT=${AT},orderStatus=10)}">已完成</a></li>
-			</ul>
-		</div>
-
-
-		<div class="myorder-list">
+		<div class="order-list">
 			<div class="myorder-list-item" th:each="record : ${orderList}">
 				<p class="order-info">
 					<em th:text="${record.CREATE_TIME}">2017-01-14</em> <span
@@ -49,7 +47,8 @@
 							<tr th:each="item : ${record.itemList}">
 								<td th:text="${item.PRODUCT_NAME}"></td>
 								<td th:text="${item.PRODUCT_COUNT}"></td>
-								<td th:text="${#numbers.formatDecimal(item.SUB_AMT, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(item.SUB_AMT, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
 							</tr>
 						</tbody>
 					</table>

@@ -15,77 +15,66 @@
 	}
 </script>
 </head>
+
 <body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-		<div th:replace="/fragment :: shop-header"></div>
-
-		<div class="myprofile-user">
-			<div class="user-heading">
-				<img th:src="${userInfo.HEADIMGURL}" width="120" height="120"
-					th:alt="${userInfo.NICKNAME}" />
-			</div>
-			<h4 th:text="${userInfo.NICKNAME}">NICKNAME</h4>
-			<span class="text-muted">积分:0</span>
-		</div>
-
-		<div class="gap"></div>
-		<div class="info-section">
-			<div class="info-section-title">
-				<a th:href="@{myorder(AT=${AT})}"> <span class="left"> <i
-						class="fa fa-calendar-check-o" aria-hidden="true"></i>我的订单
-				</span> <span class="right">全部订单<span class="info-section-arrow"></span>
-				</span>
-				</a>
-			</div>
-			<div class="info-section-content">
-				<div class="myprofile-myorder-division">
-					<a th:href="@{myorder(AT=${AT},orderStatus=1)}">
-						<div>
-							<span class="icon"><img
-								th:src="@{~/dengshaobing/img/eggshop/wait2pay.png}" /> <span
-								th:if="${!#strings.isEmpty(orderCountInfo['1'])}"
-								th:text="${orderCountInfo['1']}">1</span> </span> <span class="desc">待付款</span>
-						</div>
-					</a> <a th:href="@{myorder(AT=${AT},orderStatus=2)}">
-						<div>
-							<span class="icon"> <img
-								th:src="@{~/dengshaobing/img/eggshop/wait2recv.png}" /> <span
-								th:if="${!#strings.isEmpty(orderCountInfo['2'])}"
-								th:text="${orderCountInfo['2']}">2</span>
-							</span> <span class="desc">待收货</span>
-						</div>
-					</a> <a>
-						<div>
-							<span class="icon"> <img
-								th:src="@{~/dengshaobing/img/eggshop/wait2return.png}" /> <span
-								th:if="${!#strings.isEmpty(orderCountInfo['3'])}"
-								th:text="${orderCountInfo['3']}">1</span>
-							</span> <span class="desc">返修/退换</span>
-						</div>
-					</a>
+	<div id="body-content">
+		<div class="mine-title">
+			<div class="mine-data">
+				<div class="pic">
+					<span class="icon-mine"></span>
 				</div>
+				<div class="name" th:text="${userInfo.NICKNAME}">巴拉巴黎小魔鲜</div>
+				<div class="integral">积分：0</div>
+			</div>
+			<div class="mine-bg">
+				<div class="mine-bg02"></div>
 			</div>
 		</div>
-		<div class="gap"></div>
-
-		<div class="info-section">
-			<div class="info-section-title">
-				<a th:href="@{address(AT=${AT})}"> <span class="left"><i
-						class="fa fa-address-book" aria-hidden="true"></i>我的收货地址 </span> <span
-					class="right">地址管理<span class="info-section-arrow"></span>
-				</span>
-				</a>
+		<div class="order">
+			<div class="title">
+				<span class="name">我的订单</span> <a th:href="@{myorder(AT=${AT})}" href="order-list.html">查看全部订单<span
+					class="icon-arrow-left"></span></a>
 			</div>
+
+			<ul class="clearfix">
+				<li><a th:href="@{myorder(AT=${AT},orderStatus=1)}" href="#.html"><span class="icon icon-payment"></span>
+						<p>待付款</p></a></li>
+				<li><a th:href="@{myorder(AT=${AT},orderStatus=2)}" href="#.html"><span class="icon icon-payment2"></span>
+						<p>待收货</p></a></li>
+				<li><a th:href="@{myorder(AT=${AT},orderStatus=10)}" href="#.html"><span class="icon icon-payment3"></span>
+						<p>已完成</p></a></li>
+			</ul>
+
 		</div>
-
-		<div class="gap"></div>
-		<!-- html comment -->
-		<!--/* This code will be removed at Thymeleaf parsing time! */-->
-		<!--/*-->
-		<div>you can see me only before Thymeleaf processes me!</div>
-		<!--*/-->
-
-		<div th:replace="/fragment :: shop-footer(4)"></div>
+		<div class="mine-list">
+			<ul>
+				<li><span class="title">我的地址</span> <a href="#" th:href="@{address(AT=${AT})}">管理地址<span
+						class="icon-arrow-left"></span></a></li>
+				<li><span class="title">我的抵用券</span> <a href="#"><span
+						class="red">0张抵用券</span><span class="icon-arrow-left"></span></a></li>
+				<li><span class="title">常见问题</span> <a href="#"><span
+						class="icon-arrow-left"></span></a></li>
+			</ul>
+		</div>
+		<!--底部菜单栏-->
+		<div class="footer"></div>
+		<div class="nav-bottom">
+			<ul>
+				<li><a th:href="@{main(AT=${AT})}" href="index.html"><span
+						class="icon icon-home"></span>
+						<p>首页</p></a></li>
+				<li><a th:href="@{category(AT=${AT})}"
+					href="sort.html"><span class="icon icon-sort"></span><i
+						class="sort"></i>
+						<p>分类</p></a></li>
+				<li><a th:href="@{cart(AT=${AT})}" href="cart.html"><span
+						class="icon icon-cart"></span><i class="cart"></i>
+						<p>购物车</p></a></li>
+				<li class="focus"><a th:href="@{myprofile(AT=${AT})}" href="mine.html"><span
+						class="icon icon-mine"></span><i class="mine"></i>
+						<p>我的</p></a></li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

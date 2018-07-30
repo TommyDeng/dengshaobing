@@ -14,63 +14,129 @@
 		});
 	});
 </script>
-<body th:replace="/base :: html_body(~{::#body-content})">
-	<div id="body-content" class="shop-main-page-body">
-		<div th:replace="/fragment :: shop-header"></div>
 
-		<!-- Swiper -->
-		<div class="swiper-container main-swiper-container">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" th:each="swiper : ${swiperList}">
-					<a
-						th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previousPage=${previousPage})}">
-						<img
-						th:src="@{#{MultimediaServer.Retrieve.Server}+${swiper.PATH}}"
-						th:alt="${swiperStat.count}">
-					</a>
+<body th:replace="/base :: html_body(~{::#body-content})">
+	<div id="body-content">
+		<div class="banner">
+
+			<!-- Swiper -->
+			<div class="swiper-container main-swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" th:each="swiper : ${swiperList}">
+						<a
+							th:href="@{itemdetail(AT=${AT},productUC=${swiper.PRODUCT_UC},previousPage=${previousPage})}">
+							<img
+							th:src="@{#{MultimediaServer.Retrieve.Server}+${swiper.PATH}}"
+							th:alt="${swiperStat.count}">
+						</a>
+					</div>
 				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
 			</div>
-			<!-- Add Pagination -->
-			<div class="swiper-pagination"></div>
 		</div>
 
-		<!-- section latest -->
-		<section class="product-section">
-			<div class="product-section-title">
-				<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 最新上架
-			</div>
+		<div class="new-items clearfix">
+			<div class="pr-title">
+				<div class="text">
+					<i></i><span class="icon icon-new"></span><span>最新上架</span><i></i>
+				</div>
+				<div class="bg">
+					<svg version="1.1" id="&#x56FE;&#x5C42;_2"
+						xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						width="100%" viewBox="0 0 595.28 44.572"
+						style="enable-background: new 0 0 595.28 44.572;"
+						xml:space="preserve">
+<path style="fill:none;" d="M-17,9.875" />
+<polygon style="fill:#ff7e00;"
+							points="0,0 22.333,22.286 0,44.572 595.28,44.572 573,22.875 595.28,0 " />
+</svg>
+				</div>
 
-			<div class="product-section-group">
-				<a class="product-section-group-item"
-					th:each="record : ${recentList}"
-					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
-					<dl>
-						<dt th:text="${record.NAME}">产品A</dt>
-						<dd th:text="${record.BRIEF}">产品A简述</dd>
-					</dl> <img
-					th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
-					th:alt="${record.BRIEF}">
-				</a>
 			</div>
-		</section>
+			<div class="item-list">
+				<ul>
+					<li th:each="record : ${recentList}">
+						<div class="item-img">
+							<a
+								th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
+								<img
+								th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+								th:alt="${record.BRIEF}" src="images/items/03.jpg">
+							</a>
+						</div>
+						<div class="item-name"
+							th:text="${record.NAME +'  '+ record.BRIEF}">荆门大米10斤丝苗米籼米长粒细米优质南方大米新米煲仔饭米</div>
+						<div class="item-price">
+							<div style="display: inline;"
+								th:text="${'¥' + #numbers.formatDecimal(record.PRICE, 0, 'DEFAULT', 2, 'DEFAULT')}">¥
+								36.90</div>
+							<span>最新上架</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hot-items clearfix">
+			<div class="pr-title">
+				<div class="text">
+					<i></i><span class="icon icon-hot"></span><span>畅销产品</span><i></i>
+				</div>
+				<div class="bg">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						width="100%" viewBox="0 0 595.28 44.572"
+						style="enable-background: new 0 0 595.28 44.572;"
+						xml:space="preserve">   
+<path style="fill:none;" d="M-1 7,9.875" />
+<polygon style="fill:#e93636;"
+							points="0,0 22.333,22.286 0,44.572 595.28,44.572 573,22.875 595.28,0 " />
+</svg>
+				</div>
 
-		<!-- section hot -->
-		<section class="product-section">
-			<div class="product-section-title">
-				<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i> 畅销产品
 			</div>
-			<div class="product-section-group">
-				<a class="product-section-group-item" th:each="record : ${hotList}"
-					th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
-					<dl>
-						<dt th:text="${record.NAME}">产品A</dt>
-						<dd th:text="${record.SALECOUNT}">2</dd>
-					</dl> <img
-					th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}">
-				</a>
+			<div class="item-list">
+				<ul>
+					<li th:each="record : ${hotList}">
+						<div class="item-img">
+							<a
+								th:href="@{itemdetail(AT=${AT},productUC=${record.UNIQUE_CODE},previousPage=${previousPage})}">
+								<img
+								th:src="@{#{MultimediaServer.Retrieve.Server}+${record.PATH}}"
+								src="images/items/03.jpg">
+							</a>
+						</div>
+						<div class="item-name" th:text="${record.NAME}">荆门大米10斤丝苗米籼米长粒细米优质南方大米新米煲仔饭米</div>
+						<div class="item-price">
+							<div style="display: inline;"
+								th:text="${'¥' + #numbers.formatDecimal(record.PRICE, 0, 'DEFAULT', 2, 'DEFAULT')}">¥
+								36.90</div>
+							<span>特价热卖</span>
+						</div>
+					</li>
+				</ul>
 			</div>
-		</section>
-		<div th:replace="/fragment :: shop-footer(1)"></div>
+		</div>
+
+		<!--底部菜单栏-->
+		<div class="footer"></div>
+		<div class="nav-bottom">
+			<ul>
+				<li class="focus"><a th:href="@{main(AT=${AT})}"
+					href="index.html"><span class="icon icon-home"></span>
+						<p>首页</p></a></li>
+				<li><a th:href="@{category(AT=${AT})}" href="sort.html"><span
+						class="icon icon-sort"></span><i class="sort"></i>
+						<p>分类</p></a></li>
+				<li><a th:href="@{cart(AT=${AT})}" href="cart.html"><span
+						class="icon icon-cart"></span><i class="cart"></i>
+						<p>购物车</p></a></li>
+				<li><a th:href="@{myprofile(AT=${AT})}" href="mine.html"><span
+						class="icon icon-mine"></span><i class="mine"></i>
+						<p>我的</p></a></li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>
